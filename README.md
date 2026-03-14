@@ -6,7 +6,7 @@
 
 [![npm version](https://img.shields.io/npm/v/orbit-framework?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/orbit-framework)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/ChristopherKahler/orbit?style=for-the-badge&logo=github&color=181717)](https://github.com/ChristopherKahler/orbit)
+[![GitHub stars](https://img.shields.io/github/stars/menosjuros/orbit-framework?style=for-the-badge&logo=github&color=181717)](https://github.com/menosjuros/orbit-framework)
 
 <br>
 
@@ -18,15 +18,11 @@ npx orbit-framework
 
 <br>
 
-![ORBIT Install](assets/terminal.svg)
-
-<br>
-
 *"Quality over speed-for-speed's-sake. In-session context over subagent sprawl."*
 
 <br>
 
-[Why ORBIT](#why-orbit) · [Getting Started](#getting-started) · [The Loop](#the-loop) · [Commands](#commands) · [How It Works](#how-it-works)
+[Why ORBIT](#why-orbit) · [Differentials](#differentials) · [Getting Started](#getting-started) · [The Loop](#the-loop) · [Commands](#commands) · [How It Works](#how-it-works)
 
 </div>
 
@@ -34,34 +30,117 @@ npx orbit-framework
 
 ## Why ORBIT
 
-I build with Claude Code every day. It's incredibly powerful — when you give it the right context.
+Building with Claude Code is incredibly powerful — when you give it the right context.
 
 The problem? **Context rot.** As your session fills up, quality degrades. Subagents spawn with fresh context but return ~70% quality work that needs cleanup. Plans get created but never closed. State drifts. You end up debugging AI output instead of shipping features.
 
-ORBIT fixes this with three principles:
-
-1. **Loop integrity** — Every plan closes with UNIFY. No orphan plans. UNIFY reconciles what was planned vs what happened, updates state, logs decisions. This is the heartbeat.
-
-2. **In-session context** — Subagents are expensive and produce lower quality for implementation work. ORBIT keeps development in-session with properly managed context. Subagents are reserved for discovery and research — their job IS to gather context.
-
-3. **Acceptance-driven development** — Acceptance criteria are first-class citizens, not afterthoughts. Define done before starting. Every task references its AC. BDD format: `Given [precondition] / When [action] / Then [outcome]`.
-
-The complexity is in the system, not your workflow. Behind the scenes: structured state management, XML task formatting, loop enforcement. What you see: a few commands that keep you on track.
+ORBIT is the **scalpel** to the hammer. It is not about going faster — it is about going right the first time, with a system that doesn't forget what it decided, doesn't skip verification, and doesn't leave loose ends.
 
 ---
 
-## Who This Is For
+## Differentials
 
-**AI-assisted developers** who want structure without bureaucracy.
+What separates ORBIT from every other AI development framework:
 
-You describe what you want, Claude Code builds it, and ORBIT ensures:
-- Plans have clear acceptance criteria
-- Execution stays bounded
-- Every unit of work gets closed properly
-- State persists across sessions
-- Decisions are logged for future reference
+### 1. Structured Methodology — The Loop is Non-Negotiable
 
-No sprint ceremonies. No story points. No enterprise theater. Just a system that keeps AI-assisted development reliable.
+Most AI workflows are linear: ask → get code → move on. ORBIT enforces a **closed loop**:
+
+```
+PLAN ──▶ APPLY ──▶ UNIFY
+  ✓        ✓        ✓     [Loop complete — no orphans]
+```
+
+- Every plan **must** close with UNIFY
+- UNIFY reconciles what was planned vs. what happened
+- No orphan plans. No forgotten decisions. No state drift.
+
+This is the heartbeat of ORBIT. Without it, you have chaos with good intentions.
+
+---
+
+### 2. Context Continuity — The AI That Doesn't Forget
+
+The biggest problem with AI-assisted development is **amnesia between sessions**. ORBIT solves this structurally:
+
+| Problem | ORBIT Solution |
+|---------|---------------|
+| Session ends, context is lost | `STATE.md` persists everything |
+| Next session starts from scratch | `/orbit:resume` restores exact position |
+| Decisions evaporate | UNIFY logs all decisions permanently |
+| Blockers get forgotten | `STATE.md` tracks blockers explicitly |
+
+When you resume work, ORBIT reads your state and suggests exactly **ONE** next action. No decision fatigue. No "where was I?"
+
+---
+
+### 3. In-Session Context — Quality Over Subagent Sprawl
+
+Other frameworks spawn subagents for everything. ORBIT is deliberate:
+
+| Subagent Cost | Impact |
+|---------------|--------|
+| Launch overhead | 2,000–3,000 tokens per spawn |
+| Fresh context | Starts from scratch every time |
+| Resynthesis | Results must be re-integrated |
+| Quality gap | ~70% vs. in-session work |
+| Rework | Subagent output regularly needs cleanup |
+
+**ORBIT keeps implementation in-session.** Subagents are reserved for what they excel at: discovery and research — tasks where gathering new context IS the job.
+
+---
+
+### 4. Rigorous Verification — Acceptance-Driven Development
+
+Acceptance criteria are not afterthoughts in ORBIT — they are the **foundation**:
+
+- AC defined **before** any task is written
+- Every task **references** its AC: `AC-1`, `AC-2`...
+- Every task requires a `<verify>` step — no verify, no complete
+- BDD format enforced: `Given [precondition] / When [action] / Then [outcome]`
+
+If you can't write the verify step, the task is too vague to execute.
+
+---
+
+### 5. Artisanal Quality — The Scalpel, Not the Hammer
+
+> *"Velocity without structure is just expensive chaos."*
+
+ORBIT prioritizes **craftsmanship**:
+
+- Boundaries are enforced: `DO NOT CHANGE` sections are real constraints, not suggestions
+- Deviations are logged: every deviation from the plan is recorded with reason and impact
+- Phase transitions are verified: STATE.md, PROJECT.md, and ROADMAP.md must align before moving forward
+- Urgent work is tracked separately: decimal phases (2.1, 2.2) for interruptions, integers for planned work
+
+---
+
+### 6. Dynamic Rules via CARL — Lean Context, Always
+
+ORBIT integrates with **[CARL](https://github.com/ChristopherKahler/carl-core)** (Context Augmentation & Reinforcement Layer) — a rule injection system that loads ORBIT's 14 governance rules **only when needed**:
+
+| Without CARL | With CARL |
+|---|---|
+| Massive static prompts in every session | Rules load on demand |
+| Context bloated from the start | Context stays lean |
+| Rules apply everywhere, always | Rules activate only in `.orbit/` projects |
+
+---
+
+### ORBIT vs. the Alternatives
+
+| Aspect | Ad-hoc AI | GSD | **ORBIT** |
+|--------|-----------|-----|-----------|
+| Structure | None | Parallel subagents | Closed loop enforcement |
+| Context | Disappears | Fresh per agent | Persisted across sessions |
+| Closure | Never | Optional | **Mandatory UNIFY** |
+| Criteria | None | Embedded in tasks | **First-class AC section** |
+| Quality | Unpredictable | Fast, ~70% | **Crafted, in-session** |
+| Rules | None | Static prompts | **CARL dynamic loading** |
+| Decisions | Lost | Partial | **Permanently logged** |
+
+See [ORBIT-VS-GSD.md](ORBIT-VS-GSD.md) for the full detailed comparison.
 
 ---
 
@@ -72,7 +151,8 @@ npx orbit-framework
 ```
 
 The installer prompts you to choose:
-1. **Location** — Global (all projects) or local (current project only)
+1. **Global** — available in all projects (`~/.claude/`)
+2. **Local** — this project only (`./.claude/`)
 
 Verify with `/orbit:help` inside Claude Code.
 
@@ -167,7 +247,7 @@ ORBIT provides 26 commands organized by purpose. Run `/orbit:help` for the compl
 | `/orbit:apply [path]` | Execute an approved plan |
 | `/orbit:unify [path]` | Reconcile and close the loop |
 | `/orbit:help` | Show command reference |
-| `/orbit:status` | Show loop position *(deprecated — use progress)* |
+| `/orbit:progress [context]` | Smart status + ONE next action |
 
 ### Session
 
@@ -175,7 +255,6 @@ ORBIT provides 26 commands organized by purpose. Run `/orbit:help` for the compl
 |---------|--------------|
 | `/orbit:pause [reason]` | Create handoff for session break |
 | `/orbit:resume [path]` | Restore context and continue |
-| `/orbit:progress [context]` | Smart status + ONE next action |
 | `/orbit:handoff [context]` | Generate comprehensive handoff |
 
 ### Roadmap
@@ -301,102 +380,6 @@ Then [outcome]
 
 Every task has: files, action, verify, done. If you can't specify all four, the task is too vague.
 
-### CARL Integration
-
-ORBIT has a companion: **[CARL](https://github.com/ChristopherKahler/carl-core)** (Context Augmentation & Reinforcement Layer).
-
-CARL is a dynamic rule injection system. Instead of bloating your context with static prompts, CARL loads rules just-in-time based on what you're doing:
-
-| Trigger | Rules Loaded |
-|---------|--------------|
-| Working in `.orbit/` directory | ORBIT domain activates |
-| Writing code | DEVELOPMENT rules load |
-| Managing projects | PROJECTS rules load |
-
-**ORBIT-specific rules CARL enforces:**
-- Loop enforcement (PLAN → APPLY → UNIFY — no shortcuts)
-- Boundary protection (DO NOT CHANGE sections are real)
-- State consistency checks at phase transitions
-- Verification requirements for every task
-- Skill blocking (required skills must load before APPLY)
-
-The ORBIT domain contains 14 rules that govern structured AI development. They load when you're in a ORBIT project, disappear when you're not. Your context stays lean.
-
-**Without CARL:** You'd need massive static prompts in every session.
-**With CARL:** Rules activate when relevant, disappear when not.
-
----
-
-## Philosophy
-
-### Acceptance-Driven Development (A.D.D.)
-
-Acceptance criteria aren't afterthoughts — they're the foundation:
-
-1. **AC defined before tasks** — Know what "done" means
-2. **Tasks reference AC** — Every task links to AC-1, AC-2, etc.
-3. **Verification required** — Every task needs a verify step
-4. **BDD format** — Given/When/Then for testability
-
-### In-Session Context
-
-Why ORBIT minimizes subagents for development work:
-
-| Issue | Impact |
-|-------|--------|
-| Launch cost | 2,000-3,000 tokens to spawn |
-| Context gathering | Starts fresh, researches from scratch |
-| Resynthesis | Results must be integrated back |
-| Quality gap | ~70% compared to in-session work |
-| Rework | Subagent output often needs cleanup |
-
-**When ORBIT does use subagents:**
-- **Discovery/exploration** — Codebase mapping, parallel exploration
-- **Research** — Web searches, documentation gathering
-
-For implementation, ORBIT keeps everything in-session with proper context management.
-
-### Loop Integrity
-
-The loop isn't optional:
-
-```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete]
-```
-
-- **No orphan plans** — Every PLAN gets a SUMMARY
-- **State reconciliation** — UNIFY catches drift
-- **Decision logging** — Choices are recorded for future sessions
-
----
-
-## Configuration
-
-### Optional Integrations
-
-ORBIT supports modular integrations configured in `.orbit/config.md`:
-
-| Integration | Purpose |
-|-------------|---------|
-| SonarQube | Code quality metrics and issues |
-| *Future* | Linting, CI/CD, test runners |
-
-### SPECIAL-FLOWS
-
-For projects with specialized requirements, `.orbit/SPECIAL-FLOWS.md` defines skills that must be loaded before execution:
-
-```markdown
-## Required Skills
-
-| Skill | Work Type | Priority |
-|-------|-----------|----------|
-| /frontend-design | UI components | required |
-| /revops-expert | Landing pages | required |
-```
-
-APPLY blocks until required skills are confirmed loaded.
-
 ---
 
 ## Troubleshooting
@@ -418,51 +401,9 @@ APPLY blocks until required skills are confirmed loaded.
 
 ---
 
-## Comparison
-
-### vs. Ad-hoc AI Coding
-
-| Ad-hoc | ORBIT |
-|--------|------|
-| No structure | Explicit planning gates |
-| State drifts | STATE.md tracks everything |
-| No closure | Mandatory UNIFY |
-| Decisions lost | Decisions logged |
-
-### vs. GSD
-
-ORBIT takes a different approach from GSD:
-
-| Aspect | GSD | ORBIT |
-|--------|-----|------|
-| Execution | Parallel subagents | In-session context |
-| Loop | Optional closure | Mandatory UNIFY |
-| Criteria | Embedded in tasks | First-class AC section |
-| Rules | Static prompts | CARL dynamic loading |
-
-Same comprehensive coverage, different philosophy. ORBIT prioritizes quality over speed-for-speed's-sake. See [ORBIT-VS-GSD.md](ORBIT-VS-GSD.md) for full comparison.
-
-### vs. Traditional Planning
-
-| Traditional | ORBIT |
-|-------------|------|
-| Documentation-first | Execution-first |
-| Human-readable specs | AI-executable prompts |
-| Separate from code | Colocated in .orbit/ |
-
----
-
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-## Author
-
-**Chris Kahler** — [Chris AI Systems](https://github.com/ChristopherKahler)
-
-Building tools for AI-assisted development.
 
 ---
 
