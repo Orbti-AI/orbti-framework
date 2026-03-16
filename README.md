@@ -58,7 +58,7 @@ ORBIT is the **scalpel**. Not about going faster — about going right the first
 
 ### The loop is non-negotiable
 
-Every unit of work follows a closed cycle. No plan is left open. No work is done without a definition of done. The UNIFY step — where you reconcile what was planned vs. what actually happened — is mandatory, not optional. This is the heartbeat that keeps everything honest.
+Every unit of work follows a closed cycle. No plan is left open. No work is done without a definition of done. The INTEGRATE step — where you reconcile what was planned vs. what actually happened — is mandatory, not optional. This is the heartbeat that keeps everything honest.
 
 ### The AI doesn't forget
 
@@ -198,15 +198,15 @@ npx github:menosjuros/orbit-framework
 Every unit of work follows this cycle:
 
 ```
-┌─────────────────────────────────────┐
-│  PLAN ──▶ APPLY ──▶ UNIFY          │
-│                                     │
-│  Define    Execute    Reconcile     │
-│  work      tasks      & close       │
-└─────────────────────────────────────┘
+┌──────────────────────────────────────────────┐
+│  REFINE ──▶ BUILD ──▶ INTEGRATE              │
+│                                              │
+│  Define     Execute    Reconcile             │
+│  work       tasks      & close               │
+└──────────────────────────────────────────────┘
 ```
 
-### PLAN
+### REFINE
 
 Create an executable plan with:
 - **Objective** — What you're building and why
@@ -214,7 +214,7 @@ Create an executable plan with:
 - **Tasks** — Specific actions with files, verification, done criteria
 - **Boundaries** — What NOT to change
 
-### APPLY
+### BUILD
 
 Execute the approved plan:
 - Tasks run sequentially
@@ -222,7 +222,7 @@ Execute the approved plan:
 - Checkpoints pause for human input when needed
 - Deviations are logged
 
-### UNIFY
+### INTEGRATE
 
 Close the loop (required!):
 - Create SUMMARY.md documenting what was built
@@ -230,7 +230,7 @@ Close the loop (required!):
 - Record decisions and deferred issues
 - Update STATE.md
 
-**Never skip UNIFY.** Every plan needs closure. This is what separates structured development from chaos.
+**Never skip INTEGRATE.** Every plan needs closure. This is what separates structured development from chaos.
 
 ---
 
@@ -329,7 +329,7 @@ ORBIT provides 26 commands organized by purpose. Run `/orbit:help` for the compl
 
 **STATE.md** tracks:
 - Current phase and plan
-- Loop position (PLAN/APPLY/UNIFY markers)
+- Loop position (REFINE/BUILD/INTEGRATE markers)
 - Session continuity (where you stopped, what's next)
 - Accumulated decisions
 - Blockers and deferred issues
@@ -390,7 +390,7 @@ Every task has: files, action, verify, done. If you can't specify all four, the 
 
 **Commands not working as expected?**
 - Run `/orbit:help` to verify installation
-- Re-run `npx orbit-framework` to reinstall
+- Re-run `npx github:menosjuros/orbit-framework` to reinstall
 
 **Loop position seems wrong?**
 - Check `.orbit/STATE.md` for current state
