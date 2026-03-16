@@ -84,6 +84,10 @@ ORBIT integrates with **[CARL](https://github.com/ChristopherKahler/carl-core)**
 
 ## Getting Started
 
+### 1. Install ORBIT
+
+Run the installer from anywhere — no clone needed:
+
 ```bash
 npx orbit-framework
 ```
@@ -92,24 +96,51 @@ The installer prompts you to choose:
 1. **Global** — available in all projects (`~/.claude/`)
 2. **Local** — this project only (`./.claude/`)
 
-Verify with `/orbit:help` inside Claude Code.
+> **Prerequisites:** [Node.js](https://nodejs.org) 18+ and [Claude Code](https://claude.ai/code) installed.
 
-### Quick Workflow
+<details>
+<summary><strong>Non-interactive install</strong></summary>
 
 ```bash
-# 1. Initialize ORBIT in your project
-/orbit:init
+npx orbit-framework --global   # Install to ~/.claude/
+npx orbit-framework --local    # Install to ./.claude/
+```
 
-# 2. Create a plan for your work
+</details>
+
+### 2. Verify the install
+
+Restart Claude Code, then run:
+
+```
+/orbit:help
+```
+
+You should see the full command reference. If commands are missing, see [Troubleshooting](#troubleshooting).
+
+### 3. Initialize in your project
+
+Open Claude Code inside your project directory and run:
+
+```
+/orbit:init
+```
+
+This creates the `.orbit/` folder with `PROJECT.md`, `ROADMAP.md`, and `STATE.md` — the core state files ORBIT uses to track your work.
+
+### 4. Run your first loop
+
+```bash
+# Define what you're building
 /orbit:plan
 
-# 3. Execute the approved plan
+# Execute the approved plan
 /orbit:apply
 
-# 4. Close the loop (required!)
+# Close the loop (required!)
 /orbit:unify
 
-# 5. Check progress anytime
+# Check progress anytime
 /orbit:progress
 ```
 
@@ -118,16 +149,6 @@ Verify with `/orbit:help` inside Claude Code.
 ```bash
 npx orbit-framework@latest
 ```
-
-<details>
-<summary><strong>Non-interactive Install</strong></summary>
-
-```bash
-npx orbit-framework --global   # Install to ~/.claude/
-npx orbit-framework --local    # Install to ./.claude/
-```
-
-</details>
 
 ---
 
