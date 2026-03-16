@@ -1,16 +1,16 @@
 <purpose>
-Reconcile what was planned vs. what was built. Create SUMMARY.md documenting results, update STATE.md with new position, and close the loop to prepare for next PLAN.
+Reconcile what was planned vs. what was built. Create SUMMARY.md documenting results, update STATE.md with new position, and close the loop to prepare for next REFINE.
 </purpose>
 
 <when_to_use>
-- APPLY phase complete (all tasks executed or documented)
+- BUILD phase complete (all tasks executed or documented)
 - Ready to close the current loop
 - Need to record what was built for future reference
 </when_to_use>
 
 <loop_context>
-Expected phase: UNIFY
-Prior phase: APPLY (execution complete)
+Expected phase: INTEGRATE
+Prior phase: BUILD (execution complete)
 Next phase: PLAN (next plan or next phase)
 </loop_context>
 
@@ -28,7 +28,7 @@ Next phase: PLAN (next plan or next phase)
 <process>
 
 <step name="gather_results" priority="first">
-1. Recall execution from APPLY phase:
+1. Recall execution from BUILD phase:
    - Which tasks completed successfully
    - Which tasks failed (if any)
    - Which checkpoints were resolved and how
@@ -65,7 +65,7 @@ Next phase: PLAN (next plan or next phase)
 3. If exists:
    a. Read SPECIAL-FLOWS.md
    b. For each skill with priority "required":
-      - Check if skill was invoked during this APPLY phase
+      - Check if skill was invoked during this BUILD phase
       - Mark as ✓ (invoked) or ○ (gap)
    c. If any gaps found:
       - Add to STATE.md Deviations section:
@@ -76,7 +76,7 @@ Next phase: PLAN (next plan or next phase)
         | /skill-name | ○ | [reason if known] |
         ```
       - Warn user: "Skill gap(s) documented in STATE.md. Review before next phase."
-   d. Do NOT block UNIFY for skill gaps (warn only)
+   d. Do NOT block INTEGRATE for skill gaps (warn only)
 
 4. If all required skills invoked:
    - Note in SUMMARY.md: "Skill audit: All required skills invoked ✓"
@@ -114,7 +114,7 @@ Next phase: PLAN (next plan or next phase)
    **Current Position:**
    - Phase: N of M - Complete (or In Progress if more plans)
    - Plan: complete
-   - Status: Ready for next PLAN
+   - Status: Ready for next REFINE
    - Last activity: timestamp
 
    **Progress:**
@@ -123,8 +123,8 @@ Next phase: PLAN (next plan or next phase)
 
    **Loop Position:**
    ```
-   PLAN ──▶ APPLY ──▶ UNIFY
-     ✓        ✓        ✓     [Loop complete - ready for next PLAN]
+   REFINE ──▶ BUILD ──▶ INTEGRATE
+     ✓        ✓        ✓     [Loop complete - ready for next REFINE]
    ```
 
    **Session Continuity:**
@@ -191,7 +191,7 @@ Continue to next plan?
 
 4. **Only after transition completes** → offer next phase routing
 
-**Anti-pattern:** Closing UNIFY and immediately offering `/orbit:refine` for next phase WITHOUT running transition. This breaks system cohesion and skips git commits.
+**Anti-pattern:** Closing INTEGRATE and immediately offering `/orbit:refine` for next phase WITHOUT running transition. This breaks system cohesion and skips git commits.
 </step>
 
 </process>
@@ -203,10 +203,10 @@ Continue to next plan?
 </output>
 
 <error_handling>
-**APPLY not complete:**
+**BUILD not complete:**
 - Check STATE.md for actual position
-- If APPLY incomplete, cannot UNIFY
-- Return to APPLY to complete or document blockers
+- If BUILD incomplete, cannot INTEGRATE
+- Return to BUILD to complete or document blockers
 
 **Missing execution context:**
 - If no memory of execution results, read any logs

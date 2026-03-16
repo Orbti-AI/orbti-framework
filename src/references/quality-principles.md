@@ -28,14 +28,14 @@ When planning, you are writing the prompt that will execute it.
 Every PLAN must complete the full loop:
 
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
 ```
 
 - **PLAN:** Design, get approval, set boundaries
-- **APPLY:** Execute tasks, commit per-task
-- **UNIFY:** Reconcile plan vs actual, update STATE.md
+- **BUILD:** Execute tasks, commit per-task
+- **INTEGRATE:** Reconcile plan vs actual, update STATE.md
 
-Never leave a loop incomplete. UNIFY closes the loop and updates state.
+Never leave a loop incomplete. INTEGRATE closes the loop and updates state.
 This creates audit trail and enables proper session handoff.
 </loop_first>
 
@@ -89,7 +89,7 @@ Not for:
 
 <deviation_rules>
 
-Plans are guides, not straitjackets. During APPLY:
+Plans are guides, not straitjackets. During BUILD:
 
 1. **Auto-fix bugs** - Fix immediately, log in SUMMARY
 2. **Auto-add critical** - Security/correctness gaps, add immediately
@@ -97,7 +97,7 @@ Plans are guides, not straitjackets. During APPLY:
 4. **Ask about architectural** - Major changes, stop and ask
 5. **Log enhancements** - Nice-to-haves, log to deferred issues
 
-All deviations logged during UNIFY for audit trail.
+All deviations logged during INTEGRATE for audit trail.
 </deviation_rules>
 
 <ship_fast>

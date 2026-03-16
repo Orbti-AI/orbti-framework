@@ -8,7 +8,7 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion]
 <objective>
 Execute an approved PLAN.md file, handling checkpoints as they occur.
 
-**When to use:** After PLAN phase complete and plan is approved.
+**When to use:** After REFINE phase complete and plan is approved.
 
 Executes tasks in sequence, pauses at checkpoints for user input, reports completion.
 </objective>
@@ -68,7 +68,7 @@ When a checkpoint task is reached:
 
 <step name="complete">
 After all tasks complete:
-- Report: "APPLY complete. Run /orbit:integrate to close loop."
+- Report: "BUILD complete. Run /orbit:integrate to close loop."
 - Show files modified
 - Show SUMMARY path to create
 </step>

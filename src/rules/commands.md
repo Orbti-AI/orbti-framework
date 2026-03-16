@@ -70,8 +70,8 @@ Use checkbox format. Each criterion must be objectively verifiable.
 
 ```markdown
 ---
-name: orbit:plan
-description: Enter PLAN phase for current or new plan
+name: orbit:refine
+description: Enter REFINE phase for current or new plan
 argument-hint: "[phase-plan]"
 allowed-tools: [Read, Write, Glob, AskUserQuestion]
 ---

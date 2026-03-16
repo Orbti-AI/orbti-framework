@@ -114,12 +114,12 @@ Plan 03: Visualization components
 **How this fits ORBIT's loop:**
 
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
 ```
 
-- **PLAN phase:** Use work-units to size correctly
-- **APPLY phase:** Execute within context budget
-- **UNIFY phase:** Record actual duration for future estimates
+- **REFINE phase:** Use work-units to size correctly
+- **BUILD phase:** Execute within context budget
+- **INTEGRATE phase:** Record actual duration for future estimates
 
 **With CARL (recommended):**
 CARL context brackets automate these checks:

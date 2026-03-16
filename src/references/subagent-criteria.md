@@ -80,7 +80,7 @@ Current workflow state supports async completion.
 
 ```
 GOOD state:
-- APPLY phase with autonomous plan
+- BUILD phase with autonomous plan
 - No pending decisions or blockers
 
 BAD state:

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-SPECIAL-FLOWS enables explicit tracking of specialized skills, commands, and workflows within ORBIT governance. Instead of ad-hoc skill invocation, projects declare which skills apply, when they're required, and UNIFY verifies they were actually used.
+SPECIAL-FLOWS enables explicit tracking of specialized skills, commands, and workflows within ORBIT governance. Instead of ad-hoc skill invocation, projects declare which skills apply, when they're required, and INTEGRATE verifies they were actually used.
 
 **Core principle:** If a skill is important enough to use, it's important enough to track.
 
@@ -25,7 +25,7 @@ ROADMAP.md         →  "Phase 2 requires X skill"
        ↓
 PLAN.md            →  "Task 2.1 invokes /frontend-design"
        ↓
-UNIFY              →  "Was skill invoked? Gap noted if not"
+INTEGRATE          →  "Was skill invoked? Gap noted if not"
 ```
 
 ## Skill Flow
@@ -60,8 +60,8 @@ Plans can reference skills in pre-implementation or task notes:
    - **Skill:** /revops-expert (value equation)
 ```
 
-### 4. Verification (UNIFY)
-During UNIFY, audit skill invocation:
+### 4. Verification (INTEGRATE)
+During INTEGRATE, audit skill invocation:
 
 | Expected | Invoked | Gap? | Notes |
 |----------|---------|------|-------|
@@ -84,20 +84,20 @@ Gaps are documented in STATE.md Deviations, not blocked.
 
 ## Verification Behavior
 
-### Manual During UNIFY (Not Hook-Based)
-Skill usage is verified manually during UNIFY phase:
+### Manual During INTEGRATE (Not Hook-Based)
+Skill usage is verified manually during INTEGRATE phase:
 1. Read SPECIAL-FLOWS.md for declared skills
 2. Review conversation/session for invocations
 3. Mark each required skill as invoked or gap
 4. Document gaps in STATE.md Deviations
 
-**Why not automatic?** Hook-based tracking is complex, may miss invocations, and adds fragility. Manual verification during UNIFY keeps it simple and reliable.
+**Why not automatic?** Hook-based tracking is complex, may miss invocations, and adds fragility. Manual verification during INTEGRATE keeps it simple and reliable.
 
 ### Warn, Don't Block
 Gaps generate warnings, not blocking errors:
 - Gaps are documented for learning
 - User can note "intentional deviation"
-- UNIFY still completes
+- INTEGRATE still completes
 - Continuous improvement, not rigid enforcement
 
 ## Examples
@@ -152,7 +152,7 @@ Over time, SPECIAL-FLOWS reveals patterns:
 
 ### Updating Patterns
 When intentional deviation becomes the norm:
-1. Note deviation in UNIFY
+1. Note deviation in INTEGRATE
 2. Consider updating SPECIAL-FLOWS.md
 3. Log decision if significant change
 
@@ -164,8 +164,8 @@ During `/orbit:observe`, optionally configure specialized flows:
 - If yes, route to configuration workflow
 - If no, skip (can add later via `/orbit:flows`)
 
-### With UNIFY
-During UNIFY, audit skill usage:
+### With INTEGRATE
+During INTEGRATE, audit skill usage:
 - Check SPECIAL-FLOWS.md for declared skills
 - Verify invocations in session
 - Document gaps in STATE.md Deviations

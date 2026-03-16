@@ -10,7 +10,7 @@ Initialize ORBIT structure in a new project. Creates .orbit/ directory with PROJ
 
 <loop_context>
 N/A - This is a setup workflow, not a loop phase.
-After init, project is ready for first PLAN.
+After init, project is ready for first REFINE.
 </loop_context>
 
 <philosophy>
@@ -182,7 +182,7 @@ See: .orbit/PROJECT.md (updated [timestamp])
 Milestone: v0.1 Initial Release
 Phase: Not yet defined
 Plan: None yet
-Status: Ready to create roadmap and first PLAN
+Status: Ready to create roadmap and first REFINE
 Last activity: [timestamp] — Project initialized
 
 Progress:
@@ -192,8 +192,8 @@ Progress:
 
 Current loop state:
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ○        ○        ○     [Ready for first PLAN]
+REFINE ──▶ BUILD ──▶ INTEGRATE
+  ○        ○        ○     [Ready for first REFINE]
 ```
 
 ## Accumulated Context

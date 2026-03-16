@@ -11,7 +11,7 @@ Configure specialized skill integrations for a ORBIT project. Discovers availabl
 
 <loop_context>
 N/A - This is a utility workflow, not a loop phase.
-Can be run at any time without affecting PLAN/APPLY/UNIFY state.
+Can be run at any time without affecting REFINE/BUILD/INTEGRATE state.
 </loop_context>
 
 <required_reading>
@@ -193,7 +193,7 @@ Repeat or ask "Add another asset? [y/n]"
    Templates/assets: [N configured / None]
 
    ────────────────────────────────────────
-   Verification will occur during UNIFY.
+   Verification will occur during INTEGRATE.
    Run /orbit:flows audit to check current phase.
    ────────────────────────────────────────
    ```
@@ -226,7 +226,7 @@ Check current phase against declared flows:
    - /skill1 (project-level)
    - /skill2 (phase override)
 
-   Check invocations before UNIFY.
+   Check invocations before INTEGRATE.
    ```
 </subcommand>
 

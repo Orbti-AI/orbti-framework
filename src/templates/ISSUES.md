@@ -71,7 +71,7 @@ Enhancements discovered during execution. Not critical - address in future phase
 ## When to Create
 
 **Create an issue when:**
-- During APPLY, you notice something that could be better
+- During BUILD, you notice something that could be better
 - It's not blocking current work
 - It's not a bug (bugs get fixed immediately)
 - It would be scope creep to address now
@@ -85,7 +85,7 @@ Enhancements discovered during execution. Not critical - address in future phase
 
 ## Workflow
 
-1. During APPLY, notice enhancement opportunity
+1. During BUILD, notice enhancement opportunity
 2. Log to `.orbit/ISSUES.md` with ISS-NNN format
 3. Note in SUMMARY.md: "Logged ISS-003 for future consideration"
 4. Continue with current plan

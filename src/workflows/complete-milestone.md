@@ -262,7 +262,7 @@ Update STATE.md for post-milestone state:
 
    Current loop state:
    ```
-   PLAN ──▶ APPLY ──▶ UNIFY
+   REFINE ──▶ BUILD ──▶ INTEGRATE
      ○        ○        ○     [Milestone complete - ready for next]
    ```
    ```

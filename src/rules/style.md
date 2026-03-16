@@ -30,7 +30,7 @@ Exception: SUMMARY.md deviations section, git commits (their purpose IS tracking
 | Type | Convention | Example |
 |------|------------|---------|
 | Files | kebab-case | `plan-phase.md` |
-| Commands | `orbit:kebab-case` | `orbit:plan` |
+| Commands | `orbit:kebab-case` | `orbit:refine` |
 | Step names | snake_case | `name="load_project_state"` |
 | Bash variables | CAPS_UNDERSCORES | `PHASE_ARG` |
 | Type attributes | colon separator | `type="checkpoint:human-verify"` |
@@ -92,7 +92,7 @@ ORBIT uses explicit loop phase names:
 | Phase | Purpose | Artifacts |
 |-------|---------|-----------|
 | PLAN | Define work, acceptance criteria | PLAN.md |
-| APPLY | Execute approved plan | Code changes, APPLY-LOG |
+| APPLY | Execute approved plan | Code changes, BUILD-LOG |
 | UNIFY | Reconcile plan vs actual | SUMMARY.md, STATE.md updates |
 
 Always reference the current loop position when relevant.

@@ -1,17 +1,17 @@
 <purpose>
-Execute an approved PLAN.md by running tasks in order, verifying each, handling checkpoints, and recording results for UNIFY phase reconciliation.
+Execute an approved PLAN.md by running tasks in order, verifying each, handling checkpoints, and recording results for INTEGRATE phase reconciliation.
 </purpose>
 
 <when_to_use>
 - User has approved a PLAN.md (explicit approval required)
-- STATE.md shows loop position at PLAN complete, ready for APPLY
+- STATE.md shows loop position at REFINE complete, ready for BUILD
 - No unresolved blockers from planning phase
 </when_to_use>
 
 <loop_context>
-Expected phase: APPLY
+Expected phase: BUILD
 Prior phase: PLAN (approval just received)
-Next phase: UNIFY (after execution completes)
+Next phase:  INTEGRATE (after execution completes)
 </loop_context>
 
 <required_reading>
@@ -31,7 +31,7 @@ Next phase: UNIFY (after execution completes)
    - Do NOT assume approval
    - Look for explicit signal: "approved", "execute", "go ahead", etc.
 2. Read STATE.md to verify:
-   - Loop position shows PLAN complete
+   - Loop position shows REFINE complete
    - Correct phase and plan identified
 3. If approval unclear:
    - Ask: "Plan ready at [path]. Approve execution?"
@@ -200,7 +200,7 @@ Throughout execution:
    - Tasks failed (with reasons)
    - Checkpoints resolved (with decisions/approvals)
    - Deviations from plan
-2. This information feeds into UNIFY phase
+2. This information feeds into INTEGRATE phase
 </step>
 
 <step name="finalize">
@@ -211,19 +211,19 @@ After all tasks attempted:
    - Failures: list any
    - Deviations: list any
 2. Update STATE.md:
-   - Loop position: PLAN ✓ → APPLY ✓ → UNIFY ○
+   - Loop position: REFINE ✓ → BUILD ✓ → INTEGRATE ○
    - Last activity: timestamp and completion status
 3. Report with quick continuation prompt:
    ```
    ════════════════════════════════════════
-   APPLY COMPLETE
+   BUILD COMPLETE
    ════════════════════════════════════════
    [execution summary]
 
    ---
-   Continue to UNIFY?
+   Continue to INTEGRATE?
 
-   [1] Yes, run UNIFY | [2] Pause here
+   [1] Yes, run INTEGRATE | [2] Pause here
    ```
 4. **Accept quick inputs:** "1", "yes", "continue", "go" → run `/orbit:integrate [plan-path]`
 </step>
@@ -231,9 +231,9 @@ After all tasks attempted:
 </process>
 
 <output>
-- Modified files as specified in PLAN.md
-- Execution log (mental, for UNIFY)
-- STATE.md updated with APPLY complete
+- Modified files as specified in REFINE.md
+- Execution log (mental, for INTEGRATE)
+- STATE.md updated with BUILD complete
 </output>
 
 <error_handling>
@@ -259,7 +259,7 @@ After all tasks attempted:
 
 <anti_patterns>
 **Assuming approval:**
-Do NOT start APPLY without explicit user approval of the plan.
+Do NOT start BUILD without explicit user approval of the plan.
 
 **Skipping verification:**
 Every task MUST have its verify step run. No "it looks right" assumptions.

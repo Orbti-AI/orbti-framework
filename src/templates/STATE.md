@@ -34,11 +34,11 @@ Progress:
 
 Current loop state:
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
   ◉        ○        ○     [Planning]
   ✓        ◉        ○     [Applying]
   ✓        ✓        ◉     [Unifying]
-  ✓        ✓        ✓     [Complete - ready for next PLAN]
+  ✓        ✓        ✓     [Complete - ready for next REFINE]
 ```
 
 ## Performance Metrics
@@ -133,10 +133,10 @@ Resume context: [Key information needed to continue]
 ### Loop Position
 **Purpose:** Visual indicator of ORBIT loop state.
 **States:**
-- Planning: PLAN active, APPLY/UNIFY pending
-- Applying: PLAN complete, APPLY active, UNIFY pending
-- Unifying: PLAN/APPLY complete, UNIFY active
-- Complete: Full loop done, ready for next PLAN
+- Planning: REFINE active, BUILD/INTEGRATE pending
+- Applying: REFINE complete, BUILD active, INTEGRATE pending
+- Unifying: PLAN/BUILD complete, INTEGRATE active
+- Complete: Full loop done, ready for next REFINE
 
 **Update:** At each loop phase transition.
 
@@ -158,13 +158,13 @@ Resume context: [Key information needed to continue]
 
 **Blockers:** Active obstacles requiring resolution.
 
-**Update:** After UNIFY phase reconciliation.
+**Update:** After INTEGRATE phase reconciliation.
 
 ### Boundaries (Active)
 **Purpose:** Quick reference to current phase protections.
 **Contains:** Protected files/patterns from active PLAN.md.
 
-**Update:** When entering new PLAN phase.
+**Update:** When entering new REFINE phase.
 
 ### Session Continuity
 **Purpose:** Enable instant session resumption.
@@ -205,6 +205,6 @@ STATE.md is a DIGEST, not an archive. If sections grow too large:
 
 **Writing:** After every significant action
 - After PLAN approval: Update status to "Approved"
-- After APPLY completion: Update position, log duration
-- After UNIFY: Update decisions, issues, blockers
+- After BUILD completion: Update position, log duration
+- After INTEGRATE: Update decisions, issues, blockers
 - After session end: Update continuity section

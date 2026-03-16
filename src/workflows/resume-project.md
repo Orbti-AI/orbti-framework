@@ -68,7 +68,7 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
 1. Read `.orbit/STATE.md`
 2. Extract:
    - Current Position (phase, plan, status)
-   - Loop Position (PLAN/APPLY/UNIFY markers)
+   - Loop Position (REFINE/BUILD/INTEGRATE markers)
    - Last activity (what was happening)
    - Session Continuity section:
      - Stopped at
@@ -99,8 +99,8 @@ Based on loop position, determine **exactly ONE** next action:
 | Loop State | Single Next Action |
 |------------|-------------------|
 | PLAN ○ (no plan yet) | `/orbit:refine` |
-| PLAN ✓, APPLY ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
-| PLAN ✓, APPLY ✓, UNIFY ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
+| PLAN ✓, BUILD ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
+| PLAN ✓, BUILD ✓, INTEGRATE ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
 | All ✓ (loop complete) | `/orbit:refine` (next phase) |
 | Blocked | "Address blocker: [specific issue]" |
 
@@ -121,7 +121,7 @@ Plan: [NN-PP] - [plan description]
 
 Loop Position:
 ┌─────────────────────────────────────┐
-│  PLAN ──▶ APPLY ──▶ UNIFY          │
+│  REFINE ──▶ BUILD ──▶ INTEGRATE          │
 │   [✓/○]    [✓/○]    [✓/○]          │
 └─────────────────────────────────────┘
 

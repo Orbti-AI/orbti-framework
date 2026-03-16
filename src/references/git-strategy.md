@@ -44,7 +44,7 @@ git add .orbit/
 git commit
 ```
 
-## Task Completion (During APPLY)
+## Task Completion (During BUILD)
 
 Each task gets its own commit immediately after completion.
 
@@ -87,7 +87,7 @@ git commit -m "test(07-02): add failing test for JWT generation
 "
 ```
 
-## Plan Completion (After UNIFY)
+## Plan Completion (After INTEGRATE)
 
 After all tasks committed, one final metadata commit captures plan completion.
 

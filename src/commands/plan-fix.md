@@ -196,9 +196,9 @@ FIX PLAN CREATED
 | Cosmetic | {n}   |
 
 ────────────────────────────────────────
-Continue to APPLY?
+Continue to BUILD?
 
-[1] Approved, run APPLY | [2] Review first | [3] Pause here
+[1] Approved, run BUILD | [2] Review first | [3] Pause here
 ────────────────────────────────────────
 ```
 

@@ -22,7 +22,7 @@ Every workflow MUST have:
 ## Optional Sections
 
 - `<required_reading>` — Files to read before starting
-- `<loop_context>` — Current PLAN/APPLY/UNIFY phase awareness
+- `<loop_context>` — Current REFINE/BUILD/INTEGRATE phase awareness
 - `<references>` — @-references to load conceptual docs when relevant
 
 ## Step Elements
@@ -36,7 +36,7 @@ When using `<step>` elements within `<process>`:
 </step>
 
 <step name="execute_tasks">
-  For each task in PLAN.md:
+  For each task in REFINE.md:
   1. Execute task action
   2. Run task verification
   3. Record result
@@ -54,8 +54,8 @@ Workflows should be aware of their position in the ORBIT loop:
 ```xml
 <loop_context>
 Expected phase: PLAN
-Prior phase: UNIFY (previous plan) or none (first plan)
-Next phase: APPLY (after plan approval)
+Prior phase:  INTEGRATE (previous plan) or none (first plan)
+Next phase: BUILD (after plan approval)
 </loop_context>
 ```
 
@@ -92,7 +92,7 @@ Execute an approved PLAN by running tasks in order, verifying each, and recordin
 
 <when_to_use>
 - User has approved a PLAN.md
-- STATE.md shows loop position at PLAN (ready for APPLY)
+- STATE.md shows loop position at PLAN (ready for BUILD)
 - No blocking checkpoints remain unresolved
 </when_to_use>
 
@@ -102,9 +102,9 @@ Execute an approved PLAN by running tasks in order, verifying each, and recordin
 </required_reading>
 
 <loop_context>
-Expected phase: APPLY
+Expected phase: BUILD
 Prior phase: PLAN (approval just received)
-Next phase: UNIFY (after execution completes)
+Next phase:  INTEGRATE (after execution completes)
 </loop_context>
 
 <process>
@@ -116,16 +116,16 @@ Next phase: UNIFY (after execution completes)
 </step>
 
 <step name="execute_tasks">
-  For each <task> in PLAN.md <tasks> section:
+  For each <task> in REFINE.md <tasks> section:
   1. Log task start
   2. Execute <action> content
   3. Run <verify> command
-  4. If verify passes, record in APPLY-LOG
+  4. If verify passes, record in BUILD-LOG
   5. If verify fails, stop and report
 </step>
 
 <step name="finalize">
-  1. Update STATE.md loop position to UNIFY
+  1. Update STATE.md loop position to INTEGRATE
   2. Report completion status
 </step>
 

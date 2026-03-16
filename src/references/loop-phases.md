@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Explain the semantics of ORBIT's three loop phases: PLAN, APPLY, UNIFY. Every unit of work follows this loop. Skipping phases breaks traceability and increases risk.
+Explain the semantics of ORBIT's three loop phases: REFINE, BUILD, INTEGRATE. Every unit of work follows this loop. Skipping phases breaks traceability and increases risk.
 
 ## The Loop
 
@@ -10,7 +10,7 @@ Explain the semantics of ORBIT's three loop phases: PLAN, APPLY, UNIFY. Every un
     ┌─────────────────────────────────────────┐
     │                                         │
     ▼                                         │
-  PLAN ────────► APPLY ────────► UNIFY ───────┘
+  REFINE ────────► BUILD ────────► INTEGRATE ───────┘
     │              │               │
     │              │               │
  Define work   Execute work   Reconcile
@@ -34,27 +34,27 @@ Explain the semantics of ORBIT's three loop phases: PLAN, APPLY, UNIFY. Every un
 7. **Wait for approval before proceeding**
 
 **Entry Condition:**
-- Prior plan completed (UNIFY done) OR first plan
+- Prior plan completed (INTEGRATE done) OR first plan
 - ROADMAP indicates this phase is next
 
 **Exit Condition:**
 - PLAN.md created with all required sections
 - User has approved the plan
-- STATE.md updated to show "ready for APPLY"
+- STATE.md updated to show "ready for BUILD"
 
 **Loop Position:**
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [PLAN complete, awaiting APPLY]
+REFINE ──▶ BUILD ──▶ INTEGRATE
+  ✓        ○        ○     [REFINE complete, awaiting BUILD]
 ```
 
-## APPLY Phase
+## BUILD Phase
 
 **Purpose:** Execute the approved plan by completing tasks in order, verifying each.
 
 **Artifacts Created:**
-- Code/files specified in PLAN.md
-- APPLY-LOG (optional, for complex plans)
+- Code/files specified in REFINE.md
+- BUILD-LOG (optional, for complex plans)
 
 **Activities:**
 1. Read PLAN.md to load task definitions
@@ -68,7 +68,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 **Entry Condition:**
 - PLAN.md exists and is approved
-- STATE.md shows loop position at PLAN complete
+- STATE.md shows loop position at REFINE complete
 
 **Exit Condition:**
 - All tasks completed (or blocked with documentation)
@@ -77,11 +77,11 @@ PLAN ──▶ APPLY ──▶ UNIFY
 
 **Loop Position:**
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY complete, ready for UNIFY]
+REFINE ──▶ BUILD ──▶ INTEGRATE
+  ✓        ✓        ○     [BUILD complete, ready for INTEGRATE]
 ```
 
-## UNIFY Phase
+## INTEGRATE Phase
 
 **Purpose:** Reconcile what was planned vs. what was built. Close the loop.
 
@@ -102,17 +102,17 @@ PLAN ──▶ APPLY ──▶ UNIFY
 6. Update ROADMAP.md if phase is complete
 
 **Entry Condition:**
-- APPLY phase complete (all tasks done or documented blockers)
+- BUILD phase complete (all tasks done or documented blockers)
 
 **Exit Condition:**
 - SUMMARY.md created with results
 - STATE.md updated with new position
-- Loop closed, ready for next PLAN
+- Loop closed, ready for next REFINE
 
 **Loop Position:**
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop complete, ready for next PLAN]
+REFINE ──▶ BUILD ──▶ INTEGRATE
+  ✓        ✓        ✓     [Loop complete, ready for next REFINE]
 ```
 
 ## Loop Invariants
@@ -137,7 +137,7 @@ Why: No plan = no acceptance criteria = no way to verify completion.
 ```
 Why: Plans may have incorrect assumptions. Approval catches issues early.
 
-**Always Close With UNIFY:**
+**Always Close With INTEGRATE:**
 ```
 # BAD
 "Tasks done. Moving to next phase."
@@ -145,11 +145,11 @@ Why: Plans may have incorrect assumptions. Approval catches issues early.
 # GOOD
 "Tasks done. Creating SUMMARY.md and updating STATE.md."
 ```
-Why: No UNIFY = no record of what was built = lost traceability.
+Why: No INTEGRATE = no record of what was built = lost traceability.
 
 ## Phase Transitions
 
-### PLAN → APPLY
+### REFINE → BUILD
 Trigger: User approves plan (explicit signal)
 
 Validation:
@@ -158,7 +158,7 @@ Validation:
 - [ ] Tasks have Files, Action, Verify, Done
 - [ ] Boundaries are clear
 
-### APPLY → UNIFY
+### BUILD → INTEGRATE
 Trigger: All tasks complete OR blockers documented
 
 Validation:
@@ -166,7 +166,7 @@ Validation:
 - [ ] No skipped tasks
 - [ ] Deviations noted
 
-### UNIFY → PLAN (next)
+### INTEGRATE → PLAN (next)
 Trigger: SUMMARY.md created, STATE.md updated
 
 Validation:
@@ -183,7 +183,7 @@ STATE.md displays loop position visually:
 
 Current loop state:
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
   ✓        ○        ○     [Description of current state]
 ```
 ```
@@ -197,7 +197,7 @@ Symbols:
 
 **Partial loops:**
 ```
-PLAN → APPLY → (skip UNIFY) → PLAN
+REFINE → BUILD → (skip INTEGRATE) → PLAN
 ```
 Why bad: No record of what was built. Can't track progress.
 
@@ -207,10 +207,10 @@ Why bad: No record of what was built. Can't track progress.
 ```
 Why bad: May execute on flawed assumptions. Always wait for explicit approval.
 
-**UNIFY debt:**
+**INTEGRATE debt:**
 ```
 "I'll write the SUMMARY later"
 ```
-Why bad: Context degrades. Write SUMMARY immediately after APPLY.
+Why bad: Context degrades. Write SUMMARY immediately after BUILD.
 
 </loop_phases>

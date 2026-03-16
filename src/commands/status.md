@@ -13,7 +13,7 @@ allowed-tools: [Read]
 > - Optional context argument for tailored suggestions
 
 <objective>
-Display current loop position (PLAN/APPLY/UNIFY) and phase progress.
+Display current loop position (REFINE/BUILD/INTEGRATE) and phase progress.
 
 **When to use:** Use `/orbit:progress` instead for better routing.
 </objective>
@@ -33,7 +33,7 @@ Read STATE.md and extract:
 - Current milestone
 - Current phase (X of Y)
 - Current plan status
-- Loop position (PLAN/APPLY/UNIFY)
+- Loop position (REFINE/BUILD/INTEGRATE)
 - Last activity
 </step>
 
@@ -50,7 +50,7 @@ Plan: [status]
 
 Loop Position:
 ┌─────────────────────────────────────┐
-│  PLAN ──▶ APPLY ──▶ UNIFY          │
+│  REFINE ──▶ BUILD ──▶ INTEGRATE          │
 │   [✓/○]    [✓/○]    [✓/○]          │
 └─────────────────────────────────────┘
 
@@ -65,8 +65,8 @@ Next: [recommended action]
 Based on loop position, suggest next action:
 - If PLAN needed: "Run /orbit:refine to create plan"
 - If PLAN ready: "Approve plan, then run /orbit:build"
-- If APPLY complete: "Run /orbit:integrate to close loop"
-- If UNIFY complete: "Loop closed. Ready for next phase."
+- If BUILD complete: "Run /orbit:integrate to close loop"
+- If INTEGRATE complete: "Loop closed. Ready for next phase."
 </step>
 
 </process>

@@ -214,7 +214,7 @@ The one-liner should tell someone what actually shipped.
 **Note:** Separate from "Issues Encountered" which documents problems with planned work.
 
 ### Next Phase Readiness
-**Purpose:** Prepare context for next PLAN phase.
+**Purpose:** Prepare context for next REFINE phase.
 
 **Ready:** What's available for next phase to build on.
 **Concerns:** Potential issues to watch for.

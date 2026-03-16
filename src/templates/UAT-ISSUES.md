@@ -135,5 +135,5 @@ Template for `.orbit/phases/XX-name/{phase}-{plan}-UAT.md` — issues discovered
 
 | File | Purpose | Content | Timing |
 |------|---------|---------|--------|
-| **ISSUES.md** | Deferred enhancements | Nice-to-haves discovered during APPLY | During development |
+| **ISSUES.md** | Deferred enhancements | Nice-to-haves discovered during BUILD | During development |
 | **UAT-ISSUES.md** | Testing problems | Bugs found during verification | During UAT |

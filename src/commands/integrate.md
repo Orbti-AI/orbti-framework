@@ -8,7 +8,7 @@ allowed-tools: [Read, Write, AskUserQuestion]
 <objective>
 Reconcile plan versus actual results, create SUMMARY.md, and close the loop.
 
-**When to use:** After APPLY phase complete. This is MANDATORY - never skip UNIFY.
+**When to use:** After BUILD phase complete. This is MANDATORY - never skip INTEGRATE.
 
 Creates SUMMARY.md documenting what was built, decisions made, and any deferred issues.
 </objective>
@@ -29,7 +29,7 @@ Plan path: $ARGUMENTS
 
 <step name="validate_preconditions">
 1. Confirm PLAN.md exists at $ARGUMENTS path
-2. Confirm APPLY phase was executed (tasks completed)
+2. Confirm BUILD phase was executed (tasks completed)
 3. If SUMMARY.md already exists: "Loop already closed. SUMMARY: {path}"
 </step>
 
@@ -54,7 +54,7 @@ Create SUMMARY.md in same directory as PLAN.md:
 
 <step name="update_state">
 Update STATE.md:
-- Loop position: PLAN ✓ → APPLY ✓ → UNIFY ✓
+- Loop position: REFINE ✓ → BUILD ✓ → INTEGRATE ✓
 - Phase progress if plan completes phase
 - Performance metrics (duration)
 - Session continuity (next action)
@@ -69,7 +69,7 @@ Loop Closed
 Plan: {plan-path}
 Summary: {summary-path}
 
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
   ✓        ✓        ✓
 
 Next: [phase complete message or next plan]

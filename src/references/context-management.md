@@ -168,7 +168,7 @@ For zero-context sessions or complex multi-session work. Created by `/orbit:paus
 - Key decisions made
 - Current blockers
 - Exact next action
-- Loop position (PLAN/APPLY/UNIFY markers)
+- Loop position (REFINE/BUILD/INTEGRATE markers)
 
 **When to use HANDOFF vs STATE.md alone:**
 - **STATE.md only:** Quick break, returning soon, context might persist

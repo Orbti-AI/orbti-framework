@@ -16,7 +16,7 @@ Skills and commands that apply to this project's work.
 | {{work_type}} | {{/skill-name}} | optional | {{trigger_condition}} | {{optional_notes}} |
 
 **Priority Legend:**
-- `required` - Gap documented if not invoked during UNIFY
+- `required` - Gap documented if not invoked during INTEGRATE
 - `optional` - Informational only, no gap logged
 
 ---
@@ -43,14 +43,14 @@ Reference templates, assets, or external resources for this project.
 
 ## Verification Checklist
 
-During UNIFY, confirm:
+During INTEGRATE, confirm:
 - [ ] Required skills were invoked for matching work types
 - [ ] Gaps documented in STATE.md Deviations section
 - [ ] Patterns updated if intentional deviation is now standard
 
 ### Skill Audit Template
 
-Use this during UNIFY to track invocations:
+Use this during INTEGRATE to track invocations:
 
 | Expected Skill | Invoked? | Gap? | Notes |
 |----------------|----------|------|-------|

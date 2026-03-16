@@ -25,14 +25,14 @@ Every unit of work follows this cycle:
 
 ```
 ┌─────────────────────────────────────┐
-│  PLAN ──▶ APPLY ──▶ UNIFY          │
+│  REFINE ──▶ BUILD ──▶ INTEGRATE          │
 │                                     │
 │  Define    Execute    Reconcile     │
 │  work      tasks      & close       │
 └─────────────────────────────────────┘
 ```
 
-**Never skip UNIFY.** Every plan needs a summary.
+**Never skip INTEGRATE.** Every plan needs a summary.
 
 ## Quick Start
 
@@ -71,7 +71,7 @@ Usage: `/orbit:observe`
 ---
 
 ### `/orbit:refine [phase]`
-Enter PLAN phase - create an executable plan.
+Enter REFINE phase - create an executable plan.
 
 - Reads current state from STATE.md
 - Creates PLAN.md with tasks, acceptance criteria, boundaries
@@ -90,7 +90,7 @@ Execute an approved PLAN.md file.
 - Validates plan exists and hasn't been executed
 - Executes tasks sequentially
 - Handles checkpoints (decision, human-verify, human-action)
-- Reports completion and prompts for UNIFY
+- Reports completion and prompts for INTEGRATE
 
 Usage: `/orbit:build`
 Usage: `/orbit:build .orbit/phases/01-foundation/01-01-PLAN.md`
@@ -318,7 +318,7 @@ Configure specialized workflow integrations.
 
 - Creates/updates SPECIAL-FLOWS.md
 - Defines required skills per work type
-- Skills are enforced at APPLY time
+- Skills are enforced at BUILD time
 
 Usage: `/orbit:flows`
 
@@ -465,7 +465,7 @@ Completion checks
 2. **State is tracked** - STATE.md knows where you are
 3. **Boundaries are real** - Respect DO NOT CHANGE sections
 4. **Acceptance criteria first** - Define done before starting
-5. **Skills are enforced** - Required skills block APPLY until loaded
+5. **Skills are enforced** - Required skills block BUILD until loaded
 
 ## Getting Help
 

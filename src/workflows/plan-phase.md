@@ -1,18 +1,18 @@
 <purpose>
-Create an executable PLAN.md for the current or specified phase. The plan defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for APPLY phase execution.
+Create an executable PLAN.md for the current or specified phase. The plan defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for BUILD phase execution.
 </purpose>
 
 <when_to_use>
 - Starting a new phase (ROADMAP shows next phase ready)
-- Previous plan completed (loop closed with UNIFY)
+- Previous plan completed (loop closed with INTEGRATE)
 - First plan in a project (after init-project)
 - Resuming work that needs a new plan
 </when_to_use>
 
 <loop_context>
 Expected phase: PLAN
-Prior phase: UNIFY (previous plan complete) or none (first plan)
-Next phase: APPLY (after plan approval)
+Prior phase:  INTEGRATE (previous plan complete) or none (first plan)
+Next phase: BUILD (after plan approval)
 </loop_context>
 
 <required_reading>
@@ -32,10 +32,10 @@ Next phase: APPLY (after plan approval)
 
 <step name="validate_preconditions" priority="first">
 1. Read STATE.md to confirm:
-   - Loop position is ready for PLAN (prior UNIFY complete or first plan)
+   - Loop position is ready for PLAN (prior INTEGRATE complete or first plan)
    - No blockers preventing planning
-2. If STATE.md shows mid-loop (APPLY or UNIFY incomplete):
-   - Warn user: "Previous loop not closed. Complete UNIFY first or reset."
+2. If STATE.md shows mid-loop (BUILD or INTEGRATE incomplete):
+   - Warn user: "Previous loop not closed. Complete INTEGRATE first or reset."
    - Do not proceed until resolved
 </step>
 
@@ -84,7 +84,7 @@ Next phase: APPLY (after plan approval)
    - Prepare <skills> section content for PLAN.md
 3. If not exists:
    - Add comment: "No SPECIAL-FLOWS.md - skills section omitted"
-   - Skip skills section in PLAN (or include minimal placeholder)
+   - Skip skills section in REFINE (or include minimal placeholder)
 4. Display reminder if required skills found:
    ```
    ════════════════════════════════════════
@@ -153,7 +153,7 @@ Required skills will BLOCK apply-phase until confirmed loaded.
    Milestone: v0.1 [Milestone Name]
    Phase: [N] of [total] ([Phase Name]) — Planning
    Plan: [NN-PP] created, awaiting approval
-   Status: PLAN created, ready for APPLY
+   Status: PLAN created, ready for BUILD
    Last activity: [timestamp] — Created [plan-path]
 
    Progress:
@@ -164,7 +164,7 @@ Required skills will BLOCK apply-phase until confirmed loaded.
 
    Current loop state:
    ```
-   PLAN ──▶ APPLY ──▶ UNIFY
+   REFINE ──▶ BUILD ──▶ INTEGRATE
      ✓        ○        ○     [Plan created, awaiting approval]
    ```
 
@@ -192,9 +192,9 @@ Required skills will BLOCK apply-phase until confirmed loaded.
    [plan summary - key tasks, checkpoints]
 
    ---
-   Continue to APPLY?
+   Continue to BUILD?
 
-   [1] Approved, run APPLY | [2] Questions first | [3] Pause here
+   [1] Approved, run BUILD | [2] Questions first | [3] Pause here
    ```
 4. **Accept quick inputs:** "1", "approved", "yes", "go" → run `/orbit:build [plan-path]`
 </step>

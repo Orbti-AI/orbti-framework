@@ -1,6 +1,6 @@
 ---
 name: orbit:refine
-description: Enter PLAN phase for current or new plan
+description: Enter REFINE phase for current or new plan
 argument-hint: "[phase-plan]"
 allowed-tools: [Read, Write, Glob, AskUserQuestion]
 ---

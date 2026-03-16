@@ -31,7 +31,7 @@ $ARGUMENTS
 Read `.orbit/STATE.md` and `.orbit/ROADMAP.md`:
 - Current phase and total phases
 - Current plan (if any)
-- Loop position (PLAN/APPLY/UNIFY markers)
+- Loop position (REFINE/BUILD/INTEGRATE markers)
 - Roadmap progress
 - Performance metrics (if tracked)
 - Blockers or concerns
@@ -45,7 +45,7 @@ Determine overall progress:
 - Current phase progress: Z%
 
 **Current Loop:**
-- Position: PLAN/APPLY/UNIFY
+- Position: REFINE/BUILD/INTEGRATE
 - Status: [what's happening]
 </step>
 
@@ -99,7 +99,7 @@ Milestone: [name] - [X]% complete
 
 Current Loop: Phase 2, Plan 02-03
 ┌─────────────────────────────────────┐
-│  PLAN ──▶ APPLY ──▶ UNIFY          │
+│  REFINE ──▶ BUILD ──▶ INTEGRATE          │
 │    ✓        ✓        ○             │
 └─────────────────────────────────────┘
 

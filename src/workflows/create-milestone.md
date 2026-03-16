@@ -150,8 +150,8 @@ Update STATE.md:
 
    Current loop state:
    ```
-   PLAN ──▶ APPLY ──▶ UNIFY
-     ○        ○        ○     [Ready for first PLAN]
+   REFINE ──▶ BUILD ──▶ INTEGRATE
+     ○        ○        ○     [Ready for first REFINE]
    ```
    ```
 

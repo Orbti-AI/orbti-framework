@@ -55,7 +55,7 @@ Subcommand: $ARGUMENTS (optional)
 2. Read .orbit/STATE.md for current phase
 3. Check ROADMAP.md for phase skill requirements
 4. Display required skills for this phase
-5. Remind: "Verify invocations before UNIFY"
+5. Remind: "Verify invocations before INTEGRATE"
 
 **`list` (display configuration):**
 1. Read .orbit/SPECIAL-FLOWS.md

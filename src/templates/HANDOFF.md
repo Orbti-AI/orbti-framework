@@ -23,7 +23,7 @@ You have no prior context. This document tells you everything.
 
 **Loop Position:**
 ```
-PLAN ──▶ APPLY ──▶ UNIFY
+REFINE ──▶ BUILD ──▶ INTEGRATE
   {{plan_mark}}        {{apply_mark}}        {{unify_mark}}
 ```
 
