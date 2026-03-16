@@ -155,6 +155,36 @@ This creates the `.orbit/` folder with `PROJECT.md`, `ROADMAP.md`, and `STATE.md
 /orbit:progress
 ```
 
+### Common Workflows
+
+**Starting a new project:**
+```
+/orbit:init → /orbit:plan → /orbit:apply → /orbit:unify
+```
+
+**Checking where you are:**
+```
+/orbit:progress
+```
+
+**Resuming work (new session):**
+```
+/orbit:resume
+```
+
+**Pre-planning exploration:**
+```
+/orbit:discuss 3 → /orbit:assumptions 3 → /orbit:research "topic" → /orbit:plan 3
+```
+
+### Key Principles
+
+1. **Loop must complete** — PLAN → APPLY → UNIFY, no shortcuts
+2. **State is tracked** — STATE.md knows where you are
+3. **Boundaries are real** — Respect `DO NOT CHANGE` sections
+4. **Acceptance criteria first** — Define done before starting
+5. **Skills are enforced** — Required skills block APPLY until loaded
+
 ### Staying Updated
 
 ```bash

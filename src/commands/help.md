@@ -441,52 +441,31 @@ Completion checks
 
 **Starting a new project:**
 ```
-/orbit:init
-/orbit:plan
-# Approve plan
-/orbit:apply
-/orbit:unify
+/orbit:init → /orbit:plan → /orbit:apply → /orbit:unify
 ```
 
 **Checking where you are:**
 ```
-/orbit:progress   # State + ONE next action (recommended)
+/orbit:progress
 ```
 
 **Resuming work (new session):**
 ```
-/orbit:resume     # Restores context, suggests next action
-```
-
-**Pausing work (before break):**
-```
-/orbit:pause      # Creates handoff, updates state
+/orbit:resume
 ```
 
 **Pre-planning exploration:**
 ```
-/orbit:discuss 3       # Articulate vision
-/orbit:assumptions 3   # See Claude's assumptions
-/orbit:research "topic"  # Gather external info
-/orbit:plan 3          # Now create the plan
-```
-
-**Managing roadmap:**
-```
-/orbit:add-phase "New Feature"    # Add phase
-/orbit:remove-phase 5             # Remove future phase
-/orbit:milestone "v2.0"           # Create milestone
-/orbit:complete-milestone         # Archive milestone
+/orbit:discuss 3 → /orbit:assumptions 3 → /orbit:research "topic" → /orbit:plan 3
 ```
 
 ## Key Principles
 
 1. **Loop must complete** - PLAN -> APPLY -> UNIFY, no shortcuts
-2. **Commands are thin** - Logic lives in workflows
-3. **State is tracked** - STATE.md knows where you are
-4. **Boundaries are real** - Respect DO NOT CHANGE sections
-5. **Acceptance criteria first** - Define done before starting
-6. **Skills are enforced** - Required skills block APPLY until loaded
+2. **State is tracked** - STATE.md knows where you are
+3. **Boundaries are real** - Respect DO NOT CHANGE sections
+4. **Acceptance criteria first** - Define done before starting
+5. **Skills are enforced** - Required skills block APPLY until loaded
 
 ## Getting Help
 
