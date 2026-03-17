@@ -77,7 +77,7 @@ allowed-tools: [Read, Write, Glob, AskUserQuestion]
 ---
 
 <objective>
-Create or continue a PLAN for the specified phase.
+Create or continue a REFINE plan for the specified phase.
 
 **When to use:** Starting new work or resuming incomplete plan.
 </objective>

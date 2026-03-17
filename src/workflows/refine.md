@@ -10,7 +10,7 @@ Create an executable REFINE.md for the current or specified phase. The plan defi
 </when_to_use>
 
 <loop_context>
-Expected phase: PLAN
+Expected phase: REFINE
 Prior phase:  INTEGRATE (previous plan complete) or none (first plan)
 Next phase: BUILD (after plan approval)
 </loop_context>
@@ -32,7 +32,7 @@ Next phase: BUILD (after plan approval)
 
 <step name="validate_preconditions" priority="first">
 1. Read STATE.md to confirm:
-   - Loop position is ready for PLAN (prior INTEGRATE complete or first plan)
+   - Loop position is ready for REFINE (prior INTEGRATE complete or first plan)
    - No blockers preventing planning
 2. If STATE.md shows mid-loop (BUILD or INTEGRATE incomplete):
    - Warn user: "Previous loop not closed. Complete INTEGRATE first or reset."
@@ -98,7 +98,7 @@ Next phase: BUILD (after plan approval)
    ```
 
 **Note:** The skills section is populated from SPECIAL-FLOWS.md during plan creation.
-Required skills will BLOCK apply-phase until confirmed loaded.
+Required skills will BLOCK build until confirmed loaded.
 </step>
 
 <step name="create_plan">
@@ -153,7 +153,7 @@ Required skills will BLOCK apply-phase until confirmed loaded.
    Milestone: v0.1 [Milestone Name]
    Phase: [N] of [total] ([Phase Name]) — Planning
    Plan: [NN-PP] created, awaiting approval
-   Status: PLAN created, ready for BUILD
+   Status: REFINE created, ready for BUILD
    Last activity: [timestamp] — Created [plan-path]
 
    Progress:
@@ -183,7 +183,7 @@ Required skills will BLOCK apply-phase until confirmed loaded.
 3. **Report with quick continuation prompt:**
    ```
    ════════════════════════════════════════
-   PLAN CREATED
+   REFINE CREATED
    ════════════════════════════════════════
 
    Plan: [plan-path]

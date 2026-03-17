@@ -23,7 +23,7 @@ See: .orbit/PROJECT.md (updated [YYYY-MM-DD])
 Milestone: [Name] ([version])
 Phase: [X] of [Y] ([Phase Name])
 Plan: [A] of [B] in current phase
-Status: [Ready to plan | Planning | Approved | Applying | Unifying | Complete | Blocked]
+Status: [Ready to plan | Planning | Approved | Building | Integrating | Complete | Blocked]
 Last activity: [YYYY-MM-DD HH:MM] — [What happened]
 
 Progress:
@@ -36,8 +36,8 @@ Current loop state:
 ```
 REFINE ──▶ BUILD ──▶ INTEGRATE
   ◉        ○        ○     [Planning]
-  ✓        ◉        ○     [Applying]
-  ✓        ✓        ◉     [Unifying]
+  ✓        ◉        ○     [Building]
+  ✓        ✓        ◉     [Integrating]
   ✓        ✓        ✓     [Complete - ready for next REFINE]
 ```
 
@@ -134,8 +134,8 @@ Resume context: [Key information needed to continue]
 **Purpose:** Visual indicator of ORBIT loop state.
 **States:**
 - Planning: REFINE active, BUILD/INTEGRATE pending
-- Applying: REFINE complete, BUILD active, INTEGRATE pending
-- Unifying: PLAN/BUILD complete, INTEGRATE active
+- Building: REFINE complete, BUILD active, INTEGRATE pending
+- Integrating: REFINE/BUILD complete, INTEGRATE active
 - Complete: Full loop done, ready for next REFINE
 
 **Update:** At each loop phase transition.
@@ -204,7 +204,7 @@ STATE.md is a DIGEST, not an archive. If sections grow too large:
 - Provides instant context restoration
 
 **Writing:** After every significant action
-- After PLAN approval: Update status to "Approved"
+- After REFINE approval: Update status to "Approved"
 - After BUILD completion: Update position, log duration
 - After INTEGRATE: Update decisions, issues, blockers
 - After session end: Update continuity section

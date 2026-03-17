@@ -11,7 +11,7 @@ Reconcile what was planned vs. what was built. Create INTEGRATE.md documenting r
 <loop_context>
 Expected phase: INTEGRATE
 Prior phase: BUILD (execution complete)
-Next phase: PLAN (next plan or next phase)
+Next phase: REFINE (next plan or next phase)
 </loop_context>
 
 <required_reading>
@@ -139,8 +139,8 @@ Next phase: PLAN (next plan or next phase)
 1. Count REFINE.md files in current phase directory
 2. Count INTEGRATE.md files (including the one just created)
 3. Compare counts:
-   - If PLAN count = SUMMARY count → Last plan, trigger transition
-   - If PLAN count > SUMMARY count → More plans remain in phase
+   - If REFINE count = SUMMARY count → Last plan, trigger transition
+   - If REFINE count > SUMMARY count → More plans remain in phase
 </step>
 
 <step name="route_based_on_completion">

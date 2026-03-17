@@ -53,7 +53,7 @@ Workflows should be aware of their position in the ORBIT loop:
 
 ```xml
 <loop_context>
-Expected phase: PLAN
+Expected phase: REFINE
 Prior phase:  INTEGRATE (previous plan) or none (first plan)
 Next phase: BUILD (after plan approval)
 </loop_context>
@@ -87,12 +87,12 @@ A workflow can be long and detailed. It answers "how to do it" comprehensively.
 
 ```markdown
 <purpose>
-Execute an approved PLAN by running tasks in order, verifying each, and recording results.
+Execute an approved REFINE plan by running tasks in order, verifying each, and recording results.
 </purpose>
 
 <when_to_use>
 - User has approved a REFINE.md
-- STATE.md shows loop position at PLAN (ready for BUILD)
+- STATE.md shows loop position at REFINE (ready for BUILD)
 - No blocking checkpoints remain unresolved
 </when_to_use>
 
@@ -103,7 +103,7 @@ Execute an approved PLAN by running tasks in order, verifying each, and recordin
 
 <loop_context>
 Expected phase: BUILD
-Prior phase: PLAN (approval just received)
+Prior phase: REFINE (approval just received)
 Next phase:  INTEGRATE (after execution completes)
 </loop_context>
 

@@ -17,7 +17,7 @@ Explain the semantics of ORBIT's three loop phases: REFINE, BUILD, INTEGRATE. Ev
  Get approval  Verify tasks   Update state
 ```
 
-## PLAN Phase
+## REFINE Phase
 
 **Purpose:** Define what will be built, how it will be verified, and what's out of scope.
 
@@ -117,7 +117,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 ## Loop Invariants
 
-**Never Skip PLAN:**
+**Never Skip REFINE:**
 ```
 # BAD
 "Let me just quickly implement this without a plan"
@@ -125,7 +125,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 # GOOD
 "Let me create a REFINE.md first, even for small work"
 ```
-Why: No plan = no acceptance criteria = no way to verify completion.
+Why: No REFINE = no acceptance criteria = no way to verify completion.
 
 **Never Execute Without Approval:**
 ```
@@ -166,7 +166,7 @@ Validation:
 - [ ] No skipped tasks
 - [ ] Deviations noted
 
-### INTEGRATE → PLAN (next)
+### INTEGRATE → REFINE (next)
 Trigger: INTEGRATE.md created, STATE.md updated
 
 Validation:
@@ -197,7 +197,7 @@ Symbols:
 
 **Partial loops:**
 ```
-REFINE → BUILD → (skip INTEGRATE) → PLAN
+REFINE → BUILD → (skip INTEGRATE) → REFINE
 ```
 Why bad: No record of what was built. Can't track progress.
 

@@ -183,7 +183,7 @@ After completion, create `.orbit/phases/XX-name/{plan}-FIX-INTEGRATE.md`
 
 ```
 ════════════════════════════════════════
-FIX PLAN CREATED
+FIX REFINE CREATED
 ════════════════════════════════════════
 
 {plan}-FIX.md — {N} issues to fix

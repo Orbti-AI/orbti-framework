@@ -84,7 +84,7 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
    - Extract key information (decisions, gaps, next actions)
 
 2. If resume file specified in STATE.md (and no handoff):
-   - Read the resume file (PLAN, SUMMARY)
+   - Read the resume file (REFINE, SUMMARY)
 
 3. Build mental picture of:
    - What was accomplished
@@ -98,9 +98,9 @@ Based on loop position, determine **exactly ONE** next action:
 
 | Loop State | Single Next Action |
 |------------|-------------------|
-| PLAN ○ (no plan yet) | `/orbit:refine` |
-| PLAN ✓, BUILD ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
-| PLAN ✓, BUILD ✓, INTEGRATE ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
+| REFINE ○ (no plan yet) | `/orbit:refine` |
+| REFINE ✓, BUILD ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
+| REFINE ✓, BUILD ✓, INTEGRATE ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
 | All ✓ (loop complete) | `/orbit:refine` (next phase) |
 | Blocked | "Address blocker: [specific issue]" |
 

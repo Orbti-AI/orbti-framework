@@ -14,7 +14,7 @@ Creates INTEGRATE.md documenting what was built, decisions made, and any deferre
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/unify-phase.md
+@~/.claude/orbit-framework/workflows/integrate.md
 @~/.claude/orbit-framework/templates/INTEGRATE.md
 </execution_context>
 
@@ -34,7 +34,7 @@ Plan path: $ARGUMENTS
 </step>
 
 <step name="reconcile">
-Follow workflow: @~/.claude/orbit-framework/workflows/unify-phase.md
+Follow workflow: @~/.claude/orbit-framework/workflows/integrate.md
 
 Compare plan to actual:
 - Which tasks completed as planned?

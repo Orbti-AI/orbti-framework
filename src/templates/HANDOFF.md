@@ -62,7 +62,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 ## Resume Instructions
 
 1. Read `.orbit/STATE.md` for latest position
-2. Check if PLAN exists for current phase
+2. Check if REFINE plan exists for current phase
 3. Based on loop position:
    - `○○○` (fresh) → Run `/orbit:refine`
    - `✓○○` (planned) → Review plan, then `/orbit:build`

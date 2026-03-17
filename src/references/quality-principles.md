@@ -25,13 +25,13 @@ When planning, you are writing the prompt that will execute it.
 
 <loop_first>
 
-Every PLAN must complete the full loop:
+Every loop must complete all three phases:
 
 ```
 REFINE ──▶ BUILD ──▶ INTEGRATE
 ```
 
-- **PLAN:** Design, get approval, set boundaries
+- **REFINE:** Design, get approval, set boundaries
 - **BUILD:** Execute tasks, commit per-task
 - **INTEGRATE:** Reconcile plan vs actual, update STATE.md
 
@@ -102,7 +102,7 @@ All deviations logged during INTEGRATE for audit trail.
 
 <ship_fast>
 
-No enterprise process. No approval gates beyond PLAN approval.
+No enterprise process. No approval gates beyond REFINE approval.
 
 Plan → Execute → Ship → Learn → Repeat
 

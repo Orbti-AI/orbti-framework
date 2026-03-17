@@ -1,7 +1,7 @@
 <purpose>
 Handle phase-level transition after all plans in a phase are complete. Evolves PROJECT.md, verifies phase completion, cleans up, and routes to next phase or milestone completion.
 
-**Invoked by:** unify-phase.md when it detects "last plan in phase"
+**Invoked by:** integrate.md when it detects "last plan in phase"
 **Scope:** Phase N → Phase N+1 (or milestone completion)
 </purpose>
 
@@ -356,7 +356,7 @@ What's next?
 </output>
 
 <success_criteria>
-- [ ] Phase PLAN/SUMMARY count verified
+- [ ] Phase REFINE/SUMMARY count verified
 - [ ] Stale handoffs cleaned
 - [ ] PROJECT.md evolved (requirements, decisions)
 - [ ] STATE.md updated (position, context, session)

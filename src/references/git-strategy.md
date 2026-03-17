@@ -141,8 +141,8 @@ a1b2c3 feat(08.5-01): create git-strategy.md
 
 # Phase 08 - Documentation
 3m4n5o docs(08-02): complete workflow docs
-6p7q8r feat(08-02): create unify-phase.md
-9s0t1u feat(08-02): create apply-phase.md
+6p7q8r feat(08-02): create integrate.md
+9s0t1u feat(08-02): create build.md
 2v3w4x docs(08-01): complete command docs
 5y6z7a feat(08-01): create resume.md command
 8b9c0d feat(08-01): create pause.md command

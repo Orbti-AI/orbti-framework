@@ -1,6 +1,6 @@
 ---
 name: orbit:build
-description: Execute an approved PLAN
+description: Execute an approved REFINE plan
 argument-hint: "[plan-path]"
 allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion]
 ---
@@ -14,7 +14,7 @@ Executes tasks in sequence, pauses at checkpoints for user input, reports comple
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/apply-phase.md
+@~/.claude/orbit-framework/workflows/build.md
 @~/.claude/orbit-framework/references/checkpoints.md
 </execution_context>
 
@@ -35,7 +35,7 @@ Plan path: $ARGUMENTS
 </step>
 
 <step name="execute">
-Follow workflow: @~/.claude/orbit-framework/workflows/apply-phase.md
+Follow workflow: @~/.claude/orbit-framework/workflows/build.md
 
 Execute tasks sequentially. For each task:
 - Read task definition

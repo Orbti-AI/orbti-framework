@@ -32,7 +32,7 @@ Any position in REFINE/BUILD/INTEGRATE loop. Captures state regardless of where 
    - Last activity
 2. Identify current working directory:
    ```bash
-   ls -t .orbit/phases/*/PLAN*.md 2>/dev/null | head -1
+   ls -t .orbit/phases/*/REFINE*.md 2>/dev/null | head -1
    ```
 </step>
 

@@ -59,7 +59,7 @@ autonomous: true                 # false if plan has checkpoints requiring user 
 | /skill-name | required | Before [work type] | ○ |
 | /skill-name | optional | For [specific need] | ○ |
 
-**BLOCKING:** Required skills MUST be loaded before APPLY proceeds.
+**BLOCKING:** Required skills MUST be loaded before BUILD proceeds.
 Run each skill command or confirm already loaded.
 
 ## Skill Invocation Checklist

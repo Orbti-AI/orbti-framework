@@ -149,7 +149,7 @@ orbit-framework/
 **src/commands/**
 - Purpose: Slash command definitions for Claude Code
 - Contains: *.md files (one per command)
-- Key files: init.md, plan.md, apply.md, unify.md
+- Key files: init.md, refine.md, build.md, integrate.md
 - Subdirectories: None (flat structure)
 
 **src/references/**
@@ -167,7 +167,7 @@ orbit-framework/
 **src/workflows/**
 - Purpose: Reusable multi-step procedures
 - Contains: Workflow definitions called by commands
-- Key files: init-project.md, apply-phase.md, unify-phase.md
+- Key files: init-project.md, build.md, integrate.md
 - Subdirectories: None
 
 ## Key File Locations

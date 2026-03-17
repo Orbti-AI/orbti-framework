@@ -10,7 +10,7 @@ Execute an approved REFINE.md by running tasks in order, verifying each, handlin
 
 <loop_context>
 Expected phase: BUILD
-Prior phase: PLAN (approval just received)
+Prior phase: REFINE (approval just received)
 Next phase:  INTEGRATE (after execution completes)
 </loop_context>
 

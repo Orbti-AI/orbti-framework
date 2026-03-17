@@ -11,7 +11,7 @@ Define a new milestone in the project. Creates milestone structure in ROADMAP.md
 
 <loop_context>
 N/A - This is a milestone setup workflow, not a loop phase.
-After create-milestone, project is ready for first phase PLAN.
+After create-milestone, project is ready for first phase REFINE.
 </loop_context>
 
 <required_reading>

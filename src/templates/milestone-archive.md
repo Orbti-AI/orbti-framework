@@ -13,7 +13,7 @@ Template for milestone archives at `.orbit/milestones/v{VERSION}-{NAME}.md`.
 
 **Status:** ✅ SHIPPED {{DATE}}
 **Phases:** {{PHASE_START}}-{{PHASE_END}}
-**Total Plans:** {{PLAN_COUNT}}
+**Total Loops:** {{LOOP_COUNT}}
 
 ## Overview
 
@@ -26,11 +26,11 @@ Template for milestone archives at `.orbit/milestones/v{VERSION}-{NAME}.md`.
 
 **Goal:** {{PHASE_GOAL}}
 **Depends on:** {{DEPENDS_ON}}
-**Plans:** {{PLAN_COUNT}} completed
+**Loops:** {{LOOP_COUNT}} completed
 
 Plans:
-- [x] {{PHASE_NUM}}-01: {{PLAN_DESCRIPTION}}
-- [x] {{PHASE_NUM}}-02: {{PLAN_DESCRIPTION}}
+- [x] {{PHASE_NUM}}-01: {{LOOP_DESCRIPTION}}
+- [x] {{PHASE_NUM}}-02: {{LOOP_DESCRIPTION}}
 [... all plans ...]
 
 **Details:**
@@ -45,7 +45,7 @@ Plans:
 **Reason:** {{INSERTION_REASON}}
 
 Plans:
-- [x] {{PHASE_NUM}}-01: {{PLAN_DESCRIPTION}}
+- [x] {{PHASE_NUM}}-01: {{LOOP_DESCRIPTION}}
 {{/DECIMAL_PHASES}}
 
 ---
@@ -96,13 +96,13 @@ None
 | `{{DATE}}` | Ship date | `2026-01-28` |
 | `{{PHASE_START}}` | First phase number | `7` |
 | `{{PHASE_END}}` | Last phase number | `8.7` |
-| `{{PLAN_COUNT}}` | Total plans | `5` |
+| `{{LOOP_COUNT}}` | Total plans | `5` |
 | `{{MILESTONE_DESCRIPTION}}` | One-sentence summary | From MILESTONES.md entry |
 | `{{PHASE_NUM}}` | Phase number | `7` or `8.5` |
 | `{{PHASE_NAME}}` | Phase name | `Session Handoff` |
 | `{{PHASE_GOAL}}` | Phase goal | From ROADMAP.md |
 | `{{DEPENDS_ON}}` | Phase dependencies | `Phase 6` |
-| `{{PLAN_DESCRIPTION}}` | Plan brief | From ROADMAP.md or SUMMARY |
+| `{{LOOP_DESCRIPTION}}` | Plan brief | From ROADMAP.md or SUMMARY |
 | `{{PHASE_SCOPE_FROM_ROADMAP}}` | Scope bullets | From ROADMAP.md |
 | `{{INSERTION_REASON}}` | Why decimal inserted | `Urgent quality fix` |
 | `{{DECISION}}` | Decision made | From STATE.md Decisions |
