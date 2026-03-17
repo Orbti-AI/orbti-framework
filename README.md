@@ -107,9 +107,96 @@ npx github:menosjuros/orbit-framework
 
 ---
 
-## The Loop
+## Workflows
 
-Every unit of work follows this cycle:
+### Minimal — day-to-day
+
+The core loop. Use this every day for any unit of work.
+
+```
+/orbit:init          # once per project
+
+/orbit:refine        # define the plan, get approval
+/orbit:build         # execute
+/orbit:integrate     # close the loop — never skip
+```
+
+Repeat `refine → build → integrate` for each piece of work.
+
+---
+
+### With Observe — when there are technical unknowns
+
+Use `/orbit:observe` before planning when you need to decide between libraries, patterns, or architecture approaches. It produces an `OBSERVE.md` that `/orbit:refine` consumes automatically.
+
+```
+/orbit:observe "topic"   # research options, get recommendation
+/orbit:refine            # plan informed by OBSERVE.md
+/orbit:build
+/orbit:integrate
+```
+
+> **When to use:** Choosing between libraries, architecture decisions, new integrations. Skip if the approach is already clear.
+
+---
+
+### With Milestones — for structured delivery
+
+Use milestones to group phases into versioned deliverables. Each milestone has multiple phases; each phase has one or more refine/build/integrate loops.
+
+```
+/orbit:init
+
+# Define the milestone
+/orbit:cocreate-milestone    # discuss features and scope (optional but recommended)
+/orbit:milestone             # create milestone structure in ROADMAP.md
+
+# Work through each phase
+/orbit:refine                # plan phase 1
+/orbit:build
+/orbit:integrate
+
+/orbit:refine                # plan phase 2
+/orbit:build
+/orbit:integrate
+
+# Close the milestone
+/orbit:complete-milestone    # archive, commit, prepare next milestone
+```
+
+---
+
+### Full — maximum structure and clarity
+
+Combine all tools for complex phases with unclear scope, technical unknowns, and team handoffs.
+
+```
+/orbit:init
+
+/orbit:cocreate-milestone    # align on milestone vision
+/orbit:milestone             # create phases in ROADMAP.md
+
+# Before planning a phase
+/orbit:cocreate 3            # articulate what you want to build
+/orbit:assumptions 3         # surface Claude's understanding — catch misalignments early
+/orbit:observe "topic"       # resolve technical unknowns
+
+# The loop
+/orbit:refine 3              # plan informed by cocreate + observe
+/orbit:build
+/orbit:test                  # verify against acceptance criteria
+/orbit:integrate             # close the loop
+
+# Session management
+/orbit:pause                 # safe stop with full context preserved
+/orbit:resume                # restore and continue in next session
+
+/orbit:complete-milestone
+```
+
+---
+
+## The Loop
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -141,45 +228,7 @@ Close the loop — **never skip this**:
 - Compare plan vs actual
 - Record decisions and deferred issues
 - Update STATE.md
-
----
-
-## Common Workflows
-
-**Starting a new project:**
-```
-/orbit:init → /orbit:refine → /orbit:build → /orbit:integrate
-```
-
-**Resuming after a break (new session):**
-```
-/orbit:resume
-```
-
-**Checking where you are:**
-```
-/orbit:progress
-```
-
-**Pre-planning a phase:**
-```
-/orbit:cocreate 3 → /orbit:assumptions 3 → /orbit:observe "topic" → /orbit:refine 3
-```
-
-**Technical unknowns before planning:**
-```
-/orbit:observe "auth options" → /orbit:refine 2
-```
-
-**Research before planning:**
-```
-/orbit:research "JWT best practices" → /orbit:refine 2
-```
-
-**Pausing mid-session:**
-```
-/orbit:pause → (new session) → /orbit:resume
-```
+- If last plan in phase: triggers phase transition and git commit automatically
 
 ---
 
@@ -276,7 +325,9 @@ Run `/orbit:help` for the full reference.
 ├── STATE.md             # Loop position and session state
 ├── config.md            # Optional integrations
 ├── SPECIAL-FLOWS.md     # Optional skill requirements
-└── phases/
+├── milestones/          # Archived completed milestones
+│   └── v0.1-core-loop.md
+└── phases/              # All phases — flat numbering across milestones
     ├── 01-foundation/
     │   ├── 01-01-REFINE.md
     │   └── 01-01-INTEGRATE.md
@@ -284,6 +335,8 @@ Run `/orbit:help` for the full reference.
         ├── 02-01-REFINE.md
         └── 02-01-INTEGRATE.md
 ```
+
+Phases are numbered continuously across milestones — they never restart at 01. Milestone grouping lives in `ROADMAP.md`, not in the folder structure.
 
 ### State management
 
