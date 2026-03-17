@@ -125,47 +125,6 @@ Repeat `refine → build → integrate` for each piece of work.
 
 ---
 
-### With Observe — when there are technical unknowns
-
-Use `/orbit:observe` before planning when you need to decide between libraries, patterns, or architecture approaches. It produces an `OBSERVE.md` that `/orbit:refine` consumes automatically.
-
-```
-/orbit:observe "topic"   # research options, get recommendation
-/orbit:refine            # plan informed by OBSERVE.md
-/orbit:build
-/orbit:integrate
-```
-
-> **When to use:** Choosing between libraries, architecture decisions, new integrations. Skip if the approach is already clear.
-
----
-
-### With Milestones — for structured delivery
-
-Use milestones to group phases into versioned deliverables. Each milestone has multiple phases; each phase has one or more refine/build/integrate loops.
-
-```
-/orbit:init
-
-# Define the milestone
-/orbit:cocreate-milestone    # discuss features and scope (optional but recommended)
-/orbit:milestone             # create milestone structure in ROADMAP.md
-
-# Work through each phase
-/orbit:refine                # plan phase 1
-/orbit:build
-/orbit:integrate
-
-/orbit:refine                # plan phase 2
-/orbit:build
-/orbit:integrate
-
-# Close the milestone
-/orbit:complete-milestone    # archive, commit, prepare next milestone
-```
-
----
-
 ### Full — maximum structure and clarity
 
 Combine all tools for complex phases with unclear scope, technical unknowns, and team handoffs.
