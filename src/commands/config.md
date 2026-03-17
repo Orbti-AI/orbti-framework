@@ -62,22 +62,55 @@ Available integrations:
 
 **If user selects SonarQube:**
 
+Prompt for project_key (default: directory name).
+Set sonarqube.enabled = true/false in config.md.
+
+---
+
+**If user selects Playwright CLI E2E:**
+
 ```
-SonarQube integration:
+Playwright CLI E2E — run browser tests on /orbit:test
+Current: [enabled/disabled]
 
-Current: [enabled/disabled/not configured]
-
-[1] Enable
-[2] Disable
-[3] Back
+[1] Enable  [2] Disable  [3] Back
 ```
 
-**If enabling:**
-- Prompt for project_key (default: directory name)
-- Create/update config.md with sonarqube.enabled = true
+If enabling: set e2e.enabled = true in config.md.
+If disabling: set e2e.enabled = false.
 
-**If disabling:**
-- Update config.md with sonarqube.enabled = false
+Note: requires Playwright CLI installed. Run /orbit:enable-e2e if not set up yet.
+
+---
+
+**If user selects Parallel Tests:**
+
+```
+Parallel Tests — test-writer agent runs alongside builder during /orbit:build
+Current: [enabled/disabled]
+
+[1] Enable  [2] Disable  [3] Back
+```
+
+If enabling: set parallel_tests.enabled = true in config.md.
+If disabling: set parallel_tests.enabled = false.
+
+Note: requires CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1.
+
+---
+
+**If user selects Agent Teams:**
+
+```
+Agent Teams — parallel research (observe) and review (integrate)
+Current: [enabled/disabled]
+
+[1] Enable  [2] Disable  [3] Back
+```
+
+Set agent_teams.enabled = true/false in config.md.
+
+Note: requires CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1.
 
 **Step 3: Write config**
 
