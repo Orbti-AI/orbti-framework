@@ -1,11 +1,11 @@
 <purpose>
-Execute an approved REFINE.md by running tasks in order, verifying each, handling checkpoints, and recording results for INTEGRATE phase reconciliation.
+Execute an approved LOOP.md by running tasks in order, verifying each, handling checkpoints, and recording results for INTEGRATE phase reconciliation.
 </purpose>
 
 <when_to_use>
-- User has approved a REFINE.md (explicit approval required)
+- User has approved a LOOP.md (explicit approval required)
 - STATE.md shows loop position at REFINE complete, ready for BUILD
-- No unresolved blockers from planning phase
+- No unresolved blockers from planning project
 </when_to_use>
 
 <loop_context>
@@ -16,7 +16,7 @@ Next phase:  INTEGRATE (after execution completes)
 
 <required_reading>
 @.orbit/STATE.md
-@.orbit/phases/{phase}/{plan}-REFINE.md
+@.orbit/projects/{project}/{plan}-LOOP.md
 </required_reading>
 
 <references>
@@ -39,7 +39,7 @@ Next phase:  INTEGRATE (after execution completes)
 </step>
 
 <step name="load_plan">
-1. Read the REFINE.md file
+1. Read the LOOP.md file
 2. Parse frontmatter:
    - autonomous: determines checkpoint handling
    - files_modified: track what we'll change
@@ -52,7 +52,7 @@ Next phase:  INTEGRATE (after execution completes)
 <step name="verify_required_skills" priority="blocking">
 **BLOCKING CHECK: Required skills must be loaded before execution.**
 
-1. Check if REFINE.md has a <skills> section
+1. Check if LOOP.md has a <skills> section
 2. If no <skills> section: proceed (no skill requirements)
 3. If <skills> section exists:
    a. For each skill marked "required":
@@ -148,8 +148,8 @@ For each <task> in order:
 4. **Record decision to STATE.md:**
    - Open `.orbit/STATE.md`
    - Find `### Decisions` under `## Accumulated Context`
-   - Add row: `| [date]: [Decision summary] | Phase [N] | [Impact on work] |`
-   - Example: `| 2026-01-28: Install in sandbox for testing | Phase 1 | Project created in sandbox/box2-orbit-test |`
+   - Add row: `| [date]: [Decision summary] | Project [N] | [Impact on work] |`
+   - Example: `| 2026-01-28: Install in sandbox for testing | Project 1 | Project created in sandbox/box2-orbit-test |`
 5. Continue with chosen direction
 
 **If type="checkpoint:human-action":**
@@ -189,7 +189,7 @@ If a task verification fails:
    - Skip: mark as failed, continue (creates deviation)
    - Stop: halt execution, prepare for debugging
 4. **Record resolution to STATE.md:**
-   - Add to `### Decisions` section: `| [date]: Task [N] [retry/skip/stop] - [reason] | Phase [N] | [impact] |`
+   - Add to `### Decisions` section: `| [date]: Task [N] [retry/skip/stop] - [reason] | Project [N] | [impact] |`
 </step>
 
 <step name="track_progress">
@@ -231,7 +231,7 @@ After all tasks attempted:
 </process>
 
 <output>
-- Modified files as specified in REFINE.md
+- Modified files as specified in LOOP.md
 - Execution log (mental, for INTEGRATE)
 - STATE.md updated with BUILD complete
 </output>

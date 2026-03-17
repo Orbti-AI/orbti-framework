@@ -1,6 +1,6 @@
 # CONTEXT.md Template
 
-Template for `.orbit/phases/{NN}-{name}/CONTEXT.md` - phase discussion context handoff.
+Template for `.orbit/projects/{NN}-{name}/CONTEXT.md` - project discussion context handoff.
 
 **Purpose:** Captures user's vision, goals, and approach before planning. Created by `/orbit:cocreate`, consumed by `/orbit:refine`.
 
@@ -9,9 +9,9 @@ Template for `.orbit/phases/{NN}-{name}/CONTEXT.md` - phase discussion context h
 ## File Template
 
 ```markdown
-# Phase Context
+# Project Context
 
-**Phase:** {NN} — {phase_name}
+**Project:** {NN} — {project_name}
 **Generated:** {date}
 **Status:** Ready for planning | Needs more discussion
 
@@ -57,10 +57,10 @@ Template for `.orbit/phases/{NN}-{name}/CONTEXT.md` - phase discussion context h
 
 | Field | Purpose |
 |-------|---------|
-| `Phase` | Phase number and name from ROADMAP.md |
+| `Project` | Project number and name from ROADMAP.md |
 | `Generated` | Date context was created |
 | `Status` | Whether context is complete or needs more discussion |
-| `Goals` | User's objectives for the phase |
+| `Goals` | User's objectives for the project |
 | `Approach` | Technical direction, patterns, preferences |
 | `Constraints` | Limitations or requirements |
 | `Open Questions` | Items needing research or decisions |
@@ -70,9 +70,9 @@ Template for `.orbit/phases/{NN}-{name}/CONTEXT.md` - phase discussion context h
 
 ## Usage Pattern
 
-1. User runs `/orbit:cocreate <phase>`
+1. User runs `/orbit:cocreate <project>`
 2. Discussion workflow explores goals and approach
-3. CONTEXT.md created in phase directory
+3. CONTEXT.md created in project directory
 4. `/orbit:refine` reads CONTEXT.md to inform planning
 5. CONTEXT.md remains for reference (not deleted)
 
@@ -82,7 +82,7 @@ Template for `.orbit/phases/{NN}-{name}/CONTEXT.md` - phase discussion context h
 
 | File | Relationship |
 |------|--------------|
-| ROADMAP.md | Source of phase definition |
+| ROADMAP.md | Source of project definition |
 | CONTEXT.md | Discussion output (this file) |
-| REFINE.md | Consumes context for planning |
+| LOOP.md | Consumes context for planning |
 | RESEARCH.md | May inform context or result from questions |

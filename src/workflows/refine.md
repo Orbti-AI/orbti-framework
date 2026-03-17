@@ -1,9 +1,9 @@
 <purpose>
-Create an executable REFINE.md for the current or specified phase. The plan defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for BUILD phase execution.
+Create an executable LOOP.md for the current or specified project. The plan defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for BUILD phase execution.
 </purpose>
 
 <when_to_use>
-- Starting a new phase (ROADMAP shows next phase ready)
+- Starting a new project (ROADMAP shows next project ready)
 - Previous plan completed (loop closed with INTEGRATE)
 - First plan in a project (after init-project)
 - Resuming work that needs a new plan
@@ -12,14 +12,14 @@ Create an executable REFINE.md for the current or specified phase. The plan defi
 <loop_context>
 Expected phase: REFINE
 Prior phase:  INTEGRATE (previous plan complete) or none (first plan)
-Next phase: BUILD (after plan approval)
+Next project: BUILD (after plan approval)
 </loop_context>
 
 <required_reading>
 @.orbit/STATE.md
 @.orbit/ROADMAP.md
 @.orbit/PROJECT.md
-@.orbit/phases/{prior-phase}/{plan}-INTEGRATE.md (if exists and relevant)
+@.orbit/projects/{prior-project}/{plan}-INTEGRATE.md (if exists and relevant)
 </required_reading>
 
 <references>
@@ -41,15 +41,15 @@ Next phase: BUILD (after plan approval)
 
 <step name="identify_phase">
 1. Read ROADMAP.md to determine:
-   - Which phase is next (first incomplete phase)
-   - Phase scope and goals
-   - Dependencies on prior phases
-2. If multiple phases available, ask user which to plan
-3. Confirm phase selection before proceeding
+   - Which project is next (first incomplete project)
+   - Project scope and goals
+   - Dependencies on prior projects
+2. If multiple projects available, ask user which to plan
+3. Confirm project selection before proceeding
 </step>
 
 <step name="analyze_scope">
-1. Review phase goals from ROADMAP.md
+1. Review project goals from ROADMAP.md
 2. Estimate number of tasks needed:
    - Target: 2-3 tasks per plan
    - If >3 tasks, consider splitting into multiple plans
@@ -65,7 +65,7 @@ Next phase: BUILD (after plan approval)
 1. Read PROJECT.md for:
    - Core requirements and constraints
    - Value proposition (what matters)
-2. If prior phase exists, read its INTEGRATE.md for:
+2. If prior project exists, read its INTEGRATE.md for:
    - What was built
    - Decisions made
    - Any deferred issues
@@ -81,7 +81,7 @@ Next phase: BUILD (after plan approval)
    - Read SPECIAL-FLOWS.md
    - Extract skills marked as "required" for the work type being planned
    - Match against phase/plan work being done
-   - Prepare <skills> section content for REFINE.md
+   - Prepare <skills> section content for LOOP.md
 3. If not exists:
    - Add comment: "No SPECIAL-FLOWS.md - skills section omitted"
    - Skip skills section in REFINE (or include minimal placeholder)
@@ -102,11 +102,11 @@ Required skills will BLOCK build until confirmed loaded.
 </step>
 
 <step name="create_plan">
-1. Create phase directory: `.orbit/phases/{NN}-{phase-name}/`
-2. Generate REFINE.md following template structure:
+1. Create project directory: `.orbit/projects/{NN}-{project-name}/`
+2. Generate LOOP.md following template structure:
 
    **Frontmatter:**
-   - phase: NN-name
+   - project: NN-name
    - plan: 01 (or next number if multiple plans in phase)
    - type: execute (or tdd/research)
    - wave: 1 (adjust if dependencies exist)
@@ -151,14 +151,14 @@ Required skills will BLOCK build until confirmed loaded.
    ## Current Position
 
    Milestone: v0.1 [Milestone Name]
-   Phase: [N] of [total] ([Phase Name]) — Planning
+   Project: [N] of [total] ([Project Name]) — Planning
    Plan: [NN-PP] created, awaiting approval
    Status: REFINE created, ready for BUILD
    Last activity: [timestamp] — Created [plan-path]
 
    Progress:
    - Milestone: [░░░░░░░░░░] X%
-   - Phase [N]: [░░░░░░░░░░] 0%
+   - Project [N]: [░░░░░░░░░░] 0%
 
    ## Loop Position
 
@@ -173,12 +173,13 @@ Required skills will BLOCK build until confirmed loaded.
    Last session: [timestamp]
    Stopped at: Plan [NN-PP] created
    Next action: Review and approve plan, then run /orbit:build [plan-path]
+
    Resume file: [plan-path]
    ```
 
 2. **Update ROADMAP.md** milestone status:
    - If first plan of milestone: Change "Not started" → "In progress"
-   - Update phase status: "Not started" → "Planning"
+   - Update project status: "Not started" → "Planning"
 
 3. **Report with quick continuation prompt:**
    ```
@@ -187,7 +188,7 @@ Required skills will BLOCK build until confirmed loaded.
    ════════════════════════════════════════
 
    Plan: [plan-path]
-   Phase: [N] — [Phase Name]
+   Project: [N] — [Project Name]
 
    [plan summary - key tasks, checkpoints]
 
@@ -202,9 +203,9 @@ Required skills will BLOCK build until confirmed loaded.
 </process>
 
 <output>
-REFINE.md at `.orbit/phases/{NN}-{phase-name}/{NN}-{plan}-REFINE.md`
+LOOP.md at `.orbit/projects/{NN}-{project-name}/{NN}-{plan}-LOOP.md`
 
-Example: `.orbit/phases/04-workflows-layer/04-01-REFINE.md`
+Example: `.orbit/projects/04-workflows-layer/04-01-LOOP.md`
 </output>
 
 <error_handling>

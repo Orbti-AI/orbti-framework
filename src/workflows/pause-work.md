@@ -27,12 +27,12 @@ Any position in REFINE/BUILD/INTEGRATE loop. Captures state regardless of where 
 
 <step name="detect_position" priority="first">
 1. Read `.orbit/STATE.md` to get:
-   - Current phase and plan
+   - Current project and plan
    - Loop position (REFINE/BUILD/INTEGRATE markers)
    - Last activity
 2. Identify current working directory:
    ```bash
-   ls -t .orbit/phases/*/REFINE*.md 2>/dev/null | head -1
+   ls -t .orbit/projects/*/LOOP*.md 2>/dev/null | head -1
    ```
 </step>
 
@@ -83,7 +83,7 @@ You have no prior context. This document tells you everything.
 ## Current State
 
 **Version:** [from STATE.md]
-**Phase:** [N] of [total] — [phase name]
+**Project:** [N] of [total] — [project name]
 **Plan:** [plan-id] — [status]
 
 **Loop Position:**
@@ -121,7 +121,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 | File | Purpose |
 |------|---------|
 | `.orbit/STATE.md` | Live project state |
-| `.orbit/ROADMAP.md` | Phase overview |
+| `.orbit/ROADMAP.md` | Project overview |
 | [current plan path] | [plan purpose] |
 
 ---
@@ -178,7 +178,7 @@ This saves a checkpoint you can return to.
 Where should this WIP commit go?
 
 [1] main — Commit directly to main branch
-[2] feature branch — Create feature/{phase-name} branch first
+[2] feature branch — Create feature/{project-name} branch first
 
 Note: Feature branch is useful if work isn't ready for main.
 ────────────────────────────────────────
@@ -187,7 +187,7 @@ Note: Feature branch is useful if work isn't ready for main.
 **If main (option 1):**
 ```bash
 git add .orbit/ src/
-git commit -m "wip({phase}): paused at {plan}
+git commit -m "wip({project}): paused at {plan}
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
 ```
@@ -195,11 +195,11 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 **If feature branch (option 2):**
 ```bash
 # Create and switch to feature branch
-git checkout -b feature/{phase-name}
+git checkout -b feature/{project-name}
 
 # Commit to feature branch
 git add .orbit/ src/
-git commit -m "wip({phase}): paused at {plan}
+git commit -m "wip({project}): paused at {plan}
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
 
@@ -208,7 +208,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 
 **Update STATE.md Session Continuity with branch info:**
 ```markdown
-Git strategy: {main|feature/{phase-name}}
+Git strategy: {main|feature/{project-name}}
 ```
 
 This enables transition-phase.md to know the branch strategy when reconciling.
@@ -225,7 +225,7 @@ ORBIT SESSION PAUSED
 Handoff created: .orbit/HANDOFF-[date].md
 
 Current State:
-  Phase: [N] of [M]
+  Project: [N] of [M]
   Plan: [status]
   Loop: [REFINE/BUILD/INTEGRATE position]
 
@@ -241,7 +241,7 @@ To resume later:
 <output>
 - HANDOFF-{date}.md created in .orbit/
 - STATE.md updated with session continuity
-- Optional WIP commit with branch choice (main or feature/{phase})
+- Optional WIP commit with branch choice (main or feature/{project})
 - Git strategy recorded in STATE.md for transition-phase
 - User knows how to resume
 </output>

@@ -1,14 +1,14 @@
 ---
 name: orbit:cocreate
-description: Explore and articulate phase vision before planning
-argument-hint: "<phase-number>"
+description: Explore and articulate project vision before planning
+argument-hint: "<project-number>"
 allowed-tools: [Read, Write, AskUserQuestion]
 ---
 
 <objective>
-Facilitate vision discussion for a specific phase and create context handoff.
+Facilitate vision discussion for a specific project and create context handoff.
 
-**When to use:** Before planning a phase, when goals and approach need exploration.
+**When to use:** Before planning a project, when goals and approach need exploration.
 </objective>
 
 <execution_context>
@@ -16,7 +16,7 @@ Facilitate vision discussion for a specific phase and create context handoff.
 </execution_context>
 
 <context>
-Phase number: $ARGUMENTS (required)
+Project number: $ARGUMENTS (required)
 
 @.orbit/PROJECT.md
 @.orbit/STATE.md
@@ -28,7 +28,7 @@ Follow workflow: @~/.claude/orbit-framework/workflows/cocreate.md
 </process>
 
 <success_criteria>
-- [ ] CONTEXT.md created in phase directory
+- [ ] CONTEXT.md created in project directory
 - [ ] Goals and approach articulated
 - [ ] Ready for /orbit:refine command
 </success_criteria>

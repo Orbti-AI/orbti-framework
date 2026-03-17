@@ -30,7 +30,7 @@ Follow workflow: @~/.claude/orbit-framework/workflows/refine.md
 </process>
 
 <success_criteria>
-- [ ] REFINE.md created in correct phase directory
+- [ ] LOOP.md created in correct project directory
 - [ ] All acceptance criteria defined
 - [ ] STATE.md updated with loop position
 </success_criteria>

@@ -6,7 +6,7 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion]
 ---
 
 <objective>
-Execute an approved REFINE.md file, handling checkpoints as they occur.
+Execute an approved LOOP.md file, handling checkpoints as they occur.
 
 **When to use:** After REFINE phase complete and plan is approved.
 
@@ -29,7 +29,7 @@ Plan path: $ARGUMENTS
 <step name="validate_plan">
 1. Confirm plan file exists at $ARGUMENTS path
 2. Error if not found: "Plan not found: {path}"
-3. Derive SUMMARY path (replace REFINE.md with INTEGRATE.md)
+3. Derive SUMMARY path (replace LOOP.md with INTEGRATE.md)
 4. If SUMMARY exists: "Plan already executed. SUMMARY: {path}"
    - Offer: re-execute or exit
 </step>

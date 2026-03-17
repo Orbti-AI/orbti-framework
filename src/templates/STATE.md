@@ -21,14 +21,14 @@ See: .orbit/PROJECT.md (updated [YYYY-MM-DD])
 ## Current Position
 
 Milestone: [Name] ([version])
-Phase: [X] of [Y] ([Phase Name])
-Plan: [A] of [B] in current phase
+Project: [X] of [Y] ([Project Name])
+Plan: [A] of [B] in current project
 Status: [Ready to plan | Planning | Approved | Building | Integrating | Complete | Blocked]
 Last activity: [YYYY-MM-DD HH:MM] — [What happened]
 
 Progress:
 - Milestone: [░░░░░░░░░░] 0%
-- Phase: [░░░░░░░░░░] 0%
+- Project: [░░░░░░░░░░] 0%
 
 ## Loop Position
 
@@ -50,8 +50,8 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 **By Phase:**
 
-| Phase | Plans | Total Time | Avg/Plan |
-|-------|-------|------------|----------|
+| Project | Plans | Total Time | Avg/Plan |
+|---------|-------|------------|----------|
 | 01-[name] | 0/0 | - | - |
 
 **Recent Trend:**
@@ -66,9 +66,9 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 Decisions logged via decision-logger. Recent decisions affecting current work:
 
-| Decision | Phase | Impact |
-|----------|-------|--------|
-| [Decision summary] | [Phase X] | [Ongoing effect] |
+| Decision | Project | Impact |
+|----------|---------|--------|
+| [Decision summary] | [Project X] | [Ongoing effect] |
 
 ### Deferred Issues
 
@@ -90,7 +90,7 @@ Active blockers affecting progress:
 
 Protected elements for current phase:
 
-- [Protected file/pattern from current REFINE.md]
+- [Protected file/pattern from current LOOP.md]
 - [Another protected element]
 
 ## Session Continuity
@@ -122,13 +122,13 @@ Resume context: [Key information needed to continue]
 **Purpose:** Where we are right now.
 **Contains:**
 - Milestone name and version
-- Phase X of Y with name
-- Plan A of B within phase
+- Project X of Y with name
+- Plan A of B within project
 - Status (planning/applying/unifying/complete/blocked)
 - Last activity timestamp and description
 - Visual progress bars
 
-**Update:** After every phase/plan state change.
+**Update:** After every project/plan state change.
 
 ### Loop Position
 **Purpose:** Visual indicator of ORBIT loop state.
@@ -138,7 +138,7 @@ Resume context: [Key information needed to continue]
 - Integrating: REFINE/BUILD complete, INTEGRATE active
 - Complete: Full loop done, ready for next REFINE
 
-**Update:** At each loop phase transition.
+**Update:** At each loop project transition.
 
 ### Performance Metrics
 **Purpose:** Track velocity for patterns and estimation.
@@ -161,10 +161,10 @@ Resume context: [Key information needed to continue]
 **Update:** After INTEGRATE phase reconciliation.
 
 ### Boundaries (Active)
-**Purpose:** Quick reference to current phase protections.
-**Contains:** Protected files/patterns from active REFINE.md.
+**Purpose:** Quick reference to current project protections.
+**Contains:** Protected files/patterns from active LOOP.md.
 
-**Update:** When entering new REFINE phase.
+**Update:** When entering new REFINE project.
 
 ### Session Continuity
 **Purpose:** Enable instant session resumption.
@@ -197,7 +197,7 @@ STATE.md is a DIGEST, not an archive. If sections grow too large:
 **Creation:** After ROADMAP.md created (during project init)
 - Reference PROJECT.md (extract core value)
 - Initialize empty sections
-- Set position to "Phase 1 ready to plan"
+- Set position to "Project 1 ready to plan"
 
 **Reading:** First step of EVERY workflow
 - Load before planning, applying, or unifying

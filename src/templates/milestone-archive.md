@@ -19,46 +19,46 @@ Template for milestone archives at `.orbit/milestones/v{VERSION}-{NAME}.md`.
 
 {{MILESTONE_DESCRIPTION}}
 
-## Phases
+## Projects
 
-{{#PHASES}}
-### Phase {{PHASE_NUM}}: {{PHASE_NAME}}
+{{#PROJECTS}}
+### Project {{PROJECT_NUM}}: {{PROJECT_NAME}}
 
-**Goal:** {{PHASE_GOAL}}
+**Goal:** {{PROJECT_GOAL}}
 **Depends on:** {{DEPENDS_ON}}
 **Loops:** {{LOOP_COUNT}} completed
 
 Plans:
-- [x] {{PHASE_NUM}}-01: {{LOOP_DESCRIPTION}}
-- [x] {{PHASE_NUM}}-02: {{LOOP_DESCRIPTION}}
+- [x] {{PROJECT_NUM}}-01: {{LOOP_DESCRIPTION}}
+- [x] {{PROJECT_NUM}}-02: {{LOOP_DESCRIPTION}}
 [... all plans ...]
 
 **Details:**
-{{PHASE_SCOPE_FROM_ROADMAP}}
-{{/PHASES}}
+{{PROJECT_SCOPE_FROM_ROADMAP}}
+{{/PROJECTS}}
 
-{{#DECIMAL_PHASES}}
-### Phase {{PHASE_NUM}}: {{PHASE_NAME}} [INSERTED]
+{{#DECIMAL_PROJECTS}}
+### Project {{PROJECT_NUM}}: {{PROJECT_NAME}} [INSERTED]
 
-**Goal:** {{PHASE_GOAL}}
+**Goal:** {{PROJECT_GOAL}}
 **Depends on:** {{DEPENDS_ON}}
 **Reason:** {{INSERTION_REASON}}
 
 Plans:
-- [x] {{PHASE_NUM}}-01: {{LOOP_DESCRIPTION}}
-{{/DECIMAL_PHASES}}
+- [x] {{PROJECT_NUM}}-01: {{LOOP_DESCRIPTION}}
+{{/DECIMAL_PROJECTS}}
 
 ---
 
 ## Milestone Summary
 
-**Decimal Phases:**
-{{#HAS_DECIMAL_PHASES}}
-- Phase {{PHASE_NUM}}: {{PHASE_NAME}} (inserted after Phase {{PARENT_PHASE}} for {{REASON}})
-{{/HAS_DECIMAL_PHASES}}
-{{^HAS_DECIMAL_PHASES}}
+**Decimal Projects:**
+{{#HAS_DECIMAL_PROJECTS}}
+- Project {{PROJECT_NUM}}: {{PROJECT_NAME}} (inserted after Project {{PARENT_PROJECT}} for {{REASON}})
+{{/HAS_DECIMAL_PROJECTS}}
+{{^HAS_DECIMAL_PROJECTS}}
 None
-{{/HAS_DECIMAL_PHASES}}
+{{/HAS_DECIMAL_PROJECTS}}
 
 **Key Decisions:**
 {{#DECISIONS}}
@@ -94,16 +94,16 @@ None
 | `{{VERSION}}` | Milestone version | `0.2` |
 | `{{MILESTONE_NAME}}` | Milestone theme | `Session Continuity` |
 | `{{DATE}}` | Ship date | `2026-01-28` |
-| `{{PHASE_START}}` | First phase number | `7` |
-| `{{PHASE_END}}` | Last phase number | `8.7` |
+| `{{PHASE_START}}` | First project number | `7` |
+| `{{PHASE_END}}` | Last project number | `8.7` |
 | `{{LOOP_COUNT}}` | Total plans | `5` |
 | `{{MILESTONE_DESCRIPTION}}` | One-sentence summary | From MILESTONES.md entry |
-| `{{PHASE_NUM}}` | Phase number | `7` or `8.5` |
-| `{{PHASE_NAME}}` | Phase name | `Session Handoff` |
-| `{{PHASE_GOAL}}` | Phase goal | From ROADMAP.md |
-| `{{DEPENDS_ON}}` | Phase dependencies | `Phase 6` |
+| `{{PROJECT_NUM}}` | Project number | `7` or `8.5` |
+| `{{PROJECT_NAME}}` | Project name | `Session Handoff` |
+| `{{PROJECT_GOAL}}` | Project goal | From ROADMAP.md |
+| `{{DEPENDS_ON}}` | Project dependencies | `Project 6` |
 | `{{LOOP_DESCRIPTION}}` | Plan brief | From ROADMAP.md or SUMMARY |
-| `{{PHASE_SCOPE_FROM_ROADMAP}}` | Scope bullets | From ROADMAP.md |
+| `{{PROJECT_SCOPE_FROM_ROADMAP}}` | Scope bullets | From ROADMAP.md |
 | `{{INSERTION_REASON}}` | Why decimal inserted | `Urgent quality fix` |
 | `{{DECISION}}` | Decision made | From STATE.md Decisions |
 | `{{RATIONALE}}` | Why decided | From STATE.md |
@@ -164,12 +164,12 @@ The workflow populates from:
 
 Pause/resume workflow with handoff files and enhanced STATE.md session tracking.
 
-## Phases
+## Projects
 
-### Phase 7: Session Handoff
+### Project 7: Session Handoff
 
 **Goal:** Create pause/resume workflow for session breaks
-**Depends on:** Phase 6
+**Depends on:** Project 6
 **Plans:** 1 completed
 
 Plans:
@@ -180,28 +180,28 @@ Plans:
 - Resume command for context restoration
 - Session continuity section in STATE.md
 
-### Phase 8.5: Quality Extensions [INSERTED]
+### Project 8.5: Quality Extensions [INSERTED]
 
 **Goal:** Code quality tooling integration
-**Depends on:** Phase 8
-**Reason:** Discovered need during Phase 8 review
+**Depends on:** Project 8
+**Reason:** Discovered need during Project 8 review
 
 Plans:
 - [x] 08.5-01: SonarQube integration (optional)
 
-### Phase 8.6: Codebase CLAUDE.md [INSERTED]
+### Project 8.6: Codebase CLAUDE.md [INSERTED]
 
 **Goal:** Project-level Claude Code configuration
-**Depends on:** Phase 8.5
+**Depends on:** Project 8.5
 **Reason:** Improve agent context for ORBIT projects
 
 Plans:
 - [x] 08.6-01: CLAUDE.md template for codebase guidance
 
-### Phase 8.7: SonarQube Integration [INSERTED]
+### Project 8.7: SonarQube Integration [INSERTED]
 
 **Goal:** Automated code quality checks
-**Depends on:** Phase 8.6
+**Depends on:** Project 8.6
 **Reason:** Complete quality tooling suite
 
 Plans:
@@ -211,10 +211,10 @@ Plans:
 
 ## Milestone Summary
 
-**Decimal Phases:**
-- Phase 8.5: Quality Extensions (inserted after Phase 8 for code quality tooling)
-- Phase 8.6: Codebase CLAUDE.md (inserted after Phase 8.5 for agent context)
-- Phase 8.7: SonarQube Integration (inserted after Phase 8.6 for quality checks)
+**Decimal Projects:**
+- Project 8.5: Quality Extensions (inserted after Project 8 for code quality tooling)
+- Project 8.6: Codebase CLAUDE.md (inserted after Project 8.5 for agent context)
+- Project 8.7: SonarQube Integration (inserted after Project 8.6 for quality checks)
 
 **Key Decisions:**
 - SonarQube is optional integration (Rationale: Not all projects need code quality tooling)

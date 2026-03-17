@@ -16,7 +16,7 @@ Next phase: REFINE (next plan or next phase)
 
 <required_reading>
 @.orbit/STATE.md
-@.orbit/phases/{phase}/{plan}-REFINE.md
+@.orbit/projects/{project}/{plan}-LOOP.md
 </required_reading>
 
 <references>
@@ -33,7 +33,7 @@ Next phase: REFINE (next plan or next phase)
    - Which tasks failed (if any)
    - Which checkpoints were resolved and how
    - Any deviations from the plan
-2. Read REFINE.md to refresh:
+2. Read LOOP.md to refresh:
    - Original acceptance criteria
    - Expected outputs
    - Task definitions
@@ -85,13 +85,13 @@ Next phase: REFINE (next plan or next phase)
 </step>
 
 <step name="create_summary">
-1. Create INTEGRATE.md at `.orbit/phases/{phase}/{plan}-INTEGRATE.md`
+1. Create INTEGRATE.md at `.orbit/projects/{phase}/{plan}-INTEGRATE.md`
 2. Include:
 
    **Frontmatter:**
    ```yaml
    ---
-   phase: NN-name
+   project: NN-name
    plan: NN
    completed: ISO timestamp
    duration: approximate time
@@ -112,7 +112,7 @@ Next phase: REFINE (next plan or next phase)
 1. Update STATE.md:
 
    **Current Position:**
-   - Phase: N of M - Complete (or In Progress if more plans)
+   - Project: N of M - Complete (or In Progress if more loops)
    - Plan: complete
    - Status: Ready for next REFINE
    - Last activity: timestamp
@@ -136,11 +136,11 @@ Next phase: REFINE (next plan or next phase)
 <step name="check_phase_completion">
 **Determine if this is the last plan in the phase:**
 
-1. Count REFINE.md files in current phase directory
+1. Count LOOP.md files in current project directory
 2. Count INTEGRATE.md files (including the one just created)
 3. Compare counts:
-   - If REFINE count = SUMMARY count → Last plan, trigger transition
-   - If REFINE count > SUMMARY count → More plans remain in phase
+   - If LOOP count = SUMMARY count → Last plan, trigger transition
+   - If LOOP count > SUMMARY count → More loops remain in project
 </step>
 
 <step name="route_based_on_completion">
@@ -156,16 +156,16 @@ Plan: {NN}-{plan} — [description]
 [summary of what was built]
 [deviations if any]
 
-Phase {N} progress: {X}/{Y} plans complete
+Project {N} progress: {X}/{Y} loops complete
 
 ---
-Continue to next plan?
+Continue to next loop?
 
 [1] Yes, plan {NN+1} | [2] Pause here
 ════════════════════════════════════════
 ```
 
-**Accept:** "1", "yes", "continue" → run `/orbit:refine` for next plan in same phase
+**Accept:** "1", "yes", "continue" → run `/orbit:refine` for next loop in same project
 </step>
 
 <step name="execute_transition" priority="required" gate="blocking">
@@ -176,7 +176,7 @@ Continue to next plan?
 1. Announce clearly:
    ```
    ════════════════════════════════════════
-   PHASE {N} COMPLETE — TRANSITION REQUIRED
+   PROJECT {N} COMPLETE — TRANSITION REQUIRED
    ════════════════════════════════════════
    ```
 
@@ -197,7 +197,7 @@ Continue to next plan?
 </process>
 
 <output>
-- INTEGRATE.md at `.orbit/phases/{phase}/{plan}-INTEGRATE.md`
+- INTEGRATE.md at `.orbit/projects/{project}/{plan}-INTEGRATE.md`
 - Updated STATE.md
 - Updated ROADMAP.md (if phase complete)
 </output>
@@ -213,7 +213,7 @@ Continue to next plan?
 - Ask user to confirm what was completed
 - Document uncertainty in INTEGRATE.md
 
-**REFINE.md missing:**
+**LOOP.md missing:**
 - Cannot reconcile without original plan
 - Ask user to locate or reconstruct
 </error_handling>

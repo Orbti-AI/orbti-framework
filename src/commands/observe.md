@@ -1,14 +1,14 @@
 ---
 name: orbit:observe
 description: Research technical options and make decisions before planning a phase
-argument-hint: "<phase or topic>"
+argument-hint: "<project or topic>"
 allowed-tools: [Read, Bash, Glob, Grep, WebSearch, WebFetch, Task, AskUserQuestion]
 ---
 
 <objective>
 Execute technical discovery to inform planning decisions. Produces OBSERVE.md with findings, recommendation, and confidence level.
 
-**When to use:** Before planning a phase with technical unknowns (library selection, architecture decisions, integration approaches).
+**When to use:** Before planning a project with technical unknowns (library selection, architecture decisions, integration approaches).
 
 **Distinct from /orbit:research:** Research gathers documentation/information. Observe makes technical decisions.
 
@@ -21,7 +21,7 @@ Execute technical discovery to inform planning decisions. Produces OBSERVE.md wi
 </execution_context>
 
 <context>
-$ARGUMENTS (phase number or topic)
+$ARGUMENTS (project number or topic)
 
 @.orbit/STATE.md
 @.orbit/ROADMAP.md
@@ -32,7 +32,7 @@ $ARGUMENTS (phase number or topic)
 
 The workflow implements:
 1. Determine depth level (quick/standard/deep)
-2. Identify unknowns for the phase
+2. Identify unknowns for the project
 3. Research options using subagents
 4. Cross-verify findings
 5. Create OBSERVE.md with recommendation

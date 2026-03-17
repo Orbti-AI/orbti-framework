@@ -1,11 +1,11 @@
 <purpose>
-Mark a milestone complete after all phases are done. Creates permanent milestone entry in MILESTONES.md, archives the milestone state, evolves PROJECT.md requirements, updates ROADMAP.md, and prepares for the next milestone.
+Mark a milestone complete after all projects are done. Creates permanent milestone entry in MILESTONES.md, archives the milestone state, evolves PROJECT.md requirements, updates ROADMAP.md, and prepares for the next milestone.
 
 **Completion ritual:** This is a moment to reflect on what was accomplished before moving forward.
 </purpose>
 
 <when_to_use>
-- All phases in current milestone have status "Complete"
+- All projects in current milestone have status "Complete"
 - User explicitly triggers milestone completion
 - Triggered by transition-phase when last phase completes
 </when_to_use>
@@ -19,7 +19,7 @@ After completion, project is ready for /orbit:cocreate-milestone or /orbit:miles
 @.orbit/STATE.md
 @.orbit/PROJECT.md
 @.orbit/ROADMAP.md
-@.orbit/phases/{milestone-phases}/*-INTEGRATE.md
+@.orbit/projects/{milestone-phases}/*-INTEGRATE.md
 </required_reading>
 
 <references>
@@ -30,30 +30,30 @@ After completion, project is ready for /orbit:cocreate-milestone or /orbit:miles
 <process>
 
 <step name="verify_readiness" priority="first">
-1. Read ROADMAP.md to identify current milestone phases
-2. For each phase in milestone:
+1. Read ROADMAP.md to identify current milestone projects
+2. For each project in milestone:
    - Check if Status = "Complete" or "✅ Complete"
    - Count completed vs total
 
-3. **If all phases complete:**
-   - Display: "All {N} phases complete. Ready to finalize milestone."
+3. **If all projects complete:**
+   - Display: "All {N} projects complete. Ready to finalize milestone."
    - Proceed to next step
 
-4. **If incomplete phases exist:**
+4. **If incomplete projects exist:**
    ```
    ════════════════════════════════════════
    MILESTONE INCOMPLETE
    ════════════════════════════════════════
 
-   {milestone_name} has incomplete phases:
+   {milestone_name} has incomplete projects:
 
-   | Phase | Name | Status |
-   |-------|------|--------|
+   | Project | Name | Status |
+   |---------|------|--------|
    | {N} | {name} | ✓ Complete |
    | {N+1} | {name} | ✗ In Progress |
 
    Options:
-   [1] Complete remaining phases first
+   [1] Complete remaining projects first
    [2] Mark complete anyway (skip remaining)
    ════════════════════════════════════════
    ```
@@ -72,17 +72,17 @@ Calculate milestone statistics:
    - Count unique files in all INTEGRATE.md `key-files.created` + `key-files.modified`
 
 3. **Plans:**
-   - Count INTEGRATE.md files across all phases
+   - Count INTEGRATE.md files across all projects
 
-4. **Phases:**
-   - Count phase directories in milestone
+4. **Projects:**
+   - Count project directories in milestone
 
 Store as stats object:
 ```
 duration: "X days" or "X hours"
 files_changed: N
 plans_completed: N
-phases: N
+projects: N
 ```
 </step>
 
@@ -124,7 +124,7 @@ Completed milestone log for this project.
 
 | Metric | Value |
 |--------|-------|
-| Phases | {phases} |
+| Projects | {projects} |
 | Plans | {plans_completed} |
 | Files changed | {files_changed} |
 
@@ -142,7 +142,7 @@ Completed milestone log for this project.
 
 **Update table at top:**
 ```markdown
-| {milestone_name} | {date} | {duration} | {phases} phases, {plans} plans |
+| {milestone_name} | {date} | {duration} | {projects} projects, {plans} plans |
 ```
 </step>
 
@@ -224,10 +224,10 @@ Update ROADMAP.md to collapse completed milestone:
    ## Completed Milestones
 
    <details>
-   <summary>{milestone_name} - {date} ({phases} phases)</summary>
+   <summary>{milestone_name} - {date} ({projects} projects)</summary>
 
-   | Phase | Name | Plans | Completed |
-   |-------|------|-------|-----------|
+   | Project | Name | Plans | Completed |
+   |---------|------|-------|-----------|
    | {N} | {name} | {X/X} | {date} |
 
    </details>
@@ -396,7 +396,7 @@ Stats:
 | Metric | Value |
 |--------|-------|
 | Duration | {duration} |
-| Phases | {phases} |
+| Projects | {projects} |
 | Plans | {plans_completed} |
 | Files | {files_changed} |
 
@@ -434,7 +434,7 @@ Or /orbit:milestone to create milestone directly.
 </output>
 
 <success_criteria>
-- [ ] All phases verified complete (or user chose to skip)
+- [ ] All projects verified complete (or user chose to skip)
 - [ ] Statistics gathered from SUMMARYs
 - [ ] MILESTONES.md entry created with accomplishments
 - [ ] Archive file created in .orbit/milestones/

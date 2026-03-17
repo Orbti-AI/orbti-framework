@@ -28,7 +28,7 @@ Inputs and outputs are well-defined with low ambiguity.
 
 ```
 GOOD for subagent:
-- Input: REFINE.md with specific tasks
+- Input: LOOP.md with specific tasks
 - Output: Code files, test results
 
 BAD for subagent:
@@ -139,7 +139,7 @@ BAD state:
 When using subagents:
 
 1. **Document decision** - Why subagent was chosen
-2. **Define clear handoff** - REFINE.md with full context
+2. **Define clear handoff** - LOOP.md with full context
 3. **Specify verification** - How to validate subagent output
 4. **Plan integration** - How results merge back to main session
 

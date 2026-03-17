@@ -30,7 +30,7 @@ Review all open issues with current codebase context. Categorize as resolved, ur
 
    Issue files are created by:
    - Deferred enhancements during development → .orbit/ISSUES.md
-   - UAT testing findings → .orbit/phases/XX-name/{plan}-UAT.md
+   - UAT testing findings → .orbit/projects/XX-name/{plan}-UAT.md
 
    All clear - continue with current work.
    ```

@@ -8,9 +8,9 @@ allowed-tools: [Read, Bash, Write, Glob, Grep, AskUserQuestion]
 <objective>
 Create FIX.md plan from UAT issues found during verify.
 
-**When to use:** After `/orbit:test` logs issues to phase-scoped UAT file.
+**When to use:** After `/orbit:test` logs issues to project-scoped UAT file.
 
-**Output:** `{plan}-FIX.md` in the phase directory, ready for execution.
+**Output:** `{plan}-FIX.md` in the project directory, ready for execution.
 </objective>
 
 <execution_context>
@@ -31,7 +31,7 @@ Plan number: $ARGUMENTS (required - e.g., "04-02" or "10-01")
 **Parse plan argument:**
 
 $ARGUMENTS should be a plan number like "04-02" or "10-01".
-Extract phase number (XX) and plan number (NN).
+Extract project number (XX) and plan number (NN).
 
 If no argument provided:
 ```
@@ -39,7 +39,7 @@ Error: Plan number required.
 
 Usage: /orbit:plan-fix 04-02
 
-This creates a fix plan from .orbit/phases/XX-name/{plan}-UAT.md
+This creates a fix plan from .orbit/projects/XX-name/{plan}-UAT.md
 ```
 Exit.
 </step>
@@ -49,7 +49,7 @@ Exit.
 
 Search for matching UAT file:
 ```bash
-ls .orbit/phases/*/{plan}-UAT.md 2>/dev/null
+ls .orbit/projects/*/{plan}-UAT.md 2>/dev/null
 ```
 
 If not found:
@@ -103,11 +103,11 @@ Prioritize: Blocker → Major → Minor → Cosmetic
 <step name="write">
 **Write FIX.md:**
 
-Create `.orbit/phases/XX-name/{plan}-FIX.md`:
+Create `.orbit/projects/XX-name/{plan}-FIX.md`:
 
 ```markdown
 ---
-phase: XX-name
+project: XX-name
 plan: {plan}-FIX
 type: fix
 wave: 1
@@ -135,10 +135,10 @@ Priority: {blocker count} blocker, {major count} major, {minor count} minor, {co
 @.orbit/ROADMAP.md
 
 **Issues being fixed:**
-@.orbit/phases/XX-name/{plan}-UAT.md
+@.orbit/projects/XX-name/{plan}-UAT.md
 
 **Original plan for reference:**
-@.orbit/phases/XX-name/{plan}-REFINE.md
+@.orbit/projects/XX-name/{plan}-LOOP.md
 </context>
 
 <acceptance_criteria>
@@ -173,7 +173,7 @@ Before declaring plan complete:
 </success_criteria>
 
 <output>
-After completion, create `.orbit/phases/XX-name/{plan}-FIX-INTEGRATE.md`
+After completion, create `.orbit/projects/XX-name/{plan}-FIX-INTEGRATE.md`
 </output>
 ```
 </step>
@@ -203,7 +203,7 @@ Continue to BUILD?
 ```
 
 Use AskUserQuestion to get response.
-If approved: `/orbit:build .orbit/phases/XX-name/{plan}-FIX.md`
+If approved: `/orbit:build .orbit/projects/XX-name/{plan}-FIX.md`
 </step>
 
 </process>

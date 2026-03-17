@@ -46,7 +46,7 @@ The workflow implements:
 - [ ] Checklist generated based on deliverables
 - [ ] User guided through each test
 - [ ] All test results captured (pass/fail/partial/skip)
-- [ ] Any issues logged to `.orbit/phases/XX-name/{plan}-UAT.md`
+- [ ] Any issues logged to `.orbit/projects/XX-name/{plan}-UAT.md`
 - [ ] Summary presented with verdict
 - [ ] User knows next steps based on results
 </success_criteria>

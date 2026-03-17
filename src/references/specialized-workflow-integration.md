@@ -21,9 +21,9 @@ Layered reinforcement through the ORBIT loop:
 ```
 SPECIAL-FLOWS.md   →  "This project uses X, Y, Z skills"
        ↓
-ROADMAP.md         →  "Phase 2 requires X skill"
+ROADMAP.md         →  "Project 2 requires X skill"
        ↓
-REFINE.md            →  "Task 2.1 invokes /frontend-design"
+LOOP.md              →  "Task 2.1 invokes /frontend-design"
        ↓
 INTEGRATE          →  "Was skill invoked? Gap noted if not"
 ```
@@ -40,15 +40,15 @@ At project setup, declare which skills apply:
 | UI components | /frontend-design | optional | Before writing HTML |
 ```
 
-### 2. Phase Annotation (ROADMAP.md)
-Optionally annotate phases with required skills:
+### 2. Project Annotation (ROADMAP.md)
+Optionally annotate projects with required skills:
 
 ```markdown
-### Phase 4: Landing Page
+### Project 4: Landing Page
 **Required Skills:** /revops-expert (copy), /frontend-design (UI)
 ```
 
-### 3. Task Invocation (REFINE.md)
+### 3. Task Invocation (LOOP.md)
 Plans can reference skills in pre-implementation or task notes:
 
 ```markdown

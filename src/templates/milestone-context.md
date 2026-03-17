@@ -1,6 +1,6 @@
 # Milestone Context Template
 
-Template for `.orbit/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-milestone to create-milestone.
+Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-milestone to create-milestone.
 
 **Purpose:** Persist milestone discussion context across `/clear` boundaries. This is a handoff artifact, not permanent documentation.
 
@@ -25,18 +25,18 @@ Template for `.orbit/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-m
 ## Scope
 
 **Suggested name:** v{{VERSION}} {{THEME_NAME}}
-**Estimated phases:** {{PHASE_COUNT}}
+**Estimated projects:** {{PROJECT_COUNT}}
 **Focus:** {{ONE_SENTENCE_THEME}}
 
-## Phase Mapping
+## Project Mapping
 
-[How features map to phases — rough breakdown]
+[How features map to projects — rough breakdown]
 
-| Phase | Focus | Features |
-|-------|-------|----------|
-| {{NEXT_PHASE}} | {{FOCUS}} | {{FEATURES}} |
-| {{NEXT_PHASE+1}} | {{FOCUS}} | {{FEATURES}} |
-| {{NEXT_PHASE+2}} | {{FOCUS}} | {{FEATURES}} |
+| Project | Focus | Features |
+|---------|-------|----------|
+| {{NEXT_PROJECT}} | {{FOCUS}} | {{FEATURES}} |
+| {{NEXT_PROJECT+1}} | {{FOCUS}} | {{FEATURES}} |
+| {{NEXT_PROJECT+2}} | {{FOCUS}} | {{FEATURES}} |
 
 ## Constraints
 
@@ -68,14 +68,14 @@ Template for `.orbit/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-m
 │                                                                  │
 │  1. /orbit:cocreate-milestone                                      │
 │     └─> Explores features, scope, constraints                    │
-│     └─> Creates MILESTONE-CONTEXT.md at end                      │
+│     └─> Creates .orbit/projects/{name}/MILESTONE-CONTEXT.md      │
 │                                                                  │
 │  2. /clear (safe now)                                            │
 │     └─> Context persisted in file                                │
 │     └─> Session can be cleared                                   │
 │                                                                  │
 │  3. /orbit:create-milestone                                       │
-│     └─> Reads MILESTONE-CONTEXT.md                               │
+│     └─> Reads .orbit/projects/{name}/MILESTONE-CONTEXT.md        │
 │     └─> Uses context to populate ROADMAP.md                      │
 │     └─> Deletes MILESTONE-CONTEXT.md after success               │
 │                                                                  │
@@ -112,7 +112,7 @@ Template for `.orbit/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-m
 | Technical implementation details | That comes during phase planning |
 | Detailed phase specifications | create-milestone handles that |
 | Code architecture decisions | Research phase work |
-| Exhaustive task lists | REFINE.md level of detail |
+| Exhaustive task lists | LOOP.md level of detail |
 
 **Key principle:** This captures the *what* and *why*, not the *how*.
 
@@ -130,7 +130,7 @@ ROADMAP.md shows: Phases complete, next milestone undefined
 ### After cocreate-milestone
 
 ```
-MILESTONE-CONTEXT.md: Created with discussion output
+.orbit/projects/{name}/MILESTONE-CONTEXT.md: Created with discussion output
 STATE.md: Updated to note milestone discussion complete
 ```
 
@@ -138,8 +138,8 @@ STATE.md: Updated to note milestone discussion complete
 
 ```
 MILESTONE-CONTEXT.md: Deleted
-ROADMAP.md: Updated with new milestone and phases
-STATE.md: Updated with new phase position
+ROADMAP.md: Updated with new milestone and projects
+STATE.md: Updated with new project position
 ```
 
 ---
@@ -155,21 +155,21 @@ STATE.md: Updated with new phase position
 ## Features to Build
 
 - **Milestone lifecycle commands**: Create, complete, and discuss milestones
-- **Roadmap modification commands**: Add and remove phases dynamically
+- **Roadmap modification commands**: Add and remove projects dynamically
 - **Milestone templates**: Entry format, archive format, context handoff
 
 ## Scope
 
 **Suggested name:** v0.3 Roadmap & Milestone Management
-**Estimated phases:** 3
+**Estimated projects:** 3
 **Focus:** Complete milestone management tooling for ORBIT framework
 
-## Phase Mapping
+## Project Mapping
 
-| Phase | Focus | Features |
-|-------|-------|----------|
+| Project | Focus | Features |
+|---------|-------|----------|
 | 9 | Templates | MILESTONES.md, archive, context templates |
-| 10 | Workflows | cocreate-milestone, complete-milestone, add-phase |
+| 10 | Workflows | cocreate-milestone, complete-milestone, add-project |
 | 11 | Commands | CLI commands for milestone operations |
 
 ## Constraints

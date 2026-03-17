@@ -1,14 +1,14 @@
 ---
 name: orbit:remove-phase
-description: Remove a future (not started) phase
-argument-hint: "<phase-number-or-name>"
+description: Remove a future (not started) project
+argument-hint: "<project-number-or-name>"
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
 <objective>
-Remove a future phase from the roadmap and clean up its directory.
+Remove a future project from the roadmap and clean up its directory.
 
-**When to use:** Scope reduction, removing phases that haven't started.
+**When to use:** Scope reduction, removing projects that haven't started.
 </objective>
 
 <execution_context>
@@ -26,12 +26,12 @@ $ARGUMENTS
 <process>
 Follow workflow: @~/.claude/orbit-framework/workflows/roadmap-management.md
 
-Execute: **remove-phase** operation
+Execute: **remove-project** operation
 </process>
 
 <success_criteria>
-- [ ] Phase removed from ROADMAP.md
-- [ ] Phase directory cleaned up (if empty)
-- [ ] Subsequent phases renumbered
+- [ ] Project removed from ROADMAP.md
+- [ ] Project directory cleaned up (if empty)
+- [ ] Subsequent projects renumbered
 - [ ] STATE.md updated
 </success_criteria>

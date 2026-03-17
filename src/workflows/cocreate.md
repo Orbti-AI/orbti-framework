@@ -1,16 +1,16 @@
 <purpose>
-Facilitate vision articulation before planning a phase. Acts as a thinking partner to explore what the user wants to accomplish, then creates CONTEXT.md for handoff to refine.
+Facilitate vision articulation before planning a project. Acts as a thinking partner to explore what the user wants to accomplish, then creates CONTEXT.md for handoff to refine.
 
 **Philosophy:** Goals first — everything else (approach, constraints, risks) derives from what the user wants to achieve.
 
-**Distinction from assumptions:** This workflow gathers USER input about the phase. The assumptions workflow surfaces CLAUDE's understanding for validation.
+**Distinction from assumptions:** This workflow gathers USER input about the project. The assumptions workflow surfaces CLAUDE's understanding for validation.
 </purpose>
 
 <when_to_use>
-- User starting a new phase and wants to think through approach
+- User starting a new project and wants to think through approach
 - User has rough ideas but needs to articulate them before planning
 - Before /orbit:refine when discussion is desired
-- Phase scope is unclear or has multiple possible approaches
+- Project scope is unclear or has multiple possible approaches
 </when_to_use>
 
 <loop_context>
@@ -35,42 +35,42 @@ After discussion, routes to /orbit:refine (refine).
 
 **If argument missing:**
 ```
-Error: Phase number required.
+Error: Project number required.
 
-Usage: /orbit:cocreate <phase-number>
+Usage: /orbit:cocreate <project-number>
 Example: /orbit:cocreate 10
 ```
 Exit workflow.
 
-2. Validate phase exists in ROADMAP.md
-3. Extract phase details: number, name, description, scope
+2. Validate project exists in ROADMAP.md
+3. Extract project details: number, name, description, scope
 
-**If phase not found:**
+**If project not found:**
 ```
-Error: Phase {N} not found in roadmap.
+Error: Project {N} not found in roadmap.
 
-Available phases:
-[list incomplete phases from roadmap]
+Available projects:
+[list incomplete projects from roadmap]
 ```
 Exit workflow.
 </step>
 
 <step name="phase_context">
-**Present phase context:**
+**Present project context:**
 
 ```
 ════════════════════════════════════════
-PHASE DISCUSSION
+PROJECT DISCUSSION
 ════════════════════════════════════════
 
-Phase: {phase_number} — {phase_name}
+Project: {project_number} — {project_name}
 Status: {from ROADMAP.md}
 
 Roadmap description:
-{phase description from ROADMAP.md}
+{project description from ROADMAP.md}
 
-{If prior phase completed:}
-Prior phase: {prior_phase_name}
+{If prior project completed:}
+Prior project: {prior_project_name}
 What was built: {summary}
 
 ────────────────────────────────────────
@@ -83,7 +83,7 @@ This gives user context for the discussion.
 **The core question — goals first:**
 
 ```
-What do you want to accomplish in this phase?
+What do you want to accomplish in this project?
 
 Don't worry about implementation details yet — just describe what
 success looks like and any specific goals you have in mind.
@@ -95,7 +95,7 @@ success looks like and any specific goals you have in mind.
 Wait for user response.
 
 **Follow-up if needed:**
-- "Any specific features or capabilities you're prioritizing?"
+- "Any specific features or capabilities you're prioritizing for this project?"
 - "What's the most important outcome?"
 - "Any concerns or risks you want to address?"
 
@@ -138,13 +138,13 @@ Confirm with user before proceeding.
 </step>
 
 <step name="write_context">
-Create `.orbit/phases/{NN}-{name}/CONTEXT.md`:
+Create `.orbit/projects/{NN}-{name}/CONTEXT.md`:
 
 Use CONTEXT.md template format.
 
 Display:
 ```
-Context saved to .orbit/phases/{NN}-{name}/CONTEXT.md
+Context saved to .orbit/projects/{NN}-{name}/CONTEXT.md
 
 This file persists across /clear so you can take a break if needed.
 ```
@@ -158,7 +158,7 @@ Route to refine:
 DISCUSSION COMPLETE
 ════════════════════════════════════════
 
-Phase: {phase_number} — {phase_name}
+Project: {project_number} — {project_name}
 Goals: {goal_count}
 Status: Ready for planning
 
@@ -178,24 +178,24 @@ Type "yes" to proceed, or continue discussing.
 </process>
 
 <output>
-- .orbit/phases/{NN}-{name}/CONTEXT.md created (handoff file)
+- .orbit/projects/{NN}-{name}/CONTEXT.md created (handoff file)
 - Goals and approach articulated
 - Ready for /orbit:refine to consume
 </output>
 
 <success_criteria>
-- [ ] Phase validated against ROADMAP.md
-- [ ] Phase context presented
+- [ ] Project validated against ROADMAP.md
+- [ ] Project context presented
 - [ ] Goals explored (user-driven)
 - [ ] Approach discussed
 - [ ] Context synthesized and confirmed
-- [ ] CONTEXT.md written to phase directory
+- [ ] CONTEXT.md written to project directory
 - [ ] Clear handoff to /orbit:refine
 </success_criteria>
 
 <anti_patterns>
 **Asking abstract questions first:**
-DON'T: "What's the scope of this phase?"
+DON'T: "What's the scope of this project?"
 DO: "What do you want to accomplish?"
 
 **Assuming approach before goals:**
@@ -217,8 +217,8 @@ DO: Focus on user input. Use /orbit:assumptions for Claude's analysis.
 
 <error_handling>
 **User unsure what to accomplish:**
-- Reference ROADMAP.md phase description
-- Suggest: "Based on the roadmap, this phase should..."
+- Reference ROADMAP.md project description
+- Suggest: "Based on the roadmap, this project should..."
 - Offer: "We can start with the roadmap goals and refine"
 
 **Scope too large:**

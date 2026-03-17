@@ -1,12 +1,12 @@
 ---
 name: orbit:add-phase
-description: Add a new phase to current milestone
-argument-hint: "[phase-name]"
+description: Add a new project to current milestone
+argument-hint: "[project-name]"
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
 <objective>
-Add a new phase to the current milestone's roadmap.
+Add a new project to the current milestone's roadmap.
 
 **When to use:** Scope expansion during milestone, adding planned work.
 </objective>
@@ -26,11 +26,11 @@ $ARGUMENTS
 <process>
 Follow workflow: @~/.claude/orbit-framework/workflows/roadmap-management.md
 
-Execute: **add-phase** operation
+Execute: **add-project** operation
 </process>
 
 <success_criteria>
-- [ ] Phase added to ROADMAP.md
-- [ ] Phase directory created
-- [ ] STATE.md updated with new phase
+- [ ] Project added to ROADMAP.md
+- [ ] Project directory created
+- [ ] STATE.md updated with new project
 </success_criteria>

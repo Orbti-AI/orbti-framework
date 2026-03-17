@@ -1,45 +1,45 @@
 <purpose>
-Handle phase-level transition after all plans in a phase are complete. Evolves PROJECT.md, verifies phase completion, cleans up, and routes to next phase or milestone completion.
+Handle project-level transition after all plans in a project are complete. Evolves PROJECT.md, verifies project completion, cleans up, and routes to next project or milestone completion.
 
-**Invoked by:** integrate.md when it detects "last plan in phase"
-**Scope:** Phase N → Phase N+1 (or milestone completion)
+**Invoked by:** integrate.md when it detects "last plan in project"
+**Scope:** Project N → Project N+1 (or milestone completion)
 </purpose>
 
 <when_to_use>
-- All plans in current phase have INTEGRATE.md files
-- Phase is ready to close
-- Moving to next phase or completing milestone
+- All plans in current project have INTEGRATE.md files
+- Project is ready to close
+- Moving to next project or completing milestone
 </when_to_use>
 
 <required_reading>
 @.orbit/STATE.md
 @.orbit/PROJECT.md
 @.orbit/ROADMAP.md
-@.orbit/phases/{current-phase}/*-INTEGRATE.md
+@.orbit/projects/{current-phase}/*-INTEGRATE.md
 </required_reading>
 
 <process>
 
 <step name="verify_phase_completion" priority="first">
-1. Count REFINE.md files in current phase directory
-2. Count INTEGRATE.md files in current phase directory
+1. Count LOOP.md files in current project directory
+2. Count INTEGRATE.md files in current project directory
 3. **Verification:**
-   - If counts match: Phase complete
-   - If counts don't match: Phase incomplete
+   - If counts match: Project complete
+   - If counts don't match: Project incomplete
 
 **If incomplete:**
 ```
 ════════════════════════════════════════
-PHASE INCOMPLETE
+PROJECT INCOMPLETE
 ════════════════════════════════════════
 
-Phase {N} has incomplete plans:
-- {phase}-01-INTEGRATE.md ✓
-- {phase}-02-INTEGRATE.md ✗ Missing
-- {phase}-03-INTEGRATE.md ✗ Missing
+Project {N} has incomplete plans:
+- {project}-01-INTEGRATE.md ✓
+- {project}-02-INTEGRATE.md ✗ Missing
+- {project}-03-INTEGRATE.md ✗ Missing
 
 Options:
-[1] Continue current phase (execute remaining plans)
+[1] Continue current project (execute remaining plans)
 [2] Mark complete anyway (skip remaining plans)
 [3] Review what's left
 ════════════════════════════════════════
@@ -51,25 +51,25 @@ Wait for user decision before proceeding.
 </step>
 
 <step name="cleanup_handoffs">
-1. Check for stale handoffs in phase directory:
+1. Check for stale handoffs in project directory:
    ```bash
-   ls .orbit/phases/{current-phase}/HANDOFF*.md 2>/dev/null
+   ls .orbit/projects/{current-project}/HANDOFF*.md 2>/dev/null
    ```
-2. If found, delete them — phase is complete, handoffs are stale
+2. If found, delete them — project is complete, handoffs are stale
 3. Note: Active handoffs at `.orbit/` root are preserved
 </step>
 
 <step name="evolve_project">
-**Read phase summaries:**
+**Read project summaries:**
 ```bash
-cat .orbit/phases/{current-phase}/*-INTEGRATE.md
+cat .orbit/projects/{current-project}/*-INTEGRATE.md
 ```
 
 **Assess and update PROJECT.md:**
 
 1. **Requirements validated?**
-   - Any requirements shipped in this phase?
-   - Move to Validated section: `- ✓ [Requirement] — Phase X`
+   - Any requirements shipped in this project?
+   - Move to Validated section: `- ✓ [Requirement] — Project X`
 
 2. **Requirements invalidated?**
    - Any requirements discovered unnecessary or wrong?
@@ -90,7 +90,7 @@ cat .orbit/phases/{current-phase}/*-INTEGRATE.md
 **Update footer:**
 ```markdown
 ---
-*Last updated: [date] after Phase [X]*
+*Last updated: [date] after Project [X]*
 ```
 </step>
 
@@ -103,7 +103,7 @@ Update STATE.md Accumulated Context section:
 
 **Blockers/Concerns:**
 - Resolved blockers: Remove from list
-- Unresolved: Keep with "Phase X" prefix
+- Unresolved: Keep with "Project X" prefix
 - New concerns from summaries: Add
 
 **Deferred Issues:**
@@ -117,10 +117,10 @@ Update STATE.md Current Position:
 ```markdown
 ## Current Position
 
-Phase: [N+1] of [total] ([Next phase name])
+Project: [N+1] of [total] ([Next project name])
 Plan: Not started
 Status: Ready to plan
-Last activity: [today] — Phase [N] complete, transitioned to Phase [N+1]
+Last activity: [today] — Project [N] complete, transitioned to Project [N+1]
 
 Progress: [updated bar based on completed plans]
 ```
@@ -130,8 +130,8 @@ Update Session Continuity:
 ## Session Continuity
 
 Last session: [today]
-Stopped at: Phase [N] complete, ready to plan Phase [N+1]
-Next action: /orbit:refine for Phase [N+1]
+Stopped at: Project [N] complete, ready to plan Project [N+1]
+Next action: /orbit:refine for Project [N+1]
 Resume file: .orbit/ROADMAP.md
 ```
 </step>
@@ -139,28 +139,28 @@ Resume file: .orbit/ROADMAP.md
 <step name="update_roadmap_completion">
 Update ROADMAP.md:
 
-1. Mark current phase complete:
+1. Mark current project complete:
    - Status: ✅ Complete
    - Completed: [date]
    - Plan count: X/X
 
 2. Update progress summary:
-   - Phases: Y of Z complete
+   - Projects: Y of Z complete
    - Calculate percentage
 </step>
 
 <step name="commit_phase">
 **Git commit for completed phase:**
 
-**1. Check for feature branches from this phase:**
+**1. Check for feature branches from this project:**
 ```bash
-git branch --list "feature/{phase}*"
+git branch --list "feature/{project}*"
 ```
 
 **2. If feature branch exists:**
 ```
 ────────────────────────────────────────
-Feature branch detected: feature/{phase-name}
+Feature branch detected: feature/{project-name}
 
 Checking for conflicts with main...
 ────────────────────────────────────────
@@ -169,26 +169,26 @@ Checking for conflicts with main...
 Check for conflicts:
 ```bash
 git fetch origin main 2>/dev/null || true
-git diff main...feature/{phase-name} --stat
+git diff main...feature/{project-name} --stat
 ```
 
 **If no conflicts:**
 ```
 No conflicts detected.
 
-Merge feature/{phase-name} to main? [yes/no]
+Merge feature/{project-name} to main? [yes/no]
 ```
 
 If yes:
 ```bash
 git checkout main
-git merge feature/{phase-name} --no-ff -m "Merge feature/{phase-name} into main"
-git branch -d feature/{phase-name}
+git merge feature/{project-name} --no-ff -m "Merge feature/{project-name} into main"
+git branch -d feature/{project-name}
 ```
 
 **If conflicts exist:**
 ```
-⚠️ Conflicts detected between feature/{phase-name} and main.
+⚠️ Conflicts detected between feature/{project-name} and main.
 
 Cannot auto-merge. Options:
 [1] Resolve conflicts manually, then re-run transition
@@ -196,18 +196,18 @@ Cannot auto-merge. Options:
 [3] Force merge anyway (not recommended)
 ```
 
-**3. Stage phase files:**
+**3. Stage project files:**
 ```bash
-git add .orbit/phases/{phase}/ .orbit/STATE.md .orbit/PROJECT.md .orbit/ROADMAP.md
+git add .orbit/projects/{project}/ .orbit/STATE.md .orbit/PROJECT.md .orbit/ROADMAP.md
 git add src/  # If source files were modified
 ```
 
-**4. Create phase commit:**
+**4. Create project commit:**
 ```bash
 git commit -m "$(cat <<'EOF'
-feat({phase}): {phase-description}
+feat({project}): {project-description}
 
-Phase {N} complete:
+Project {N} complete:
 - {plan-01 summary}
 - {plan-02 summary}
 - {plan-03 summary}
@@ -229,7 +229,7 @@ Feature branches merged: {list or "none"}
 Display:
 ```
 Git commit created: {short-hash}
-  feat({phase}): {phase-description}
+  feat({project}): {project-description}
 ```
 </step>
 
@@ -250,14 +250,14 @@ cat .orbit/ROADMAP.md
 | Field | STATE.md | PROJECT.md | ROADMAP.md |
 |-------|----------|------------|------------|
 | Version | `Version:` field | Current State table | Version Overview |
-| Phase | `Phase:` field | (implicit in Active) | Phase Structure table |
-| Status | `Status:` field | `Status:` in table | Phase status column |
+| Project | `Project:` field | (implicit in Active) | Project Structure table |
+| Status | `Status:` field | `Status:` in table | Project status column |
 | Focus | `Current focus:` header | (matches Active) | Current Milestone |
 
 **3. Check for stale references:**
 - No "blocked on X" if X is complete
-- No "IN PROGRESS" for completed phases
-- Current focus matches current phase, not previous
+- No "IN PROGRESS" for completed projects
+- Current focus matches current project, not previous
 - Progress bars match actual plan counts
 
 **4. If ANY misalignment found:**
@@ -281,9 +281,9 @@ This is a blocking error — do not route to next phase.
 **5. If aligned:**
 ```
 State consistency: ✓
-  STATE.md    — Phase {N+1}, v{version}, ready to plan
+  STATE.md    — Project {N+1}, v{version}, ready to plan
   PROJECT.md  — v{version}, {active_count} active requirements
-  ROADMAP.md  — Phase {N} ✅, Phase {N+1} 🔵
+  ROADMAP.md  — Project {N} ✅, Project {N+1} 🔵
 ```
 
 **Only proceed to route_next after verification passes.**
@@ -293,31 +293,31 @@ State consistency: ✓
 **Check if milestone complete:**
 
 1. Read ROADMAP.md
-2. Find all phases in current milestone
-3. If current phase is LAST in milestone → Route B (milestone complete)
-4. If more phases remain → Route A (next phase)
+2. Find all projects in current milestone
+3. If current project is LAST in milestone → Route B (milestone complete)
+4. If more projects remain → Route A (next project)
 
 ---
 
-**Route A: More phases remain**
+**Route A: More projects remain**
 
 ```
 ════════════════════════════════════════
-PHASE {N} COMPLETE
+PROJECT {N} COMPLETE
 ════════════════════════════════════════
 
 ✓ All {X} plans complete
 ✓ PROJECT.md evolved
-✓ Ready for next phase
+✓ Ready for next project
 
 ---
-Next: Phase {N+1} — {Name}
+Next: Project {N+1} — {Name}
 
-[1] Yes, plan Phase {N+1} | [2] Pause here
+[1] Yes, plan Project {N+1} | [2] Pause here
 ════════════════════════════════════════
 ```
 
-**Accept:** "1", "yes", "continue" → run `/orbit:refine` for Phase N+1
+**Accept:** "1", "yes", "continue" → run `/orbit:refine` for Project N+1
 
 ---
 
@@ -328,7 +328,7 @@ Next: Phase {N+1} — {Name}
 MILESTONE COMPLETE
 ════════════════════════════════════════
 
-🎉 {version} is 100% complete — all {N} phases finished!
+🎉 {version} is 100% complete — all {N} projects finished!
 
 ✓ All phases unified
 ✓ PROJECT.md evolved
@@ -347,22 +347,22 @@ What's next?
 
 <output>
 - PROJECT.md evolved with validated/invalidated requirements
-- STATE.md updated for new phase
+- STATE.md updated for new project
 - ROADMAP.md marked complete
 - Stale handoffs cleaned
-- Git commit created for phase: feat({phase}): {description}
+- Git commit created for project: feat({project}): {description}
 - Feature branches merged if applicable
-- User routed to next phase or milestone
+- User routed to next project or milestone
 </output>
 
 <success_criteria>
-- [ ] Phase REFINE/SUMMARY count verified
+- [ ] Project LOOP/SUMMARY count verified
 - [ ] Stale handoffs cleaned
 - [ ] PROJECT.md evolved (requirements, decisions)
 - [ ] STATE.md updated (position, context, session)
 - [ ] ROADMAP.md marked complete
 - [ ] Feature branches merged (if any)
-- [ ] Git commit created for phase
+- [ ] Git commit created for project
 - [ ] **STATE CONSISTENCY VERIFIED** (all three files aligned - BLOCKING)
 - [ ] User knows next steps with quick continuation
 </success_criteria>

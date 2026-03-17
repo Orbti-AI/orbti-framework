@@ -2,19 +2,19 @@
 
 ## Purpose
 
-REFINE.md IS the executable prompt. It contains everything needed to execute a phase: objective, context, acceptance criteria, tasks, boundaries, verification, and output specification.
+LOOP.md IS the executable prompt. It contains everything needed to execute a project: objective, context, acceptance criteria, tasks, boundaries, verification, and output specification.
 
-**Core principle:** A plan is Claude-executable when Claude can read the REFINE.md and immediately start implementing without asking clarifying questions.
+**Core principle:** A plan is Claude-executable when Claude can read the LOOP.md and immediately start implementing without asking clarifying questions.
 
 If Claude has to guess, interpret, or make assumptions - the task is too vague.
 
 ## Frontmatter
 
-Every REFINE.md starts with YAML frontmatter:
+Every LOOP.md starts with YAML frontmatter:
 
 ```yaml
 ---
-phase: XX-name
+project: XX-name
 plan: NN
 type: execute
 wave: N
@@ -26,15 +26,15 @@ autonomous: true
 
 | Field | Required | Purpose |
 |-------|----------|---------|
-| `phase` | Yes | Phase identifier (e.g., `02-rules-layer`) |
-| `plan` | Yes | Plan number within phase (e.g., `01`, `02`) |
+| `project` | Yes | Project identifier (e.g., `02-rules-layer`) |
+| `plan` | Yes | Plan number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
 | `wave` | Yes | Execution wave number (pre-computed at plan time) |
 | `depends_on` | Yes | Array of plan IDs this plan requires |
 | `files_modified` | Yes | Files this plan touches (for conflict detection) |
 | `autonomous` | Yes | `true` if no checkpoints, `false` if has checkpoints |
 
-## Plan Structure
+## Loop Structure
 
 ```markdown
 ---
@@ -254,10 +254,10 @@ AVOID:  Plan 01 = All models
 **Reflexive dependencies:**
 ```yaml
 # BAD - chaining just because sequential
-depends_on: ["01-01"]  # Plan 02 doesn't actually need 01's output
+depends_on: ["01-01"]  # Loop 02 doesn't actually need 01's output
 
 # GOOD - genuine dependency
-depends_on: ["01-01"]  # Plan 02 imports User type from 01-01
+depends_on: ["01-01"]  # Loop 02 imports User type from 01-01
 ```
 
 </plan_format>

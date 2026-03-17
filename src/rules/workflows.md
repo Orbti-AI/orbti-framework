@@ -36,7 +36,7 @@ When using `<step>` elements within `<process>`:
 </step>
 
 <step name="execute_tasks">
-  For each task in REFINE.md:
+  For each task in LOOP.md:
   1. Execute task action
   2. Run task verification
   3. Record result
@@ -75,7 +75,7 @@ For mode-dependent behavior:
 </if>
 ```
 
-Conditions reference REFINE.md frontmatter or config values.
+Conditions reference LOOP.md frontmatter or config values.
 
 ## Key Principle
 
@@ -87,36 +87,36 @@ A workflow can be long and detailed. It answers "how to do it" comprehensively.
 
 ```markdown
 <purpose>
-Execute an approved REFINE plan by running tasks in order, verifying each, and recording results.
+Execute an approved LOOP plan by running tasks in order, verifying each, and recording results.
 </purpose>
 
 <when_to_use>
-- User has approved a REFINE.md
+- User has approved a LOOP.md
 - STATE.md shows loop position at REFINE (ready for BUILD)
 - No blocking checkpoints remain unresolved
 </when_to_use>
 
 <required_reading>
 @.orbit/STATE.md
-@.orbit/phases/{phase}/{plan}-REFINE.md
+@.orbit/projects/{project}/{plan}-LOOP.md
 </required_reading>
 
 <loop_context>
 Expected phase: BUILD
-Prior phase: REFINE (approval just received)
-Next phase:  INTEGRATE (after execution completes)
+Prior project: REFINE (approval just received)
+Next project:  INTEGRATE (after execution completes)
 </loop_context>
 
 <process>
 
 <step name="validate_preconditions" priority="first">
   1. Read STATE.md, confirm loop position
-  2. Read REFINE.md, confirm autonomous flag
+  2. Read LOOP.md, confirm autonomous flag
   3. If autonomous=false and checkpoints exist, warn user
 </step>
 
 <step name="execute_tasks">
-  For each <task> in REFINE.md <tasks> section:
+  For each <task> in LOOP.md <tasks> section:
   1. Log task start
   2. Execute <action> content
   3. Run <verify> command

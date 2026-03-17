@@ -15,7 +15,7 @@ The git log should read like a changelog of what shipped, not a diary of plannin
 | Event                   | Commit? | Why                                              |
 | ----------------------- | ------- | ------------------------------------------------ |
 | PROJECT + ROADMAP init  | YES     | Project initialization                           |
-| REFINE.md created         | NO      | Intermediate - commit with plan completion       |
+| LOOP.md created           | NO      | Intermediate - commit with plan completion       |
 | Research notes          | NO      | Intermediate                                     |
 | **Task completed**      | YES     | Atomic unit of work (1 commit per task)          |
 | **Plan completed**      | YES     | Metadata commit (SUMMARY + STATE + ROADMAP)      |
@@ -98,12 +98,12 @@ AC Results:
 - AC-1: [PASS/FAIL]
 - AC-2: [PASS/FAIL]
 
-SUMMARY: .orbit/phases/XX-name/{phase}-{plan}-INTEGRATE.md
+SUMMARY: .orbit/projects/XX-name/{phase}-{plan}-INTEGRATE.md
 ```
 
 What to commit:
 ```bash
-git add .orbit/phases/XX-name/
+git add .orbit/projects/XX-name/
 git add .orbit/STATE.md
 git add .orbit/ROADMAP.md
 git commit
@@ -163,7 +163,7 @@ Each plan produces 2-4 commits (tasks + metadata). Clear, granular, bisectable.
 <anti_patterns>
 
 **Still don't commit (intermediate artifacts):**
-- REFINE.md creation (commit with plan completion)
+- LOOP.md creation (commit with plan completion)
 - Research notes
 - Minor planning tweaks
 - "Fixed typo in roadmap"

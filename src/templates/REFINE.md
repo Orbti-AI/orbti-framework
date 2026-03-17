@@ -1,8 +1,8 @@
-# REFINE.md Template
+# LOOP.md Template
 
-Template for `.orbit/phases/{phase-number}-{name}/{phase}-{plan}-REFINE.md` - executable phase plans.
+Template for `.orbit/projects/{project-number}-{name}/{project}-{plan}-LOOP.md` - executable project plans.
 
-**Naming:** `{phase}-{plan}-REFINE.md` (e.g., `01-02-REFINE.md` for Phase 1, Plan 2)
+**Naming:** `{project}-{plan}-LOOP.md` (e.g., `01-02-LOOP.md` for Project 1, Plan 2)
 
 ---
 
@@ -10,7 +10,7 @@ Template for `.orbit/phases/{phase-number}-{name}/{phase}-{plan}-REFINE.md` - ex
 
 ```markdown
 ---
-phase: XX-name
+project: XX-name
 plan: NN
 type: execute                    # execute | tdd | research
 wave: N                          # Execution wave (1, 2, 3...). Pre-computed at plan time.
@@ -175,7 +175,7 @@ Before declaring plan complete:
 </success_criteria>
 
 <output>
-After completion, create `.orbit/phases/XX-name/{phase}-{plan}-INTEGRATE.md`
+After completion, create `.orbit/projects/XX-name/{project}-{plan}-INTEGRATE.md`
 </output>
 ```
 
@@ -185,8 +185,8 @@ After completion, create `.orbit/phases/XX-name/{phase}-{plan}-INTEGRATE.md`
 
 | Field | Required | Purpose |
 |-------|----------|---------|
-| `phase` | Yes | Phase identifier (e.g., `01-foundation`) |
-| `plan` | Yes | Plan number within phase (e.g., `01`, `02`) |
+| `project` | Yes | Project identifier (e.g., `01-foundation`) |
+| `plan` | Yes | Plan number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
 | `wave` | Yes | Execution wave number (1, 2, 3...). Pre-computed at plan time. |
 | `depends_on` | Yes | Array of plan IDs this plan requires. Empty = parallel candidate. |
@@ -270,9 +270,9 @@ AVOID:  Plan 01 = All models
 - `autonomous: true` - No checkpoints blocking
 
 **Sequential (genuine dependency):**
-- `depends_on: ["01-01"]` - Requires prior plan output
-- Uses types/exports created by prior plan
-- Prior plan makes decision affecting this plan
+- `depends_on: ["01-01"]` - Requires prior loop output
+- Uses types/exports created by prior loop
+- Prior loop makes decision affecting this loop
 
 **Do NOT reflexively chain:** Plan 02 depending on 01 "just because" creates false sequential execution.
 
@@ -308,10 +308,10 @@ AVOID:  Plan 01 = All models
 **Reflexive dependencies:**
 ```yaml
 # BAD - chaining just because sequential
-depends_on: ["01-01"]  # Plan 02 doesn't actually need 01's output
+depends_on: ["01-01"]  # Loop 02 doesn't actually need 01's output
 
 # GOOD - genuine dependency
-depends_on: ["01-01"]  # Plan 02 imports User type from 01-01
+depends_on: ["01-01"]  # Loop 02 imports User type from 01-01
 ```
 
 **Missing boundaries:**

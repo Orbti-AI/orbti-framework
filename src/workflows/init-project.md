@@ -335,11 +335,11 @@ Created:
   .orbit/STATE.md      ✓
   .orbit/config.md     ✓  (if integrations_enabled: "SonarQube enabled")
   .orbit/SPECIAL-FLOWS.md  ✓  (if specialized_flows_enabled: "[N] skills configured")
-  .orbit/phases/       ✓
+  .orbit/projects/       ✓
 
 ────────────────────────────────────────
 ▶ NEXT: /orbit:refine
-  Define your phases and create your first plan.
+  Define your projects and create your first plan.
 ────────────────────────────────────────
 
 Type "yes" to proceed, or ask questions first.
@@ -360,7 +360,7 @@ If neither was enabled, show the minimal version without those lines.
 - `.orbit/STATE.md` (initialized state)
 - `.orbit/config.md` (if integrations enabled)
 - `.orbit/SPECIAL-FLOWS.md` (if specialized flows enabled)
-- `.orbit/phases/` (empty directory)
+- `.orbit/projects/` (empty directory)
 - Clear routing to `/orbit:refine`
 </output>
 

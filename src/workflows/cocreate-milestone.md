@@ -107,10 +107,10 @@ From the features discussed, derive:
    - Infer from features (e.g., "Auth features" → "v0.4 Authentication")
    - Or ask: "What would you call this milestone?"
 
-2. **Estimated phases:**
-   - Group features into logical phases
-   - Typical: 2-4 phases per milestone
-   - Ask: "Does this grouping make sense? {phase_breakdown}"
+2. **Estimated projects:**
+   - Group features into logical projects
+   - Typical: 2-4 projects per milestone
+   - Ask: "Does this grouping make sense? {project_breakdown}"
 
 3. **Constraints:**
    - Derive from discussion
@@ -123,7 +123,7 @@ Confirm with user before proceeding.
 </step>
 
 <step name="write_context">
-Create `.orbit/MILESTONE-CONTEXT.md`:
+Create `.orbit/projects/{name}/MILESTONE-CONTEXT.md`:
 
 ```markdown
 # Milestone Context
@@ -138,15 +138,15 @@ Create `.orbit/MILESTONE-CONTEXT.md`:
 ## Scope
 
 **Suggested name:** {milestone_name}
-**Estimated phases:** {phase_count}
+**Estimated projects:** {project_count}
 **Focus:** {theme}
 
-## Phase Mapping
+## Project Mapping
 
-| Phase | Focus | Features |
-|-------|-------|----------|
-| {next_phase} | {focus} | {features} |
-| {next_phase+1} | {focus} | {features} |
+| Project | Focus | Features |
+|---------|-------|----------|
+| {next_project} | {focus} | {features} |
+| {next_project+1} | {focus} | {features} |
 
 ## Constraints
 
@@ -163,7 +163,7 @@ Create `.orbit/MILESTONE-CONTEXT.md`:
 
 Display:
 ```
-Context saved to .orbit/MILESTONE-CONTEXT.md
+Context saved to .orbit/projects/{name}/MILESTONE-CONTEXT.md
 
 This file persists across /clear so you can take a break if needed.
 ```
@@ -179,7 +179,7 @@ DISCUSSION COMPLETE
 
 Milestone: {milestone_name}
 Features: {feature_count}
-Phases: {phase_count}
+Projects: {project_count}
 
 Context saved for handoff.
 
@@ -197,8 +197,8 @@ Type "yes" to proceed, or continue discussing.
 </process>
 
 <output>
-- .orbit/MILESTONE-CONTEXT.md created (handoff file)
-- Features, scope, and phases articulated
+- .orbit/projects/{name}/MILESTONE-CONTEXT.md created (handoff file)
+- Features, scope, and projects articulated
 - Ready for /orbit:milestone to consume
 </output>
 
@@ -206,7 +206,7 @@ Type "yes" to proceed, or continue discussing.
 - [ ] Prior accomplishments presented (if any)
 - [ ] Features explored (user-driven)
 - [ ] Scope synthesized from features
-- [ ] Phase mapping suggested
+- [ ] Project mapping suggested
 - [ ] MILESTONE-CONTEXT.md written
 - [ ] Clear handoff to /orbit:milestone
 </success_criteria>
@@ -216,9 +216,9 @@ Type "yes" to proceed, or continue discussing.
 DON'T: "What's the scope of the next milestone?"
 DO: "What do you want to build?"
 
-**Assuming phases before features:**
-DON'T: "How many phases do you want?"
-DO: Derive phases from the features discussed.
+**Assuming projects before features:**
+DON'T: "How many projects do you want?"
+DO: Derive projects from the features discussed.
 
 **Skipping confirmation:**
 DON'T: Write context immediately after one question.
@@ -226,7 +226,7 @@ DO: Confirm the synthesis makes sense before writing.
 
 **Not persisting context:**
 DON'T: End discussion without writing MILESTONE-CONTEXT.md
-DO: Always write the file so /clear doesn't lose progress.
+DO: Always write the file to the project directory so /clear doesn't lose progress.
 </anti_patterns>
 
 <error_handling>

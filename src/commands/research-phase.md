@@ -155,24 +155,24 @@ When all agents complete:
 
 1. Create research directory for phase:
    ```bash
-   mkdir -p .orbit/phases/{NN}-{name}/research
+   mkdir -p .orbit/projects/{NN}-{name}/research
    ```
 
 2. Save individual findings:
-   - `.orbit/phases/{NN}-{name}/research/{unknown-slug}.md`
+   - `.orbit/projects/{NN}-{name}/research/{unknown-slug}.md`
 
 3. Create consolidated RESEARCH.md:
-   - `.orbit/phases/{NN}-{name}/RESEARCH.md`
+   - `.orbit/projects/{NN}-{name}/RESEARCH.md`
    - Summarizes all findings
    - Links to individual research files
 
 4. Present summary:
 ```
 ════════════════════════════════════════
-PHASE RESEARCH COMPLETE
+PROJECT RESEARCH COMPLETE
 ════════════════════════════════════════
 
-Phase: {N} — {phase_name}
+Project: {N} — {project_name}
 Unknowns researched: {count}
 
 Summary:
@@ -181,8 +181,8 @@ Summary:
 3. {unknown_3}: {key finding}
 
 Detailed findings:
-- .orbit/phases/{NN}-{name}/RESEARCH.md (consolidated)
-- .orbit/phases/{NN}-{name}/research/*.md (individual)
+- .orbit/projects/{NN}-{name}/RESEARCH.md (consolidated)
+- .orbit/projects/{NN}-{name}/research/*.md (individual)
 
 ────────────────────────────────────────
 Review the findings above. This research informs but does not

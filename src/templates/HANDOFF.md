@@ -18,7 +18,7 @@ You have no prior context. This document tells you everything.
 ## Current State
 
 **Version:** {{version}}
-**Phase:** {{phase_number}} of {{total_phases}} — {{phase_name}}
+**Project:** {{project_number}} of {{total_projects}} — {{project_name}}
 **Plan:** {{plan_id}} — {{plan_status}}
 
 **Loop Position:**
@@ -67,7 +67,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
    - `○○○` (fresh) → Run `/orbit:refine`
    - `✓○○` (planned) → Review plan, then `/orbit:build`
    - `✓✓○` (applied) → Run `/orbit:integrate`
-   - `✓✓✓` (complete) → Ready for next phase
+   - `✓✓✓` (complete) → Ready for next project
 
 **Or simply run:** `/orbit:resume`
 

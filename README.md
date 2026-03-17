@@ -127,15 +127,15 @@ Repeat `refine → build → integrate` for each piece of work.
 
 ### Full — maximum structure and clarity
 
-Combine all tools for complex phases with unclear scope, technical unknowns, and team handoffs.
+Combine all tools for complex projects with unclear scope, technical unknowns, and team handoffs.
 
 ```
 /orbit:init
 
 /orbit:cocreate-milestone    # align on milestone vision
-/orbit:milestone             # create phases in ROADMAP.md
+/orbit:milestone             # create projects in ROADMAP.md
 
-# Before planning a phase
+# Before planning a project
 /orbit:cocreate 3            # articulate what you want to build
 /orbit:assumptions 3         # surface Claude's understanding — catch misalignments early
 /orbit:observe "topic"       # resolve technical unknowns
@@ -195,7 +195,7 @@ Combine all tools for complex phases with unclear scope, technical unknowns, and
 
 ### REFINE
 
-Create a REFINE.md with:
+Create a LOOP.md with:
 - **Objective** — What you're building and why
 - **Acceptance Criteria** — Given/When/Then definitions of done
 - **Tasks** — Files, action, verify, done for each step
@@ -259,7 +259,7 @@ Run `/orbit:help` for the full reference.
 | Command | What it does |
 |---------|--------------|
 | `/orbit:observe <topic>` | Research technical options and make decisions before planning |
-| `/orbit:cocreate <phase>` | Articulate phase vision and goals before planning |
+| `/orbit:cocreate <project>` | Articulate project vision and goals before planning |
 | `/orbit:assumptions <phase>` | Surface Claude's intended approach |
 | `/orbit:consider-issues` | Triage deferred issues |
 
@@ -268,14 +268,14 @@ Run `/orbit:help` for the full reference.
 | Command | What it does |
 |---------|--------------|
 | `/orbit:research <topic>` | Deploy research agents |
-| `/orbit:research-phase <N>` | Research unknowns for a phase |
+| `/orbit:research-phase <N>` | Research unknowns for a project |
 
 ### Roadmap
 
 | Command | What it does |
 |---------|--------------|
-| `/orbit:add-phase <desc>` | Append phase to roadmap |
-| `/orbit:remove-phase <N>` | Remove future phase |
+| `/orbit:add-project <desc>` | Append project to roadmap |
+| `/orbit:remove-project <N>` | Remove future project |
 
 ### Milestones
 
@@ -315,26 +315,26 @@ Run `/orbit:help` for the full reference.
 ├── SPECIAL-FLOWS.md     # Optional skill requirements
 ├── milestones/          # Archived completed milestones
 │   └── v0.1-core-loop.md
-└── phases/              # All phases — flat numbering across milestones
+└── projects/            # All projects — flat numbering across milestones
     ├── 01-foundation/
-    │   ├── 01-01-REFINE.md
+    │   ├── 01-01-LOOP.md
     │   └── 01-01-INTEGRATE.md
     └── 02-features/
-        ├── 02-01-REFINE.md
+        ├── 02-01-LOOP.md
         └── 02-01-INTEGRATE.md
 ```
 
-Phases are numbered continuously across milestones — they never restart at 01. Milestone grouping lives in `ROADMAP.md`, not in the folder structure.
+Projects are numbered continuously across milestones — they never restart at 01. Milestone grouping lives in `ROADMAP.md`, not in the folder structure.
 
 ### State management
 
-**STATE.md** tracks current phase, loop position (REFINE/BUILD/INTEGRATE), session continuity, accumulated decisions, and blockers. `/orbit:resume` reads it and gives exactly ONE next action — no decision fatigue.
+**STATE.md** tracks current project, loop position (REFINE/BUILD/INTEGRATE), session continuity, accumulated decisions, and blockers. `/orbit:resume` reads it and gives exactly ONE next action — no decision fatigue.
 
-### REFINE.md structure
+### LOOP.md structure
 
 ```markdown
 ---
-phase: 01-foundation
+project: 01-foundation
 plan: 01
 type: execute
 autonomous: true

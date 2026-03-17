@@ -1,15 +1,15 @@
 <purpose>
-Handle dynamic roadmap modifications: adding phases to the current milestone and removing future phases. These are the "escape hatches" when scope changes mid-milestone.
+Handle dynamic roadmap modifications: adding projects to the current milestone and removing future projects. These are the "escape hatches" when scope changes mid-milestone.
 
 **Operations:**
-- **add-phase:** Append a new phase to the current milestone
-- **remove-phase:** Remove a future (not-started) phase
+- **add-project:** Append a new project to the current milestone
+- **remove-project:** Remove a future (not-started) project
 </purpose>
 
 <when_to_use>
-- User realizes more phases are needed mid-milestone
-- Scope changed and a planned phase is no longer needed
-- Emergency phase insertion (use decimal phases for interruptions)
+- User realizes more projects are needed mid-milestone
+- Scope changed and a planned project is no longer needed
+- Emergency project insertion (use decimal projects for interruptions)
 - Roadmap cleanup after requirements change
 </when_to_use>
 
@@ -24,19 +24,19 @@ Can be invoked at any time during a milestone.
 </required_reading>
 
 <references>
-@src/templates/ROADMAP.md (phase section format)
+@src/templates/ROADMAP.md (project section format)
 </references>
 
 ---
 
-## Operation: add-phase
+## Operation: add-project
 
 <process>
 
 <step name="add_validate" priority="first">
 1. Read ROADMAP.md for current milestone
-2. Identify highest phase number in milestone
-3. Calculate next phase number = highest + 1
+2. Identify highest project number in milestone
+3. Calculate next project number = highest + 1
 
 **If no active milestone:**
 - Error: "No active milestone. Run /orbit:milestone first."
@@ -44,23 +44,23 @@ Can be invoked at any time during a milestone.
 </step>
 
 <step name="add_gather_info">
-Ask for phase details:
+Ask for project details:
 
 ```
-Adding phase {next_number} to {milestone_name}.
+Adding project {next_number} to {milestone_name}.
 
-Phase name?
+Project name?
 (Example: "Testing", "Documentation", "Performance")
 ```
 
-Wait for response. Store as `phase_name`.
+Wait for response. Store as `project_name`.
 
 Optional follow-up:
 ```
 Brief description? (Press Enter to skip)
 ```
 
-Store as `phase_description` or derive from name.
+Store as `project_description` or derive from name.
 </step>
 
 <step name="add_update_roadmap">
@@ -68,19 +68,19 @@ Update ROADMAP.md:
 
 1. **Update milestone header:**
    ```markdown
-   Phases: {X} of {new_total} complete
+   Projects: {X} of {new_total} complete
    ```
 
-2. **Add to phases table:**
+2. **Add to projects table:**
    ```markdown
-   | {next_number} | {phase_name} | TBD | Not started | - |
+   | {next_number} | {project_name} | TBD | Not started | - |
    ```
 
-3. **Add phase details section:**
+3. **Add project details section:**
    ```markdown
-   ### Phase {next_number}: {phase_name}
+   ### Project {next_number}: {project_name}
 
-   Focus: {phase_description}
+   Focus: {project_description}
    Plans: TBD (defined during /orbit:refine)
    Status: Not started
    ```
@@ -89,15 +89,15 @@ Update ROADMAP.md:
 </step>
 
 <step name="add_create_directory">
-Create phase directory:
+Create project directory:
 
 ```bash
-mkdir -p .orbit/phases/{NN}-{phase-slug}
+mkdir -p .orbit/projects/{NN}-{project-slug}
 ```
 
 Where:
-- `NN` = zero-padded phase number
-- `phase-slug` = lowercase, hyphenated phase name
+- `NN` = zero-padded project number
+- `project-slug` = lowercase, hyphenated project name
 </step>
 
 <step name="add_update_state">
@@ -105,12 +105,12 @@ Update STATE.md:
 
 1. **Last activity:**
    ```markdown
-   Last activity: {timestamp} — Added Phase {number}: {name}
+   Last activity: {timestamp} — Added Project {number}: {name}
    ```
 
 2. **Decisions (add to table):**
    ```markdown
-   | Added Phase {number}: {name} | Phase {current} | Extends milestone scope |
+   | Added Project {number}: {name} | Project {current} | Extends milestone scope |
    ```
 </step>
 
@@ -119,18 +119,18 @@ Display confirmation:
 
 ```
 ════════════════════════════════════════
-PHASE ADDED
+PROJECT ADDED
 ════════════════════════════════════════
 
-Phase {number}: {name}
-Directory: .orbit/phases/{slug}/
+Project {number}: {name}
+Directory: .orbit/projects/{slug}/
 
-{milestone_name} now has {total} phases.
+{milestone_name} now has {total} projects.
 
 ROADMAP.md updated ✓
 STATE.md updated ✓
 
-Continue with current work or plan this phase later.
+Continue with current work or plan this project later.
 ════════════════════════════════════════
 ```
 </step>
@@ -139,26 +139,26 @@ Continue with current work or plan this phase later.
 
 ---
 
-## Operation: remove-phase
+## Operation: remove-project
 
 <process>
 
 <step name="remove_validate" priority="first">
 1. Read ROADMAP.md for current milestone
-2. Find target phase by number or name
-3. Check phase status
+2. Find target project by number or name
+3. Check project status
 
 **Validation rules:**
-- Phase must be "Not started" — cannot remove in-progress or complete phases
-- Phase must be in current milestone
-- Cannot remove if it's the only remaining phase
+- Project must be "Not started" — cannot remove in-progress or complete projects
+- Project must be in current milestone
+- Cannot remove if it's the only remaining project
 
 **If validation fails:**
 ```
-Cannot remove Phase {number}: {name}
-Reason: {status is not "Not started" / only remaining phase / not in current milestone}
+Cannot remove Project {number}: {name}
+Reason: {status is not "Not started" / only remaining project / not in current milestone}
 
-Only future (not started) phases can be removed.
+Only future (not started) projects can be removed.
 ```
 Exit workflow.
 </step>
@@ -168,16 +168,16 @@ Ask for confirmation:
 
 ```
 ════════════════════════════════════════
-REMOVE PHASE?
+REMOVE PROJECT?
 ════════════════════════════════════════
 
-Phase {number}: {name}
+Project {number}: {name}
 Status: Not started
 
 This will:
 - Remove from ROADMAP.md
-- Delete .orbit/phases/{slug}/ (if empty)
-- Renumber subsequent phases
+- Delete .orbit/projects/{slug}/ (if empty)
+- Renumber subsequent projects
 
 [1] Yes, remove | [2] Cancel
 ════════════════════════════════════════
@@ -189,31 +189,31 @@ Wait for confirmation. If "2" or "cancel" → exit.
 <step name="remove_update_roadmap">
 Update ROADMAP.md:
 
-1. **Remove phase from table**
+1. **Remove project from table**
 
-2. **Remove phase details section**
+2. **Remove project details section**
 
-3. **Renumber subsequent phases:**
-   - Phase 7 removed → Phase 8 becomes 7, Phase 9 becomes 8, etc.
+3. **Renumber subsequent projects:**
+   - Project 7 removed → Project 8 becomes 7, Project 9 becomes 8, etc.
    - Update both table and details sections
 
 4. **Update milestone header:**
    ```markdown
-   Phases: {X} of {new_total} complete
+   Projects: {X} of {new_total} complete
    ```
 
 5. **Update footer timestamp**
 </step>
 
 <step name="remove_cleanup_directory">
-Handle phase directory:
+Handle project directory:
 
 ```bash
-rmdir .orbit/phases/{NN}-{slug} 2>/dev/null
+rmdir .orbit/projects/{NN}-{slug} 2>/dev/null
 ```
 
 **If directory not empty:**
-- Warn: "Directory not empty — preserved at .orbit/phases/{slug}/"
+- Warn: "Directory not empty — preserved at .orbit/projects/{slug}/"
 - User can manually delete if desired
 
 **If directory empty or doesn't exist:**
@@ -221,16 +221,16 @@ rmdir .orbit/phases/{NN}-{slug} 2>/dev/null
 </step>
 
 <step name="remove_renumber_directories">
-**If subsequent phases exist:**
+**If subsequent projects exist:**
 
-Renumber phase directories to match ROADMAP.md:
+Renumber project directories to match ROADMAP.md:
 
 ```bash
-mv .orbit/phases/08-name .orbit/phases/07-name
-mv .orbit/phases/09-name .orbit/phases/08-name
+mv .orbit/projects/08-name .orbit/projects/07-name
+mv .orbit/projects/09-name .orbit/projects/08-name
 ```
 
-**Note:** This is why we only allow removing "Not started" phases — they have no artifacts yet.
+**Note:** This is why we only allow removing "Not started" projects — they have no artifacts yet.
 </step>
 
 <step name="remove_update_state">
@@ -238,16 +238,16 @@ Update STATE.md:
 
 1. **Last activity:**
    ```markdown
-   Last activity: {timestamp} — Removed Phase {number}: {name}
+   Last activity: {timestamp} — Removed Project {number}: {name}
    ```
 
 2. **Decisions (add to table):**
    ```markdown
-   | Removed Phase {original_number}: {name} | Phase {current} | Scope reduction |
+   | Removed Project {original_number}: {name} | Project {current} | Scope reduction |
    ```
 
-3. **If removed phase was "next":**
-   - Update current position to reflect new next phase
+3. **If removed project was "next":**
+   - Update current position to reflect new next project
 </step>
 
 <step name="remove_confirm">
@@ -255,13 +255,13 @@ Display confirmation:
 
 ```
 ════════════════════════════════════════
-PHASE REMOVED
+PROJECT REMOVED
 ════════════════════════════════════════
 
-Removed: Phase {original_number}: {name}
-{renumbered_phases count} phases renumbered.
+Removed: Project {original_number}: {name}
+{renumbered_projects count} projects renumbered.
 
-{milestone_name} now has {total} phases.
+{milestone_name} now has {total} projects.
 
 ROADMAP.md updated ✓
 STATE.md updated ✓
@@ -274,53 +274,53 @@ STATE.md updated ✓
 ---
 
 <output>
-**add-phase:**
-- ROADMAP.md updated with new phase
-- Phase directory created
+**add-project:**
+- ROADMAP.md updated with new project
+- Project directory created
 - STATE.md decision logged
 
-**remove-phase:**
-- ROADMAP.md updated (phase removed, subsequent renumbered)
-- Phase directory removed (if empty)
+**remove-project:**
+- ROADMAP.md updated (project removed, subsequent renumbered)
+- Project directory removed (if empty)
 - Subsequent directories renumbered
 - STATE.md decision logged
 </output>
 
 <success_criteria>
-**add-phase:**
-- [ ] Next phase number calculated correctly
-- [ ] Phase added to ROADMAP.md table and details
+**add-project:**
+- [ ] Next project number calculated correctly
+- [ ] Project added to ROADMAP.md table and details
 - [ ] Directory created
 - [ ] STATE.md updated
 - [ ] Milestone total updated
 
-**remove-phase:**
-- [ ] Phase status validated (not started only)
+**remove-project:**
+- [ ] Project status validated (not started only)
 - [ ] User confirmed removal
-- [ ] Phase removed from ROADMAP.md
+- [ ] Project removed from ROADMAP.md
 - [ ] Directory cleaned up
-- [ ] Subsequent phases renumbered
+- [ ] Subsequent projects renumbered
 - [ ] STATE.md updated
 </success_criteria>
 
 <validation_rules>
-**add-phase:**
+**add-project:**
 - Active milestone must exist
-- Phase name required
-- Cannot add duplicate phase names (warning only)
+- Project name required
+- Cannot add duplicate project names (warning only)
 
-**remove-phase:**
-- Phase must exist
-- Phase must be "Not started"
-- Cannot remove last phase in milestone
-- Cannot remove phase with artifacts (REFINE.md, INTEGRATE.md)
+**remove-project:**
+- Project must exist
+- Project must be "Not started"
+- Cannot remove last project in milestone
+- Cannot remove project with artifacts (LOOP.md, INTEGRATE.md)
 </validation_rules>
 
 <error_handling>
 **No active milestone:**
 - Route to /orbit:milestone or /orbit:init
 
-**Phase directory not empty:**
+**Project directory not empty:**
 - Preserve directory, warn user
 - User can manually clean up
 

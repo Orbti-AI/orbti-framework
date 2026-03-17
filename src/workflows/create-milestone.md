@@ -1,5 +1,5 @@
 <purpose>
-Define a new milestone in the project. Creates milestone structure in ROADMAP.md, initializes phase directories, and updates project state. Uses MILESTONE-CONTEXT.md handoff if available from cocreate-milestone.
+Define a new milestone in the project. Creates milestone structure in ROADMAP.md, initializes project directories, and updates project state. Uses MILESTONE-CONTEXT.md handoff if available from cocreate-milestone.
 </purpose>
 
 <when_to_use>
@@ -11,13 +11,13 @@ Define a new milestone in the project. Creates milestone structure in ROADMAP.md
 
 <loop_context>
 N/A - This is a milestone setup workflow, not a loop phase.
-After create-milestone, project is ready for first phase REFINE.
+After create-milestone, project is ready for first project REFINE.
 </loop_context>
 
 <required_reading>
 @.orbit/STATE.md
 @.orbit/ROADMAP.md
-@.orbit/MILESTONE-CONTEXT.md (if exists)
+@.orbit/projects/{name}/MILESTONE-CONTEXT.md (if exists)
 </required_reading>
 
 <references>
@@ -30,7 +30,7 @@ After create-milestone, project is ready for first phase REFINE.
 <step name="load_context" priority="first">
 1. Check for MILESTONE-CONTEXT.md:
    ```bash
-   cat .orbit/MILESTONE-CONTEXT.md 2>/dev/null
+   cat .orbit/projects/{name}/MILESTONE-CONTEXT.md 2>/dev/null
    ```
 
 2. **If found:**
@@ -67,19 +67,19 @@ Wait for response. Store as `milestone_theme`.
 <step name="identify_phases">
 **Only if no MILESTONE-CONTEXT.md exists.**
 
-Ask about phases:
+Ask about projects:
 
 ```
-What phases will this milestone include?
+What projects will this milestone include?
 
-(Example: "Templates, Workflows, Commands" or "3 phases for auth, dashboard, deployment")
+(Example: "Templates, Workflows, Commands" or "3 projects for auth, dashboard, deployment")
 ```
 
-Wait for response. Parse into phase list.
+Wait for response. Parse into project list.
 
-For each phase, derive:
-- Phase number (next available from ROADMAP.md)
-- Phase name
+For each project, derive:
+- Project number (next available from ROADMAP.md)
+- Project name
 - Brief description
 </step>
 
@@ -94,16 +94,16 @@ Read current ROADMAP.md and update:
    Phases: 0 of {phase_count} complete
    ```
 
-2. **Add phases to table:**
+2. **Add projects to table:**
    ```markdown
-   | Phase | Name | Plans | Status | Completed |
-   |-------|------|-------|--------|-----------|
+   | Project | Name | Plans | Status | Completed |
+   |---------|------|-------|--------|-----------|
    | {N} | {name} | TBD | Not started | - |
    ```
 
-3. **Add phase details section:**
+3. **Add project details section:**
    ```markdown
-   ### Phase {N}: {name}
+   ### Project {N}: {name}
 
    Focus: {description}
    Plans: TBD (defined during /orbit:refine)
@@ -116,7 +116,7 @@ Read current ROADMAP.md and update:
 For each phase in the new milestone:
 
 ```bash
-mkdir -p .orbit/phases/{NN}-{name-slug}
+mkdir -p .orbit/projects/{NN}-{name-slug}
 ```
 
 Where:
@@ -132,7 +132,7 @@ Update STATE.md:
    ## Current Position
 
    Milestone: {milestone_name}
-   Phase: {first_phase_number} of {total} ({first_phase_name})
+   Project: {first_project_number} of {total} ({first_project_name})
    Plan: Not started
    Status: Ready to plan
    Last activity: {timestamp} — Milestone created
@@ -161,7 +161,7 @@ Update STATE.md:
 
    Last session: {timestamp}
    Stopped at: Milestone created, ready to plan
-   Next action: /orbit:refine for Phase {first_phase_number}
+   Next action: /orbit:refine for Project {first_project_number}
    Resume file: .orbit/ROADMAP.md
    ```
 </step>
@@ -171,7 +171,7 @@ Update STATE.md:
 
 Delete the handoff file:
 ```bash
-rm .orbit/MILESTONE-CONTEXT.md
+rm .orbit/projects/{name}/MILESTONE-CONTEXT.md
 ```
 
 Display: "Cleaned up milestone context handoff."
@@ -192,16 +192,16 @@ Theme: {milestone_theme}
 Phases: {phase_count}
 
 Created:
-  .orbit/phases/{phase-1-slug}/     ✓
-  .orbit/phases/{phase-2-slug}/     ✓
-  .orbit/phases/{phase-N-slug}/     ✓
+  .orbit/projects/{phase-1-slug}/     ✓
+  .orbit/projects/{phase-2-slug}/     ✓
+  .orbit/projects/{phase-N-slug}/     ✓
 
 ROADMAP.md updated ✓
 STATE.md updated ✓
 
 ────────────────────────────────────────
 ▶ NEXT: /orbit:refine
-  Begin planning Phase {first_phase_number}: {first_phase_name}
+  Begin planning Project {first_project_number}: {first_project_name}
 ────────────────────────────────────────
 
 Type "yes" to proceed, or ask questions first.
@@ -214,7 +214,7 @@ Type "yes" to proceed, or ask questions first.
 
 <output>
 - ROADMAP.md updated with new milestone section
-- Phase directories created in .orbit/phases/
+- Project directories created in .orbit/projects/
 - STATE.md updated with new position
 - MILESTONE-CONTEXT.md deleted (if existed)
 - Clear routing to /orbit:refine
@@ -224,7 +224,7 @@ Type "yes" to proceed, or ask questions first.
 - [ ] MILESTONE-CONTEXT.md loaded if exists
 - [ ] User prompted only if no context exists
 - [ ] ROADMAP.md has new milestone section
-- [ ] Phase directories created
+- [ ] Project directories created
 - [ ] STATE.md reflects new milestone position
 - [ ] MILESTONE-CONTEXT.md cleaned up
 - [ ] Single next action offered
@@ -236,7 +236,7 @@ Type "yes" to proceed, or ask questions first.
 - Fall back to manual questions
 - Clean up malformed file
 
-**Phase directory exists:**
+**Project directory exists:**
 - Check if empty → proceed
 - If has content → warn about overwrite, ask to confirm
 

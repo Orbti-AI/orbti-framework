@@ -132,7 +132,7 @@ files_changed: []
 - Move file to .orbit/debug/resolved/
 
 **Complex fixes:** If fix requires significant code changes:
-- Create a dedicated REFINE.md for the fix
+- Create a dedicated LOOP.md for the fix
 - Reference debug file in plan context
 - Debug file stays in "fixing" until plan completes
 

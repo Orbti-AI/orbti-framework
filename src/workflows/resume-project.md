@@ -67,7 +67,7 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
 <step name="load_state">
 1. Read `.orbit/STATE.md`
 2. Extract:
-   - Current Position (phase, plan, status)
+   - Current Position (project, plan, status)
    - Loop Position (REFINE/BUILD/INTEGRATE markers)
    - Last activity (what was happening)
    - Session Continuity section:
@@ -116,7 +116,7 @@ ORBIT PROJECT RESUMED
 ════════════════════════════════════════
 
 Project: [from PROJECT.md]
-Phase: [N] of [M] - [Phase Name]
+Project: [N] of [M] - [Project Name]
 Plan: [NN-PP] - [plan description]
 
 Loop Position:

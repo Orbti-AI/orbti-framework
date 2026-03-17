@@ -47,7 +47,7 @@ Every unit of work follows this cycle:
 |----------|----------|
 | Core Loop | refine, build, integrate, test, help, status |
 | Session | pause, resume, progress, handoff |
-| Roadmap | add-phase, remove-phase |
+| Roadmap | add-project, remove-project |
 | Milestone | milestone, complete-milestone, cocreate-milestone |
 | Pre-Planning | cocreate, assumptions, observe, consider-issues |
 | Research | research, research-phase |
@@ -70,21 +70,21 @@ Usage: `/orbit:init`
 
 ---
 
-### `/orbit:refine [phase]`
+### `/orbit:refine [project]`
 Enter REFINE phase - create an executable plan.
 
 - Reads current state from STATE.md
-- Creates REFINE.md with tasks, acceptance criteria, boundaries
+- Creates LOOP.md with tasks, acceptance criteria, boundaries
 - Populates skills section from SPECIAL-FLOWS.md (if configured)
 - Updates loop position
 
-Usage: `/orbit:refine` (auto-detects next phase)
-Usage: `/orbit:refine 3` (specific phase)
+Usage: `/orbit:refine` (auto-detects next project)
+Usage: `/orbit:refine 3` (specific project)
 
 ---
 
 ### `/orbit:build [plan-path]`
-Execute an approved REFINE.md file.
+Execute an approved LOOP.md file.
 
 - **Blocks if required skills not loaded** (from SPECIAL-FLOWS.md)
 - Validates plan exists and hasn't been executed
@@ -93,7 +93,7 @@ Execute an approved REFINE.md file.
 - Reports completion and prompts for INTEGRATE
 
 Usage: `/orbit:build`
-Usage: `/orbit:build .orbit/phases/01-foundation/01-01-REFINE.md`
+Usage: `/orbit:build .orbit/projects/01-foundation/01-01-LOOP.md`
 
 ---
 
@@ -107,7 +107,7 @@ Reconcile plan vs actual and close the loop.
 - **Required** - never skip this step
 
 Usage: `/orbit:integrate`
-Usage: `/orbit:integrate .orbit/phases/01-foundation/01-01-REFINE.md`
+Usage: `/orbit:integrate .orbit/projects/01-foundation/01-01-LOOP.md`
 
 ---
 
@@ -180,35 +180,35 @@ Usage: `/orbit:handoff "phase10-audit"`
 
 ## Roadmap Commands
 
-### `/orbit:add-phase <description>`
-Append a new phase to the roadmap.
+### `/orbit:add-project <description>`
+Append a new project to the roadmap.
 
-- Adds phase to end of ROADMAP.md
-- Updates phase numbering
+- Adds project to end of ROADMAP.md
+- Updates project numbering
 - Records in STATE.md decisions
 
-Usage: `/orbit:add-phase "API Authentication Layer"`
+Usage: `/orbit:add-project "API Authentication Layer"`
 
 ---
 
-### `/orbit:remove-phase <number>`
-Remove a future (not started) phase from roadmap.
+### `/orbit:remove-project <number>`
+Remove a future (not started) project from roadmap.
 
-- Cannot remove completed or in-progress phases
-- Renumbers subsequent phases
+- Cannot remove completed or in-progress projects
+- Renumbers subsequent projects
 - Updates ROADMAP.md
 
-Usage: `/orbit:remove-phase 5`
+Usage: `/orbit:remove-project 5`
 
 ---
 
 ## Milestone Commands
 
 ### `/orbit:milestone <name>`
-Create a new milestone with phases.
+Create a new milestone with projects.
 
 - Guides through milestone definition
-- Creates phase structure
+- Creates project structure
 - Updates ROADMAP.md with milestone grouping
 
 Usage: `/orbit:milestone "v2.0 API Redesign"`
@@ -218,7 +218,7 @@ Usage: `/orbit:milestone "v2.0 API Redesign"`
 ### `/orbit:complete-milestone [version]`
 Archive milestone, tag, and reorganize roadmap.
 
-- Verifies all phases complete
+- Verifies all projects complete
 - Creates git tag (if configured)
 - Archives milestone to MILESTONES.md
 - Evolves PROJECT.md for next milestone
@@ -241,10 +241,10 @@ Usage: `/orbit:cocreate-milestone`
 
 ## Pre-Planning Commands
 
-### `/orbit:cocreate <phase>`
+### `/orbit:cocreate <project>`
 Articulate vision and explore approach before planning.
 
-- Conversational discussion of phase goals
+- Conversational discussion of project goals
 - Creates CONTEXT.md capturing vision
 - Prepares for `/orbit:refine`
 
@@ -253,8 +253,8 @@ Usage: `/orbit:cocreate "authentication layer"`
 
 ---
 
-### `/orbit:assumptions <phase>`
-Surface Claude's assumptions about a phase before planning.
+### `/orbit:assumptions <project>`
+Surface Claude's assumptions about a project before planning.
 
 - Shows what Claude would do if given free rein
 - Identifies gaps in understanding
@@ -301,9 +301,9 @@ Usage: `/orbit:research "JWT best practices 2026"`
 ---
 
 ### `/orbit:research-phase <number>`
-Research unknowns for a phase using subagents.
+Research unknowns for a project using subagents.
 
-- Identifies unknowns in phase scope
+- Identifies unknowns in project scope
 - Deploys research agents
 - Synthesizes findings for planning
 
@@ -364,7 +364,7 @@ Plan fixes for UAT issues from verify.
 
 - Reads issues identified during verify
 - Creates targeted fix plan
-- Smaller scope than full phase plan
+- Smaller scope than full project plan
 
 Usage: `/orbit:plan-fix`
 
@@ -375,25 +375,25 @@ Usage: `/orbit:plan-fix`
 ```
 .orbit/
 ├── PROJECT.md           # Project context and value prop
-├── ROADMAP.md           # Phase breakdown and milestones
+├── ROADMAP.md           # Project breakdown and milestones
 ├── STATE.md             # Loop position and session state
 ├── config.md            # Optional integrations config
 ├── SPECIAL-FLOWS.md     # Optional skill requirements
 ├── MILESTONES.md        # Completed milestone archive
-└── phases/
+└── projects/
     ├── 01-foundation/
-    │   ├── 01-01-REFINE.md
+    │   ├── 01-01-LOOP.md
     │   └── 01-01-INTEGRATE.md
     └── 02-features/
-        ├── 02-01-REFINE.md
+        ├── 02-01-LOOP.md
         └── 02-01-INTEGRATE.md
 ```
 
-## REFINE.md Structure
+## LOOP.md Structure
 
 ```markdown
 ---
-phase: 01-foundation
+project: 01-foundation
 plan: 01
 type: execute
 autonomous: true
@@ -459,6 +459,8 @@ Completion checks
 /orbit:cocreate 3 → /orbit:assumptions 3 → /orbit:research "topic" → /orbit:refine 3
 ```
 
+
+
 ## Key Principles
 
 1. **Loop must complete** - REFINE -> BUILD -> INTEGRATE, no shortcuts
@@ -472,7 +474,7 @@ Completion checks
 - Run `/orbit:progress` to see where you are and what to do next
 - Read `.orbit/PROJECT.md` for project context
 - Read `.orbit/STATE.md` for current position
-- Check `.orbit/ROADMAP.md` for phase overview
+- Check `.orbit/ROADMAP.md` for project overview
 
 ---
 

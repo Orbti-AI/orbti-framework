@@ -127,11 +127,11 @@ For each failed/partial test, gather:
 </step>
 
 <step name="log">
-**Log issues to phase-scoped file:**
+**Log issues to project-scoped file:**
 
 If any issues found:
 
-1. Create `.orbit/phases/XX-name/{phase}-{plan}-UAT.md` if doesn't exist
+1. Create `.orbit/projects/XX-name/{project}-{plan}-UAT.md` if doesn't exist
 2. Use template from `@src/templates/TEST.md`
 3. Add each issue with UAT-NNN format:
 
@@ -139,7 +139,7 @@ If any issues found:
 ### UAT-001: [Brief description]
 
 **Discovered:** [date] during user acceptance testing
-**Phase/Plan:** [phase]-[plan] that was tested
+**Project/Plan:** [project]-[plan] that was tested
 **Severity:** [Blocker/Major/Minor/Cosmetic]
 **AC:** [Which acceptance criteria this relates to]
 **Description:** [User's description of the problem]

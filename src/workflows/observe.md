@@ -93,7 +93,7 @@ For: Choosing between options, new integration.
    - Findings per option
    - Confidence level (should be MEDIUM-HIGH)
 
-Output: `.orbit/phases/XX-name/OBSERVE.md`
+Output: `.orbit/projects/XX-name/OBSERVE.md`
 </step>
 
 <step name="level_3_deep">
@@ -140,7 +140,7 @@ For: Architectural decisions, novel problems.
    3. Pause (need to think)
    ```
 
-Output: Comprehensive `.orbit/phases/XX-name/OBSERVE.md`
+Output: Comprehensive `.orbit/projects/XX-name/OBSERVE.md`
 </step>
 
 <step name="route_to_planning">
