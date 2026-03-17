@@ -196,6 +196,35 @@ Combine all tools for complex phases with unclear scope, technical unknowns, and
 
 ---
 
+## Common Workflows
+
+**Resuming after a break (new session):**
+```
+/orbit:resume
+```
+
+**Checking where you are:**
+```
+/orbit:progress
+```
+
+**Pausing mid-session:**
+```
+/orbit:pause → (new session) → /orbit:resume
+```
+
+**Research before planning:**
+```
+/orbit:research "JWT best practices" → /orbit:refine 2
+```
+
+**Triage deferred issues:**
+```
+/orbit:consider-issues → /orbit:refine
+```
+
+---
+
 ## The Loop
 
 ```
