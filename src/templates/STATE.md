@@ -18,8 +18,9 @@ All projects in the current milestone — updated after every loop completion.
 | # | Project | Loops | Status | Loop Position |
 |---|---------|-------|--------|---------------|
 | 01-[name] | [Description] | 0/N | ○ Pending | ○ ○ ○ |
-| 02-[name] | [Description] | 1/N | 🔵 In Progress | ✓ ◉ ○ |
-| 03-[name] | [Description] | N/N | ✅ Complete | ✓ ✓ ✓ |
+| 02-[name] | [Description] | 1/N | ⏸ Paused | ✓ ◉ ○ |
+| 03-[name] | [Description] | 1/N | 🔵 In Progress | ◉ ○ ○ |
+| 04-[name] | [Description] | N/N | ✅ Complete | ✓ ✓ ✓ |
 
 **Milestone progress:** [X] of [Y] projects complete
 
@@ -82,7 +83,8 @@ Resume file: [path to most relevant file]
 
 **Status values:**
 - `○ Pending` — not started
-- `🔵 In Progress` — at least one loop started
+- `🔵 In Progress` — active project (current session focus)
+- `⏸ Paused` — mid-loop, switched to another project
 - `✅ Complete` — all loops done, INTEGRATE complete
 
 **Loop Position column** (compact):

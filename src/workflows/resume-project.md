@@ -93,22 +93,54 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
    - Any decisions or gaps from handoff
 </step>
 
+<step name="detect_active_projects">
+**Check how many projects are In Progress or Paused:**
+
+From the Projects Overview in STATE.md, count rows with status `🔵 In Progress` or `⏸ Paused`.
+
+**If exactly one active project:** proceed to `determine_single_action` directly.
+
+**If multiple active/paused projects:**
+```
+════════════════════════════════════════
+MULTIPLE PROJECTS IN PROGRESS
+════════════════════════════════════════
+
+Projects Overview:
+┌────────────────────────────────────────────────────────────┐
+│  #   Project              Loops   Status          Position  │
+│  01  [name]               1/3     ⏸ Paused        ✓ ◉ ○    │
+│  02  [name]               0/2     🔵 In Progress  ◉ ○ ○    │
+└────────────────────────────────────────────────────────────┘
+
+Which project do you want to continue?
+Type the project number or name (e.g., "01" or "auth").
+════════════════════════════════════════
+```
+
+Wait for user selection. Once selected:
+- Set chosen project as active (`🔵 In Progress`)
+- Set others back to `⏸ Paused` in the Overview
+- Load the corresponding `HANDOFF-{project}-*.md` if it exists
+- Proceed to `determine_single_action` for the chosen project
+</step>
+
 <step name="determine_single_action">
-Based on loop position, determine **exactly ONE** next action:
+Based on the active project's loop position, determine **exactly ONE** next action:
 
 | Loop State | Single Next Action |
 |------------|-------------------|
 | REFINE ○ (no plan yet) | `/orbit:refine` |
 | REFINE ✓, BUILD ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
 | REFINE ✓, BUILD ✓, INTEGRATE ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
-| All ✓ (loop complete) | `/orbit:refine` (next phase) |
+| All ✓ (loop complete) | `/orbit:refine` (next loop) |
 | Blocked | "Address blocker: [specific issue]" |
 
 **Do NOT offer multiple options.** Pick the ONE correct action.
 </step>
 
 <step name="report_and_route">
-Display the Projects Overview first, then focus on ONE next action:
+Display the Projects Overview, then the next action for the active project:
 
 ```
 ════════════════════════════════════════
@@ -118,26 +150,26 @@ ORBIT RESUMED
 Projects Overview:
 ┌────────────────────────────────────────────────────────────┐
 │  #   Project              Loops   Status          Position  │
-│  01  [name]               2/3     🔵 In Progress  ✓ ◉ ○    │
-│  02  [name]               0/2     ○ Pending       ○ ○ ○    │
-│  03  [name]               3/3     ✅ Complete      ✓ ✓ ✓    │
+│  01  [name]               1/3     ⏸ Paused        ✓ ◉ ○    │
+│  02  [name]               0/2     🔵 In Progress  ◉ ○ ○    │
+│  03  [name]               0/2     ○ Pending       ○ ○ ○    │
+│  04  [name]               3/3     ✅ Complete      ✓ ✓ ✓    │
 └────────────────────────────────────────────────────────────┘
 Milestone: [X] of [Y] projects complete
 
 ────────────────────────────────────────
-Current focus: Project [N] — [Name]
-Plan: [A] of [B]
+Active: Project [N] — [Name]
 Stopped at: [what was happening]
 ────────────────────────────────────────
 ▶ NEXT: [single command with path]
   [brief description of what it does]
 ────────────────────────────────────────
 
-Type "yes" to proceed, or provide context for a different action.
+Type "yes" to proceed, or type a project number/name to switch projects.
 ```
 
-**IMPORTANT:** Do NOT show numbered options (1, 2, 3, 4).
-Show exactly ONE suggested action. The Overview gives full context — the Next action gives direction.
+**IMPORTANT:** If only one active project — ONE next action, no choice needed.
+If multiple active/paused — run `detect_active_projects` step first to let user pick.
 </step>
 
 </process>

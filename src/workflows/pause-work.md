@@ -53,12 +53,13 @@ If user doesn't provide, summarize from:
 </step>
 
 <step name="create_handoff">
-**Create HANDOFF file:**
+**Create HANDOFF file — named by project:**
 
 ```bash
-# Generate filename
+# Generate filename scoped to current project
+PROJECT=$(grep "Project:" .orbit/STATE.md | head -1 | sed 's/.*— //' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%Y-%m-%d)
-HANDOFF_FILE=".orbit/HANDOFF-${TIMESTAMP}.md"
+HANDOFF_FILE=".orbit/HANDOFF-${PROJECT}-${TIMESTAMP}.md"
 ```
 
 **Write content (NOT from template, populate directly):**
@@ -141,19 +142,22 @@ Be specific enough for a fresh Claude to understand immediately.
 </step>
 
 <step name="update_state">
-**Update `.orbit/STATE.md` Session Continuity section:**
+**Update STATE.md — two sections:**
 
+**1. Projects Overview — mark current project as Paused:**
+- Find the current project row
+- Change Status from `🔵 In Progress` → `⏸ Paused`
+- Loop position column stays as-is (preserves exact position)
+- This allows another project to take `🔵 In Progress`
+
+**2. Session Continuity:**
 ```markdown
 ## Session Continuity
 
 Last session: [timestamp]
-Stopped at: [what was happening]
-Next action: [clear directive]
-Resume file: .orbit/HANDOFF-[date].md
-Resume context:
-- [bullet 1 - key context]
-- [bullet 2 - key context]
-- [bullet 3 - key context]
+Stopped at: [what was happening — project + loop position]
+Next action: /orbit:resume — choose which project to continue
+Resume file: .orbit/HANDOFF-[project]-[date].md
 ```
 </step>
 
@@ -222,15 +226,17 @@ This enables transition-phase.md to know the branch strategy when reconciling.
 ORBIT SESSION PAUSED
 ════════════════════════════════════════
 
-Handoff created: .orbit/HANDOFF-[date].md
+Handoff: .orbit/HANDOFF-[project]-[date].md
 
-Current State:
-  Project: [N] of [M]
-  Plan: [status]
-  Loop: [REFINE/BUILD/INTEGRATE position]
+Project [N] — [Name]
+  Status: ⏸ Paused
+  Loop: REFINE [✓/○] → BUILD [✓/○] → INTEGRATE [✓/○]
 
-To resume later:
-  /orbit:resume
+To continue this project later:
+  /orbit:resume → select [project name]
+
+To start another project now:
+  /orbit:refine (for next project in ROADMAP)
 
 ════════════════════════════════════════
 ```
