@@ -138,7 +138,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 |------|---------|
 | `.orbit/STATE.md` | Live project state |
 | `.orbit/ROADMAP.md` | Project overview |
-| [current refine path] | [plan purpose] |
+| [current refine path] | [refine purpose] |
 
 ---
 

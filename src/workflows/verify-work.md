@@ -14,7 +14,7 @@ The USER performs all testing — Claude generates the checklist, guides the pro
 **Determine what to test:**
 
 If $ARGUMENTS provided:
-- Parse as phase number (e.g., "4") or plan number (e.g., "04-02")
+- Parse as phase number (e.g., "4") or refine number (e.g., "04-02")
 - Find corresponding INTEGRATE.md file(s)
 
 If no arguments:
@@ -65,14 +65,14 @@ Create structured test plan:
 
 ## Acceptance Criteria Tests
 
-### AC-1: [Criteria from plan]
+### AC-1: [Criteria from refine]
 **What to test:** [User-observable behavior]
 **Steps:**
 1. [Specific action to take]
 2. [What to look for]
 3. [Expected result]
 
-### AC-2: [Criteria from plan]
+### AC-2: [Criteria from refine]
 ...
 
 ## Edge Cases
@@ -139,7 +139,7 @@ If any issues found:
 ### UAT-001: [Brief description]
 
 **Discovered:** [date] during user acceptance testing
-**Project/Plan:** [project]-[plan] that was tested
+**Project/Refine:** [project]-[plan] that was tested
 **Severity:** [Blocker/Major/Minor/Cosmetic]
 **AC:** [Which acceptance criteria this relates to]
 **Description:** [User's description of the problem]
@@ -174,8 +174,8 @@ If any issues found:
 
 ## Next Steps
 [Based on verdict:]
-- If clean: Suggest proceeding to next phase/plan
-- If issues: Suggest creating FIX plan to address
+- If clean: Suggest proceeding to next phase/refine
+- If issues: Suggest creating FIX refine to address
 ```
 </step>
 
@@ -193,7 +193,7 @@ If all passed:
 - "Done" — Finish testing session
 
 If issues found:
-- "Refine fixes" — Create plan to address issues
+- "Refine fixes" — Create refine to address issues
 - "Log and continue" — Issues logged, proceed anyway
 - "Review issues" — Look at logged issues in detail
 </step>

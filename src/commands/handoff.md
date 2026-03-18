@@ -57,7 +57,7 @@ Combine Claude's observations with user input:
 
 1. **Session Accomplishments:**
    - What was built/completed
-   - Plans executed
+   - Refines executed
    - Files created
 
 2. **Decisions Made:**

@@ -104,7 +104,7 @@ Build consolidated list with source file reference.
 
 ### UAT-XXX: [description]
 **Why urgent:** [What changed - blocking, causing problems]
-**Recommendation:** Insert plan or add to current phase
+**Recommendation:** Insert refine or add to current phase
 **Effort:** [Quick/Medium/Substantial]
 
 ---
@@ -134,7 +134,7 @@ Use AskUserQuestion with relevant options:
 
 **If urgent issues exist:**
 - "Insert urgent phase" - Create decimal phase (e.g., 10.3)
-- "Add to current refine" - Include in next plan
+- "Add to current refine" - Include in next refine
 - "Defer anyway" - Keep as-is
 
 **If natural fits exist:**

@@ -211,7 +211,7 @@ None yet.
 
 Last session: [timestamp]
 Stopped at: Project initialization complete
-Next action: Run /orbit:refine to define phases and first plan
+Next action: Run /orbit:refine to define phases and first refine
 Resume file: .orbit/PROJECT.md
 
 ---
@@ -339,7 +339,7 @@ Created:
 
 ────────────────────────────────────────
 ▶ NEXT: /orbit:refine
-  Define your projects and create your first plan.
+  Define your projects and create your first refine.
 ────────────────────────────────────────
 
 Type "yes" to proceed, or ask questions first.

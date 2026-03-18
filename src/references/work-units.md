@@ -1,7 +1,7 @@
 <work_units>
 
 <purpose>
-Guide plan sizing to maintain consistent quality. Plans must complete within ~50% context to avoid quality degradation. This reference helps estimate scope and know when to split.
+Guide refine sizing to maintain consistent quality. Refines must complete within ~50% context to avoid quality degradation. This reference helps estimate scope and know when to split.
 
 **For CARL users:** CARL context brackets handle this operationally. This reference documents the underlying principles.
 </purpose>

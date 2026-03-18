@@ -33,7 +33,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 - **REFINE:** Design, get approval, set boundaries
 - **BUILD:** Execute tasks, commit per-task
-- **INTEGRATE:** Reconcile plan vs actual, update STATE.md
+- **INTEGRATE:** Reconcile refine vs actual, update STATE.md
 
 Never leave a loop incomplete. INTEGRATE closes the loop and updates state.
 This creates audit trail and enables proper session handoff.
@@ -58,7 +58,7 @@ This enables:
 
 <scope_control>
 
-Plans must complete within reasonable context usage.
+Refines must complete within reasonable context usage.
 
 **Quality degradation curve:**
 - 0-30% context: Peak quality
@@ -68,7 +68,7 @@ Plans must complete within reasonable context usage.
 
 **Solution:** Aggressive atomicity - split into refines.
 - 2-3 tasks per refine maximum
-- Each plan independently executable
+- Each refine independently executable
 - Target ~50% context per refine (40% for TDD refines)
 </scope_control>
 

@@ -30,7 +30,7 @@ All projects in the current milestone — updated after every loop completion.
 
 **Project:** [N] — [Name]
 **Plan:** [A] of [B]
-**Status:** [Ready to plan | Planning | Building | Integrating | Complete | Blocked]
+**Status:** [Ready to refine | Planning | Building | Integrating | Complete | Blocked]
 **Last activity:** [YYYY-MM-DD HH:MM] — [What happened]
 
 Loop position:
@@ -172,7 +172,7 @@ STATE.md is a DIGEST, not an archive:
 **Creation:** After ROADMAP.md created (during `/orbit:init`)
 - Build Projects Overview table from ROADMAP.md projects
 - All rows start as Pending
-- Set Current Focus to "Project 1 — Ready to plan"
+- Set Current Focus to "Project 1 — Ready to refine"
 
 **Reading:** First step of EVERY workflow
 - Load before any REFINE, BUILD, or INTEGRATE

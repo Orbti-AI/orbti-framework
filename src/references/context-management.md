@@ -11,8 +11,8 @@ ORBIT uses context brackets to adapt behavior based on remaining capacity:
 | Bracket | Remaining | Mode | Behavior |
 |---------|-----------|------|----------|
 | FRESH | >70% | LEAN | Minimal injection, trust recent context |
-| MODERATE | 40-70% | STANDARD | Reinforce key context, consider plan splits |
-| DEEP | 20-40% | CONSERVATIVE | Summarize before new reads, plan handoffs |
+| MODERATE | 40-70% | STANDARD | Reinforce key context, consider refine splits |
+| DEEP | 20-40% | CONSERVATIVE | Summarize before new reads, refine handoffs |
 | CRITICAL | <20% | PRESERVATION | Finish current task, prepare handoff |
 
 ## Strategies by Bracket
@@ -26,7 +26,7 @@ ORBIT uses context brackets to adapt behavior based on remaining capacity:
 ### MODERATE (40-70%)
 - Re-read key files (PROJECT.md, STATE.md) before decisions
 - Consider splitting large remaining work
-- Prefer summaries over full prior plan content
+- Prefer summaries over full prior refine content
 - Single-concern plans
 
 ### DEEP (20-40%)
@@ -71,7 +71,7 @@ When referencing prior work:
 <!-- GOOD: Reference summary -->
 @.orbit/projects/01-foundation/01-01-INTEGRATE.md
 
-<!-- AVOID: Full plan + summary -->
+<!-- AVOID: Full refine + summary -->
 @.orbit/projects/01-foundation/01-01-LOOP.md
 @.orbit/projects/01-foundation/01-01-INTEGRATE.md
 ```
@@ -90,7 +90,7 @@ Don't load implementation details until you need them.
 ## Refine Sizing for Context
 
 ### Target: ~50% Context Usage Per Refine
-A plan should use roughly half the available context:
+A refine should use roughly half the available context:
 - Leaves room for execution output
 - Allows error recovery
 - Supports verification steps

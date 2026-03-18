@@ -16,7 +16,7 @@ type: execute                    # execute | tdd | research
 wave: N                          # Execution wave (1, 2, 3...). Pre-computed at plan time.
 depends_on: []                   # Plan IDs this plan requires (e.g., ["01-01"]).
 files_modified: []               # Files this plan modifies.
-autonomous: true                 # false if plan has checkpoints requiring user interaction
+autonomous: true                 # false if refine has checkpoints requiring user interaction
 ---
 
 <objective>

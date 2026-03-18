@@ -59,7 +59,7 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
 <step name="load_state">
 1. Read `.orbit/STATE.md`
 2. Extract:
-   - Current Position (project, plan, status)
+   - Current Position (project, refine, status)
    - Loop Position (REFINE/BUILD/INTEGRATE markers)
    - Last activity (what was happening)
    - Session Continuity section:
@@ -122,7 +122,7 @@ Based on the active project's loop position, determine **exactly ONE** next acti
 
 | Loop State | Single Next Action |
 |------------|-------------------|
-| REFINE ○ (no plan yet) | `/orbit:refine` |
+| REFINE ○ (no refine yet) | `/orbit:refine` |
 | REFINE ✓, BUILD ○ (plan awaiting approval) | `/orbit:build [plan-path]` |
 | REFINE ✓, BUILD ✓, INTEGRATE ○ (executed, not reconciled) | `/orbit:integrate [plan-path]` |
 | All ✓ (loop complete) | `/orbit:refine` (next loop) |

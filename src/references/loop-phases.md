@@ -34,7 +34,7 @@ Explain the semantics of ORBIT's three loop phases: REFINE, BUILD, INTEGRATE. Ev
 7. **Wait for approval before proceeding**
 
 **Entry Condition:**
-- Prior plan completed (INTEGRATE done) OR first plan
+- Prior refine completed (INTEGRATE done) OR first refine
 - ROADMAP indicates this project is next
 
 **Exit Condition:**
@@ -64,7 +64,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
    - Record result (pass/fail)
    - Stop at checkpoints, wait for human
 3. Handle blockers by documenting and notifying
-4. Track deviations from plan
+4. Track deviations from refine
 
 **Entry Condition:**
 - LOOP.md exists and is approved
@@ -150,7 +150,7 @@ Why: No INTEGRATE = no record of what was built = lost traceability.
 ## Phase Transitions
 
 ### REFINE → BUILD
-Trigger: User approves plan (explicit signal)
+Trigger: User approves refine (explicit signal)
 
 Validation:
 - [ ] LOOP.md has all required sections

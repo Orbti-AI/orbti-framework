@@ -54,8 +54,8 @@ Workflows should be aware of their position in the ORBIT loop:
 ```xml
 <loop_context>
 Expected phase: REFINE
-Prior phase:  INTEGRATE (previous plan) or none (first plan)
-Next phase: BUILD (after plan approval)
+Prior phase:  INTEGRATE (previous plan) or none (first refine)
+Next phase: BUILD (after refine approval)
 </loop_context>
 ```
 

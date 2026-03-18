@@ -90,7 +90,7 @@ References are lazy-loaded by workflows when conceptual context is needed:
 ```xml
 <!-- In a workflow -->
 <required_reading>
-@src/references/checkpoints.md (when plan has checkpoints)
+@src/references/checkpoints.md (when refine has checkpoints)
 @src/references/subagent-criteria.md (when parallel execution considered)
 </required_reading>
 ```

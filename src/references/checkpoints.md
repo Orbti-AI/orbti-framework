@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Checkpoints formalize interaction points where human verification or decisions are needed during plan execution. Plans execute autonomously except at checkpoints.
+Checkpoints formalize interaction points where human verification or decisions are needed during refine execution. Refines execute autonomously except at checkpoints.
 
 **Core principle:** Claude automates everything with CLI/API. Checkpoints are for verification and decisions, not manual work.
 
@@ -124,7 +124,7 @@ Checkpoints formalize interaction points where human verification or decisions a
 
 ## Execution Protocol
 
-When executing a plan encounters `type="checkpoint:*"`:
+When executing a refine encounters `type="checkpoint:*"`:
 
 1. **Stop immediately** - do not proceed to next task
 2. **Display checkpoint clearly** with visual separator

@@ -11,7 +11,7 @@ Reconcile what was planned vs. what was built. Create INTEGRATE.md documenting r
 <loop_context>
 Expected phase: INTEGRATE
 Prior phase: BUILD (execution complete)
-Next phase: REFINE (next plan or next phase)
+Next phase: REFINE (next refine or next phase)
 </loop_context>
 
 <required_reading>
@@ -22,7 +22,7 @@ Next phase: REFINE (next plan or next phase)
 <references>
 @~/.claude/orbit-framework/references/loop-phases.md
 @~/.claude/orbit-framework/templates/INTEGRATE.md
-@~/.claude/orbit-framework/workflows/transition-phase.md (loaded when last plan in phase)
+@~/.claude/orbit-framework/workflows/transition-phase.md (loaded when last refine in phase)
 </references>
 
 <process>
@@ -237,7 +237,7 @@ Continue to next loop?
 </step>
 
 <step name="execute_transition" priority="required" gate="blocking">
-**If last plan in phase — TRANSITION IS MANDATORY:**
+**If last refine in phase — TRANSITION IS MANDATORY:**
 
 ⚠️ **NEVER skip this step. This is what makes ORBIT a system, not random loops.**
 

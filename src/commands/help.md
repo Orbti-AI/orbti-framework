@@ -100,7 +100,7 @@ Usage: `/orbit:build .orbit/projects/01-foundation/01-01-LOOP.md`
 ---
 
 ### `/orbit:integrate [plan-path]`
-Reconcile plan vs actual and close the loop.
+Reconcile refine vs actual and close the loop.
 
 - Creates INTEGRATE.md documenting what was built
 - Audits skill invocations (if SPECIAL-FLOWS.md configured)

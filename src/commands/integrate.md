@@ -1,6 +1,6 @@
 ---
 name: orbit:integrate
-description: Reconcile plan vs actual and close the loop
+description: Reconcile refine vs actual and close the loop
 argument-hint: "[plan-path]"
 allowed-tools: [Read, Write, Bash, Glob, Grep, AskUserQuestion, Task]
 ---
@@ -40,7 +40,7 @@ Follow workflow: @~/.claude/orbit-framework/workflows/integrate.md
 
 Compare plan to actual:
 - Which tasks completed as planned?
-- Any deviations from plan?
+- Any deviations from refine?
 - Decisions made during execution?
 - Issues discovered but deferred?
 </step>
@@ -74,7 +74,7 @@ Summary: {summary-path}
 REFINE ──▶ BUILD ──▶ INTEGRATE
   ✓        ✓        ✓
 
-Next: [project complete message or next plan]
+Next: [project complete message or next refine]
 
 ════════════════════════════════════════
 ```

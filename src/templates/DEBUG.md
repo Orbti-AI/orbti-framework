@@ -133,8 +133,8 @@ files_changed: []
 
 **Complex fixes:** If fix requires significant code changes:
 - Create a dedicated LOOP.md for the fix
-- Reference debug file in plan context
-- Debug file stays in "fixing" until plan completes
+- Reference debug file in refine context
+- Debug file stays in "fixing" until refine completes
 
 </lifecycle>
 

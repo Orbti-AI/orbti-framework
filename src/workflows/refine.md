@@ -1,18 +1,18 @@
 <purpose>
-Create an executable LOOP.md for the current or specified project. The plan defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for BUILD phase execution.
+Create an executable LOOP.md for the current or specified project. The refine defines objective, acceptance criteria, tasks, boundaries, and verification - everything needed for BUILD phase execution.
 </purpose>
 
 <when_to_use>
 - Starting a new project (ROADMAP shows next project ready)
-- Previous plan completed (loop closed with INTEGRATE)
+- Previous refine completed (loop closed with INTEGRATE)
 - First plan in a project (after init-project)
-- Resuming work that needs a new plan
+- Resuming work that needs a new refine
 </when_to_use>
 
 <loop_context>
 Expected phase: REFINE
-Prior phase:  INTEGRATE (previous plan complete) or none (first plan)
-Next project: BUILD (after plan approval)
+Prior phase:  INTEGRATE (previous refine complete) or none (first refine)
+Next project: BUILD (after refine approval)
 </loop_context>
 
 <required_reading>
@@ -24,7 +24,7 @@ Next project: BUILD (after plan approval)
 
 <references>
 @~/.claude/orbit-framework/references/plan-format.md
-@~/.claude/orbit-framework/references/checkpoints.md (if plan will have checkpoints)
+@~/.claude/orbit-framework/references/checkpoints.md (if refine will have checkpoints)
 @~/.claude/orbit-framework/templates/LOOP.md
 </references>
 
@@ -32,7 +32,7 @@ Next project: BUILD (after plan approval)
 
 <step name="validate_preconditions" priority="first">
 1. Read STATE.md to confirm:
-   - Loop position is ready for REFINE (prior INTEGRATE complete or first plan)
+   - Loop position is ready for REFINE (prior INTEGRATE complete or first refine)
    - No blockers preventing planning
 2. If STATE.md shows mid-loop (BUILD or INTEGRATE incomplete):
    - Warn user: "Previous loop not closed. Complete INTEGRATE first or reset."
@@ -44,7 +44,7 @@ Next project: BUILD (after plan approval)
    - Which project is next (first incomplete project)
    - Project scope and goals
    - Dependencies on prior projects
-2. If multiple projects available, ask user which to plan
+2. If multiple projects available, ask user which to refine
 3. Confirm project selection before proceeding
 </step>
 
@@ -87,7 +87,7 @@ Next project: BUILD (after plan approval)
 2. If exists:
    - Read SPECIAL-FLOWS.md
    - Extract skills marked as "required" for the work type being planned
-   - Match against phase/plan work being done
+   - Match against phase/refine work being done
    - Prepare <skills> section content for LOOP.md
 3. If not exists:
    - Add comment: "No SPECIAL-FLOWS.md - skills section omitted"
@@ -104,7 +104,7 @@ Next project: BUILD (after plan approval)
    ════════════════════════════════════════
    ```
 
-**Note:** The skills section is populated from SPECIAL-FLOWS.md during plan creation.
+**Note:** The skills section is populated from SPECIAL-FLOWS.md during refine creation.
 Required skills will BLOCK build until confirmed loaded.
 </step>
 
@@ -117,7 +117,7 @@ Required skills will BLOCK build until confirmed loaded.
    - plan: 01 (or next number if multiple refines in phase)
    - type: execute (or tdd/research)
    - wave: 1 (adjust if dependencies exist)
-   - depends_on: [] (or prior plan IDs if genuine dependency)
+   - depends_on: [] (or prior refine IDs if genuine dependency)
    - files_modified: [list all files]
    - autonomous: true/false
 
@@ -185,7 +185,7 @@ Required skills will BLOCK build until confirmed loaded.
    ```
 
 2. **Update ROADMAP.md** milestone status:
-   - If first plan of milestone: Change "Not started" → "In progress"
+   - If first refine of milestone: Change "Not started" → "In progress"
    - Update project status: "Not started" → "Planning"
 
 3. **Report with quick continuation prompt:**
@@ -197,7 +197,7 @@ Required skills will BLOCK build until confirmed loaded.
    Refine: [plan-path]
    Project: [N] — [Project Name]
 
-   [plan summary - key tasks, checkpoints]
+   [refine summary - key tasks, checkpoints]
 
    ---
    Continue to BUILD?
@@ -221,10 +221,10 @@ Example: `.orbit/projects/04-workflows-layer/04-01-LOOP.md`
 - Or ask user to run init-project first
 
 **ROADMAP.md missing:**
-- Cannot plan without roadmap
+- Cannot create refine without roadmap
 - Ask user to create ROADMAP.md or run init-project
 
 **Phase dependencies not met:**
 - Warn user which prior phases must complete first
-- Do not create plan until dependencies satisfied
+- Do not create refine until dependencies satisfied
 </error_handling>

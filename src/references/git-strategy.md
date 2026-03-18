@@ -156,7 +156,7 @@ a1b2c3 feat(08.5-01): create git-strategy.md
 0n1o2p docs: initialize orbit-framework (8 phases)
 ```
 
-Each plan produces 2-4 commits (tasks + metadata). Clear, granular, bisectable.
+Each refine produces 2-4 commits (tasks + metadata). Clear, granular, bisectable.
 
 </example_log>
 

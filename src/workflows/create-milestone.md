@@ -134,7 +134,7 @@ Update STATE.md:
    Milestone: {milestone_name}
    Project: {first_project_number} of {total} ({first_project_name})
    Refine: Not started
-   Status: Ready to plan
+   Status: Ready to refine
    Last activity: {timestamp} — Milestone created
    ```
 
@@ -160,7 +160,7 @@ Update STATE.md:
    ## Session Continuity
 
    Last session: {timestamp}
-   Stopped at: Milestone created, ready to plan
+   Stopped at: Milestone created, ready to refine
    Next action: /orbit:refine for Project {first_project_number}
    Resume file: .orbit/ROADMAP.md
    ```

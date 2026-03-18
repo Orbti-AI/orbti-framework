@@ -64,7 +64,7 @@ If no override is set, defaults from the routing table above apply.
 - A wrong answer is expensive to fix downstream
 
 **Use Sonnet when:**
-- The plan is clear and execution is the primary challenge
+- The refine is clear and execution is the primary challenge
 - Writing code, tests, or structured documents
 - Analysis with defined scope (INTEGRATE, DEBUG)
 

@@ -1,7 +1,7 @@
 <purpose>
 Handle project-level transition after all plans in a project are complete. Evolves PROJECT.md, verifies project completion, cleans up, and routes to next project or milestone completion.
 
-**Invoked by:** integrate.md when it detects "last plan in project"
+**Invoked by:** integrate.md when it detects "last refine in project"
 **Scope:** Project N → Project N+1 (or milestone completion)
 </purpose>
 
@@ -123,13 +123,13 @@ Update STATE.md Accumulated Context section:
 ## Current Focus
 
 **Project:** [N+1] — [Next project name]
-**Plan:** Not started
-**Status:** Ready to plan
+**Refine:** Not started
+**Status:** Ready to refine
 **Last activity:** [today] — Project [N] complete, transitioned to [N+1]
 
 Loop position:
 REFINE ──▶ BUILD ──▶ INTEGRATE
-  ○        ○        ○     [Ready to plan]
+  ○        ○        ○     [Ready to refine]
 ```
 
 **3. Session Continuity:**
@@ -137,7 +137,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 ## Session Continuity
 
 Last session: [today]
-Stopped at: Project [N] complete, ready to plan Project [N+1]
+Stopped at: Project [N] complete, ready to refine Project [N+1]
 Next action: /orbit:refine for Project [N+1]
 Resume file: .orbit/ROADMAP.md
 ```
@@ -265,7 +265,7 @@ cat .orbit/ROADMAP.md
 - No "blocked on X" if X is complete
 - No "IN PROGRESS" for completed projects
 - Current focus matches current project, not previous
-- Progress bars match actual plan counts
+- Progress bars match actual refine counts
 
 **4. If ANY misalignment found:**
 ```
@@ -288,7 +288,7 @@ This is a blocking error — do not route to next phase.
 **5. If aligned:**
 ```
 State consistency: ✓
-  STATE.md    — Project {N+1}, v{version}, ready to plan
+  STATE.md    — Project {N+1}, v{version}, ready to refine
   PROJECT.md  — v{version}, {active_count} active requirements
   ROADMAP.md  — Project {N} ✅, Project {N+1} 🔵
 ```
@@ -320,7 +320,7 @@ PROJECT {N} COMPLETE
 ---
 Next: Project {N+1} — {Name}
 
-[1] Yes, plan Project {N+1} | [2] Pause here
+[1] Yes, refine Project {N+1} | [2] Pause here
 ════════════════════════════════════════
 ```
 

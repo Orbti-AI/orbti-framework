@@ -2,7 +2,7 @@
 
 Template for `.orbit/projects/{project-number}-{name}/{project}-{plan}-INTEGRATE.md` — refine completion documentation.
 
-**Purpose:** Document what was built, decisions made, deviations from plan, and readiness for next project.
+**Purpose:** Document what was built, decisions made, deviations from refine, and readiness for next project.
 
 ---
 
