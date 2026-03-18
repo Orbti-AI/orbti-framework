@@ -5,6 +5,8 @@ argument-hint: "[context notes]"
 allowed-tools: [Read, Write]
 ---
 
+<model>haiku</model>
+
 <objective>
 Generate a comprehensive handoff document synthesizing session activity, decisions, gaps, and next actions.
 

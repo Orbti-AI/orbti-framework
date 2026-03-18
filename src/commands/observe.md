@@ -15,9 +15,12 @@ Execute technical discovery to inform planning decisions. Produces OBSERVE.md wi
 **Not part of the main loop** — run explicitly when there are genuine technical unknowns to resolve.
 </objective>
 
+<model>opus</model>
+
 <execution_context>
 @~/.claude/orbit-framework/workflows/observe.md
 @~/.claude/orbit-framework/templates/OBSERVE.md
+@~/.claude/orbit-framework/references/model-routing.md
 </execution_context>
 
 <context>

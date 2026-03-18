@@ -5,6 +5,8 @@ argument-hint: "<phase-number>"
 allowed-tools: [Read, Bash]
 ---
 
+<model>opus</model>
+
 <objective>
 Surface Claude's assumptions about a phase to validate understanding before planning.
 

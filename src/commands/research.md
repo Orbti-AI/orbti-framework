@@ -5,6 +5,8 @@ argument-hint: "<topic> [--codebase | --web]"
 allowed-tools: [Read, Task, Bash, Write]
 ---
 
+<model>sonnet</model>
+
 <objective>
 Research a specific topic using subagents and save findings for review.
 

@@ -5,6 +5,8 @@ argument-hint: "[add|audit|list]"
 allowed-tools: [Read, Write, Bash, Glob]
 ---
 
+<model>haiku</model>
+
 <objective>
 Configure, amend, or audit specialized skill integrations for a ORBIT project.
 

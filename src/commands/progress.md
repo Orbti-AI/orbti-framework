@@ -15,6 +15,8 @@ Show current progress and **route to exactly ONE next action**. Prevents decisio
 - To get a tailored suggestion based on your current focus
 </objective>
 
+<model>haiku</model>
+
 <execution_context>
 </execution_context>
 

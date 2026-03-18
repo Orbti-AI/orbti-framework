@@ -5,6 +5,8 @@ argument-hint: "[version]"
 allowed-tools: [Read, Write, Edit, Bash, Glob]
 ---
 
+<model>haiku</model>
+
 <objective>
 Complete the current milestone, archive it, and evolve PROJECT.md.
 

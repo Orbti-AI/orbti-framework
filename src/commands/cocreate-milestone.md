@@ -5,6 +5,8 @@ argument-hint: ""
 allowed-tools: [Read, Write, AskUserQuestion]
 ---
 
+<model>opus</model>
+
 <objective>
 Facilitate vision discussion for the next milestone and create context handoff.
 

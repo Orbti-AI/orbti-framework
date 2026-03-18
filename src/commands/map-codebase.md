@@ -1,3 +1,5 @@
+<model>sonnet</model>
+
 <objective>
 Analyze existing codebase and create structured documentation in .orbit/codebase/
 

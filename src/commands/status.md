@@ -5,6 +5,8 @@ argument-hint:
 allowed-tools: [Read]
 ---
 
+<model>haiku</model>
+
 > **⚠️ DEPRECATED:** This command is deprecated. Use `/orbit:progress` instead.
 >
 > `/orbit:progress` provides the same information plus:

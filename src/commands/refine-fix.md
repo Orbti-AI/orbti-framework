@@ -1,9 +1,11 @@
 ---
-name: orbit:plan-fix
-description: Plan fixes for UAT issues from verify
+name: orbit:refine-fix
+description: Create a fix plan (REFINE variant) from UAT issues
 argument-hint: "<plan, e.g., '04-02'>"
 allowed-tools: [Read, Bash, Write, Glob, Grep, AskUserQuestion]
 ---
+
+<model>sonnet</model>
 
 <objective>
 Create FIX.md plan from UAT issues found during verify.

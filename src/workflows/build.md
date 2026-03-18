@@ -17,6 +17,7 @@ Next phase:  INTEGRATE (after execution completes)
 <required_reading>
 @.orbit/STATE.md
 @.orbit/projects/{project}/{plan}-LOOP.md
+@.orbit/LEARNINGS.md (if exists — read before executing any task)
 </required_reading>
 
 <references>
@@ -26,8 +27,31 @@ Next phase:  INTEGRATE (after execution completes)
 
 <process>
 
-<step name="check_test_writer" priority="first">
-**Check if Test Writer is enabled:**
+<step name="check_learnings" priority="first">
+**Check for accumulated learnings before executing any task.**
+
+```bash
+ls .orbit/LEARNINGS.md 2>/dev/null
+```
+
+If exists:
+- Read `.orbit/LEARNINGS.md`
+- For each learning entry, check if any task in this plan touches the same files or patterns
+- If a match found: surface it before executing that task:
+  ```
+  ⚠ Learning from [plan]: [what failed before]
+  Avoiding: [anti-pattern]
+  Applying: [preferred approach]
+  ```
+- Adjust execution approach accordingly — do not repeat known failures
+
+If not exists: skip.
+</step>
+
+<step name="check_test_writer" priority="blocking">
+**BLOCKING CHECK: Must run before any task execution. Do not skip.**
+
+Check if Test Writer is enabled:
 
 ```bash
 grep "test_writer:" .orbit/config.md 2>/dev/null | grep "enabled: true"
@@ -47,6 +71,9 @@ Route:
 - `test_writer.enabled: false` (any teams state) → proceed to `execute_tasks`, no test writing
 - `test_writer.enabled: true` AND teams ON → skip to `parallel_team_build`
 - `test_writer.enabled: true` AND teams OFF → proceed to `execute_tasks` with sequential test writing
+
+If this step was skipped and tasks were already executed: log deviation to STATE.md Decisions:
+`| [date]: check_test_writer skipped — test_writer config not checked before BUILD | Project [N] | Tests may need to be written manually post-build |`
 </step>
 
 <step name="validate_approval" priority="first">
@@ -327,22 +354,45 @@ After all tasks attempted:
    - Tasks completed: N of M
    - Failures: list any
    - Deviations: list any
-2. Update STATE.md:
+2. **Run tests** (if `test_writer.enabled: true` or tests exist for this plan):
+   - Run the project's test command scoped to the files/ACs touched in this build
+   - Collect: total tests, passed, failed, duration
+3. Update STATE.md:
    - Loop position: REFINE ✓ → BUILD ✓ → INTEGRATE ○
    - Last activity: timestamp and completion status
-3. Report with quick continuation prompt:
+4. Report build and test results:
    ```
    ════════════════════════════════════════
    BUILD COMPLETE
    ════════════════════════════════════════
    [execution summary]
 
+   TEST RESULTS
+   ────────────────────────────────────────
+   Runner: [vitest/jest/pytest/...]
+   ✓ N passed | ✗ M failed | duration
+
+   [list AC coverage if tests were written during build]
+
+   E2E: [PASS | SKIP — reason]
+   ────────────────────────────────────────
+   ```
+5. **Always proceed to human verification** — automated tests do not substitute human judgment:
+   ```
+   ────────────────────────────────────────
+   ⚠ Testes automatizados não substituem a verificação humana.
+   ────────────────────────────────────────
+   ```
+   → Follow: @~/.claude/orbit-framework/workflows/verify-work.md
+
+6. After human verification completes, offer INTEGRATE:
+   ```
    ---
    Continue to INTEGRATE?
 
    [1] Yes, run INTEGRATE | [2] Pause here
    ```
-4. **Accept quick inputs:** "1", "yes", "continue", "go" → run `/orbit:integrate [plan-path]`
+   **Accept quick inputs:** "1", "yes", "continue", "go" → run `/orbit:integrate [plan-path]`
 </step>
 
 </process>
@@ -377,6 +427,13 @@ After all tasks attempted:
 <anti_patterns>
 **Assuming approval:**
 Do NOT start BUILD without explicit user approval of the plan.
+
+**Skipping check_test_writer:**
+Do NOT jump directly to task execution without checking test_writer config first. With `test_writer: true` + `agent_teams: true`, the correct mode is parallel team build — skipping this step silently drops the test-writing behavior. Always run `check_test_writer` before any task. If already skipped, log the deviation and write tests manually post-build.
+
+**LOOP.md created before test_writer feature existed:**
+If the REFINE plan was approved in a prior ORBIT version that lacked `check_test_writer`, the LOOP.md will not reference this step — the build executes as if test writing doesn't exist, even with `test_writer: true` in config. Detection: config has test_writer enabled but no tests were written during build.
+Mitigation: After completing build, check config → if `test_writer: true`, write tests manually for each AC before INTEGRATE. Log to STATE.md: `| [date]: LOOP.md pre-dates test_writer feature — tests written manually post-build | Project [N] | All ACs covered |`
 
 **Skipping verification:**
 Every task MUST have its verify step run. No "it looks right" assumptions.

@@ -4,6 +4,8 @@ description: View and manage ORBIT project configuration and integrations
 allowed-tools: [Read, Write, Edit, Bash, AskUserQuestion]
 ---
 
+<model>haiku</model>
+
 <objective>
 Manage ORBIT project configuration and integrations. Create or update .orbit/config.md at any point in the project lifecycle.
 </objective>

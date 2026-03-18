@@ -69,8 +69,15 @@ Next project: BUILD (after plan approval)
    - What was built
    - Decisions made
    - Any deferred issues
-3. Read source files relevant to this phase's work
-4. Do NOT reflexively chain all prior summaries - only load what's genuinely needed
+3. **Check for LEARNINGS.md:**
+   ```bash
+   ls .orbit/LEARNINGS.md 2>/dev/null
+   ```
+   If exists: read `.orbit/LEARNINGS.md` and extract patterns relevant to the work being planned.
+   Apply learnings actively — if a past correction matches a task being planned, adjust the task to avoid the known failure mode.
+   If no LEARNINGS.md: skip.
+4. Read source files relevant to this phase's work
+5. Do NOT reflexively chain all prior summaries - only load what's genuinely needed
 </step>
 
 <step name="check_specialized_flows">

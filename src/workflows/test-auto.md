@@ -176,18 +176,31 @@ AC-3: ✓ PASS
 
 Tests: [total] | Passed: [N] | Failed: [N]
 
+E2E: [PASS | SKIP — reason]
+
 ════════════════════════════════════════
 Verdict: [ALL PASS | FAILURES FOUND]
 ════════════════════════════════════════
 ```
 
-**If ALL PASS:**
-→ Proceed to `/orbit:integrate`
-
 **If FAILURES FOUND:**
 - Log each failing AC to `.orbit/projects/XX-name/{plan}-UAT.md`
-- Offer: "Run /orbit:plan-fix to address failing tests before integrating"
-- User can override and integrate anyway (with issues logged)
+- Offer: "Run /orbit:refine-fix to address failing tests before integrating"
+- User can override and continue to human verification anyway (with issues logged)
+
+**After automated results (regardless of pass/fail):**
+
+Always proceed to human verification. Automated tests validate code behavior — they cannot replace human judgment on UX, visual correctness, and real-world usage.
+
+```
+────────────────────────────────────────
+⚠ Testes automatizados não substituem a verificação humana.
+────────────────────────────────────────
+```
+
+→ Follow: @~/.claude/orbit-framework/workflows/verify-work.md
+
+Human verification runs for every AC, independent of automated results. An AC that passes automated tests can still fail human review — that outcome is valid and must be captured.
 </step>
 
 </process>
@@ -200,5 +213,7 @@ Verdict: [ALL PASS | FAILURES FOUND]
 - [ ] Tests executed
 - [ ] Results mapped to AC-1, AC-2...
 - [ ] Issues logged if any failures
+- [ ] Human verification checklist presented (always — automated tests do not substitute)
+- [ ] Human verdict captured for each AC
 - [ ] User routed to integrate or plan-fix
 </success_criteria>

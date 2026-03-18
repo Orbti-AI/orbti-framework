@@ -4,6 +4,8 @@ description: Review deferred issues with codebase context, triage and route
 allowed-tools: [Read, Bash, Grep, Glob, Edit, AskUserQuestion]
 ---
 
+<model>sonnet</model>
+
 <objective>
 Review all open issues from ISSUES.md and phase-scoped UAT files with current codebase context. Identify resolved, urgent, and waiting issues. Prevents issue pile-up.
 

@@ -138,6 +138,14 @@ DO NOT CHANGE: [files outside TDD scope]
 - Good: Test public API, observable behavior
 - Bad: Mock internals, test private methods, assert on internal state
 
+**Server-client parity insight:**
+When a filter function has both a client-side (`isParcelaAtrasada`) and a server-side (`buildAtrasadaFilter`) form, tests should verify both produce equivalent results for the same inputs. The server-side OR filter (covering: past years, past month in current year, current month with past due date, null month fallback) must mirror the client-side boolean logic exactly. Test this with shared fixture data — same inputs, both paths returning the same "atrasada/não atrasada" classification. This pattern applies to any dual-path logic where server and client must agree.
+
+Example structure (9 test cases covering AC-1, AC-2, AC-3):
+- AC-1 (isParcelaAtrasada): ano passado → atrasada, mês passado no ano atual → atrasada, mês atual com vencimento passado → atrasada, mês atual com vencimento futuro → não atrasada, mes null → atrasada (fallback)
+- AC-2 (buildAtrasadaFilter): verifica que o filtro OR gerado contém as 4 cláusulas esperadas para uma data de referência
+- AC-3 (paridade): para cada caso do AC-1, buildAtrasadaFilter aplicado ao mesmo input retorna o mesmo resultado
+
 </test_quality>
 
 <commit_pattern>

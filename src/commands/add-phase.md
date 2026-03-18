@@ -5,6 +5,8 @@ argument-hint: "[project-name]"
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
+<model>haiku</model>
+
 <objective>
 Add a new project to the current milestone's roadmap.
 

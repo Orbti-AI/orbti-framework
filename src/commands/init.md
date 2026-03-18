@@ -5,6 +5,8 @@ argument-hint:
 allowed-tools: [Read, Write, Bash, Glob, AskUserQuestion]
 ---
 
+<model>sonnet</model>
+
 <objective>
 Initialize the `.orbit/` structure in a project directory through conversational setup.
 

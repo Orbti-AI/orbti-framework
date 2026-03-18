@@ -5,6 +5,8 @@ argument-hint: "[plan-path]"
 allowed-tools: [Read, Write, Bash, Glob, Grep, AskUserQuestion, Task]
 ---
 
+<model>sonnet</model>
+
 <objective>
 Reconcile plan versus actual results, create INTEGRATE.md, and close the loop.
 

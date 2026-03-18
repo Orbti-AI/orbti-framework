@@ -12,9 +12,12 @@ Execute an approved LOOP.md file, running tasks in order with verification at ea
 
 </objective>
 
+<model>sonnet</model>
+
 <execution_context>
 @~/.claude/orbit-framework/workflows/build.md
 @~/.claude/orbit-framework/references/checkpoints.md
+@~/.claude/orbit-framework/references/model-routing.md
 </execution_context>
 
 <context>

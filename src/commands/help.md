@@ -3,6 +3,8 @@ name: orbit:help
 description: Show available ORBIT commands and usage guide
 ---
 
+<model>haiku</model>
+
 <objective>
 Display the complete ORBIT command reference.
 
@@ -359,14 +361,14 @@ Usage: `/orbit:test`
 
 ---
 
-### `/orbit:plan-fix`
+### `/orbit:refine-fix`
 Plan fixes for UAT issues from verify.
 
 - Reads issues identified during verify
 - Creates targeted fix plan
 - Smaller scope than full project plan
 
-Usage: `/orbit:plan-fix`
+Usage: `/orbit:refine-fix`
 
 ---
 

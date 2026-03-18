@@ -5,6 +5,8 @@ argument-hint: "<phase-number>"
 allowed-tools: [Read, Task, Bash, Write]
 ---
 
+<model>sonnet</model>
+
 <objective>
 Analyze a phase for unknowns and research them using subagents.
 

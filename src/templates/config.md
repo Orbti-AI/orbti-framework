@@ -61,6 +61,16 @@ Reserved for future use:
 #   coverage_threshold: 80
 ```
 
+## Models
+
+Model routing for ORBIT phases. See `~/.claude/orbit-framework/references/model-routing.md` for defaults.
+
+```yaml
+models:
+  default: sonnet             # Fallback for any phase not listed
+  overrides: {}               # Override per-phase: refine: opus, build: haiku, etc.
+```
+
 ## Preferences
 
 Optional user preferences for ORBIT behavior.

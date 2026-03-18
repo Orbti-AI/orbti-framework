@@ -5,6 +5,8 @@ argument-hint: "<project-number>"
 allowed-tools: [Read, Write, AskUserQuestion]
 ---
 
+<model>opus</model>
+
 <objective>
 Facilitate vision discussion for a specific project and create context handoff.
 

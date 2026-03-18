@@ -5,6 +5,8 @@ argument-hint: "[project] [reason]"
 allowed-tools: [Read, Write, Bash, AskUserQuestion]
 ---
 
+<model>haiku</model>
+
 <objective>
 Create a HANDOFF.md file capturing current context and update STATE.md for session continuity.
 

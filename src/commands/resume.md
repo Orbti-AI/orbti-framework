@@ -5,6 +5,8 @@ argument-hint: "[optional: handoff path, e.g., '.orbit/HANDOFF-phase10-audit.md'
 allowed-tools: [Read, Glob, Bash]
 ---
 
+<model>haiku</model>
+
 <objective>
 Restore ORBIT context after a session break, determine current position, and suggest exactly ONE next action.
 

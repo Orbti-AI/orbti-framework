@@ -5,6 +5,8 @@ argument-hint: "<project-number-or-name>"
 allowed-tools: [Read, Write, Edit, Bash]
 ---
 
+<model>haiku</model>
+
 <objective>
 Remove a future project from the roadmap and clean up its directory.
 

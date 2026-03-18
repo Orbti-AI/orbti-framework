@@ -11,10 +11,13 @@ Create or continue a REFINE plan for the specified phase.
 **When to use:** Starting new work or resuming incomplete plan.
 </objective>
 
+<model>opus</model>
+
 <execution_context>
 @~/.claude/orbit-framework/workflows/refine.md
 @~/.claude/orbit-framework/templates/REFINE.md
 @~/.claude/orbit-framework/references/plan-format.md
+@~/.claude/orbit-framework/references/model-routing.md
 </execution_context>
 
 <context>

@@ -5,6 +5,8 @@ argument-hint: "[milestone-name]"
 allowed-tools: [Read, Write, Edit, Bash, Glob, AskUserQuestion]
 ---
 
+<model>haiku</model>
+
 <objective>
 Create a new milestone with defined scope and phases.
 
