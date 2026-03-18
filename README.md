@@ -210,11 +210,12 @@ ORBIT will verify the binary and skill are installed before enabling.
 Work across multiple sessions and multiple projects without losing context:
 
 ```
-/orbit:pause    # safe stop — saves context into a handoff file inside the project folder
-/orbit:resume   # restore context — shows all projects and their status, suggests next action
+/orbit:pause         # pause active project (if only one active)
+/orbit:pause auth    # pause specific project by name or number
+/orbit:resume        # restore context — shows all projects, suggests next action
 ```
 
-**`/orbit:pause`** — Marks the current project as `⏸ Paused` in the overview and creates a handoff file at `.orbit/projects/{project}/HANDOFF-{date}.md`. You can then start a different project or close Claude Code.
+**`/orbit:pause [project]`** — Marks the project as `⏸ Paused` and creates a handoff at `.orbit/projects/{project}/HANDOFF-{date}.md`. If multiple projects are active and no argument is given, asks which to pause.
 
 **`/orbit:resume`** — Shows the full Projects Overview with every project's status and loop position. If multiple projects are active or paused, lets you choose which to continue. Then gives exactly one next action.
 
@@ -268,7 +269,7 @@ Group related projects into milestones for larger initiatives:
 
 | Command | Description |
 |---------|-------------|
-| `/orbit:pause` | Mark current project as paused, create handoff in project folder |
+| `/orbit:pause [project]` | Pause a project — argument required when multiple projects are active |
 | `/orbit:resume` | Show all projects overview, pick which to continue, get one next action |
 | `/orbit:progress` | Smart status — shows where you are and suggests the next step |
 

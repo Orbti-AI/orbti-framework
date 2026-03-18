@@ -1,7 +1,7 @@
 ---
 name: orbit:pause
 description: Create handoff file and prepare for session break
-argument-hint: [reason]
+argument-hint: "[project] [reason]"
 allowed-tools: [Read, Write, Bash, AskUserQuestion]
 ---
 
@@ -9,6 +9,10 @@ allowed-tools: [Read, Write, Bash, AskUserQuestion]
 Create a HANDOFF.md file capturing current context and update STATE.md for session continuity.
 
 **When to use:** Before ending a session, switching context, or when context limit is approaching.
+
+**Argument:** project identifier (number or name, e.g. `01` or `auth`).
+- If only one project is active: argument is optional — pauses the active project
+- If multiple projects are active: argument is required — must specify which to pause
 </objective>
 
 <execution_context>

@@ -26,14 +26,28 @@ Any position in REFINE/BUILD/INTEGRATE loop. Captures state regardless of where 
 <process>
 
 <step name="detect_position" priority="first">
-1. Read `.orbit/STATE.md` to get:
-   - Current project and plan
-   - Loop position (REFINE/BUILD/INTEGRATE markers)
-   - Last activity
-2. Identify current working directory:
-   ```bash
-   ls -t .orbit/projects/*/LOOP*.md 2>/dev/null | head -1
-   ```
+1. Read `.orbit/STATE.md` Projects Overview
+2. Count rows with status `🔵 In Progress` or `⏸ Paused`
+
+**If multiple active projects and no argument provided:**
+```
+════════════════════════════════════════
+Which project do you want to pause?
+════════════════════════════════════════
+
+│  01  auth-service    🔵 In Progress  ✓ ◉ ○  │
+│  02  dashboard       🔵 In Progress  ◉ ○ ○  │
+
+Type the project number or name (e.g., "01" or "auth").
+════════════════════════════════════════
+```
+Wait for selection, then proceed with that project.
+
+**If argument provided** (e.g. `/orbit:pause 01` or `/orbit:pause auth`):
+- Resolve to matching project row in Overview
+- If not found: "Project '[arg]' not found. Active projects: [list]"
+
+**If only one active project:** proceed directly with that project.
 </step>
 
 <step name="gather_session_context">
