@@ -258,7 +258,7 @@ Group related projects into milestones for larger initiatives:
 | Command | Description |
 |---------|-------------|
 | `/orbit:refine` | Plan the next unit of work — creates `LOOP.md` with objective, ACs, tasks, and boundaries |
-| `/orbit:build` | Execute the approved plan sequentially, with verification at each step |
+| `/orbit:build` | Execute the approved plan sequentially, with verification at each step. Add `--background` to run autonomously (requires `autonomous: true` plan) |
 | `/orbit:integrate` | Reconcile plan vs actual, update state, close the loop — never skip |
 | `/orbit:test` | Verify against acceptance criteria — auto-detects test runner, falls back to manual UAT |
 

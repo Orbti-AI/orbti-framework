@@ -52,13 +52,65 @@ Route:
 <step name="validate_approval" priority="first">
 1. Confirm user has explicitly approved the plan
    - Do NOT assume approval
-   - Look for explicit signal: "approved", "execute", "go ahead", etc.
+   - Look for explicit signal: "approved", "execute", "go ahead", "background", etc.
 2. Read STATE.md to verify:
    - Loop position shows REFINE complete
    - Correct phase and plan identified
 3. If approval unclear:
    - Ask: "Plan ready at [path]. Approve execution?"
    - Wait for explicit approval before proceeding
+4. Check execution mode:
+   - If user said "background" or "run in background" → route to `background_build`
+   - Otherwise → proceed with foreground execution
+</step>
+
+<step name="background_build">
+**Background mode — only available for plans with `autonomous: true`.**
+
+Check LOOP.md frontmatter:
+```
+autonomous: true   → background allowed
+autonomous: false  → has checkpoints, cannot run unattended
+```
+
+If `autonomous: false`:
+```
+This plan has checkpoints that require your input — it cannot run in the background.
+Run in foreground instead? [yes / no]
+```
+
+If `autonomous: true`, spawn a background agent:
+
+```
+Spawn background agent for: [plan-path]
+
+The agent must:
+1. Execute all tasks in order (same rules as execute_tasks step)
+2. Run each <verify> step
+3. Respect all <boundaries>
+4. On task failure: log the failure, stop, do NOT continue to next task
+5. On completion: update STATE.md loop position to BUILD ✓
+6. Report summary when done
+
+The agent does NOT pause for checkpoints — plan must be fully autonomous.
+```
+
+Confirm to user:
+```
+════════════════════════════════════════
+BUILD RUNNING IN BACKGROUND
+════════════════════════════════════════
+
+Plan: [plan-path]
+Tasks: [N] tasks
+
+You will be notified when complete.
+You can continue other work in the meantime.
+════════════════════════════════════════
+```
+
+When background agent completes, present the same BUILD COMPLETE summary
+as the foreground finalize step, then offer INTEGRATE.
 </step>
 
 <step name="load_plan">

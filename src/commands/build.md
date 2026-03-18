@@ -1,7 +1,7 @@
 ---
 name: orbit:build
 description: Execute an approved REFINE plan
-argument-hint: "[plan-path]"
+argument-hint: "[plan-path] [--background]"
 allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion]
 ---
 
@@ -11,6 +11,9 @@ Execute an approved LOOP.md file, handling checkpoints as they occur.
 **When to use:** After REFINE phase complete and plan is approved.
 
 Executes tasks in sequence, pauses at checkpoints for user input, reports completion.
+
+**Flags:**
+- `--background` — run autonomously in the background (only works for plans with `autonomous: true`; plans with checkpoints must run in foreground)
 </objective>
 
 <execution_context>
