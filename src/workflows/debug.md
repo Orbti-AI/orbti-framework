@@ -31,7 +31,7 @@ Ask about experience. Investigate the cause yourself.
 **First: Check for active debug sessions**
 
 ```bash
-ls .orbit/debug/*.md 2>/dev/null | grep -v resolved
+ls .orbti/debug/*.md 2>/dev/null | grep -v resolved
 ```
 
 **If active sessions exist AND no $ARGUMENTS provided:**
@@ -73,7 +73,7 @@ Wait for user to describe the issue.
 Generate slug from user input (lowercase, hyphens, max 30 chars).
 
 ```bash
-mkdir -p .orbit/debug
+mkdir -p .orbti/debug
 ```
 
 Create file using DEBUG.md template with initial state:
@@ -81,7 +81,7 @@ Create file using DEBUG.md template with initial state:
 - trigger: [verbatim user input]
 - Current Focus: next_action = "gather symptoms from user"
 
-Write to `.orbit/debug/[slug].md`
+Write to `.orbti/debug/[slug].md`
 
 Proceed to `symptom_gathering`.
 </step>
@@ -237,8 +237,8 @@ If verification PASSES:
 Update status to "resolved".
 
 ```bash
-mkdir -p .orbit/debug/resolved
-mv .orbit/debug/[slug].md .orbit/debug/resolved/
+mkdir -p .orbti/debug/resolved
+mv .orbti/debug/[slug].md .orbti/debug/resolved/
 ```
 
 Commit:
@@ -247,7 +247,7 @@ git add -A
 git commit -m "fix: [brief description]
 
 Root cause: [from Resolution.root_cause]
-Debug session: .orbit/debug/resolved/[slug].md"
+Debug session: .orbti/debug/resolved/[slug].md"
 ```
 
 Report:
@@ -258,7 +258,7 @@ Root cause: [root_cause]
 Fix: [fix]
 Files: [files_changed]
 
-Session archived: .orbit/debug/resolved/[slug].md
+Session archived: .orbti/debug/resolved/[slug].md
 ```
 </step>
 

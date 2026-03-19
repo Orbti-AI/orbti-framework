@@ -1,4 +1,4 @@
-# ORBIT Handoff
+# ORBTI Handoff
 
 **Date:** {{timestamp}}
 **Session:** {{session_id}}
@@ -53,23 +53,23 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 | File | Purpose |
 |------|---------|
-| `.orbit/STATE.md` | Live project state |
-| `.orbit/ROADMAP.md` | Phase overview |
+| `.orbti/STATE.md` | Live project state |
+| `.orbti/ROADMAP.md` | Phase overview |
 | {{current_refine_path}} | {{refine_purpose}} |
 
 ---
 
 ## Resume Instructions
 
-1. Read `.orbit/STATE.md` for latest position
+1. Read `.orbti/STATE.md` for latest position
 2. Check if REFINE refine exists for current phase
 3. Based on loop position:
-   - `○○○` (fresh) → Run `/orbit:refine`
-   - `✓○○` (planned) → Review refine, then `/orbit:build`
-   - `✓✓○` (applied) → Run `/orbit:integrate`
+   - `○○○` (fresh) → Run `/orbti:refine`
+   - `✓○○` (planned) → Review refine, then `/orbti:build`
+   - `✓✓○` (applied) → Run `/orbti:integrate`
    - `✓✓✓` (complete) → Ready for next project
 
-**Or simply run:** `/orbit:resume`
+**Or simply run:** `/orbti:resume`
 
 ---
 

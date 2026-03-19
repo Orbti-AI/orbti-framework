@@ -1,6 +1,6 @@
 # UAT Issues Template
 
-Template for `.orbit/projects/XX-name/{project}-{refine}-UAT.md` — issues discovered during user acceptance testing.
+Template for `.orbti/projects/XX-name/{project}-{refine}-UAT.md` — issues discovered during user acceptance testing.
 
 **Purpose:** Capture problems found during verify-work workflow. Unlike global ISSUES.md (for deferred enhancements), this file tracks bugs and problems in specific delivered work.
 
@@ -76,7 +76,7 @@ Template for `.orbit/projects/XX-name/{project}-{refine}-UAT.md` — issues disc
 # UAT Issues: Project 5 Refine 2
 
 **Tested:** 2026-01-15
-**Source:** .orbit/projects/05-auth/05-02-INTEGRATE.md
+**Source:** .orbti/projects/05-auth/05-02-INTEGRATE.md
 **Tester:** User via verify-work workflow
 
 ## Open Issues

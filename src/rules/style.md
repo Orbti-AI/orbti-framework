@@ -3,9 +3,9 @@ paths:
   - "src/**/*.md"
 ---
 
-# ORBIT Style Rules
+# ORBTI Style Rules
 
-Universal conventions for all ORBIT framework files.
+Universal conventions for all ORBTI framework files.
 
 ## Language & Tone
 
@@ -30,7 +30,7 @@ Exception: INTEGRATE.md deviations section, git commits (their purpose IS tracki
 | Type | Convention | Example |
 |------|------------|---------|
 | Files | kebab-case | `refine.md` |
-| Commands | `orbit:kebab-case` | `orbit:refine` |
+| Commands | `orbti:kebab-case` | `orbti:refine` |
 | Step names | snake_case | `name="load_project_state"` |
 | Bash variables | CAPS_UNDERSCORES | `PHASE_ARG` |
 | Type attributes | colon separator | `type="checkpoint:human-verify"` |
@@ -78,16 +78,16 @@ Enable secure user access
 @src/templates/REFINE.md
 
 # Project-relative (dynamic)
-@.orbit/PROJECT.md
-@.orbit/STATE.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
 
 # Conditional
-@.orbit/OBSERVE.md (if exists)
+@.orbti/OBSERVE.md (if exists)
 ```
 
 ## Loop Terminology
 
-ORBIT uses explicit loop phase names:
+ORBTI uses explicit loop phase names:
 
 | Phase | Purpose | Artifacts |
 |-------|---------|-----------|

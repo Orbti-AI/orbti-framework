@@ -1,5 +1,5 @@
 ---
-name: orbit:progress
+name: orbti:progress
 description: Smart status with routing - suggests ONE next action
 argument-hint: "[context]"
 allowed-tools: [Read]
@@ -10,7 +10,7 @@ Show current progress and **route to exactly ONE next action**. Prevents decisio
 
 **When to use:**
 - Mid-session check on progress
-- After `/orbit:resume` for more context
+- After `/orbti:resume` for more context
 - When unsure what to do next
 - To get a tailored suggestion based on your current focus
 </objective>
@@ -23,14 +23,14 @@ Show current progress and **route to exactly ONE next action**. Prevents decisio
 <context>
 $ARGUMENTS
 
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
 
 <step name="load_state">
-Read `.orbit/STATE.md` and `.orbit/ROADMAP.md`:
+Read `.orbti/STATE.md` and `.orbti/ROADMAP.md`:
 - Current phase and total phases
 - Current refine (if any)
 - Loop position (REFINE/BUILD/INTEGRATE markers)
@@ -71,14 +71,14 @@ Based on state (+ user context if provided), determine **ONE** next action:
 
 | Situation | Single Suggestion |
 |-----------|-------------------|
-| No refine exists | `/orbit:refine` |
+| No refine exists | `/orbti:refine` |
 | Refine awaiting approval | "Approve refine to proceed" |
-| Refine approved, not executed | `/orbit:build [path]` |
-| Applied, not unified | `/orbit:integrate [path]` |
-| Loop complete, more phases | `/orbit:refine` (next phase) |
+| Refine approved, not executed | `/orbti:build [path]` |
+| Applied, not unified | `/orbti:integrate [path]` |
+| Loop complete, more phases | `/orbti:refine` (next phase) |
 | Milestone complete | "Create next milestone or ship" |
 | Blockers present | "Address blocker: [specific]" |
-| Context at DEEP/CRITICAL | `/orbit:pause` |
+| Context at DEEP/CRITICAL | `/orbti:pause` |
 
 **With user context:** Adjust suggestion to align with stated intent.
 
@@ -90,7 +90,7 @@ Show progress with single routing:
 
 ```
 ════════════════════════════════════════
-ORBIT PROGRESS
+ORBTI PROGRESS
 ════════════════════════════════════════
 
 Milestone: [name] - [X]% complete
@@ -106,7 +106,7 @@ Current Loop: Phase 2, Refine 02-03
 └─────────────────────────────────────┘
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:integrate .orbit/projects/02-features/02-03-REFINE.md
+▶ NEXT: /orbti:integrate .orbti/projects/02-features/02-03-REFINE.md
   Close the loop and update state.
 ────────────────────────────────────────
 
@@ -119,7 +119,7 @@ If context is at DEEP or CRITICAL bracket:
 
 ```
 ⚠️ Context Advisory: Session at [X]% capacity.
-   Recommended: /orbit:pause before continuing.
+   Recommended: /orbti:pause before continuing.
 ```
 </step>
 

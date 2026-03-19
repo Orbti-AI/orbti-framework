@@ -1,0 +1,11 @@
+# ============================================================================
+# ORBTI - Observe, Refine, Build, Integrate, Test (AI-assisted development workflow)
+# ============================================================================
+# Installation:
+#   1. Copy the ORBTI domain file to ~/.carl/ORBTI (or project .carl/ORBTI)
+#   2. Append this block to your ~/.carl/manifest (or project .carl/manifest)
+# ============================================================================
+ORBTI_STATE=active
+ORBTI_ALWAYS_ON=false
+ORBTI_RECALL=orbti,observe phase,refine phase,build phase,integrate phase,test phase,PLAN.md,STATE.md,development workflow,vibe coding,ai development,planning framework,.orbti/
+# ORBTI_EXCLUDE=

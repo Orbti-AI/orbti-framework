@@ -1,5 +1,5 @@
-# ORBIT instance data (user's own usage)
-.orbit/
+# ORBTI instance data (user's own usage)
+.orbti/
 
 # Node
 node_modules/
@@ -16,4 +16,4 @@ Thumbs.db
 
 # Handoff files in root (session-specific, not part of distribution)
 /HANDOFF*.md
-ORBIT-SPECIAL-FLOWS-SPEC.md
+ORBTI-SPECIAL-FLOWS-SPEC.md

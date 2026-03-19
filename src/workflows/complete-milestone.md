@@ -12,14 +12,14 @@ Mark a milestone complete after all projects are done. Creates permanent milesto
 
 <loop_context>
 N/A - This is a milestone transition workflow, not a loop phase.
-After completion, project is ready for /orbit:cocreate-milestone or /orbit:milestone.
+After completion, project is ready for /orbti:cocreate-milestone or /orbti:milestone.
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
-@.orbit/projects/{milestone-phases}/*-INTEGRATE.md
+@.orbti/STATE.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
+@.orbti/projects/{milestone-phases}/*-INTEGRATE.md
 </required_reading>
 
 <references>
@@ -98,7 +98,7 @@ Store as `accomplishments` list.
 </step>
 
 <step name="create_milestone_entry">
-Create or update `.orbit/MILESTONES.md`:
+Create or update `.orbti/MILESTONES.md`:
 
 **If file doesn't exist, create with header:**
 ```markdown
@@ -181,10 +181,10 @@ Create milestone archive:
 
 1. Create directory:
    ```bash
-   mkdir -p .orbit/milestones
+   mkdir -p .orbti/milestones
    ```
 
-2. Create archive file `.orbit/milestones/{version}-ROADMAP.md`:
+2. Create archive file `.orbti/milestones/{version}-ROADMAP.md`:
    - Copy current ROADMAP.md content
    - Add archive header with completion date
    - This preserves the state at milestone completion
@@ -216,7 +216,7 @@ Update ROADMAP.md to collapse completed milestone:
 2. **Add Next Milestone placeholder:**
    ```markdown
    ## Next Milestone
-   Run /orbit:cocreate-milestone or /orbit:milestone to define.
+   Run /orbti:cocreate-milestone or /orbti:milestone to define.
    ```
 
 3. **Move completed phases to Completed section:**
@@ -273,8 +273,8 @@ Update STATE.md for post-milestone state:
 
    Last session: {timestamp}
    Stopped at: Milestone {milestone_name} complete
-   Next action: /orbit:cocreate-milestone or /orbit:milestone
-   Resume file: .orbit/MILESTONES.md
+   Next action: /orbti:cocreate-milestone or /orbti:milestone
+   Resume file: .orbti/MILESTONES.md
    ```
 </step>
 
@@ -285,25 +285,25 @@ Update STATE.md for post-milestone state:
 
 | Location | Field | Example |
 |----------|-------|---------|
-| `.orbit/PROJECT.md` | Current State table → Version | `0.3.0` |
-| `.orbit/ROADMAP.md` | Version Overview table | `v0.3` |
-| `.orbit/STATE.md` | Version field | `v0.3.0` |
-| `.orbit/config.md` | version field (if exists) | `0.3.0` |
+| `.orbti/PROJECT.md` | Current State table → Version | `0.3.0` |
+| `.orbti/ROADMAP.md` | Version Overview table | `v0.3` |
+| `.orbti/STATE.md` | Version field | `v0.3.0` |
+| `.orbti/config.md` | version field (if exists) | `0.3.0` |
 | `package.json` | "version" field (if exists) | `"0.3.0"` |
 
 **1. Read current version from each location:**
 ```bash
 # PROJECT.md - extract from Current State table
-grep -A5 "Current State" .orbit/PROJECT.md | grep "Version"
+grep -A5 "Current State" .orbti/PROJECT.md | grep "Version"
 
 # ROADMAP.md - check Version Overview
-grep -A10 "Version Overview" .orbit/ROADMAP.md
+grep -A10 "Version Overview" .orbti/ROADMAP.md
 
 # STATE.md - Version field
-grep "^Version:" .orbit/STATE.md
+grep "^Version:" .orbti/STATE.md
 
 # config.md (if exists)
-[ -f .orbit/config.md ] && grep "version:" .orbit/config.md
+[ -f .orbti/config.md ] && grep "version:" .orbti/config.md
 
 # package.json (if exists)
 [ -f package.json ] && grep '"version"' package.json
@@ -351,8 +351,8 @@ npm version {version} --no-git-tag-version
 
 **4. Commit version alignment if changes made:**
 ```bash
-git add .orbit/PROJECT.md .orbit/ROADMAP.md .orbit/STATE.md
-[ -f .orbit/config.md ] && git add .orbit/config.md
+git add .orbti/PROJECT.md .orbti/ROADMAP.md .orbti/STATE.md
+[ -f .orbti/config.md ] && git add .orbti/config.md
 [ -f package.json ] && git add package.json
 git commit -m "chore: align version to {version} for milestone release
 
@@ -404,8 +404,8 @@ Key Accomplishments:
 {top 3 accomplishments}
 
 Created:
-  .orbit/MILESTONES.md entry    ✓
-  .orbit/milestones/{version}-ROADMAP.md    ✓
+  .orbti/MILESTONES.md entry    ✓
+  .orbti/milestones/{version}-ROADMAP.md    ✓
   git tag: {version}    ✓
 
 Updated:
@@ -414,11 +414,11 @@ Updated:
   STATE.md (cleared)    ✓
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:cocreate-milestone
+▶ NEXT: /orbti:cocreate-milestone
   Define the scope for the next milestone
 ────────────────────────────────────────
 
-Or /orbit:milestone to create milestone directly.
+Or /orbti:milestone to create milestone directly.
 ```
 </step>
 
@@ -426,7 +426,7 @@ Or /orbit:milestone to create milestone directly.
 
 <output>
 - MILESTONES.md entry created
-- .orbit/milestones/{version}-ROADMAP.md archive created
+- .orbti/milestones/{version}-ROADMAP.md archive created
 - PROJECT.md evolved (requirements validated/invalidated)
 - ROADMAP.md reorganized (milestone collapsed)
 - STATE.md cleared for next milestone
@@ -437,7 +437,7 @@ Or /orbit:milestone to create milestone directly.
 - [ ] All projects verified complete (or user chose to skip)
 - [ ] Statistics gathered from SUMMARYs
 - [ ] MILESTONES.md entry created with accomplishments
-- [ ] Archive file created in .orbit/milestones/
+- [ ] Archive file created in .orbti/milestones/
 - [ ] PROJECT.md evolved (requirements audited)
 - [ ] ROADMAP.md reorganized (milestone collapsed)
 - [ ] STATE.md updated for post-milestone state

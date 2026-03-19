@@ -1,5 +1,5 @@
 ---
-name: orbit:integrate
+name: orbti:integrate
 description: Reconcile refine vs actual and close the loop
 argument-hint: "[refine-path]"
 allowed-tools: [Read, Write, Bash, Glob, Grep, AskUserQuestion, Task]
@@ -16,14 +16,14 @@ Creates INTEGRATE.md documenting what was built, decisions made, and any deferre
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/integrate.md
-@~/.claude/orbit-framework/templates/INTEGRATE.md
+@~/.claude/orbti-framework/workflows/integrate.md
+@~/.claude/orbti-framework/templates/INTEGRATE.md
 </execution_context>
 
 <context>
 Refine path: $ARGUMENTS
 
-@.orbit/STATE.md
+@.orbti/STATE.md
 @{refine-path} (the REFINE.md being unified)
 </context>
 
@@ -36,7 +36,7 @@ Refine path: $ARGUMENTS
 </step>
 
 <step name="reconcile">
-Follow workflow: @~/.claude/orbit-framework/workflows/integrate.md
+Follow workflow: @~/.claude/orbti-framework/workflows/integrate.md
 
 Compare refine to actual:
 - Which tasks completed as planned?

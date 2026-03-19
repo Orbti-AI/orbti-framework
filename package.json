@@ -1,9 +1,9 @@
 {
-  "name": "orbit-framework",
+  "name": "orbti-framework",
   "version": "1.0.3",
   "description": "Observe, Refine, Build, Integrate, Test - A structured AI-assisted development framework for Claude Code",
   "bin": {
-    "orbit-framework": "bin/install.js"
+    "orbti-framework": "bin/install.js"
   },
   "files": [
     "bin",
@@ -19,19 +19,19 @@
     "ai",
     "planning",
     "structured-development",
-    "orbit",
+    "orbti",
     "observe-refine-build-integrate-test"
   ],
   "author": "Flávio Freitas",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/menosjuros/orbit-framework.git"
+    "url": "git+https://github.com/menosjuros/orbti-framework.git"
   },
   "bugs": {
-    "url": "https://github.com/menosjuros/orbit-framework/issues"
+    "url": "https://github.com/menosjuros/orbti-framework/issues"
   },
-  "homepage": "https://github.com/menosjuros/orbit-framework#readme",
+  "homepage": "https://github.com/menosjuros/orbti-framework#readme",
   "engines": {
     "node": ">=16.7.0"
   }

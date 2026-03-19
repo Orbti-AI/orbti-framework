@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bannerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#58a6ff"/>
+      <stop offset="40%" style="stop-color:#bc8cff"/>
+      <stop offset="100%" style="stop-color:#3fb950"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03" stroke="#c9d1d9" stroke-width="0.5">
+    <line x1="0" y1="60" x2="1200" y2="60"/>
+    <line x1="0" y1="120" x2="1200" y2="120"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="240" x2="1200" y2="240"/>
+    <line x1="200" y1="0" x2="200" y2="300"/>
+    <line x1="400" y1="0" x2="400" y2="300"/>
+    <line x1="600" y1="0" x2="600" y2="300"/>
+    <line x1="800" y1="0" x2="800" y2="300"/>
+    <line x1="1000" y1="0" x2="1000" y2="300"/>
+  </g>
+
+  <!-- Loop icon on the left -->
+  <g transform="translate(120, 150)">
+    <!-- Orbital ring -->
+    <path d="M0,-55 A55,55 0 0,1 48,28" fill="none" stroke="#58a6ff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M48,28 A55,55 0 0,1 -48,28" fill="none" stroke="#bc8cff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-48,28 A55,55 0 0,1 0,-55" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Phase dots -->
+    <circle cx="0" cy="-55" r="6" fill="#58a6ff"/>
+    <circle cx="44" cy="-32" r="6" fill="#7c8aff"/>
+    <circle cx="48" cy="28" r="6" fill="#bc8cff"/>
+    <circle cx="-48" cy="28" r="6" fill="#7dba6a"/>
+    <circle cx="-44" cy="-32" r="6" fill="#3fb950"/>
+
+    <!-- Center infinity -->
+    <path d="M-12,0 C-12,-10 -4,-12 0,-6 C4,-12 12,-10 12,0 C12,10 4,12 0,6 C-4,12 -12,10 -12,0 Z" fill="none" stroke="url(#bannerGrad)" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <!-- ORBTI text -->
+  <text x="280" y="128" font-family="'Inter', 'SF Pro Display', system-ui, sans-serif" font-size="72" font-weight="800" letter-spacing="10" fill="url(#bannerGrad)">ORBTI</text>
+
+  <!-- Subtitle -->
+  <text x="284" y="160" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="14" letter-spacing="5" fill="#484f58" font-weight="500">FRAMEWORK</text>
+
+  <!-- Description -->
+  <text x="284" y="196" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="16" fill="#8b949e">AI-Assisted Development Loop for Claude Code</text>
+
+  <!-- Pipeline steps -->
+  <g transform="translate(284, 228)">
+    <rect x="0" y="0" width="90" height="28" rx="6" fill="#58a6ff" opacity="0.15"/>
+    <text x="45" y="18" text-anchor="middle" font-family="'SF Mono', 'Fira Code', monospace" font-size="11" fill="#58a6ff" font-weight="600">Observe</text>
+
+    <text x="104" y="18" fill="#30363d" font-family="system-ui" font-size="14">→</text>
+
+    <rect x="118" y="0" width="76" height="28" rx="6" fill="#7c8aff" opacity="0.15"/>
+    <text x="156" y="18" text-anchor="middle" font-family="'SF Mono', 'Fira Code', monospace" font-size="11" fill="#7c8aff" font-weight="600">Refine</text>
+
+    <text x="208" y="18" fill="#30363d" font-family="system-ui" font-size="14">→</text>
+
+    <rect x="222" y="0" width="66" height="28" rx="6" fill="#bc8cff" opacity="0.15"/>
+    <text x="255" y="18" text-anchor="middle" font-family="'SF Mono', 'Fira Code', monospace" font-size="11" fill="#bc8cff" font-weight="600">Build</text>
+
+    <text x="302" y="18" fill="#30363d" font-family="system-ui" font-size="14">→</text>
+
+    <rect x="316" y="0" width="60" height="28" rx="6" fill="#7dba6a" opacity="0.15"/>
+    <text x="346" y="18" text-anchor="middle" font-family="'SF Mono', 'Fira Code', monospace" font-size="11" fill="#7dba6a" font-weight="600">Test</text>
+
+    <text x="390" y="18" fill="#30363d" font-family="system-ui" font-size="14">→</text>
+
+    <rect x="404" y="0" width="96" height="28" rx="6" fill="#3fb950" opacity="0.15"/>
+    <text x="452" y="18" text-anchor="middle" font-family="'SF Mono', 'Fira Code', monospace" font-size="11" fill="#3fb950" font-weight="600">Integrate</text>
+
+    <text x="514" y="18" fill="#3fb950" font-family="system-ui" font-size="14">↺</text>
+  </g>
+
+  <!-- Accent line at bottom -->
+  <rect x="0" y="294" width="1200" height="6" rx="0" fill="url(#bannerGrad)" opacity="0.4"/>
+</svg>

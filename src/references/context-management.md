@@ -6,7 +6,7 @@ Strategies for working effectively within context window limits. Context is a fi
 
 ## Context Brackets
 
-ORBIT uses context brackets to adapt behavior based on remaining capacity:
+ORBTI uses context brackets to adapt behavior based on remaining capacity:
 
 | Bracket | Remaining | Mode | Behavior |
 |---------|-----------|------|----------|
@@ -47,17 +47,17 @@ ORBIT uses context brackets to adapt behavior based on remaining capacity:
 ```markdown
 <!-- GOOD: Targeted loading -->
 <context>
-@.orbit/STATE.md
+@.orbti/STATE.md
 @src/models/user.ts  (the specific file being modified)
 </context>
 
 <!-- BAD: Kitchen sink -->
 <context>
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
-@.orbit/STATE.md
-@.orbit/projects/01-foundation/01-01-INTEGRATE.md
-@.orbit/projects/01-foundation/01-02-INTEGRATE.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/projects/01-foundation/01-01-INTEGRATE.md
+@.orbti/projects/01-foundation/01-02-INTEGRATE.md
 @src/models/user.ts
 @src/models/product.ts
 @src/api/routes.ts
@@ -69,11 +69,11 @@ When referencing prior work:
 
 ```markdown
 <!-- GOOD: Reference summary -->
-@.orbit/projects/01-foundation/01-01-INTEGRATE.md
+@.orbti/projects/01-foundation/01-01-INTEGRATE.md
 
 <!-- AVOID: Full refine + summary -->
-@.orbit/projects/01-foundation/01-01-REFINE.md
-@.orbit/projects/01-foundation/01-01-INTEGRATE.md
+@.orbti/projects/01-foundation/01-01-REFINE.md
+@.orbti/projects/01-foundation/01-01-INTEGRATE.md
 ```
 
 Summaries capture what was built. Refines capture what was intended. After completion, the summary is more useful.
@@ -134,7 +134,7 @@ depends_on: ["01-01", "01-02"]  # Genuine: imports types from both
 
 ## Session Handoffs
 
-When context is exhausted or work spans sessions, ORBIT provides explicit handoff support.
+When context is exhausted or work spans sessions, ORBTI provides explicit handoff support.
 
 ### Two Levels of Continuity
 
@@ -152,7 +152,7 @@ Always updated. Minimal but sufficient for quick resume:
 Last session: 2026-01-28 11:15
 Stopped at: Project 3, Refine 01, Task 2 complete
 Next action: Create context-management.md reference
-Resume file: .orbit/projects/03-references-layer/03-01-REFINE.md
+Resume file: .orbti/projects/03-references-layer/03-01-REFINE.md
 Resume context:
 - Task 1 complete (checkpoints.md, refine-format.md created)
 - Task 2 in progress
@@ -160,7 +160,7 @@ Resume context:
 ```
 
 ### HANDOFF.md Document
-For zero-context sessions or complex multi-session work. Created by `/orbit:pause`:
+For zero-context sessions or complex multi-session work. Created by `/orbti:pause`:
 
 - Self-contained entry point (assumes no prior context)
 - What was accomplished this session
@@ -178,9 +178,9 @@ For zero-context sessions or complex multi-session work. Created by `/orbit:paus
 
 | Command | Purpose |
 |---------|---------|
-| `/orbit:pause` | Create HANDOFF, update STATE, prepare for break |
-| `/orbit:resume` | Restore context from HANDOFF/STATE, suggest next action |
-| `/orbit:progress` | Mid-session check, suggests ONE next action |
+| `/orbti:pause` | Create HANDOFF, update STATE, prepare for break |
+| `/orbti:resume` | Restore context from HANDOFF/STATE, suggest next action |
+| `/orbti:progress` | Mid-session check, suggests ONE next action |
 
 ## Anti-Patterns
 

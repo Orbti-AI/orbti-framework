@@ -8,18 +8,18 @@ Facilitate vision articulation before creating a milestone. Acts as a thinking p
 - User completed previous milestone, considering what's next
 - User wants to think through scope before committing
 - User has rough ideas but needs to articulate them
-- Before /orbit:milestone when planning is desired
+- Before /orbti:milestone when planning is desired
 </when_to_use>
 
 <loop_context>
 N/A - This is a pre-planning workflow, not a loop phase.
-After discussion, routes to /orbit:milestone (create-milestone).
+After discussion, routes to /orbti:milestone (create-milestone).
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/PROJECT.md (current requirements and progress)
-@.orbit/MILESTONES.md (previous milestone accomplishments, if exists)
+@.orbti/STATE.md
+@.orbti/PROJECT.md (current requirements and progress)
+@.orbti/MILESTONES.md (previous milestone accomplishments, if exists)
 </required_reading>
 
 <references>
@@ -123,13 +123,13 @@ Confirm with user before proceeding.
 </step>
 
 <step name="write_context">
-Create `.orbit/projects/{name}/MILESTONE-CONTEXT.md`:
+Create `.orbti/projects/{name}/MILESTONE-CONTEXT.md`:
 
 ```markdown
 # Milestone Context
 
 **Generated:** {date}
-**Status:** Ready for /orbit:milestone
+**Status:** Ready for /orbti:milestone
 
 ## Features to Build
 
@@ -158,12 +158,12 @@ Create `.orbit/projects/{name}/MILESTONE-CONTEXT.md`:
 
 ---
 
-*This file is temporary. It will be deleted after /orbit:milestone creates the milestone.*
+*This file is temporary. It will be deleted after /orbti:milestone creates the milestone.*
 ```
 
 Display:
 ```
-Context saved to .orbit/projects/{name}/MILESTONE-CONTEXT.md
+Context saved to .orbti/projects/{name}/MILESTONE-CONTEXT.md
 
 This file persists across /clear so you can take a break if needed.
 ```
@@ -184,22 +184,22 @@ Projects: {project_count}
 Context saved for handoff.
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:milestone
+▶ NEXT: /orbti:milestone
   Create the milestone structure from this context
 ────────────────────────────────────────
 
 Type "yes" to proceed, or continue discussing.
 ```
 
-**Accept:** "yes", "go", "create" → run `/orbit:milestone`
+**Accept:** "yes", "go", "create" → run `/orbti:milestone`
 </step>
 
 </process>
 
 <output>
-- .orbit/projects/{name}/MILESTONE-CONTEXT.md created (handoff file)
+- .orbti/projects/{name}/MILESTONE-CONTEXT.md created (handoff file)
 - Features, scope, and projects articulated
-- Ready for /orbit:milestone to consume
+- Ready for /orbti:milestone to consume
 </output>
 
 <success_criteria>
@@ -208,7 +208,7 @@ Type "yes" to proceed, or continue discussing.
 - [ ] Scope synthesized from features
 - [ ] Project mapping suggested
 - [ ] MILESTONE-CONTEXT.md written
-- [ ] Clear handoff to /orbit:milestone
+- [ ] Clear handoff to /orbti:milestone
 </success_criteria>
 
 <anti_patterns>
@@ -240,6 +240,6 @@ DO: Always write the file to the project directory so /clear doesn't lose progre
 - Ask: "What's the minimum viable version?"
 
 **User wants to skip discussion:**
-- Route directly to /orbit:milestone
+- Route directly to /orbti:milestone
 - Note: "Going straight to milestone creation — no discussion context will be available"
 </error_handling>

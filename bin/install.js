@@ -23,7 +23,7 @@ ${cyan}   ██████╗ ██████╗ ██████╗ █�
   ╚██████╔╝██║  ██║██████╔╝██║   ██║
    ╚═════╝ ╚═╝  ╚═╝╚═════╝ ╚═╝   ╚═╝   ${reset}
 
-  ORBIT Framework ${dim}v${pkg.version}${reset}
+  ORBTI Framework ${dim}v${pkg.version}${reset}
   Observe, Refine, Build, Integrate, Test for Claude Code
 `;
 
@@ -56,7 +56,7 @@ console.log(banner);
 
 // Show help if requested
 if (hasHelp) {
-  console.log(`  ${yellow}Usage:${reset} npx orbit-framework [options]
+  console.log(`  ${yellow}Usage:${reset} npx orbti-framework [options]
 
   ${yellow}Options:${reset}
     ${cyan}-g, --global${reset}              Install globally (to Claude config directory)
@@ -66,17 +66,17 @@ if (hasHelp) {
 
   ${yellow}Examples:${reset}
     ${dim}# Install to default ~/.claude directory${reset}
-    npx orbit-framework --global
+    npx orbti-framework --global
 
     ${dim}# Install to custom config directory${reset}
-    npx orbit-framework --global --config-dir ~/.claude-custom
+    npx orbti-framework --global --config-dir ~/.claude-custom
 
     ${dim}# Install to current project only${reset}
-    npx orbit-framework --local
+    npx orbti-framework --local
 
   ${yellow}What gets installed:${reset}
-    commands/orbit/     - Slash commands (/orbit:init, /orbit:refine, etc.)
-    orbit-framework/    - Templates, workflows, references, rules
+    commands/orbti/     - Slash commands (/orbti:init, /orbti:refine, etc.)
+    orbti-framework/    - Templates, workflows, references, rules
 `);
   process.exit(0);
 }
@@ -142,14 +142,14 @@ function install(isGlobal) {
   const commandsDir = path.join(claudeDir, 'commands');
   fs.mkdirSync(commandsDir, { recursive: true });
 
-  // Copy src/commands to commands/orbit
+  // Copy src/commands to commands/orbti
   const commandsSrc = path.join(src, 'src', 'commands');
-  const commandsDest = path.join(commandsDir, 'orbit');
+  const commandsDest = path.join(commandsDir, 'orbti');
   copyWithPathReplacement(commandsSrc, commandsDest, pathPrefix);
-  console.log(`  ${green}✓${reset} Installed commands/orbit`);
+  console.log(`  ${green}✓${reset} Installed commands/orbti`);
 
-  // Copy src/* (except commands) to orbit-framework/
-  const skillDest = path.join(claudeDir, 'orbit-framework');
+  // Copy src/* (except commands) to orbti-framework/
+  const skillDest = path.join(claudeDir, 'orbti-framework');
   fs.mkdirSync(skillDest, { recursive: true });
 
   const srcDirs = ['templates', 'workflows', 'references', 'rules'];
@@ -160,10 +160,10 @@ function install(isGlobal) {
       copyWithPathReplacement(dirSrc, dirDest, pathPrefix);
     }
   }
-  console.log(`  ${green}✓${reset} Installed orbit-framework`);
+  console.log(`  ${green}✓${reset} Installed orbti-framework`);
 
   console.log(`
-  ${green}Done!${reset} Launch Claude Code and run ${cyan}/orbit:help${reset}.
+  ${green}Done!${reset} Launch Claude Code and run ${cyan}/orbti:help${reset}.
 `);
 }
 

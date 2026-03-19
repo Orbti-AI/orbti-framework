@@ -1,8 +1,8 @@
 # RESEARCH.md Template
 
-Template for `.orbit/research/{topic-slug}.md` - research findings from subagent discovery.
+Template for `.orbti/research/{topic-slug}.md` - research findings from subagent discovery.
 
-**Purpose:** Captures research findings for main session review. Created by `/orbit:research` or `/orbit:research-phase`.
+**Purpose:** Captures research findings for main session review. Created by `/orbti:research` or `/orbti:research-phase`.
 
 ---
 
@@ -71,7 +71,7 @@ Template for `.orbit/research/{topic-slug}.md` - research findings from subagent
 
 ---
 
-*Created by /orbit:research. Review before integrating.*
+*Created by /orbti:research. Review before integrating.*
 *Status should be updated when findings are reviewed or integrated.*
 ```
 
@@ -110,7 +110,7 @@ Draft ──▶ Reviewed ──▶ Integrated
 
 ## Usage Pattern
 
-1. User runs `/orbit:research <topic>`
+1. User runs `/orbti:research <topic>`
 2. Workflow spawns appropriate subagent
 3. Subagent researches and returns findings
 4. RESEARCH.md created with status: Draft

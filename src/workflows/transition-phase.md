@@ -12,10 +12,10 @@ Handle project-level transition after all refines in a project are complete. Evo
 </when_to_use>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
-@.orbit/projects/{current-phase}/*-INTEGRATE.md
+@.orbti/STATE.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
+@.orbti/projects/{current-phase}/*-INTEGRATE.md
 </required_reading>
 
 <process>
@@ -53,7 +53,7 @@ Wait for user decision before proceeding.
 <step name="cleanup_handoffs">
 1. Check for handoffs in the completed project's folder:
    ```bash
-   ls .orbit/projects/{current-project}/HANDOFF*.md 2>/dev/null
+   ls .orbti/projects/{current-project}/HANDOFF*.md 2>/dev/null
    ```
 2. If found, delete them — project is complete, handoffs are no longer needed
 </step>
@@ -61,7 +61,7 @@ Wait for user decision before proceeding.
 <step name="evolve_project">
 **Read project summaries:**
 ```bash
-cat .orbit/projects/{current-project}/*-INTEGRATE.md
+cat .orbti/projects/{current-project}/*-INTEGRATE.md
 ```
 
 **Assess and update PROJECT.md:**
@@ -138,8 +138,8 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 Last session: [today]
 Stopped at: Project [N] complete, ready to refine Project [N+1]
-Next action: /orbit:refine for Project [N+1]
-Resume file: .orbit/ROADMAP.md
+Next action: /orbti:refine for Project [N+1]
+Resume file: .orbti/ROADMAP.md
 ```
 </step>
 
@@ -205,7 +205,7 @@ Cannot auto-merge. Options:
 
 **3. Stage project files:**
 ```bash
-git add .orbit/projects/{project}/ .orbit/STATE.md .orbit/PROJECT.md .orbit/ROADMAP.md
+git add .orbti/projects/{project}/ .orbti/STATE.md .orbti/PROJECT.md .orbti/ROADMAP.md
 git add src/  # If source files were modified
 ```
 
@@ -243,13 +243,13 @@ Git commit created: {short-hash}
 <step name="verify_state_consistency" priority="critical">
 **CRITICAL: Verify state files are aligned before declaring transition complete.**
 
-State consistency is foundational to ORBIT. If STATE.md, PROJECT.md, or ROADMAP.md are misaligned, all downstream work breaks — resume fails, progress tracking is wrong, context is lost.
+State consistency is foundational to ORBTI. If STATE.md, PROJECT.md, or ROADMAP.md are misaligned, all downstream work breaks — resume fails, progress tracking is wrong, context is lost.
 
 **1. Re-read all three files completely:**
 ```bash
-cat .orbit/STATE.md
-cat .orbit/PROJECT.md
-cat .orbit/ROADMAP.md
+cat .orbti/STATE.md
+cat .orbti/PROJECT.md
+cat .orbti/ROADMAP.md
 ```
 
 **2. Verify alignment across these fields:**
@@ -324,7 +324,7 @@ Next: Project {N+1} — {Name}
 ════════════════════════════════════════
 ```
 
-**Accept:** "1", "yes", "continue" → run `/orbit:refine` for Project N+1
+**Accept:** "1", "yes", "continue" → run `/orbti:refine` for Project N+1
 
 ---
 

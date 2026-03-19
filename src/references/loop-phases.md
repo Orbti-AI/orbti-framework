@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Explain the semantics of ORBIT's three loop phases: REFINE, BUILD, INTEGRATE. Every unit of work follows this loop. Skipping phases breaks traceability and increases risk.
+Explain the semantics of ORBTI's three loop phases: REFINE, BUILD, INTEGRATE. Every unit of work follows this loop. Skipping phases breaks traceability and increases risk.
 
 ## The Loop
 
@@ -22,7 +22,7 @@ Explain the semantics of ORBIT's three loop phases: REFINE, BUILD, INTEGRATE. Ev
 **Purpose:** Define what will be built, how it will be verified, and what's out of scope.
 
 **Artifacts Created:**
-- `{project}-{refine}-REFINE.md` in `.orbit/projects/{project-name}/`
+- `{project}-{refine}-REFINE.md` in `.orbti/projects/{project-name}/`
 
 **Activities:**
 1. Analyze requirements and context
@@ -86,7 +86,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 **Purpose:** Reconcile what was planned vs. what was built. Close the loop.
 
 **Artifacts Created:**
-- `{project}-{refine}-INTEGRATE.md` in `.orbit/projects/{project-name}/`
+- `{project}-{refine}-INTEGRATE.md` in `.orbti/projects/{project-name}/`
 - Updated `STATE.md`
 - Updated `ROADMAP.md` (if project complete)
 

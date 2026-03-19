@@ -1,5 +1,5 @@
 ---
-name: orbit:research-phase
+name: orbti:research-phase
 description: Research unknowns for a phase using subagents
 argument-hint: "<phase-number>"
 allowed-tools: [Read, Task, Bash, Write]
@@ -12,24 +12,24 @@ Analyze a phase for unknowns and research them using subagents.
 
 **When to use:** Before planning a phase when there are technical unknowns that need investigation.
 
-**Distinction from /orbit:research:**
-- `/orbit:research <topic>`: User knows what to research
-- `/orbit:research-phase <N>`: Claude identifies what needs researching
+**Distinction from /orbti:research:**
+- `/orbti:research <topic>`: User knows what to research
+- `/orbti:research-phase <N>`: Claude identifies what needs researching
 
 **Subagent orchestration:** Spawns multiple research agents in parallel for independent unknowns.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/research.md
-@~/.claude/orbit-framework/references/subagent-criteria.md
+@~/.claude/orbti-framework/workflows/research.md
+@~/.claude/orbti-framework/references/subagent-criteria.md
 </execution_context>
 
 <context>
 Phase number: $ARGUMENTS (required)
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
@@ -41,8 +41,8 @@ Phase number: $ARGUMENTS (required)
 ```
 Error: Phase number required.
 
-Usage: /orbit:research-phase <phase-number>
-Example: /orbit:research-phase 10
+Usage: /orbti:research-phase <phase-number>
+Example: /orbti:research-phase 10
 ```
 Exit workflow.
 
@@ -157,14 +157,14 @@ When all agents complete:
 
 1. Create research directory for phase:
    ```bash
-   mkdir -p .orbit/projects/{NN}-{name}/research
+   mkdir -p .orbti/projects/{NN}-{name}/research
    ```
 
 2. Save individual findings:
-   - `.orbit/projects/{NN}-{name}/research/{unknown-slug}.md`
+   - `.orbti/projects/{NN}-{name}/research/{unknown-slug}.md`
 
 3. Create consolidated RESEARCH.md:
-   - `.orbit/projects/{NN}-{name}/RESEARCH.md`
+   - `.orbti/projects/{NN}-{name}/RESEARCH.md`
    - Summarizes all findings
    - Links to individual research files
 
@@ -183,8 +183,8 @@ Summary:
 3. {unknown_3}: {key finding}
 
 Detailed findings:
-- .orbit/projects/{NN}-{name}/RESEARCH.md (consolidated)
-- .orbit/projects/{NN}-{name}/research/*.md (individual)
+- .orbti/projects/{NN}-{name}/RESEARCH.md (consolidated)
+- .orbti/projects/{NN}-{name}/research/*.md (individual)
 
 ────────────────────────────────────────
 Review the findings above. This research informs but does not
@@ -192,8 +192,8 @@ automatically integrate into refines.
 
 What's next?
 [1] Review consolidated findings
-[2] Refine this phase (/orbit:refine)
-[3] Discuss this phase (/orbit:cocreate)
+[2] Refine this phase (/orbti:refine)
+[3] Discuss this phase (/orbti:cocreate)
 [4] Done for now
 ────────────────────────────────────────
 ```

@@ -67,11 +67,11 @@ For: Choosing between options, new integration.
 
 **Check if agent teams are enabled:**
 ```bash
-grep "agent_teams:" .orbit/config.md 2>/dev/null | grep "enabled: true"
+grep "agent_teams:" .orbti/config.md 2>/dev/null | grep "enabled: true"
 ```
 
-Teams are **off by default** — only active if `agent_teams.enabled: true` in `.orbit/config.md`.
-Enable via `/orbit:config` → Agent Teams → Enable.
+Teams are **off by default** — only active if `agent_teams.enabled: true` in `.orbti/config.md`.
+Enable via `/orbti:config` → Agent Teams → Enable.
 
 **If teams enabled: spawn research team**
 
@@ -115,7 +115,7 @@ Team lead synthesizes debate output into OBSERVE.md.
    - Findings per option
    - Confidence level (should be MEDIUM-HIGH)
 
-Output: `.orbit/projects/XX-name/OBSERVE.md`
+Output: `.orbti/projects/XX-name/OBSERVE.md`
 </step>
 
 <step name="level_3_deep">
@@ -126,7 +126,7 @@ For: Architectural decisions, novel problems.
 **Check if agent teams are active:**
 ```bash
 echo "${CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS:-0}"
-grep "agent_teams:" .orbit/config.md 2>/dev/null | grep "enabled: false"
+grep "agent_teams:" .orbti/config.md 2>/dev/null | grep "enabled: false"
 ```
 
 Teams are **on by default** when env var is set — only skip if `agent_teams.enabled: false` in config.
@@ -197,7 +197,7 @@ Options:
    - Confidence per finding
    - Validation checkpoints if LOW confidence
 
-Output: Comprehensive `.orbit/projects/XX-name/OBSERVE.md`
+Output: Comprehensive `.orbti/projects/XX-name/OBSERVE.md`
 </step>
 
 <step name="route_to_planning">
@@ -217,7 +217,7 @@ Recommendation: [one-liner]
 Output: [path to OBSERVE.md or "verbal confirmation"]
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:refine [phase]
+▶ NEXT: /orbti:refine [phase]
 ────────────────────────────────────────
 ```
 </step>

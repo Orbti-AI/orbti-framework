@@ -11,7 +11,7 @@ Rules for editing files in `src/commands/`.
 
 ```yaml
 ---
-name: orbit:command-name
+name: orbti:command-name
 description: One-line description
 argument-hint: "<required>" or "[optional]"
 allowed-tools: [Read, Write, Bash, Glob, Grep, Edit, AskUserQuestion]
@@ -46,14 +46,14 @@ A command should fit on one screen. If it grows beyond that, logic belongs in a 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 ```
 
-- `execution_context`: Static resources (workflows, templates, references from ORBIT framework)
-- `context`: Dynamic project state (from `.orbit/` directory) and user arguments
+- `execution_context`: Static resources (workflows, templates, references from ORBTI framework)
+- `context`: Dynamic project state (from `.orbti/` directory) and user arguments
 
 ## Success Criteria Format
 
@@ -70,7 +70,7 @@ Use checkbox format. Each criterion must be objectively verifiable.
 
 ```markdown
 ---
-name: orbit:refine
+name: orbti:refine
 description: Enter REFINE phase for current or new refine
 argument-hint: "[project-refine]"
 allowed-tools: [Read, Write, Glob, AskUserQuestion]
@@ -91,9 +91,9 @@ Create or continue a REFINE refine for the specified project.
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>

@@ -1,6 +1,6 @@
 # Milestone Archive Template
 
-Template for milestone archives at `.orbit/milestones/v{VERSION}-{NAME}.md`.
+Template for milestone archives at `.orbti/milestones/v{VERSION}-{NAME}.md`.
 
 **Purpose:** Preserve complete phase details for completed milestones. Created by complete-milestone workflow when a milestone ships.
 
@@ -112,7 +112,7 @@ None
 
 ## Filename Convention
 
-**Pattern:** `.orbit/milestones/v{VERSION}-{NAME}.md`
+**Pattern:** `.orbti/milestones/v{VERSION}-{NAME}.md`
 
 **Rules:**
 - VERSION: Numeric version without `v` prefix in filename → `0.2`, `1.0`, `2.0`
@@ -193,7 +193,7 @@ Refines:
 
 **Goal:** Project-level Claude Code configuration
 **Depends on:** Project 8.5
-**Reason:** Improve agent context for ORBIT projects
+**Reason:** Improve agent context for ORBTI projects
 
 Refines:
 - [x] 08.6-01: CLAUDE.md template for codebase guidance

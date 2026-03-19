@@ -4,7 +4,7 @@ Define a new milestone in the project. Creates milestone structure in ROADMAP.md
 
 <when_to_use>
 - User explicitly requests new milestone
-- Triggered after /orbit:cocreate-milestone (reads context)
+- Triggered after /orbti:cocreate-milestone (reads context)
 - Project completed previous milestone, needs next
 - Starting fresh project milestone refinening
 </when_to_use>
@@ -15,9 +15,9 @@ After create-milestone, project is ready for first project REFINE.
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
-@.orbit/projects/{name}/MILESTONE-CONTEXT.md (if exists)
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
+@.orbti/projects/{name}/MILESTONE-CONTEXT.md (if exists)
 </required_reading>
 
 <references>
@@ -30,7 +30,7 @@ After create-milestone, project is ready for first project REFINE.
 <step name="load_context" priority="first">
 1. Check for MILESTONE-CONTEXT.md:
    ```bash
-   cat .orbit/projects/{name}/MILESTONE-CONTEXT.md 2>/dev/null
+   cat .orbti/projects/{name}/MILESTONE-CONTEXT.md 2>/dev/null
    ```
 
 2. **If found:**
@@ -106,7 +106,7 @@ Read current ROADMAP.md and update:
    ### Project {N}: {name}
 
    Focus: {description}
-   Refines: TBD (defined during /orbit:refine)
+   Refines: TBD (defined during /orbti:refine)
    ```
 
 4. **Update footer timestamp**
@@ -116,7 +116,7 @@ Read current ROADMAP.md and update:
 For each phase in the new milestone:
 
 ```bash
-mkdir -p .orbit/projects/{NN}-{name-slug}
+mkdir -p .orbti/projects/{NN}-{name-slug}
 ```
 
 Where:
@@ -161,8 +161,8 @@ Update STATE.md:
 
    Last session: {timestamp}
    Stopped at: Milestone created, ready to refine
-   Next action: /orbit:refine for Project {first_project_number}
-   Resume file: .orbit/ROADMAP.md
+   Next action: /orbti:refine for Project {first_project_number}
+   Resume file: .orbti/ROADMAP.md
    ```
 </step>
 
@@ -171,7 +171,7 @@ Update STATE.md:
 
 Delete the handoff file:
 ```bash
-rm .orbit/projects/{name}/MILESTONE-CONTEXT.md
+rm .orbti/projects/{name}/MILESTONE-CONTEXT.md
 ```
 
 Display: "Cleaned up milestone context handoff."
@@ -192,15 +192,15 @@ Theme: {milestone_theme}
 Phases: {phase_count}
 
 Created:
-  .orbit/projects/{phase-1-slug}/     ✓
-  .orbit/projects/{phase-2-slug}/     ✓
-  .orbit/projects/{phase-N-slug}/     ✓
+  .orbti/projects/{phase-1-slug}/     ✓
+  .orbti/projects/{phase-2-slug}/     ✓
+  .orbti/projects/{phase-N-slug}/     ✓
 
 ROADMAP.md updated ✓
 STATE.md updated ✓
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:refine
+▶ NEXT: /orbti:refine
   Begin planning Project {first_project_number}: {first_project_name}
 ────────────────────────────────────────
 
@@ -214,10 +214,10 @@ Type "yes" to proceed, or ask questions first.
 
 <output>
 - ROADMAP.md updated with new milestone section
-- Project directories created in .orbit/projects/
+- Project directories created in .orbti/projects/
 - STATE.md updated with new position
 - MILESTONE-CONTEXT.md deleted (if existed)
-- Clear routing to /orbit:refine
+- Clear routing to /orbti:refine
 </output>
 
 <success_criteria>
@@ -242,5 +242,5 @@ Type "yes" to proceed, or ask questions first.
 
 **ROADMAP.md missing:**
 - Create basic structure
-- Or route to /orbit:init if project not initialized
+- Or route to /orbti:init if project not initialized
 </error_handling>

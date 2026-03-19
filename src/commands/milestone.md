@@ -1,5 +1,5 @@
 ---
-name: orbit:milestone
+name: orbti:milestone
 description: Create a new milestone in the project
 argument-hint: "[milestone-name]"
 allowed-tools: [Read, Write, Edit, Bash, Glob, AskUserQuestion]
@@ -14,19 +14,19 @@ Create a new milestone with defined scope and phases.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/create-milestone.md
+@~/.claude/orbti-framework/workflows/create-milestone.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/create-milestone.md
+Follow workflow: @~/.claude/orbti-framework/workflows/create-milestone.md
 </process>
 
 <success_criteria>

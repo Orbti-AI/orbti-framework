@@ -1,5 +1,5 @@
 ---
-name: orbit:refine
+name: orbti:refine
 description: Enter REFINE phase for current or new refine
 argument-hint: "[phase-refine]"
 allowed-tools: [Read, Write, Glob, AskUserQuestion]
@@ -14,22 +14,22 @@ Create or continue a REFINE refine for the specified phase.
 <model>opus</model>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/refine.md
-@~/.claude/orbit-framework/templates/REFINE.md
-@~/.claude/orbit-framework/references/refine-format.md
-@~/.claude/orbit-framework/references/model-routing.md
+@~/.claude/orbti-framework/workflows/refine.md
+@~/.claude/orbti-framework/templates/REFINE.md
+@~/.claude/orbti-framework/references/refine-format.md
+@~/.claude/orbti-framework/references/model-routing.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/refine.md
+Follow workflow: @~/.claude/orbti-framework/workflows/refine.md
 </process>
 
 <success_criteria>

@@ -56,8 +56,8 @@ Output: [Working, tested feature]
 
 ## Context
 
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
 @relevant/source/files.ts
 
 ## Acceptance Criteria
@@ -150,7 +150,7 @@ Example structure (9 test cases covering AC-1, AC-2, AC-3):
 
 <commit_pattern>
 
-## ORBIT Commit Pattern for TDD Refines
+## ORBTI Commit Pattern for TDD Refines
 
 TDD refines produce 2-3 atomic commits (one per phase):
 

@@ -1,5 +1,5 @@
 <purpose>
-Orchestrate parallel Explore agents to analyze codebase and produce structured documents in .orbit/codebase/
+Orchestrate parallel Explore agents to analyze codebase and produce structured documents in .orbti/codebase/
 
 Each agent has fresh context and focuses on specific aspects. Output is concise and actionable for planning.
 </purpose>
@@ -31,16 +31,16 @@ Documents are reference material for Claude when planning/executing. Vague descr
 <process>
 
 <step name="check_existing" priority="first">
-Check if .orbit/codebase/ already exists:
+Check if .orbti/codebase/ already exists:
 
 ```bash
-ls -la .orbit/codebase/ 2>/dev/null
+ls -la .orbti/codebase/ 2>/dev/null
 ```
 
 **If exists:**
 
 ```
-.orbit/codebase/ already exists with these documents:
+.orbti/codebase/ already exists with these documents:
 [List files found]
 
 What's next?
@@ -51,7 +51,7 @@ What's next?
 
 Wait for user response.
 
-If "Refresh": Delete .orbit/codebase/, continue to create_structure
+If "Refresh": Delete .orbti/codebase/, continue to create_structure
 If "Update": Ask which documents to update, continue to spawn_agents (filtered)
 If "Skip": Exit workflow
 
@@ -60,10 +60,10 @@ Continue to create_structure.
 </step>
 
 <step name="create_structure">
-Create .orbit/codebase/ directory:
+Create .orbti/codebase/ directory:
 
 ```bash
-mkdir -p .orbit/codebase
+mkdir -p .orbti/codebase
 ```
 
 **Expected output files:**
@@ -315,7 +315,7 @@ For each document:
      - "Not detected" for optional infrastructure
      - "Not applicable" for patterns that don't fit this codebase
      - "No significant concerns" for clean codebase areas
-4. **Write to .orbit/codebase/{NAME}.md** (uppercase filename)
+4. **Write to .orbti/codebase/{NAME}.md** (uppercase filename)
 
 **Example filling pattern:**
 
@@ -353,8 +353,8 @@ After all documents written, continue to verify_output.
 Verify all documents created successfully:
 
 ```bash
-ls -la .orbit/codebase/
-wc -l .orbit/codebase/*.md
+ls -la .orbti/codebase/
+wc -l .orbti/codebase/*.md
 ```
 
 **Verification checklist:**
@@ -371,7 +371,7 @@ Continue to commit_codebase_map.
 Commit the codebase map:
 
 ```bash
-git add .orbit/codebase/*.md
+git add .orbti/codebase/*.md
 git commit -m "$(cat <<'EOF'
 docs: map existing codebase
 
@@ -392,13 +392,13 @@ Continue to update_state.
 </step>
 
 <step name="update_state">
-If .orbit/STATE.md exists, note that codebase has been mapped.
+If .orbti/STATE.md exists, note that codebase has been mapped.
 
 Add to Accumulated Context section:
 ```
 ### Codebase Mapped
 Date: [current date]
-Documents: .orbit/codebase/ (7 files)
+Documents: .orbti/codebase/ (7 files)
 ```
 
 Continue to offer_next.
@@ -412,7 +412,7 @@ Present completion summary and next steps.
 ```
 Codebase mapping complete.
 
-Created .orbit/codebase/:
+Created .orbti/codebase/:
 - STACK.md ([N] lines) - Technologies and dependencies
 - ARCHITECTURE.md ([N] lines) - System design and patterns
 - STRUCTURE.md ([N] lines) - Directory layout and organization
@@ -426,17 +426,17 @@ Created .orbit/codebase/:
 
 ## ▶ Next Up
 
-**Initialize ORBIT project** — use codebase context for planning
+**Initialize ORBTI project** — use codebase context for planning
 
-`/orbit:init`
+`/orbti:init`
 
 <sub>`/clear` first → fresh context window</sub>
 
 ---
 
 **Also available:**
-- Re-run mapping: `/orbit:map-codebase`
-- Review specific file: `cat .orbit/codebase/STACK.md`
+- Re-run mapping: `/orbti:map-codebase`
+- Review specific file: `cat .orbti/codebase/STACK.md`
 - Edit any document before proceeding
 
 ---
@@ -448,7 +448,7 @@ End workflow.
 </process>
 
 <success_criteria>
-- .orbit/codebase/ directory created
+- .orbti/codebase/ directory created
 - 4 parallel Explore agents spawned with run_in_background=true
 - Agent prompts are specific and actionable
 - TaskOutput used to collect all agent results

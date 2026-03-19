@@ -110,8 +110,8 @@ Refine 03: Visualization components
 - 3 medium tasks: ~75% (risky)
 </estimating_context>
 
-<orbit_integration>
-**How this fits ORBIT's loop:**
+<orbti_integration>
+**How this fits ORBTI's loop:**
 
 ```
 REFINE ──▶ BUILD ──▶ INTEGRATE
@@ -127,8 +127,8 @@ CARL context brackets automate these checks:
 - MODERATE (40-60%): Consider splitting
 - DEPLETED (<40%): Handoff or fresh agent
 
-ORBIT provides the framework. CARL provides operational automation.
-</orbit_integration>
+ORBTI provides the framework. CARL provides operational automation.
+</orbti_integration>
 
 <anti_patterns>
 

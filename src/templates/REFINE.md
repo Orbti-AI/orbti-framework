@@ -1,6 +1,6 @@
 # REFINE.md Template
 
-Template for `.orbit/projects/{project-number}-{name}/{project}-{refine}-REFINE.md` - executable project refines.
+Template for `.orbti/projects/{project-number}-{name}/{project}-{refine}-REFINE.md` - executable project refines.
 
 **Naming:** `{project}-{refine}-REFINE.md` (e.g., `01-02-REFINE.md` for Project 1, Refine 2)
 
@@ -32,9 +32,9 @@ autonomous: true                 # false if refine has checkpoints requiring use
 
 <context>
 ## Project Context
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
-@.orbit/STATE.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
+@.orbti/STATE.md
 
 ## Prior Work (only if genuinely needed)
 # Only reference prior SUMMARYs if:
@@ -51,7 +51,7 @@ autonomous: true                 # false if refine has checkpoints requiring use
 <skills>
 ## Required Skills (from SPECIAL-FLOWS.md)
 
-<!-- If .orbit/SPECIAL-FLOWS.md exists, this section is auto-populated by /orbit:refine -->
+<!-- If .orbti/SPECIAL-FLOWS.md exists, this section is auto-populated by /orbti:refine -->
 <!-- If no SPECIAL-FLOWS.md, omit this section or show "No specialized flows configured" -->
 
 | Skill | Priority | When to Invoke | Loaded? |
@@ -175,7 +175,7 @@ Before declaring refine complete:
 </success_criteria>
 
 <output>
-After completion, create `.orbit/projects/XX-name/{project}-{refine}-INTEGRATE.md`
+After completion, create `.orbti/projects/XX-name/{project}-{refine}-INTEGRATE.md`
 </output>
 ```
 

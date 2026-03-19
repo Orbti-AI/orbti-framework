@@ -15,14 +15,14 @@ Next phase: REFINE (next refine or next phase)
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/projects/{project}/{refine}-REFINE.md
+@.orbti/STATE.md
+@.orbti/projects/{project}/{refine}-REFINE.md
 </required_reading>
 
 <references>
-@~/.claude/orbit-framework/references/loop-phases.md
-@~/.claude/orbit-framework/templates/INTEGRATE.md
-@~/.claude/orbit-framework/workflows/transition-phase.md (loaded when last refine in phase)
+@~/.claude/orbti-framework/references/loop-phases.md
+@~/.claude/orbti-framework/templates/INTEGRATE.md
+@~/.claude/orbti-framework/workflows/transition-phase.md (loaded when last refine in phase)
 </references>
 
 <process>
@@ -55,9 +55,9 @@ Next phase: REFINE (next refine or next phase)
 <step name="audit_skill_invocations">
 **Check specialized workflow usage (if configured):**
 
-1. Check if .orbit/SPECIAL-FLOWS.md exists:
+1. Check if .orbti/SPECIAL-FLOWS.md exists:
    ```bash
-   ls .orbit/SPECIAL-FLOWS.md 2>/dev/null
+   ls .orbti/SPECIAL-FLOWS.md 2>/dev/null
    ```
 
 2. If not exists: Skip this step entirely
@@ -89,10 +89,10 @@ Next phase: REFINE (next refine or next phase)
 
 Check if agent teams are enabled:
 ```bash
-grep "agent_teams:" .orbit/config.md 2>/dev/null | grep "enabled: true"
+grep "agent_teams:" .orbti/config.md 2>/dev/null | grep "enabled: true"
 ```
 
-Teams are **off by default** — only active if `agent_teams.enabled: true` in `.orbit/config.md`.
+Teams are **off by default** — only active if `agent_teams.enabled: true` in `.orbti/config.md`.
 
 **If teams enabled:**
 
@@ -111,7 +111,7 @@ Team lead synthesizes into a review summary.
 ```
 
 After team completes, extract:
-- Any **blocker** findings → block INTEGRATE, route to `/orbit:refine-fix`
+- Any **blocker** findings → block INTEGRATE, route to `/orbti:refine-fix`
 - **Major** findings → include in INTEGRATE.md, user decides
 - **Minor** findings → logged as deferred issues in INTEGRATE.md
 
@@ -121,7 +121,7 @@ After team completes, extract:
 </step>
 
 <step name="create_summary">
-1. Create INTEGRATE.md at `.orbit/projects/{phase}/{refine}-INTEGRATE.md`
+1. Create INTEGRATE.md at `.orbti/projects/{phase}/{refine}-INTEGRATE.md`
 2. Include:
 
    **Frontmatter:**
@@ -168,7 +168,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 **3. Session Continuity:**
 - Stopped at: Refine [A] integrated
-- Next action: `/orbit:refine` for Refine [A+1] (or next project)
+- Next action: `/orbti:refine` for Refine [A+1] (or next project)
 - Resume file: point to the INTEGRATE.md just created
 </step>
 
@@ -204,13 +204,13 @@ Continue to next loop?
 ════════════════════════════════════════
 ```
 
-**Accept:** "1", "yes", "continue" → run `/orbit:refine` for next loop in same project
+**Accept:** "1", "yes", "continue" → run `/orbti:refine` for next loop in same project
 </step>
 
 <step name="execute_transition" priority="required" gate="blocking">
 **If last refine in phase — TRANSITION IS MANDATORY:**
 
-⚠️ **NEVER skip this step. This is what makes ORBIT a system, not random loops.**
+⚠️ **NEVER skip this step. This is what makes ORBTI a system, not random loops.**
 
 1. Announce clearly:
    ```
@@ -219,7 +219,7 @@ Continue to next loop?
    ════════════════════════════════════════
    ```
 
-2. **MUST read and execute:** @~/.claude/orbit-framework/workflows/transition-phase.md
+2. **MUST read and execute:** @~/.claude/orbti-framework/workflows/transition-phase.md
 
 3. Transition handles (do not skip any):
    - Evolve PROJECT.md (requirements validated → shipped)
@@ -230,13 +230,13 @@ Continue to next loop?
 
 4. **Only after transition completes** → offer next phase routing
 
-**Anti-pattern:** Closing INTEGRATE and immediately offering `/orbit:refine` for next phase WITHOUT running transition. This breaks system cohesion and skips git commits.
+**Anti-pattern:** Closing INTEGRATE and immediately offering `/orbti:refine` for next phase WITHOUT running transition. This breaks system cohesion and skips git commits.
 </step>
 
 </process>
 
 <output>
-- INTEGRATE.md at `.orbit/projects/{project}/{refine}-INTEGRATE.md`
+- INTEGRATE.md at `.orbti/projects/{project}/{refine}-INTEGRATE.md`
 - Updated STATE.md
 - Updated ROADMAP.md (if phase complete)
 </output>

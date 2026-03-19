@@ -1,6 +1,6 @@
 # Architecture Template
 
-Template for `.orbit/codebase/ARCHITECTURE.md` - captures conceptual code organization.
+Template for `.orbti/codebase/ARCHITECTURE.md` - captures conceptual code organization.
 
 **Purpose:** Document how the code is organized at a conceptual level. Complements STRUCTURE.md (which shows physical file locations).
 
@@ -158,7 +158,7 @@ Template for `.orbit/codebase/ARCHITECTURE.md` - captures conceptual code organi
 7. Process exits with status code
 
 **State Management:**
-- File-based: All state lives in `.orbit/` directory
+- File-based: All state lives in `.orbti/` directory
 - No persistent in-memory state
 - Each command execution is independent
 

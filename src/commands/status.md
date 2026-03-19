@@ -1,15 +1,15 @@
 ---
-name: orbit:status
-description: "[DEPRECATED] Use /orbit:progress instead"
+name: orbti:status
+description: "[DEPRECATED] Use /orbti:progress instead"
 argument-hint:
 allowed-tools: [Read]
 ---
 
 <model>haiku</model>
 
-> **⚠️ DEPRECATED:** This command is deprecated. Use `/orbit:progress` instead.
+> **⚠️ DEPRECATED:** This command is deprecated. Use `/orbti:progress` instead.
 >
-> `/orbit:progress` provides the same information plus:
+> `/orbti:progress` provides the same information plus:
 > - Visual milestone progress
 > - Smarter routing with single next-action suggestion
 > - Optional context argument for tailored suggestions
@@ -17,15 +17,15 @@ allowed-tools: [Read]
 <objective>
 Display current loop position (REFINE/BUILD/INTEGRATE) and project progress.
 
-**When to use:** Use `/orbit:progress` instead for better routing.
+**When to use:** Use `/orbti:progress` instead for better routing.
 </objective>
 
 <execution_context>
 </execution_context>
 
 <context>
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
@@ -43,7 +43,7 @@ Read STATE.md and extract:
 Display formatted status:
 
 ```
-ORBIT Status
+ORBTI Status
 ════════════════════════════════════════
 
 Milestone: [name]
@@ -65,9 +65,9 @@ Next: [recommended action]
 
 <step name="suggest_next">
 Based on loop position, suggest next action:
-- If REFINE needed: "Run /orbit:refine to create refine"
-- If REFINE ready: "Approve refine, then run /orbit:build"
-- If BUILD complete: "Run /orbit:integrate to close loop"
+- If REFINE needed: "Run /orbti:refine to create refine"
+- If REFINE ready: "Approve refine, then run /orbti:build"
+- If BUILD complete: "Run /orbti:integrate to close loop"
 - If INTEGRATE complete: "Loop closed. Ready for next project."
 </step>
 

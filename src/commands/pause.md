@@ -1,5 +1,5 @@
 ---
-name: orbit:pause
+name: orbti:pause
 description: Create handoff file and prepare for session break
 argument-hint: "[project] [reason]"
 allowed-tools: [Read, Write, Bash, AskUserQuestion]
@@ -18,18 +18,18 @@ Create a HANDOFF.md file capturing current context and update STATE.md for sessi
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/pause-work.md
+@~/.claude/orbti-framework/workflows/pause-work.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/STATE.md
-@.orbit/PROJECT.md
+@.orbti/STATE.md
+@.orbti/PROJECT.md
 </context>
 
 <process>
-**Follow the pause-work workflow** from `@~/.claude/orbit-framework/workflows/pause-work.md`.
+**Follow the pause-work workflow** from `@~/.claude/orbti-framework/workflows/pause-work.md`.
 
 The workflow handles:
 1. Detecting current position

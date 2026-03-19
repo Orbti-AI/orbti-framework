@@ -1,5 +1,5 @@
 ---
-name: orbit:observe
+name: orbti:observe
 description: Research technical options and make decisions before planning a phase
 argument-hint: "<project or topic>"
 allowed-tools: [Read, Bash, Glob, Grep, WebSearch, WebFetch, Task, AskUserQuestion]
@@ -10,7 +10,7 @@ Execute technical discovery to inform planning decisions. Produces OBSERVE.md wi
 
 **When to use:** Before planning a project with technical unknowns (library selection, architecture decisions, integration approaches).
 
-**Distinct from /orbit:research:** Research gathers documentation/information. Observe makes technical decisions.
+**Distinct from /orbti:research:** Research gathers documentation/information. Observe makes technical decisions.
 
 **Not part of the main loop** — run explicitly when there are genuine technical unknowns to resolve.
 </objective>
@@ -18,20 +18,20 @@ Execute technical discovery to inform planning decisions. Produces OBSERVE.md wi
 <model>opus</model>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/observe.md
-@~/.claude/orbit-framework/templates/OBSERVE.md
-@~/.claude/orbit-framework/references/model-routing.md
+@~/.claude/orbti-framework/workflows/observe.md
+@~/.claude/orbti-framework/templates/OBSERVE.md
+@~/.claude/orbti-framework/references/model-routing.md
 </execution_context>
 
 <context>
 $ARGUMENTS (project number or topic)
 
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbit-framework/workflows/observe.md**
+**Follow workflow: @~/.claude/orbti-framework/workflows/observe.md**
 
 The workflow implements:
 1. Determine depth level (quick/standard/deep)
@@ -49,5 +49,5 @@ The workflow implements:
 - [ ] Options researched with sources
 - [ ] OBSERVE.md created (for standard/deep)
 - [ ] Recommendation provided with confidence
-- [ ] Ready for /orbit:refine
+- [ ] Ready for /orbti:refine
 </success_criteria>

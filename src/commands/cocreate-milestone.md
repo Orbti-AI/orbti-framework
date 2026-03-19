@@ -1,5 +1,5 @@
 ---
-name: orbit:cocreate-milestone
+name: orbti:cocreate-milestone
 description: Explore and articulate next milestone vision
 argument-hint: ""
 allowed-tools: [Read, Write, AskUserQuestion]
@@ -14,22 +14,22 @@ Facilitate vision discussion for the next milestone and create context handoff.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/cocreate-milestone.md
+@~/.claude/orbti-framework/workflows/cocreate-milestone.md
 </execution_context>
 
 <context>
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
-@.orbit/MILESTONES.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
+@.orbti/MILESTONES.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/cocreate-milestone.md
+Follow workflow: @~/.claude/orbti-framework/workflows/cocreate-milestone.md
 </process>
 
 <success_criteria>
 - [ ] MILESTONE-CONTEXT.md created with vision
 - [ ] Key themes and goals articulated
-- [ ] Ready for /orbit:milestone command
+- [ ] Ready for /orbti:milestone command
 </success_criteria>

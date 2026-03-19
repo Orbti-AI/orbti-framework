@@ -1,6 +1,6 @@
 # STATE.md Template
 
-Template for `.orbit/STATE.md` — the project's living memory.
+Template for `.orbti/STATE.md` — the project's living memory.
 
 **Purpose:** Single source of truth for current position, all-projects overview, and session continuity.
 
@@ -67,7 +67,7 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 Last session: [YYYY-MM-DD HH:MM]
 Stopped at: [Description of last completed action]
 Next action: [Exactly ONE thing to do next]
-Resume file: .orbit/projects/[current-project]/HANDOFF-[date].md
+Resume file: .orbti/projects/[current-project]/HANDOFF-[date].md
 
 ---
 *STATE.md — Updated after every significant action*
@@ -125,26 +125,26 @@ When a project has multiple loops, show each loop's position separated by `/`.
 ### Session Continuity
 **Purpose:** Enable instant resumption — one read, one action.
 
-**Next action:** Must be exactly ONE thing (not a list). If unsure, point to `/orbit:progress`.
+**Next action:** Must be exactly ONE thing (not a list). If unsure, point to `/orbti:progress`.
 
-**Update:** At end of every session or after `/orbit:pause`.
+**Update:** At end of every session or after `/orbti:pause`.
 
 ---
 
 ## How the Overview gets populated
 
-**At `/orbit:init`:**
+**At `/orbti:init`:**
 - Add a row per project defined in ROADMAP.md
 - All rows start as `○ Pending | ○ ○ ○`
 
-**At `/orbit:refine` (refine start):**
+**At `/orbti:refine` (refine start):**
 - Update project row: Status → `🔵 In Progress`
 - Update loop position column for active refine
 
-**At `/orbit:build` (tasks running):**
+**At `/orbti:build` (tasks running):**
 - Update loop position: `◉ ○ ○` → `✓ ◉ ○`
 
-**At `/orbit:integrate` (loop closes):**
+**At `/orbti:integrate` (loop closes):**
 - Update loop position: `✓ ✓ ◉` → `✓ ✓ ✓`
 - Increment completed loop count: `1/3` → `2/3`
 
@@ -169,7 +169,7 @@ STATE.md is a DIGEST, not an archive:
 
 ## Lifecycle
 
-**Creation:** After ROADMAP.md created (during `/orbit:init`)
+**Creation:** After ROADMAP.md created (during `/orbti:init`)
 - Build Projects Overview table from ROADMAP.md projects
 - All rows start as Pending
 - Set Current Focus to "Project 1 — Ready to refine"

@@ -1,8 +1,8 @@
 # CONTEXT.md Template
 
-Template for `.orbit/projects/{NN}-{name}/CONTEXT.md` - project discussion context handoff.
+Template for `.orbti/projects/{NN}-{name}/CONTEXT.md` - project discussion context handoff.
 
-**Purpose:** Captures user's vision, goals, and approach before planning. Created by `/orbit:cocreate`, consumed by `/orbit:refine`.
+**Purpose:** Captures user's vision, goals, and approach before planning. Created by `/orbti:cocreate`, consumed by `/orbti:refine`.
 
 ---
 
@@ -48,7 +48,7 @@ Template for `.orbit/projects/{NN}-{name}/CONTEXT.md` - project discussion conte
 ---
 
 *This file is temporary. It informs planning but is not required.*
-*Created by /orbit:cocreate, consumed by /orbit:refine.*
+*Created by /orbti:cocreate, consumed by /orbti:refine.*
 ```
 
 ---
@@ -70,10 +70,10 @@ Template for `.orbit/projects/{NN}-{name}/CONTEXT.md` - project discussion conte
 
 ## Usage Pattern
 
-1. User runs `/orbit:cocreate <project>`
+1. User runs `/orbti:cocreate <project>`
 2. Discussion workflow explores goals and approach
 3. CONTEXT.md created in project directory
-4. `/orbit:refine` reads CONTEXT.md to inform planning
+4. `/orbti:refine` reads CONTEXT.md to inform planning
 5. CONTEXT.md remains for reference (not deleted)
 
 ---

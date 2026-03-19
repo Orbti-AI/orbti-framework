@@ -1,5 +1,5 @@
 ---
-name: orbit:consider-issues
+name: orbti:consider-issues
 description: Review deferred issues with codebase context, triage and route
 allowed-tools: [Read, Bash, Grep, Glob, Edit, AskUserQuestion]
 ---
@@ -13,17 +13,17 @@ Review all open issues from ISSUES.md and phase-scoped UAT files with current co
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/consider-issues.md
+@~/.claude/orbti-framework/workflows/consider-issues.md
 </execution_context>
 
 <context>
-@.orbit/ISSUES.md (if exists)
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/ISSUES.md (if exists)
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbit-framework/workflows/consider-issues.md**
+**Follow workflow: @~/.claude/orbti-framework/workflows/consider-issues.md**
 
 The workflow implements:
 1. Find all issue files (ISSUES.md, phase-scoped UAT files)

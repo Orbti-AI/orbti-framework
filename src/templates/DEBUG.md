@@ -1,6 +1,6 @@
 # Debug Template
 
-Template for `.orbit/debug/[slug].md` — active debug session tracking.
+Template for `.orbti/debug/[slug].md` — active debug session tracking.
 
 ---
 
@@ -129,7 +129,7 @@ files_changed: []
 
 **On resolution:**
 - status → "resolved"
-- Move file to .orbit/debug/resolved/
+- Move file to .orbti/debug/resolved/
 
 **Complex fixes:** If fix requires significant code changes:
 - Create a dedicated REFINE.md for the fix

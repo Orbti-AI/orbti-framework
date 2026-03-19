@@ -1,10 +1,10 @@
 # Project Issues Log
 
-Template for `.orbit/ISSUES.md` — deferred enhancements discovered during execution.
+Template for `.orbti/ISSUES.md` — deferred enhancements discovered during execution.
 
 **Purpose:** Track nice-to-haves that aren't critical to current work. These follow deviation rule #5: log enhancements, continue with refine.
 
-**Location:** `.orbit/ISSUES.md` (project-level, not phase-level)
+**Location:** `.orbti/ISSUES.md` (project-level, not phase-level)
 
 ---
 
@@ -86,7 +86,7 @@ Enhancements discovered during execution. Not critical - address in future phase
 ## Workflow
 
 1. During BUILD, notice enhancement opportunity
-2. Log to `.orbit/ISSUES.md` with ISS-NNN format
+2. Log to `.orbti/ISSUES.md` with ISS-NNN format
 3. Note in INTEGRATE.md: "Logged ISS-003 for future consideration"
 4. Continue with current refine
 5. Review ISSUES.md during phase planning

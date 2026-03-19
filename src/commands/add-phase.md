@@ -1,5 +1,5 @@
 ---
-name: orbit:add-phase
+name: orbti:add-phase
 description: Add a new project to current milestone
 argument-hint: "[project-name]"
 allowed-tools: [Read, Write, Edit, Bash]
@@ -14,19 +14,19 @@ Add a new project to the current milestone's roadmap.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/roadmap-management.md
+@~/.claude/orbti-framework/workflows/roadmap-management.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/roadmap-management.md
+Follow workflow: @~/.claude/orbti-framework/workflows/roadmap-management.md
 
 Execute: **add-project** operation
 </process>

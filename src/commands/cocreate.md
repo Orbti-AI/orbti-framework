@@ -1,5 +1,5 @@
 ---
-name: orbit:cocreate
+name: orbti:cocreate
 description: Explore and articulate project vision before planning
 argument-hint: "<project-number>"
 allowed-tools: [Read, Write, AskUserQuestion]
@@ -14,23 +14,23 @@ Facilitate vision discussion for a specific project and create context handoff.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/cocreate.md
+@~/.claude/orbti-framework/workflows/cocreate.md
 </execution_context>
 
 <context>
 Project number: $ARGUMENTS (required)
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/cocreate.md
+Follow workflow: @~/.claude/orbti-framework/workflows/cocreate.md
 </process>
 
 <success_criteria>
 - [ ] CONTEXT.md created in project directory
 - [ ] Goals and approach articulated
-- [ ] Ready for /orbit:refine command
+- [ ] Ready for /orbti:refine command
 </success_criteria>

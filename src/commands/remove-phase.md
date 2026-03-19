@@ -1,5 +1,5 @@
 ---
-name: orbit:remove-phase
+name: orbti:remove-phase
 description: Remove a future (not started) project
 argument-hint: "<project-number-or-name>"
 allowed-tools: [Read, Write, Edit, Bash]
@@ -14,19 +14,19 @@ Remove a future project from the roadmap and clean up its directory.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/roadmap-management.md
+@~/.claude/orbti-framework/workflows/roadmap-management.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/roadmap-management.md
+Follow workflow: @~/.claude/orbti-framework/workflows/roadmap-management.md
 
 Execute: **remove-project** operation
 </process>

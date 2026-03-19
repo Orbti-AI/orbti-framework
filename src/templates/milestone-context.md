@@ -1,6 +1,6 @@
 # Milestone Context Template
 
-Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-milestone to create-milestone.
+Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-milestone to create-milestone.
 
 **Purpose:** Persist milestone discussion context across `/clear` boundaries. This is a handoff artifact, not permanent documentation.
 
@@ -12,7 +12,7 @@ Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 # Milestone Context
 
 **Generated:** {{DATE}}
-**Status:** Ready for /orbit:create-milestone
+**Status:** Ready for /orbti:create-milestone
 
 ## Features to Build
 
@@ -53,7 +53,7 @@ Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 
 ---
 
-*This file is temporary. It will be deleted after /orbit:create-milestone creates the milestone.*
+*This file is temporary. It will be deleted after /orbti:create-milestone creates the milestone.*
 *Do NOT commit this file to version control.*
 ```
 
@@ -66,16 +66,16 @@ Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 │                    MILESTONE CONTEXT LIFECYCLE                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  1. /orbit:cocreate-milestone                                      │
+│  1. /orbti:cocreate-milestone                                      │
 │     └─> Explores features, scope, constraints                    │
-│     └─> Creates .orbit/projects/{name}/MILESTONE-CONTEXT.md      │
+│     └─> Creates .orbti/projects/{name}/MILESTONE-CONTEXT.md      │
 │                                                                  │
 │  2. /clear (safe now)                                            │
 │     └─> Context persisted in file                                │
 │     └─> Session can be cleared                                   │
 │                                                                  │
-│  3. /orbit:create-milestone                                       │
-│     └─> Reads .orbit/projects/{name}/MILESTONE-CONTEXT.md        │
+│  3. /orbti:create-milestone                                       │
+│     └─> Reads .orbti/projects/{name}/MILESTONE-CONTEXT.md        │
 │     └─> Uses context to populate ROADMAP.md                      │
 │     └─> Deletes MILESTONE-CONTEXT.md after success               │
 │                                                                  │
@@ -118,7 +118,7 @@ Template for `.orbit/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 
 ---
 
-## Integration with ORBIT Workflow
+## Integration with ORBTI Workflow
 
 ### Before cocreate-milestone
 
@@ -130,7 +130,7 @@ ROADMAP.md shows: Phases complete, next milestone undefined
 ### After cocreate-milestone
 
 ```
-.orbit/projects/{name}/MILESTONE-CONTEXT.md: Created with discussion output
+.orbti/projects/{name}/MILESTONE-CONTEXT.md: Created with discussion output
 STATE.md: Updated to note milestone discussion complete
 ```
 
@@ -150,7 +150,7 @@ STATE.md: Updated with new project position
 # Milestone Context
 
 **Generated:** 2026-01-29
-**Status:** Ready for /orbit:create-milestone
+**Status:** Ready for /orbti:create-milestone
 
 ## Features to Build
 
@@ -162,7 +162,7 @@ STATE.md: Updated with new project position
 
 **Suggested name:** v0.3 Roadmap & Milestone Management
 **Estimated projects:** 3
-**Focus:** Complete milestone management tooling for ORBIT framework
+**Focus:** Complete milestone management tooling for ORBTI framework
 
 ## Project Mapping
 
@@ -185,6 +185,6 @@ STATE.md: Updated with new project position
 
 ---
 
-*This file is temporary. It will be deleted after /orbit:create-milestone creates the milestone.*
+*This file is temporary. It will be deleted after /orbti:create-milestone creates the milestone.*
 *Do NOT commit this file to version control.*
 ```

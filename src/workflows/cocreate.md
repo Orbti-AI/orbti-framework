@@ -9,19 +9,19 @@ Facilitate vision articulation before planning a project. Acts as a thinking par
 <when_to_use>
 - User starting a new project and wants to think through approach
 - User has rough ideas but needs to articulate them before planning
-- Before /orbit:refine when discussion is desired
+- Before /orbti:refine when discussion is desired
 - Project scope is unclear or has multiple possible approaches
 </when_to_use>
 
 <loop_context>
 N/A - This is a pre-planning workflow, not a loop phase.
-After discussion, routes to /orbit:refine (refine).
+After discussion, routes to /orbti:refine (refine).
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/PROJECT.md (current requirements and progress)
-@.orbit/ROADMAP.md (phase scope and goals)
+@.orbti/STATE.md
+@.orbti/PROJECT.md (current requirements and progress)
+@.orbti/ROADMAP.md (phase scope and goals)
 </required_reading>
 
 <references>
@@ -37,8 +37,8 @@ After discussion, routes to /orbit:refine (refine).
 ```
 Error: Project number required.
 
-Usage: /orbit:cocreate <project-number>
-Example: /orbit:cocreate 10
+Usage: /orbti:cocreate <project-number>
+Example: /orbti:cocreate 10
 ```
 Exit workflow.
 
@@ -138,13 +138,13 @@ Confirm with user before proceeding.
 </step>
 
 <step name="write_context">
-Create `.orbit/projects/{NN}-{name}/CONTEXT.md`:
+Create `.orbti/projects/{NN}-{name}/CONTEXT.md`:
 
 Use CONTEXT.md template format.
 
 Display:
 ```
-Context saved to .orbit/projects/{NN}-{name}/CONTEXT.md
+Context saved to .orbti/projects/{NN}-{name}/CONTEXT.md
 
 This file persists across /clear so you can take a break if needed.
 ```
@@ -165,22 +165,22 @@ Status: Ready for planning
 Context saved for handoff.
 
 ────────────────────────────────────────
-▶ NEXT: /orbit:refine
+▶ NEXT: /orbti:refine
   Create the refine structure from this context
 ────────────────────────────────────────
 
 Type "yes" to proceed, or continue discussing.
 ```
 
-**Accept:** "yes", "go", "refine" → run `/orbit:refine`
+**Accept:** "yes", "go", "refine" → run `/orbti:refine`
 </step>
 
 </process>
 
 <output>
-- .orbit/projects/{NN}-{name}/CONTEXT.md created (handoff file)
+- .orbti/projects/{NN}-{name}/CONTEXT.md created (handoff file)
 - Goals and approach articulated
-- Ready for /orbit:refine to consume
+- Ready for /orbti:refine to consume
 </output>
 
 <success_criteria>
@@ -190,7 +190,7 @@ Type "yes" to proceed, or continue discussing.
 - [ ] Approach discussed
 - [ ] Context synthesized and confirmed
 - [ ] CONTEXT.md written to project directory
-- [ ] Clear handoff to /orbit:refine
+- [ ] Clear handoff to /orbti:refine
 </success_criteria>
 
 <anti_patterns>
@@ -212,7 +212,7 @@ DO: Always write the file so /clear doesn't lose progress.
 
 **Duplicating assumptions workflow:**
 DON'T: Surface Claude's assumptions here.
-DO: Focus on user input. Use /orbit:assumptions for Claude's analysis.
+DO: Focus on user input. Use /orbti:assumptions for Claude's analysis.
 </anti_patterns>
 
 <error_handling>
@@ -226,6 +226,6 @@ DO: Focus on user input. Use /orbit:assumptions for Claude's analysis.
 - Ask: "What's the most critical part?"
 
 **User wants to skip discussion:**
-- Route directly to /orbit:refine
+- Route directly to /orbti:refine
 - Note: "Going straight to planning — no discussion context will be available"
 </error_handling>

@@ -1,6 +1,6 @@
 # ROADMAP.md Template
 
-Template for `.orbit/ROADMAP.md` — the project's phase structure.
+Template for `.orbti/ROADMAP.md` — the project's phase structure.
 
 **Purpose:** Define milestones and projects. Provides structure, not detailed tasks.
 

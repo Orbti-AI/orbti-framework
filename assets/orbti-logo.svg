@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="ring1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#58a6ff"/>
+      <stop offset="100%" style="stop-color:#bc8cff"/>
+    </linearGradient>
+    <linearGradient id="ring2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#bc8cff"/>
+      <stop offset="100%" style="stop-color:#3fb950"/>
+    </linearGradient>
+    <linearGradient id="ring3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3fb950"/>
+      <stop offset="100%" style="stop-color:#58a6ff"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#58a6ff"/>
+      <stop offset="40%" style="stop-color:#bc8cff"/>
+      <stop offset="100%" style="stop-color:#3fb950"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" rx="24" fill="#0d1117"/>
+
+  <!-- Outer orbital ring - represents the closed loop -->
+  <g transform="translate(200, 175)">
+    <!-- Ring segments (3 arcs forming a continuous loop with gaps) -->
+    <!-- Arc 1: O-R (Observe to Refine) -->
+    <path d="M0,-90 A90,90 0 0,1 78,45" fill="none" stroke="url(#ring1)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Arc 2: B-T (Build to Test) -->
+    <path d="M78,45 A90,90 0 0,1 -78,45" fill="none" stroke="url(#ring2)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Arc 3: I (Integrate - closes the loop) -->
+    <path d="M-78,45 A90,90 0 0,1 0,-90" fill="none" stroke="url(#ring3)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- 5 phase dots on the ring -->
+    <!-- O - top -->
+    <circle cx="0" cy="-90" r="8" fill="#58a6ff"/>
+    <text x="0" y="-87" text-anchor="middle" fill="#0d1117" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="10" font-weight="700">O</text>
+
+    <!-- R - top right -->
+    <circle cx="72" cy="-50" r="8" fill="#7c8aff"/>
+    <text x="72" y="-47" text-anchor="middle" fill="#0d1117" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="10" font-weight="700">R</text>
+
+    <!-- B - bottom right -->
+    <circle cx="78" cy="45" r="8" fill="#bc8cff"/>
+    <text x="78" y="48" text-anchor="middle" fill="#0d1117" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="10" font-weight="700">B</text>
+
+    <!-- T - bottom left -->
+    <circle cx="-78" cy="45" r="8" fill="#7dba6a"/>
+    <text x="-78" y="48" text-anchor="middle" fill="#0d1117" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="10" font-weight="700">T</text>
+
+    <!-- I - top left -->
+    <circle cx="-72" cy="-50" r="8" fill="#3fb950"/>
+    <text x="-72" y="-47" text-anchor="middle" fill="#0d1117" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="10" font-weight="700">I</text>
+
+    <!-- Directional arrows between dots -->
+    <!-- Arrow O→R -->
+    <polygon points="62,-58 58,-48 52,-56" fill="#7c8aff" opacity="0.8"/>
+    <!-- Arrow R→B -->
+    <polygon points="80,32 76,42 70,34" fill="#bc8cff" opacity="0.8"/>
+    <!-- Arrow B→T -->
+    <polygon points="-64,50 -74,46 -66,40" fill="#7dba6a" opacity="0.8"/>
+    <!-- Arrow T→I -->
+    <polygon points="-80,-36 -76,-46 -70,-38" fill="#3fb950" opacity="0.8"/>
+    <!-- Arrow I→O (closing the loop) -->
+    <polygon points="-10,-86 0,-92 -6,-82" fill="#58a6ff" opacity="0.8"/>
+
+    <!-- Center icon - infinity/loop symbol -->
+    <path d="M-18,0 C-18,-14 -6,-18 0,-10 C6,-18 18,-14 18,0 C18,14 6,18 0,10 C-6,18 -18,14 -18,0 Z" fill="none" stroke="url(#textGrad)" stroke-width="2.5" opacity="0.6"/>
+  </g>
+
+  <!-- ORBTI text -->
+  <text x="200" y="310" text-anchor="middle" font-family="'Inter', 'SF Pro Display', system-ui, sans-serif" font-size="48" font-weight="800" letter-spacing="8" fill="url(#textGrad)">ORBTI</text>
+
+  <!-- Subtitle -->
+  <text x="200" y="340" text-anchor="middle" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="11" letter-spacing="4" fill="#484f58" font-weight="500">FRAMEWORK</text>
+
+  <!-- Tag line -->
+  <text x="200" y="370" text-anchor="middle" font-family="'Inter', 'SF Pro', system-ui, sans-serif" font-size="9" letter-spacing="2" fill="#30363d">OBSERVE · REFINE · BUILD · TEST · INTEGRATE</text>
+</svg>

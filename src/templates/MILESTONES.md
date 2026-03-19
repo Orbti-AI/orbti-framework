@@ -1,6 +1,6 @@
 # MILESTONES.md Template
 
-Template for `.orbit/MILESTONES.md` — the project's milestone log.
+Template for `.orbti/MILESTONES.md` — the project's milestone log.
 
 **Purpose:** Track completed milestones with key accomplishments, stats, and links to next work.
 
@@ -112,7 +112,7 @@ Include decimal phases in the range when relevant:
 ## Example
 
 ```markdown
-# Project Milestones: ORBIT Framework
+# Project Milestones: ORBTI Framework
 
 ## v0.2 Session Continuity (Shipped: 2026-01-28)
 
@@ -143,14 +143,14 @@ Include decimal phases in the range when relevant:
 
 ## v0.1 Core Loop (Shipped: 2026-01-27)
 
-**Delivered:** ORBIT framework foundation with Observe-Refine-Build-Integrate-Test loop
+**Delivered:** ORBTI framework foundation with Observe-Refine-Build-Integrate-Test loop
 
 **Phases completed:** 1-6 (4 refines total)
 
 **Key accomplishments:**
 - REFINE.md, STATE.md, PROJECT.md, INTEGRATE.md templates
 - ROADMAP.md with phase structure
-- CARL ORBIT domain with 11 rules
+- CARL ORBTI domain with 11 rules
 
 **Stats:**
 | Metric | Value |

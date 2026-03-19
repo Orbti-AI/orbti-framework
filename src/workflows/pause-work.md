@@ -14,19 +14,19 @@ Any position in REFINE/BUILD/INTEGRATE loop. Captures state regardless of where 
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/PROJECT.md
+@.orbti/STATE.md
+@.orbti/PROJECT.md
 </required_reading>
 
 <references>
-@~/.claude/orbit-framework/references/context-management.md
-@~/.claude/orbit-framework/templates/HANDOFF.md
+@~/.claude/orbti-framework/references/context-management.md
+@~/.claude/orbti-framework/templates/HANDOFF.md
 </references>
 
 <process>
 
 <step name="detect_position" priority="first">
-1. Read `.orbit/STATE.md` Projects Overview
+1. Read `.orbti/STATE.md` Projects Overview
 2. Count rows with status `🔵 In Progress` or `⏸ Paused`
 
 **If multiple active projects and no argument provided:**
@@ -43,7 +43,7 @@ Type the project number or name (e.g., "01" or "auth").
 ```
 Wait for selection, then proceed with that project.
 
-**If argument provided** (e.g. `/orbit:pause 01` or `/orbit:pause auth`):
+**If argument provided** (e.g. `/orbti:pause 01` or `/orbti:pause auth`):
 - Resolve to matching project row in Overview
 - If not found: "Project '[arg]' not found. Active projects: [list]"
 
@@ -71,16 +71,16 @@ If user doesn't provide, summarize from:
 
 ```bash
 # Handoff lives in the current project's directory
-PROJECT_DIR=$(ls -d .orbit/projects/*/ 2>/dev/null | sort | tail -1)  # current project folder
+PROJECT_DIR=$(ls -d .orbti/projects/*/ 2>/dev/null | sort | tail -1)  # current project folder
 TIMESTAMP=$(date +%Y-%m-%d)
 HANDOFF_FILE="${PROJECT_DIR}HANDOFF-${TIMESTAMP}.md"
-# e.g. .orbit/projects/01-auth/HANDOFF-2026-03-17.md
+# e.g. .orbti/projects/01-auth/HANDOFF-2026-03-17.md
 ```
 
 **Write content (NOT from template, populate directly):**
 
 ```markdown
-# ORBIT Handoff
+# ORBTI Handoff
 
 **Date:** [current timestamp]
 **Status:** [paused/blocked/context-limit]
@@ -136,17 +136,17 @@ REFINE ──▶ BUILD ──▶ INTEGRATE
 
 | File | Purpose |
 |------|---------|
-| `.orbit/STATE.md` | Live project state |
-| `.orbit/ROADMAP.md` | Project overview |
+| `.orbti/STATE.md` | Live project state |
+| `.orbti/ROADMAP.md` | Project overview |
 | [current refine path] | [refine purpose] |
 
 ---
 
 ## Resume Instructions
 
-1. Read `.orbit/STATE.md` for latest position
+1. Read `.orbti/STATE.md` for latest position
 2. Check loop position
-3. Run `/orbit:resume` or `/orbit:progress`
+3. Run `/orbti:resume` or `/orbti:progress`
 
 ---
 
@@ -171,8 +171,8 @@ Be specific enough for a fresh Claude to understand immediately.
 
 Last session: [timestamp]
 Stopped at: [what was happening — project + loop position]
-Next action: /orbit:resume — choose which project to continue
-Resume file: .orbit/projects/[project]/HANDOFF-[date].md
+Next action: /orbti:resume — choose which project to continue
+Resume file: .orbti/projects/[project]/HANDOFF-[date].md
 ```
 </step>
 
@@ -205,7 +205,7 @@ Note: Feature branch is useful if work isn't ready for main.
 
 **If main (option 1):**
 ```bash
-git add .orbit/ src/
+git add .orbti/ src/
 git commit -m "wip({project}): paused at {refine}
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
@@ -217,7 +217,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 git checkout -b feature/{project-name}
 
 # Commit to feature branch
-git add .orbit/ src/
+git add .orbti/ src/
 git commit -m "wip({project}): paused at {refine}
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
@@ -238,20 +238,20 @@ This enables transition-phase.md to know the branch strategy when reconciling.
 
 ```
 ════════════════════════════════════════
-ORBIT SESSION PAUSED
+ORBTI SESSION PAUSED
 ════════════════════════════════════════
 
-Handoff: .orbit/projects/[project]/HANDOFF-[date].md
+Handoff: .orbti/projects/[project]/HANDOFF-[date].md
 
 Project [N] — [Name]
   Status: ⏸ Paused
   Loop: REFINE [✓/○] → BUILD [✓/○] → INTEGRATE [✓/○]
 
 To continue this project later:
-  /orbit:resume → select [project name]
+  /orbti:resume → select [project name]
 
 To start another project now:
-  /orbit:refine (for next project in ROADMAP)
+  /orbti:refine (for next project in ROADMAP)
 
 ════════════════════════════════════════
 ```
@@ -260,7 +260,7 @@ To start another project now:
 </process>
 
 <output>
-- HANDOFF-{date}.md created in .orbit/
+- HANDOFF-{date}.md created in .orbti/
 - STATE.md updated with session continuity
 - Optional WIP commit with branch choice (main or feature/{project})
 - Git strategy recorded in STATE.md for transition-phase
@@ -268,8 +268,8 @@ To start another project now:
 </output>
 
 <error_handling>
-**No .orbit/ directory:**
-- "No ORBIT project found. Nothing to pause."
+**No .orbti/ directory:**
+- "No ORBTI project found. Nothing to pause."
 
 **STATE.md missing or corrupted:**
 - Create minimal handoff from available context

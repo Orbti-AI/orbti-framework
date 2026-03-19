@@ -16,16 +16,16 @@ Next project: BUILD (after refine approval)
 </loop_context>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
-@.orbit/PROJECT.md
-@.orbit/projects/{prior-project}/{refine}-INTEGRATE.md (if exists and relevant)
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
+@.orbti/PROJECT.md
+@.orbti/projects/{prior-project}/{refine}-INTEGRATE.md (if exists and relevant)
 </required_reading>
 
 <references>
-@~/.claude/orbit-framework/references/refine-format.md
-@~/.claude/orbit-framework/references/checkpoints.md (if refine will have checkpoints)
-@~/.claude/orbit-framework/templates/REFINE.md
+@~/.claude/orbti-framework/references/refine-format.md
+@~/.claude/orbti-framework/references/checkpoints.md (if refine will have checkpoints)
+@~/.claude/orbti-framework/templates/REFINE.md
 </references>
 
 <process>
@@ -76,7 +76,7 @@ Next project: BUILD (after refine approval)
 <step name="check_specialized_flows">
 **Check for SPECIAL-FLOWS.md and populate skills section.**
 
-1. Check if `.orbit/SPECIAL-FLOWS.md` exists
+1. Check if `.orbti/SPECIAL-FLOWS.md` exists
 2. If exists:
    - Read SPECIAL-FLOWS.md
    - Extract skills marked as "required" for the work type being planned
@@ -93,7 +93,7 @@ Next project: BUILD (after refine approval)
    - /skill-1 (work type: X)
    - /skill-2 (work type: Y)
 
-   These must be loaded before /orbit:build will proceed.
+   These must be loaded before /orbti:build will proceed.
    ════════════════════════════════════════
    ```
 
@@ -102,7 +102,7 @@ Required skills will BLOCK build until confirmed loaded.
 </step>
 
 <step name="create_plan">
-1. Create project directory: `.orbit/projects/{NN}-{project-name}/`
+1. Create project directory: `.orbti/projects/{NN}-{project-name}/`
 2. Generate REFINE.md following template structure:
 
    **Frontmatter:**
@@ -172,7 +172,7 @@ Required skills will BLOCK build until confirmed loaded.
 
    Last session: [timestamp]
    Stopped at: Refine [NN-PP] created
-   Next action: Review and approve refine, then run /orbit:build [refine-path]
+   Next action: Review and approve refine, then run /orbti:build [refine-path]
 
    Resume file: [refine-path]
    ```
@@ -198,17 +198,17 @@ Required skills will BLOCK build until confirmed loaded.
    [1] Approved, run BUILD | [2] Questions first | [3] Pause here
    ```
 4. **Accept quick inputs:**
-   - "1", "approved", "yes", "go" → run `/orbit:build [refine-path]`
+   - "1", "approved", "yes", "go" → run `/orbti:build [refine-path]`
    - "2", "questions" → wait for user questions, then re-offer the 3 options
-   - "3", "pause" → run `/orbit:pause` (triggers pause-work.md: handoff + STATE update + optional commit)
+   - "3", "pause" → run `/orbti:pause` (triggers pause-work.md: handoff + STATE update + optional commit)
 </step>
 
 </process>
 
 <output>
-REFINE.md at `.orbit/projects/{NN}-{project-name}/{NN}-{refine}-REFINE.md`
+REFINE.md at `.orbti/projects/{NN}-{project-name}/{NN}-{refine}-REFINE.md`
 
-Example: `.orbit/projects/04-workflows-layer/04-01-REFINE.md`
+Example: `.orbti/projects/04-workflows-layer/04-01-REFINE.md`
 </output>
 
 <error_handling>

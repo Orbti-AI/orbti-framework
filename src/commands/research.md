@@ -1,5 +1,5 @@
 ---
-name: orbit:research
+name: orbti:research
 description: Research a topic using subagents for discovery
 argument-hint: "<topic> [--codebase | --web]"
 allowed-tools: [Read, Task, Bash, Write]
@@ -20,8 +20,8 @@ Research a specific topic using subagents and save findings for review.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/research.md
-@~/.claude/orbit-framework/references/subagent-criteria.md
+@~/.claude/orbti-framework/workflows/research.md
+@~/.claude/orbti-framework/references/subagent-criteria.md
 </execution_context>
 
 <context>
@@ -32,18 +32,18 @@ Optional flags:
 - `--web`: Focus on web/documentation (uses general-purpose agent)
 - No flag: Auto-detect based on topic
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/research.md
+Follow workflow: @~/.claude/orbti-framework/workflows/research.md
 </process>
 
 <success_criteria>
 - [ ] Topic validated (not trivial)
 - [ ] Appropriate agent type selected
 - [ ] Subagent spawned for research
-- [ ] Findings saved to .orbit/research/{topic}.md
+- [ ] Findings saved to .orbti/research/{topic}.md
 - [ ] Summary presented for review
 </success_criteria>

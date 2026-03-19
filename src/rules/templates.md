@@ -29,7 +29,7 @@ Templates define the structure for generated documents. Each template file conta
 **Curly braces** for variable interpolation:
 ```
 {project}-{refine}-REFINE.md
-.orbit/projects/{project-number}-{name}/
+.orbti/projects/{project-number}-{name}/
 ```
 
 ## YAML Frontmatter in Template Content

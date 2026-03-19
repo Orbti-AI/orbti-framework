@@ -1,5 +1,5 @@
 <overview>
-Git integration for ORBIT workflow.
+Git integration for ORBTI workflow.
 </overview>
 
 <core_principle>
@@ -40,7 +40,7 @@ Phases:
 
 What to commit:
 ```bash
-git add .orbit/
+git add .orbti/
 git commit
 ```
 
@@ -98,14 +98,14 @@ AC Results:
 - AC-1: [PASS/FAIL]
 - AC-2: [PASS/FAIL]
 
-SUMMARY: .orbit/projects/XX-name/{phase}-{refine}-INTEGRATE.md
+SUMMARY: .orbti/projects/XX-name/{phase}-{refine}-INTEGRATE.md
 ```
 
 What to commit:
 ```bash
-git add .orbit/projects/XX-name/
-git add .orbit/STATE.md
-git add .orbit/ROADMAP.md
+git add .orbti/projects/XX-name/
+git add .orbti/STATE.md
+git add .orbti/ROADMAP.md
 git commit
 ```
 
@@ -122,7 +122,7 @@ Current: [task name]
 
 What to commit:
 ```bash
-git add .orbit/
+git add .orbti/
 git commit
 ```
 
@@ -130,7 +130,7 @@ git commit
 
 <example_log>
 
-**Per-task commits (ORBIT approach):**
+**Per-task commits (ORBTI approach):**
 
 ```
 # Phase 08.5 - Quality Patterns
@@ -153,7 +153,7 @@ a1b2c3 feat(08.5-01): create git-strategy.md
 7k8l9m feat(07-01): add session continuity to STATE.md
 
 # Initialization
-0n1o2p docs: initialize orbit-framework (8 phases)
+0n1o2p docs: initialize orbti-framework (8 phases)
 ```
 
 Each refine produces 2-4 commits (tasks + metadata). Clear, granular, bisectable.

@@ -1,13 +1,13 @@
 ---
-name: orbit:config
-description: View and manage ORBIT project configuration and integrations
+name: orbti:config
+description: View and manage ORBTI project configuration and integrations
 allowed-tools: [Read, Write, Edit, Bash, AskUserQuestion]
 ---
 
 <model>haiku</model>
 
 <objective>
-Manage ORBIT project configuration and integrations. Create or update .orbit/config.md at any point in the project lifecycle.
+Manage ORBTI project configuration and integrations. Create or update .orbti/config.md at any point in the project lifecycle.
 </objective>
 
 <when_to_use>
@@ -22,7 +22,7 @@ Manage ORBIT project configuration and integrations. Create or update .orbit/con
 **Step 1: Check for existing config**
 
 ```bash
-ls .orbit/config.md 2>/dev/null
+ls .orbti/config.md 2>/dev/null
 ```
 
 **If config exists:**
@@ -59,7 +59,7 @@ Available integrations:
 [2] Playwright CLI E2E - Browser-based acceptance testing (default: disabled)
     Status: [enabled/disabled/not configured]
 
-[3] Test Writer - Write integration tests alongside /orbit:build (default: disabled)
+[3] Test Writer - Write integration tests alongside /orbti:build (default: disabled)
     Status: [enabled/disabled]
     Note: if Agent Teams active, tests written in parallel; otherwise written sequentially
 
@@ -79,7 +79,7 @@ Set sonarqube.enabled = true/false in config.md.
 **If user selects Playwright CLI E2E:**
 
 ```
-Playwright CLI E2E — run browser tests on /orbit:test
+Playwright CLI E2E — run browser tests on /orbti:test
 Current: [enabled/disabled]
 
 [1] Enable  [2] Disable  [3] Back
@@ -110,7 +110,7 @@ If enabling:
      playwright-cli install --skills
      playwright-cli install chromium
 
-   Run /orbit:config again after installing.
+   Run /orbti:config again after installing.
    ════════════════════════════════════════
    ```
 
@@ -128,7 +128,7 @@ If disabling: set `e2e.enabled: false` in config.md.
 **If user selects Test Writer:**
 
 ```
-Test Writer — writes integration tests for each AC during /orbit:build
+Test Writer — writes integration tests for each AC during /orbti:build
 Current: [enabled/disabled]
 
 When enabled:
@@ -155,7 +155,7 @@ Default: disabled
 
 **If enabling:**
 
-1. Set `agent_teams.enabled: true` in `.orbit/config.md`
+1. Set `agent_teams.enabled: true` in `.orbti/config.md`
 2. Write `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` to `.claude/settings.json`:
    ```bash
    cat .claude/settings.json 2>/dev/null || echo "{}"
@@ -164,18 +164,18 @@ Default: disabled
 3. Confirm:
    ```
    ✓ Agent Teams enabled
-     .orbit/config.md → agent_teams.enabled: true
+     .orbti/config.md → agent_teams.enabled: true
      .claude/settings.json → CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
    Restart Claude Code to activate.
    ```
 
 **If disabling:**
-1. Set `agent_teams.enabled: false` in `.orbit/config.md`
+1. Set `agent_teams.enabled: false` in `.orbti/config.md`
 2. Remove `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` from `.claude/settings.json`
 
 **Step 3: Write config**
 
-Create or update `.orbit/config.md`:
+Create or update `.orbti/config.md`:
 
 ```markdown
 # Project Config
@@ -241,11 +241,11 @@ CONFIG UPDATED
 Integrations:
   SonarQube: [enabled/disabled]
 
-Config saved to: .orbit/config.md
+Config saved to: .orbti/config.md
 
 ────────────────────────────────────────
 [If SonarQube just enabled:]
-▶ NEXT: /orbit:quality-gate
+▶ NEXT: /orbti:quality-gate
   Run your first code quality scan.
 
 [Otherwise:]
@@ -256,7 +256,7 @@ Configuration complete.
 </process>
 
 <output>
-- `.orbit/config.md` created or updated
+- `.orbti/config.md` created or updated
 - Integration status changed as requested
 - Clear next steps if applicable
 </output>

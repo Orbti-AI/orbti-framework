@@ -1,5 +1,5 @@
 ---
-name: orbit:refine-fix
+name: orbti:refine-fix
 description: Create a fix refine (REFINE variant) from UAT issues
 argument-hint: "<refine, e.g., '04-02'>"
 allowed-tools: [Read, Bash, Write, Glob, Grep, AskUserQuestion]
@@ -10,21 +10,21 @@ allowed-tools: [Read, Bash, Write, Glob, Grep, AskUserQuestion]
 <objective>
 Create FIX.md refine from UAT issues found during verify.
 
-**When to use:** After `/orbit:test` logs issues to project-scoped UAT file.
+**When to use:** After `/orbti:test` logs issues to project-scoped UAT file.
 
 **Output:** `{refine}-FIX.md` in the project directory, ready for execution.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/references/refine-format.md
-@~/.claude/orbit-framework/references/checkpoints.md
+@~/.claude/orbti-framework/references/refine-format.md
+@~/.claude/orbti-framework/references/checkpoints.md
 </execution_context>
 
 <context>
 Refine number: $ARGUMENTS (required - e.g., "04-02" or "10-01")
 
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 </context>
 
 <process>
@@ -39,9 +39,9 @@ If no argument provided:
 ```
 Error: Refine number required.
 
-Usage: /orbit:refine-fix 04-02
+Usage: /orbti:refine-fix 04-02
 
-This creates a fix refine from .orbit/projects/XX-name/{refine}-UAT.md
+This creates a fix refine from .orbti/projects/XX-name/{refine}-UAT.md
 ```
 Exit.
 </step>
@@ -51,14 +51,14 @@ Exit.
 
 Search for matching UAT file:
 ```bash
-ls .orbit/projects/*/{refine}-UAT.md 2>/dev/null
+ls .orbti/projects/*/{refine}-UAT.md 2>/dev/null
 ```
 
 If not found:
 ```
 No UAT.md found for refine {refine}.
 
-UAT.md files are created by /orbit:test when testing finds issues.
+UAT.md files are created by /orbti:test when testing finds issues.
 If no issues were found during testing, no fix refine is needed.
 ```
 Exit.
@@ -105,7 +105,7 @@ Prioritize: Blocker → Major → Minor → Cosmetic
 <step name="write">
 **Write FIX.md:**
 
-Create `.orbit/projects/XX-name/{refine}-FIX.md`:
+Create `.orbti/projects/XX-name/{refine}-FIX.md`:
 
 ```markdown
 ---
@@ -133,14 +133,14 @@ Priority: {blocker count} blocker, {major count} major, {minor count} minor, {co
 </objective>
 
 <context>
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
 
 **Issues being fixed:**
-@.orbit/projects/XX-name/{refine}-UAT.md
+@.orbti/projects/XX-name/{refine}-UAT.md
 
 **Original refine for reference:**
-@.orbit/projects/XX-name/{refine}-REFINE.md
+@.orbti/projects/XX-name/{refine}-REFINE.md
 </context>
 
 <acceptance_criteria>
@@ -171,11 +171,11 @@ Before declaring refine complete:
 
 <success_criteria>
 - All UAT issues from {refine}-UAT.md addressed
-- Ready for re-verification with /orbit:test
+- Ready for re-verification with /orbti:test
 </success_criteria>
 
 <output>
-After completion, create `.orbit/projects/XX-name/{refine}-FIX-INTEGRATE.md`
+After completion, create `.orbti/projects/XX-name/{refine}-FIX-INTEGRATE.md`
 </output>
 ```
 </step>
@@ -205,7 +205,7 @@ Continue to BUILD?
 ```
 
 Use AskUserQuestion to get response.
-If approved: `/orbit:build .orbit/projects/XX-name/{refine}-FIX.md`
+If approved: `/orbti:build .orbti/projects/XX-name/{refine}-FIX.md`
 </step>
 
 </process>
@@ -213,6 +213,6 @@ If approved: `/orbit:build .orbit/projects/XX-name/{refine}-FIX.md`
 <success_criteria>
 - [ ] UAT.md found and parsed
 - [ ] Fix tasks created for each issue (or grouped)
-- [ ] FIX.md written with proper ORBIT structure
+- [ ] FIX.md written with proper ORBTI structure
 - [ ] User offered to execute or review
 </success_criteria>

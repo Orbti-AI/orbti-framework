@@ -19,7 +19,7 @@ Research informs planning but doesn't gate it.
 </loop_context>
 
 <required_reading>
-@~/.claude/orbit-framework/references/subagent-criteria.md
+@~/.claude/orbti-framework/references/subagent-criteria.md
 </required_reading>
 
 <references>
@@ -35,11 +35,11 @@ Research informs planning but doesn't gate it.
 ```
 Error: Topic required.
 
-Usage: /orbit:research <topic> [--codebase | --web]
+Usage: /orbti:research <topic> [--codebase | --web]
 Examples:
-  /orbit:research "nextjs app router patterns"
-  /orbit:research "auth patterns in this codebase" --codebase
-  /orbit:research "prisma vs drizzle comparison" --web
+  /orbti:research "nextjs app router patterns"
+  /orbti:research "auth patterns in this codebase" --codebase
+  /orbti:research "prisma vs drizzle comparison" --web
 ```
 Exit workflow.
 
@@ -151,11 +151,11 @@ Use Task tool:
 </step>
 
 <step name="save_findings">
-Create `.orbit/research/{topic-slug}.md`:
+Create `.orbti/research/{topic-slug}.md`:
 
 1. Create research directory if needed:
    ```bash
-   mkdir -p .orbit/research
+   mkdir -p .orbti/research
    ```
 
 2. Generate topic slug (lowercase, hyphens):
@@ -172,7 +172,7 @@ RESEARCH COMPLETE
 
 Topic: {topic}
 Agent: {agent_type}
-Output: .orbit/research/{topic-slug}.md
+Output: .orbti/research/{topic-slug}.md
 
 Summary:
 {key findings in 3-5 bullets}
@@ -190,7 +190,7 @@ What's next?
 </process>
 
 <output>
-- .orbit/research/{topic-slug}.md created with findings
+- .orbti/research/{topic-slug}.md created with findings
 - Summary presented for review
 - Main session can use findings for planning
 </output>

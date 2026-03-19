@@ -1,5 +1,5 @@
 ---
-name: orbit:complete-milestone
+name: orbti:complete-milestone
 description: Mark current milestone as complete
 argument-hint: "[version]"
 allowed-tools: [Read, Write, Edit, Bash, Glob]
@@ -14,20 +14,20 @@ Complete the current milestone, archive it, and evolve PROJECT.md.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/complete-milestone.md
+@~/.claude/orbti-framework/workflows/complete-milestone.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbit/PROJECT.md
-@.orbit/STATE.md
-@.orbit/ROADMAP.md
-@.orbit/MILESTONES.md
+@.orbti/PROJECT.md
+@.orbti/STATE.md
+@.orbti/ROADMAP.md
+@.orbti/MILESTONES.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbit-framework/workflows/complete-milestone.md
+Follow workflow: @~/.claude/orbti-framework/workflows/complete-milestone.md
 </process>
 
 <success_criteria>

@@ -1,6 +1,6 @@
 # OBSERVE.md Template
 
-Template for `.orbit/projects/{project-number}-{name}/OBSERVE.md` — technical discovery documentation.
+Template for `.orbti/projects/{project-number}-{name}/OBSERVE.md` — technical discovery documentation.
 
 **Purpose:** Document technical research, options comparison, and recommendations before planning.
 
@@ -115,7 +115,7 @@ Or: "None — discovery answered all questions."
 ---
 *Discovery completed: [date]*
 *Confidence: [level]*
-*Ready for: /orbit:refine [phase]*
+*Ready for: /orbti:refine [phase]*
 ```
 
 ---

@@ -27,7 +27,7 @@ Exit workflow.
 Validate phase exists in ROADMAP.md:
 
 ```bash
-cat .orbit/ROADMAP.md | grep -i "Phase ${PHASE}"
+cat .orbti/ROADMAP.md | grep -i "Phase ${PHASE}"
 ```
 
 **If phase not found:**

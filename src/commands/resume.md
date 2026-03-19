@@ -1,35 +1,35 @@
 ---
-name: orbit:resume
+name: orbti:resume
 description: Restore context from handoff and continue work
-argument-hint: "[optional: handoff path, e.g., '.orbit/HANDOFF-phase10-audit.md']"
+argument-hint: "[optional: handoff path, e.g., '.orbti/HANDOFF-phase10-audit.md']"
 allowed-tools: [Read, Glob, Bash]
 ---
 
 <model>haiku</model>
 
 <objective>
-Restore ORBIT context after a session break, determine current position, and suggest exactly ONE next action.
+Restore ORBTI context after a session break, determine current position, and suggest exactly ONE next action.
 
-**When to use:** Starting a new session on an existing ORBIT project.
+**When to use:** Starting a new session on an existing ORBTI project.
 
 **Handoff lifecycle:** Detects handoffs, presents content, archives after work proceeds.
 </objective>
 
 <execution_context>
-@~/.claude/orbit-framework/workflows/resume-project.md
+@~/.claude/orbti-framework/workflows/resume-project.md
 </execution_context>
 
 <context>
 $ARGUMENTS (optional handoff path)
 
-@.orbit/STATE.md
+@.orbti/STATE.md
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbit-framework/workflows/resume-project.md**
+**Follow workflow: @~/.claude/orbti-framework/workflows/resume-project.md**
 
 The workflow implements:
-1. Verify .orbit/ exists
+1. Verify .orbti/ exists
 2. Detect handoff files (use $ARGUMENTS if provided, else find most recent)
 3. Load STATE.md
 4. Present handoff content if detected
@@ -40,7 +40,7 @@ The workflow implements:
 
 **Key behavior:** Suggest exactly ONE next action, not multiple options.
 
-**Handoff pattern:** `.orbit/HANDOFF-{context}.md` (e.g., `HANDOFF-phase10-audit.md`)
+**Handoff pattern:** `.orbti/HANDOFF-{context}.md` (e.g., `HANDOFF-phase10-audit.md`)
 </process>
 
 <success_criteria>

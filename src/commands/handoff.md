@@ -1,5 +1,5 @@
 ---
-name: orbit:handoff
+name: orbti:handoff
 description: Generate comprehensive session handoff document
 argument-hint: "[context notes]"
 allowed-tools: [Read, Write]
@@ -16,7 +16,7 @@ Generate a comprehensive handoff document synthesizing session activity, decisio
 </objective>
 
 <execution_context>
-@.orbit/STATE.md
+@.orbti/STATE.md
 </execution_context>
 
 <context>
@@ -80,10 +80,10 @@ Combine Claude's observations with user input:
 </step>
 
 <step name="generate_handoff">
-Create `.orbit/HANDOFF-{date}-{context}.md`:
+Create `.orbti/HANDOFF-{date}-{context}.md`:
 
 ```markdown
-# ORBIT Session Handoff
+# ORBTI Session Handoff
 
 **Session:** {date} {start_time} - {end_time}
 **Phase:** {current_phase}
@@ -141,7 +141,7 @@ Create `.orbit/HANDOFF-{date}-{context}.md`:
 
 **Current:** {phase, refine, loop position}
 **Next:** {recommended next action}
-**Resume:** `/orbit:resume` then read this handoff
+**Resume:** `/orbti:resume` then read this handoff
 
 ---
 
@@ -154,7 +154,7 @@ Display confirmation:
 HANDOFF CREATED
 ════════════════════════════════════════
 
-Saved: .orbit/HANDOFF-{date}-{context}.md
+Saved: .orbti/HANDOFF-{date}-{context}.md
 
 Includes:
 - {N} accomplishments
@@ -162,7 +162,7 @@ Includes:
 - {N} gaps with your decisions
 - {N} prioritized next actions
 
-Next session: /orbit:resume → read handoff
+Next session: /orbti:resume → read handoff
 ════════════════════════════════════════
 ```
 </step>

@@ -31,7 +31,7 @@ When using `<step>` elements within `<process>`:
 
 ```xml
 <step name="load_project_state" priority="first">
-  Read .orbit/STATE.md to determine current position.
+  Read .orbti/STATE.md to determine current position.
   Verify loop phase matches expected phase for this workflow.
 </step>
 
@@ -49,7 +49,7 @@ When using `<step>` elements within `<process>`:
 
 ## Loop Phase Awareness
 
-Workflows should be aware of their position in the ORBIT loop:
+Workflows should be aware of their position in the ORBTI loop:
 
 ```xml
 <loop_context>
@@ -97,8 +97,8 @@ Execute an approved REFINE refine by running tasks in order, verifying each, and
 </when_to_use>
 
 <required_reading>
-@.orbit/STATE.md
-@.orbit/projects/{project}/{refine}-REFINE.md
+@.orbti/STATE.md
+@.orbti/projects/{project}/{refine}-REFINE.md
 </required_reading>
 
 <loop_context>

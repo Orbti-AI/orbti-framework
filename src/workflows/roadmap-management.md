@@ -19,8 +19,8 @@ Can be invoked at any time during a milestone.
 </loop_context>
 
 <required_reading>
-@.orbit/ROADMAP.md
-@.orbit/STATE.md
+@.orbti/ROADMAP.md
+@.orbti/STATE.md
 </required_reading>
 
 <references>
@@ -39,7 +39,7 @@ Can be invoked at any time during a milestone.
 3. Calculate next project number = highest + 1
 
 **If no active milestone:**
-- Error: "No active milestone. Run /orbit:milestone first."
+- Error: "No active milestone. Run /orbti:milestone first."
 - Exit workflow
 </step>
 
@@ -81,7 +81,7 @@ Update ROADMAP.md:
    ### Project {next_number}: {project_name}
 
    Focus: {project_description}
-   Refines: TBD (defined during /orbit:refine)
+   Refines: TBD (defined during /orbti:refine)
    Status: Not started
    ```
 
@@ -92,7 +92,7 @@ Update ROADMAP.md:
 Create project directory:
 
 ```bash
-mkdir -p .orbit/projects/{NN}-{project-slug}
+mkdir -p .orbti/projects/{NN}-{project-slug}
 ```
 
 Where:
@@ -123,7 +123,7 @@ PROJECT ADDED
 ════════════════════════════════════════
 
 Project {number}: {name}
-Directory: .orbit/projects/{slug}/
+Directory: .orbti/projects/{slug}/
 
 {milestone_name} now has {total} projects.
 
@@ -176,7 +176,7 @@ Status: Not started
 
 This will:
 - Remove from ROADMAP.md
-- Delete .orbit/projects/{slug}/ (if empty)
+- Delete .orbti/projects/{slug}/ (if empty)
 - Renumber subsequent projects
 
 [1] Yes, remove | [2] Cancel
@@ -209,11 +209,11 @@ Update ROADMAP.md:
 Handle project directory:
 
 ```bash
-rmdir .orbit/projects/{NN}-{slug} 2>/dev/null
+rmdir .orbti/projects/{NN}-{slug} 2>/dev/null
 ```
 
 **If directory not empty:**
-- Warn: "Directory not empty — preserved at .orbit/projects/{slug}/"
+- Warn: "Directory not empty — preserved at .orbti/projects/{slug}/"
 - User can manually delete if desired
 
 **If directory empty or doesn't exist:**
@@ -226,8 +226,8 @@ rmdir .orbit/projects/{NN}-{slug} 2>/dev/null
 Renumber project directories to match ROADMAP.md:
 
 ```bash
-mv .orbit/projects/08-name .orbit/projects/07-name
-mv .orbit/projects/09-name .orbit/projects/08-name
+mv .orbti/projects/08-name .orbti/projects/07-name
+mv .orbti/projects/09-name .orbti/projects/08-name
 ```
 
 **Note:** This is why we only allow removing "Not started" projects — they have no artifacts yet.
@@ -318,7 +318,7 @@ STATE.md updated ✓
 
 <error_handling>
 **No active milestone:**
-- Route to /orbit:milestone or /orbit:init
+- Route to /orbti:milestone or /orbti:init
 
 **Project directory not empty:**
 - Preserve directory, warn user

@@ -1,6 +1,6 @@
 # Technology Stack Template
 
-Template for `.orbit/codebase/STACK.md` - captures the technology foundation.
+Template for `.orbti/codebase/STACK.md` - captures the technology foundation.
 
 **Purpose:** Document what technologies run this codebase. Focused on "what executes when you run the code."
 

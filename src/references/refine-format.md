@@ -53,9 +53,9 @@ autonomous: true
 </objective>
 
 <context>
-@.orbit/PROJECT.md
-@.orbit/ROADMAP.md
-@.orbit/STATE.md
+@.orbti/PROJECT.md
+@.orbti/ROADMAP.md
+@.orbti/STATE.md
 @relevant/source/files.ts
 </context>
 
@@ -165,7 +165,7 @@ Then [expected outcome]
 
 ## Boundaries Section
 
-ORBIT refines include explicit boundaries:
+ORBTI refines include explicit boundaries:
 
 ```markdown
 <boundaries>
