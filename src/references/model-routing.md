@@ -13,8 +13,8 @@ Available models (as of Claude 4.x):
 
 | Phase / Command        | Model   | Reason |
 |------------------------|---------|--------|
-| `/orbti:cocreate`      | Opus    | Vision articulation, creative synthesis |
-| `/orbti:observe`       | Opus    | Architecture decisions, trade-off analysis |
+| `/orbti:observe`      | Opus    | Vision articulation, creative synthesis |
+| `/orbti:cocreate`       | Opus    | Architecture decisions, trade-off analysis |
 | `/orbti:refine`        | Opus    | Planning quality directly affects all downstream work |
 | `/orbti:research`      | Opus    | Synthesis of complex, ambiguous information |
 | `/orbti:assumptions`   | Opus    | Surfacing blind spots requires deep reasoning |
@@ -45,7 +45,7 @@ models:
   overrides:
     refine: opus            # Keep Opus for planning (recommended)
     build: haiku            # Override if project is simple/fast
-    observe: sonnet         # Override if cost is a concern
+    cocreate: sonnet         # Override if cost is a concern
 ```
 
 Valid values: `opus`, `sonnet`, `haiku`
@@ -59,7 +59,7 @@ If no override is set, defaults from the routing table above apply.
 ## Guidance for Choosing
 
 **Use Opus when:**
-- The output directly shapes what gets built (REFINE, OBSERVE, COCREATE)
+- The output directly shapes what gets built (REFINE, COCREATE, OBSERVE)
 - The task involves ambiguity that requires judgment
 - A wrong answer is expensive to fix downstream
 

@@ -1,6 +1,6 @@
-# OBSERVE.md Template
+# COCREATE.md Template
 
-Template for `.orbti/projects/{project-number}-{name}/OBSERVE.md` — technical discovery documentation.
+Template for `.orbti/projects/{project-number}-{name}/COCREATE.md` — technical discovery documentation.
 
 **Purpose:** Document technical research, options comparison, and recommendations before planning.
 

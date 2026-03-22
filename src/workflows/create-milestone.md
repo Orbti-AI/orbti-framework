@@ -1,10 +1,10 @@
 <purpose>
-Define a new milestone in the project. Creates milestone structure in ROADMAP.md, initializes project directories, and updates project state. Uses MILESTONE-CONTEXT.md handoff if available from cocreate-milestone.
+Define a new milestone in the project. Creates milestone structure in ROADMAP.md, initializes project directories, and updates project state. Uses MILESTONE-CONTEXT.md handoff if available from observe-milestone.
 </purpose>
 
 <when_to_use>
 - User explicitly requests new milestone
-- Triggered after /orbti:cocreate-milestone (reads context)
+- Triggered after /orbti:observe-milestone (reads context)
 - Project completed previous milestone, needs next
 - Starting fresh project milestone refinening
 </when_to_use>
@@ -34,7 +34,7 @@ After create-milestone, project is ready for first project REFINE.
    ```
 
 2. **If found:**
-   - Display: "Loading context from cocreate-milestone..."
+   - Display: "Loading context from observe-milestone..."
    - Parse: Features, Scope, Phase Mapping, Constraints
    - Store for use in subsequent steps
    - Skip to step 4 (update_roadmap)

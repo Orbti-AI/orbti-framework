@@ -19,7 +19,7 @@ Output ONLY the reference content below. Do NOT add:
 <reference>
 # ORBTI Command Reference
 
-**ORBTI** (Observe, Refine, Build, Integrate, Test) is a structured AI-assisted development framework for Claude Code.
+**ORBTI** (Cocreate, Refine, Build, Integrate, Test) is a structured AI-assisted development framework for Claude Code.
 
 ## The Loop
 
@@ -50,8 +50,8 @@ Every unit of work follows this cycle:
 | Core Loop | refine, build, integrate, test, help, status |
 | Session | pause, resume, progress, handoff |
 | Roadmap | add-project, remove-project |
-| Milestone | milestone, complete-milestone, cocreate-milestone |
-| Pre-Planning | cocreate, assumptions, observe, consider-issues |
+| Milestone | milestone, complete-milestone, observe-milestone |
+| Pre-Planning | observe, assumptions, cocreate, consider-issues |
 | Research | research, research-phase |
 | Specialized | skills, config, map-codebase |
 | Quality | test, refine-fix |
@@ -230,28 +230,28 @@ Usage: `/orbti:complete-milestone v0.3`
 
 ---
 
-### `/orbti:cocreate-milestone`
+### `/orbti:observe-milestone`
 Explore and articulate vision before starting a milestone.
 
 - Conversational exploration of goals
 - Creates milestone context document
 - Prepares for `/orbti:milestone`
 
-Usage: `/orbti:cocreate-milestone`
+Usage: `/orbti:observe-milestone`
 
 ---
 
 ## Pre-Planning Commands
 
-### `/orbti:cocreate <project>`
+### `/orbti:observe <project>`
 Articulate vision and explore approach before planning.
 
 - Conversational discussion of project goals
 - Creates CONTEXT.md capturing vision
 - Prepares for `/orbti:refine`
 
-Usage: `/orbti:cocreate 3`
-Usage: `/orbti:cocreate "authentication layer"`
+Usage: `/orbti:observe 3`
+Usage: `/orbti:observe "authentication layer"`
 
 ---
 
@@ -266,14 +266,14 @@ Usage: `/orbti:assumptions 3`
 
 ---
 
-### `/orbti:observe <topic>`
+### `/orbti:cocreate <topic>`
 Research technical options and make decisions before planning a phase.
 
 - Explores options, libraries, and architecture approaches
 - Compares alternatives with pros/cons
-- Produces OBSERVE.md with recommendation and confidence level
+- Produces COCREATE.md with recommendation and confidence level
 
-Usage: `/orbti:observe "authentication patterns"`
+Usage: `/orbti:cocreate "authentication patterns"`
 
 ---
 
@@ -458,7 +458,7 @@ Completion checks
 
 **Pre-planning exploration:**
 ```
-/orbti:cocreate 3 → /orbti:assumptions 3 → /orbti:research "topic" → /orbti:refine 3
+/orbti:observe 3 → /orbti:assumptions 3 → /orbti:research "topic" → /orbti:refine 3
 ```
 
 

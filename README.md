@@ -2,7 +2,7 @@
 
 # ORBTI
 
-**Observe, Refine, Build, Integrate, Test** — A structured development loop for Claude Code.
+**Cocreate, Refine, Build, Integrate, Test** — A structured development loop for Claude Code.
 
 [![npm version](https://img.shields.io/npm/v/orbti-framework?style=for-the-badge&logo=npm&logoColor=white&color=CB3837)](https://www.npmjs.com/package/orbti-framework)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
@@ -125,26 +125,33 @@ These commands add structure before and around the main loop. Use them for compl
 
 ### Before planning a project
 
-Use these to align before writing a single line of plan:
+Two optional phases answer two distinct questions — **what** and **how** — before any plan is written:
 
 ```
-/orbti:cocreate "feature"    # articulate what you want to build
-/orbti:observe "topic"       # research technical unknowns before deciding
-/orbti:assumptions           # surface Claude's understanding — catch misalignments early
+o quê?  →  /orbti:observe "feature"    # you talk, Claude listens — articulate goals
+como?   →  /orbti:cocreate "topic"     # Claude researches, you decide — compare options
+        →  /orbti:assumptions          # surface Claude's understanding before committing
 ```
 
-**`/orbti:cocreate`** — Conversational exploration of the feature. Helps you articulate goals, scope, and constraints before committing to a plan. Avoids building the wrong thing.
+**`/orbti:observe`** — *What do you want to build?* Conversational exploration led by you. Claude asks questions to help articulate goals, scope, and constraints. Output: `CONTEXT.md`. Avoids building the wrong thing.
 
-**`/orbti:observe "topic"`** — Deploys research subagents to compare libraries, patterns, or approaches. Produces an `OBSERVE.md` with a recommendation and confidence level. Use when you have a technical unknown that could change the plan.
+**`/orbti:cocreate "topic"`** — *How should it be built?* Claude deploys research subagents to compare libraries, patterns, or approaches. Produces `COCREATE.md` with a recommendation and confidence level. Use when a technical unknown could change the plan.
 
-**`/orbti:assumptions`** — Surfaces what Claude *intends* to do before planning. Run this after cocreate and observe to catch misalignments early, not mid-build.
+**`/orbti:assumptions`** — Surfaces what Claude *intends* to do before planning. Run after observe and cocreate to catch misalignments early, not mid-build.
 
 ---
 
 ### The full loop
 
+The default loop starts at refine. Observe and cocreate are optional — use them when scope or approach is unclear.
+
 ```
-/orbti:refine      # plan informed by cocreate + observe
+# optional pre-planning
+/orbti:observe     # o quê — align on goals with you
+/orbti:cocreate    # como — research technical options autonomously
+
+# main loop (always)
+/orbti:refine      # plan informed by observe + cocreate (or from scratch)
 /orbti:build       # execute
 /orbti:test        # verify against acceptance criteria
 /orbti:integrate   # close the loop
@@ -169,7 +176,7 @@ Available integrations:
 
 | Integration | What it does | Default |
 |-------------|-------------|---------|
-| **Agent Teams** | Parallel research on `/orbti:observe`, code review on `/orbti:integrate` | OFF |
+| **Agent Teams** | Parallel research on `/orbti:cocreate`, code review on `/orbti:integrate` | OFF |
 | **Test Writer** | Writes integration tests during `/orbti:build`, one per AC | OFF |
 | **E2E (Playwright CLI)** | Browser-based tests via external Playwright CLI | OFF |
 
@@ -233,13 +240,13 @@ Projects Overview:
 Group related projects into milestones for larger initiatives:
 
 ```
-/orbti:cocreate-milestone    # align on milestone vision before starting
+/orbti:observe-milestone    # align on milestone vision before starting
 /orbti:milestone "name"      # create milestone and add projects to ROADMAP.md
 ...                          # work through projects with the main loop
 /orbti:complete-milestone    # archive, tag, and close the milestone
 ```
 
-**`/orbti:cocreate-milestone`** — Like cocreate, but for the full milestone. Define the vision, success criteria, and scope before creating any projects.
+**`/orbti:observe-milestone`** — Like observe, but for the full milestone. Define the vision, success criteria, and scope before creating any projects.
 
 **`/orbti:complete-milestone`** — Archives completed milestone to `.orbti/milestones/`, creates a git tag, and prepares `STATE.md` for the next milestone.
 
@@ -261,8 +268,8 @@ Group related projects into milestones for larger initiatives:
 
 | Command | Description |
 |---------|-------------|
-| `/orbti:cocreate "feature"` | Conversational exploration — articulate goals and scope before planning |
-| `/orbti:observe "topic"` | Deploy research subagents to compare options — produces `OBSERVE.md` |
+| `/orbti:observe "feature"` | Conversational exploration — articulate goals and scope before planning |
+| `/orbti:cocreate "topic"` | Deploy research subagents to compare options — produces `COCREATE.md` |
 | `/orbti:assumptions` | Surface what Claude intends to do — catch misalignments before build |
 
 ### Session management
@@ -284,7 +291,7 @@ Group related projects into milestones for larger initiatives:
 
 | Command | Description |
 |---------|-------------|
-| `/orbti:cocreate-milestone` | Define milestone vision and success criteria before creating projects |
+| `/orbti:observe-milestone` | Define milestone vision and success criteria before creating projects |
 | `/orbti:milestone "name"` | Create a milestone and add projects to ROADMAP.md |
 | `/orbti:complete-milestone` | Archive milestone, create git tag, prepare for next milestone |
 

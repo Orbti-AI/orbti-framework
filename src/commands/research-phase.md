@@ -193,7 +193,7 @@ automatically integrate into refines.
 What's next?
 [1] Review consolidated findings
 [2] Refine this phase (/orbti:refine)
-[3] Discuss this phase (/orbti:cocreate)
+[3] Discuss this phase (/orbti:observe)
 [4] Done for now
 ────────────────────────────────────────
 ```

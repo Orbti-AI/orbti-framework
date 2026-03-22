@@ -43,7 +43,7 @@ started: [when it broke / always broken]
 
 - timestamp: [when found]
   checked: [what was examined]
-  found: [what was observed]
+  found: [what was cocreated]
   implication: [what this means]
 
 ## Resolution

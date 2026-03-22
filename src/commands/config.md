@@ -146,7 +146,7 @@ If disabling: set test_writer.enabled = false.
 **If user selects Agent Teams:**
 
 ```
-Agent Teams — parallel research (observe) and code review (integrate)
+Agent Teams — parallel research (cocreate) and code review (integrate)
 Current: [enabled/disabled]
 Default: disabled
 

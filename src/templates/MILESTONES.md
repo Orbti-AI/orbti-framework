@@ -143,7 +143,7 @@ Include decimal phases in the range when relevant:
 
 ## v0.1 Core Loop (Shipped: 2026-01-27)
 
-**Delivered:** ORBTI framework foundation with Observe-Refine-Build-Integrate-Test loop
+**Delivered:** ORBTI framework foundation with Cocreate-Refine-Build-Integrate-Test loop
 
 **Phases completed:** 1-6 (4 refines total)
 

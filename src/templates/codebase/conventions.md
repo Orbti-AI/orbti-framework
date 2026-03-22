@@ -274,7 +274,7 @@ Template for `.orbti/codebase/CONVENTIONS.md` - captures coding style and patter
 ## Guidelines
 
 **What belongs in CONVENTIONS.md:**
-- Naming patterns observed in the codebase
+- Naming patterns cocreated in the codebase
 - Formatting rules (Prettier config, linting rules)
 - Import organization patterns
 - Error handling strategy

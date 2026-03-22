@@ -1,6 +1,6 @@
 # Milestone Context Template
 
-Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff from cocreate-milestone to create-milestone.
+Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff from observe-milestone to create-milestone.
 
 **Purpose:** Persist milestone discussion context across `/clear` boundaries. This is a handoff artifact, not permanent documentation.
 
@@ -66,7 +66,7 @@ Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 │                    MILESTONE CONTEXT LIFECYCLE                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  1. /orbti:cocreate-milestone                                      │
+│  1. /orbti:observe-milestone                                      │
 │     └─> Explores features, scope, constraints                    │
 │     └─> Creates .orbti/projects/{name}/MILESTONE-CONTEXT.md      │
 │                                                                  │
@@ -86,7 +86,7 @@ Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 
 ### Key Points
 
-1. **Created by:** `cocreate-milestone` command at end of discussion
+1. **Created by:** `observe-milestone` command at end of discussion
 2. **Consumed by:** `create-milestone` command
 3. **Deleted after:** Milestone successfully created
 4. **Not committed:** Exclude from version control (temporary artifact)
@@ -120,14 +120,14 @@ Template for `.orbti/projects/{name}/MILESTONE-CONTEXT.md` — temporary handoff
 
 ## Integration with ORBTI Workflow
 
-### Before cocreate-milestone
+### Before observe-milestone
 
 ```
 STATE.md shows: Previous milestone complete
 ROADMAP.md shows: Phases complete, next milestone undefined
 ```
 
-### After cocreate-milestone
+### After observe-milestone
 
 ```
 .orbti/projects/{name}/MILESTONE-CONTEXT.md: Created with discussion output
@@ -169,7 +169,7 @@ STATE.md: Updated with new project position
 | Project | Focus | Features |
 |---------|-------|----------|
 | 9 | Templates | MILESTONES.md, archive, context templates |
-| 10 | Workflows | cocreate-milestone, complete-milestone, add-project |
+| 10 | Workflows | observe-milestone, complete-milestone, add-project |
 | 11 | Commands | CLI commands for milestone operations |
 
 ## Constraints

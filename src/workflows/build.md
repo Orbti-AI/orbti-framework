@@ -41,7 +41,7 @@ Both off by default. Enable via `/orbti:config`.
 | Test Writer | Agent Teams | BUILD behavior |
 |-------------|-------------|----------------|
 | OFF (default) | OFF | Build only — no test writing |
-| OFF (default) | ON  | Build only — no test writing. Agent Teams active in other phases (observe, integrate) |
+| OFF (default) | ON  | Build only — no test writing. Agent Teams active in other phases (cocreate, integrate) |
 | ON | OFF | Sequential — write test after each task completes |
 | ON | ON  | Parallel — spawn builder + test-writer agents simultaneously |
 

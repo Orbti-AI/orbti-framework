@@ -135,7 +135,7 @@ next_action: [specific next action]
 1. If errors exist in Symptoms → search codebase for error text
 2. Identify relevant code area from symptoms
 3. Read relevant files COMPLETELY
-4. Run app/tests to observe behavior firsthand
+4. Run app/tests to cocreate behavior firsthand
 
 After EACH finding → Append to Evidence
 

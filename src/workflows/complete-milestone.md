@@ -12,7 +12,7 @@ Mark a milestone complete after all projects are done. Creates permanent milesto
 
 <loop_context>
 N/A - This is a milestone transition workflow, not a loop phase.
-After completion, project is ready for /orbti:cocreate-milestone or /orbti:milestone.
+After completion, project is ready for /orbti:observe-milestone or /orbti:milestone.
 </loop_context>
 
 <required_reading>
@@ -216,7 +216,7 @@ Update ROADMAP.md to collapse completed milestone:
 2. **Add Next Milestone placeholder:**
    ```markdown
    ## Next Milestone
-   Run /orbti:cocreate-milestone or /orbti:milestone to define.
+   Run /orbti:observe-milestone or /orbti:milestone to define.
    ```
 
 3. **Move completed phases to Completed section:**
@@ -273,7 +273,7 @@ Update STATE.md for post-milestone state:
 
    Last session: {timestamp}
    Stopped at: Milestone {milestone_name} complete
-   Next action: /orbti:cocreate-milestone or /orbti:milestone
+   Next action: /orbti:observe-milestone or /orbti:milestone
    Resume file: .orbti/MILESTONES.md
    ```
 </step>
@@ -414,7 +414,7 @@ Updated:
   STATE.md (cleared)    ✓
 
 ────────────────────────────────────────
-▶ NEXT: /orbti:cocreate-milestone
+▶ NEXT: /orbti:observe-milestone
   Define the scope for the next milestone
 ────────────────────────────────────────
 

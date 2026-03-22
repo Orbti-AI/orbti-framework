@@ -82,7 +82,7 @@ Enable secure user access
 @.orbti/STATE.md
 
 # Conditional
-@.orbti/OBSERVE.md (if exists)
+@.orbti/COCREATE.md (if exists)
 ```
 
 ## Loop Terminology
