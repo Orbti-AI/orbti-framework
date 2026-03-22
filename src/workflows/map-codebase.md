@@ -2,6 +2,8 @@
 Orchestrate parallel Explore agents to analyze codebase and produce structured documents in .orbti/codebase/
 
 Each agent has fresh context and focuses on specific aspects. Output is concise and actionable for planning.
+
+Supports single-repo and monorepo (git submodules). Detects monorepo automatically via .gitmodules and maps each subproject separately.
 </purpose>
 
 <philosophy>
@@ -30,7 +32,47 @@ Documents are reference material for Claude when planning/executing. Vague descr
 
 <process>
 
-<step name="check_existing" priority="first">
+<step name="detect_monorepo" priority="first">
+Check if this is a monorepo by detecting .gitmodules:
+
+```bash
+cat .gitmodules 2>/dev/null
+```
+
+**If .gitmodules exists and has [submodule] entries:**
+
+Extract all submodule paths (the `path =` lines). This is a **monorepo**.
+
+Announce:
+```
+Monorepo detected. Submodules found:
+- {submodule1}
+- {submodule2}
+- ...
+
+Will create:
+- .orbti/codebase/OVERVIEW.md
+- .orbti/codebase/{submodule}/STACK.md (×N)
+- .orbti/codebase/{submodule}/ARCHITECTURE.md (×N)
+- .orbti/codebase/{submodule}/STRUCTURE.md (×N)
+- .orbti/codebase/{submodule}/CONVENTIONS.md (×N)
+- .orbti/codebase/{submodule}/TESTING.md (×N)
+- .orbti/codebase/{submodule}/INTEGRATIONS.md (×N)
+- .orbti/codebase/{submodule}/CONCERNS.md (×N)
+```
+
+Continue to **check_existing_monorepo**.
+
+**If .gitmodules does not exist:**
+
+This is a **single repo**. Continue to **check_existing**.
+</step>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SINGLE-REPO PATH
+     ═══════════════════════════════════════════════════════════ -->
+
+<step name="check_existing" priority="single-repo">
 Check if .orbti/codebase/ already exists:
 
 ```bash
@@ -317,25 +359,6 @@ For each document:
      - "No significant concerns" for clean codebase areas
 4. **Write to .orbti/codebase/{NAME}.md** (uppercase filename)
 
-**Example filling pattern:**
-
-Template placeholder:
-```
-**Primary:**
-- [Language] [Version] - [Where used: e.g., "all application code"]
-```
-
-Agent finding:
-```
-Found: TypeScript 5.3 used in all .ts files throughout src/
-```
-
-Filled result:
-```
-**Primary:**
-- TypeScript 5.3 - All application code
-```
-
 **Document writing order:**
 
 1. **STACK.md** (from stack.md template + Agent 1 findings)
@@ -445,15 +468,184 @@ Created .orbti/codebase/:
 End workflow.
 </step>
 
+<!-- ═══════════════════════════════════════════════════════════
+     MONOREPO PATH
+     ═══════════════════════════════════════════════════════════ -->
+
+<step name="check_existing_monorepo" priority="monorepo">
+Check if .orbti/codebase/ already exists:
+
+```bash
+ls -la .orbti/codebase/ 2>/dev/null
+```
+
+**If exists:**
+
+```
+.orbti/codebase/ already exists with these documents:
+[List files found]
+
+What's next?
+1. Refresh - Delete existing and remap all submodules
+2. Update - Keep existing, remap specific submodules
+3. Skip - Use existing codebase map as-is
+```
+
+Wait for user response.
+
+If "Refresh": Delete .orbti/codebase/, continue to create_structure_monorepo
+If "Update": Ask which submodules to update, continue to spawn_agents_monorepo (filtered)
+If "Skip": Exit workflow
+
+**If doesn't exist:**
+Continue to create_structure_monorepo.
+</step>
+
+<step name="create_structure_monorepo">
+Create directory structure for all submodules:
+
+```bash
+mkdir -p .orbti/codebase
+for submodule in {submodule1} {submodule2} ...; do
+  mkdir -p .orbti/codebase/$submodule
+done
+```
+
+**Expected output:**
+- `.orbti/codebase/OVERVIEW.md`
+- `.orbti/codebase/{submodule}/STACK.md` (×N)
+- `.orbti/codebase/{submodule}/INTEGRATIONS.md` (×N)
+- `.orbti/codebase/{submodule}/ARCHITECTURE.md` (×N)
+- `.orbti/codebase/{submodule}/STRUCTURE.md` (×N)
+- `.orbti/codebase/{submodule}/CONVENTIONS.md` (×N)
+- `.orbti/codebase/{submodule}/TESTING.md` (×N)
+- `.orbti/codebase/{submodule}/CONCERNS.md` (×N)
+
+Continue to spawn_agents_monorepo.
+</step>
+
+<step name="spawn_agents_monorepo">
+Spawn agents in parallel: 1 overview agent + 4 agents per submodule.
+
+Use Task tool with `subagent_type="Explore"` and `run_in_background=true` for ALL agents simultaneously.
+
+**Overview Agent (monorepo root)**
+
+Analyze the root of the monorepo — docker-compose.yml, package.json, .gitmodules, README.md. Produce findings for OVERVIEW.md covering:
+- Project inventory (all submodules with tech, purpose, ports)
+- Inter-service communication (how services call each other)
+- Shared infrastructure (docker services, databases, queues)
+- Environment configuration strategy
+- How to run the full stack locally
+- Deployment strategy per project
+- Dependency graph
+
+**Per-submodule agents (4 per submodule — all in background)**
+
+For each submodule `{sub}`, spawn 4 agents analyzing `./{sub}/`:
+
+Agent A: Stack + Integrations
+Agent B: Architecture + Structure
+Agent C: Conventions + Testing
+Agent D: Concerns
+
+Use the same prompts as single-repo spawn_agents step, but scoped to the submodule directory.
+
+Continue to collect_results_monorepo.
+</step>
+
+<step name="collect_results_monorepo">
+Wait for ALL agents to complete (overview + all submodule agents).
+
+Aggregate findings:
+- Overview agent → OVERVIEW.md content
+- Per-submodule agents → 7 docs per submodule
+
+Continue to write_documents_monorepo.
+</step>
+
+<step name="write_documents_monorepo">
+Write all documents:
+
+**1. OVERVIEW.md** at `.orbti/codebase/OVERVIEW.md`
+
+Content:
+```markdown
+# {Project Name} Monorepo — Overview
+_Last mapped: {date}_
+
+## Projects
+| Project | Tech | Purpose | Port | Repo |
+|---------|------|---------|------|------|
+...
+
+## Inter-Service Communication
+(diagram)
+
+## Shared Infrastructure
+...
+
+## Environment Configuration
+...
+
+## Running Locally
+...
+
+## Deployment
+...
+
+## Dependency Graph
+...
+```
+
+**2. Per-submodule documents** at `.orbti/codebase/{submodule}/`
+
+7 files per submodule using same templates as single-repo mode.
+
+Continue to verify_output_monorepo.
+</step>
+
+<step name="verify_output_monorepo">
+Verify all documents created:
+
+```bash
+ls -la .orbti/codebase/
+ls -la .orbti/codebase/*/
+wc -l .orbti/codebase/**/*.md
+```
+
+Expected: OVERVIEW.md + 7 docs × N submodules = 1 + (7×N) files total.
+
+Continue to commit_codebase_map_monorepo.
+</step>
+
+<step name="commit_codebase_map_monorepo">
+Commit the codebase map:
+
+```bash
+git add .orbti/codebase/
+git commit -m "$(cat <<'EOF'
+docs: map monorepo codebase
+
+OVERVIEW.md — project inventory and architecture
+{submodule}/: STACK, INTEGRATIONS, ARCHITECTURE, STRUCTURE, CONVENTIONS, TESTING, CONCERNS
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+EOF
+)"
+```
+
+End workflow.
+</step>
+
 </process>
 
 <success_criteria>
-- .orbti/codebase/ directory created
-- 4 parallel Explore agents spawned with run_in_background=true
-- Agent prompts are specific and actionable
-- TaskOutput used to collect all agent results
-- All 7 codebase documents written using template filling
-- Documents follow template structure with actual findings
-- Clear completion summary with line counts
-- User offered clear next steps
+- .gitmodules detection as first step (auto-selects single or monorepo mode)
+- Single-repo: .orbti/codebase/ with 7 documents
+- Monorepo: OVERVIEW.md + 7 docs per submodule in subdirectories
+- All documents contain actual file paths (not placeholders)
+- 4 parallel Explore agents per submodule (run_in_background=true)
+- Clear completion summary
+- Codebase map committed
 </success_criteria>
