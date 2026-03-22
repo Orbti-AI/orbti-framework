@@ -49,7 +49,7 @@ git commit
 Each task gets its own commit immediately after completion.
 
 ```
-{type}({phase}-{refine}): {task-name}
+{type}({project-name}-{refine}): {task-name}
 
 - [Key change 1]
 - [Key change 2]
@@ -70,7 +70,7 @@ Each task gets its own commit immediately after completion.
 ```bash
 # Standard task
 git add src/api/auth.ts src/types/user.ts
-git commit -m "feat(08-02): create user registration endpoint
+git commit -m "feat(auth-02): create user registration endpoint
 
 - POST /auth/register validates email and password
 - Checks for duplicate users
@@ -79,7 +79,7 @@ git commit -m "feat(08-02): create user registration endpoint
 
 # TDD task - RED phase
 git add src/__tests__/jwt.test.ts
-git commit -m "test(07-02): add failing test for JWT generation
+git commit -m "test(auth-02): add failing test for JWT generation
 
 - Tests token contains user ID claim
 - Tests token expires in 1 hour
@@ -92,18 +92,18 @@ git commit -m "test(07-02): add failing test for JWT generation
 After all tasks committed, one final metadata commit captures refine completion.
 
 ```
-docs({phase}-{refine}): complete [refine-name]
+docs({project-name}-{refine}): complete [refine-name]
 
 AC Results:
 - AC-1: [PASS/FAIL]
 - AC-2: [PASS/FAIL]
 
-SUMMARY: .orbti/projects/XX-name/{phase}-{refine}-INTEGRATE.md
+SUMMARY: .orbti/projects/{name}/{refine}-INTEGRATE.md
 ```
 
 What to commit:
 ```bash
-git add .orbti/projects/XX-name/
+git add .orbti/projects/{name}/
 git add .orbti/STATE.md
 git add .orbti/ROADMAP.md
 git commit
@@ -114,7 +114,7 @@ git commit
 ## Handoff (WIP)
 
 ```
-wip({phase}): paused at refine [NN] task [X]/[Y]
+wip({project-name}): paused at refine [NN] task [X]/[Y]
 
 Current: [task name]
 [If blocked:] Blocked: [reason]
@@ -133,24 +133,24 @@ git commit
 **Per-task commits (ORBTI approach):**
 
 ```
-# Phase 08.5 - Quality Patterns
-d4e5f6 docs(08.5-01): complete quality references
-a1b2c3 feat(08.5-01): create git-strategy.md
-7g8h9i feat(08.5-01): create tdd.md
-4d5e6f feat(08.5-01): create quality-principles.md
+# quality-patterns project
+d4e5f6 docs(quality-patterns-01): complete quality references
+a1b2c3 feat(quality-patterns-01): create git-strategy.md
+7g8h9i feat(quality-patterns-01): create tdd.md
+4d5e6f feat(quality-patterns-01): create quality-principles.md
 
-# Phase 08 - Documentation
-3m4n5o docs(08-02): complete workflow docs
-6p7q8r feat(08-02): create integrate.md
-9s0t1u feat(08-02): create build.md
-2v3w4x docs(08-01): complete command docs
-5y6z7a feat(08-01): create resume.md command
-8b9c0d feat(08-01): create pause.md command
+# documentation project
+3m4n5o docs(documentation-02): complete workflow docs
+6p7q8r feat(documentation-02): create integrate.md
+9s0t1u feat(documentation-02): create build.md
+2v3w4x docs(documentation-01): complete command docs
+5y6z7a feat(documentation-01): create resume.md command
+8b9c0d feat(documentation-01): create pause.md command
 
-# Phase 07 - Session Continuity
-1e2f3g docs(07-01): complete handoff workflow
-4h5i6j feat(07-01): create pause-work.md
-7k8l9m feat(07-01): add session continuity to STATE.md
+# session-continuity project
+1e2f3g docs(session-continuity-01): complete handoff workflow
+4h5i6j feat(session-continuity-01): create pause-work.md
+7k8l9m feat(session-continuity-01): add session continuity to STATE.md
 
 # Initialization
 0n1o2p docs: initialize orbti-framework (8 phases)

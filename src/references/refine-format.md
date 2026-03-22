@@ -14,7 +14,7 @@ Every REFINE.md starts with YAML frontmatter:
 
 ```yaml
 ---
-project: XX-name
+project: name
 refine: NN
 type: execute
 wave: N
@@ -26,7 +26,7 @@ autonomous: true
 
 | Field | Required | Purpose |
 |-------|----------|---------|
-| `project` | Yes | Project identifier (e.g., `02-rules-layer`) |
+| `project` | Yes | Project identifier (e.g., `rules-layer`) |
 | `refine` | Yes | Refine number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
 | `wave` | Yes | Execution wave number (pre-computed at refine time) |

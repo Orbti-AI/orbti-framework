@@ -1,6 +1,6 @@
 # INTEGRATE.md Template
 
-Template for `.orbti/projects/{project-number}-{name}/{project}-{refine}-INTEGRATE.md` — refine completion documentation.
+Template for `.orbti/projects/{name}/{refine}-INTEGRATE.md` — refine completion documentation.
 
 **Purpose:** Document what was built, decisions made, deviations from refine, and readiness for next project.
 
@@ -10,7 +10,7 @@ Template for `.orbti/projects/{project-number}-{name}/{project}-{refine}-INTEGRA
 
 ```markdown
 ---
-phase: XX-name
+phase: name
 refine: NN
 subsystem: [primary category: auth, payments, ui, api, database, infra, testing]
 tags: [searchable tech: jwt, stripe, react, postgres, prisma]
@@ -159,7 +159,7 @@ Or: "None"
 - [Anything blocking next phase] or "None"
 
 ---
-*Phase: XX-name, Refine: NN*
+*Phase: name, Refine: NN*
 *Completed: [YYYY-MM-DD]*
 ```
 

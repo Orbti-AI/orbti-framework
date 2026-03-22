@@ -15,12 +15,12 @@ Template for `.orbti/STATE.md` — the project's living memory.
 
 All projects in the current milestone — updated after every loop completion.
 
-| # | Project | Loops | Status | Loop Position |
-|---|---------|-------|--------|---------------|
-| 01-[name] | [Description] | 0/N | ○ Pending | ○ ○ ○ |
-| 02-[name] | [Description] | 1/N | ⏸ Paused | ✓ ◉ ○ |
-| 03-[name] | [Description] | 1/N | 🔵 In Progress | ◉ ○ ○ |
-| 04-[name] | [Description] | N/N | ✅ Complete | ✓ ✓ ✓ |
+| Project | Loops | Status | Loop Position |
+|---------|-------|--------|---------------|
+| [name] | 0/N | ○ Pending | ○ ○ ○ |
+| [name] | 1/N | ⏸ Paused | ✓ ◉ ○ |
+| [name] | 1/N | 🔵 In Progress | ◉ ○ ○ |
+| [name] | N/N | ✅ Complete | ✓ ✓ ✓ |
 
 **Milestone progress:** [X] of [Y] projects complete
 
@@ -98,7 +98,7 @@ Resume file: .orbti/projects/[current-project]/HANDOFF-[date].md
 
 **Row format:**
 ```
-| 01-auth | JWT authentication | 2/3 | 🔵 In Progress | ✓ ✓ ✓ / ✓ ✓ ✓ / ✓ ◉ ○ |
+| auth | JWT authentication | 2/3 | 🔵 In Progress | ✓ ✓ ✓ / ✓ ✓ ✓ / ✓ ◉ ○ |
 ```
 When a project has multiple loops, show each loop's position separated by `/`.
 

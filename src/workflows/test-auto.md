@@ -205,7 +205,7 @@ npx playwright --version 2>/dev/null || echo "NOT_INSTALLED"
    ```
 
 7. E2E failures are **warnings**, not blockers:
-   - Log each failure to `.orbti/projects/XX-name/{refine}-UAT.md`
+   - Log each failure to `.orbti/projects/{name}/{refine}-UAT.md`
    - Do not block INTEGRATE for E2E failures
    - Integration test failures block; E2E failures warn
 </step>
@@ -233,7 +233,7 @@ Verdict: [ALL PASS | FAILURES FOUND]
 ```
 
 **If FAILURES FOUND:**
-- Log each failing AC to `.orbti/projects/XX-name/{refine}-UAT.md`
+- Log each failing AC to `.orbti/projects/{name}/{refine}-UAT.md`
 - Offer: "Run /orbti:refine-fix to address failing tests before integrating"
 - User can override and continue anyway (with issues logged)
 

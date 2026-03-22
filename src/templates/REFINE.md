@@ -1,8 +1,8 @@
 # REFINE.md Template
 
-Template for `.orbti/projects/{project-number}-{name}/{project}-{refine}-REFINE.md` - executable project refines.
+Template for `.orbti/projects/{name}/{refine}-REFINE.md` - executable project refines.
 
-**Naming:** `{project}-{refine}-REFINE.md` (e.g., `01-02-REFINE.md` for Project 1, Refine 2)
+**Naming:** `{refine}-REFINE.md` (e.g., `02-REFINE.md` for Refine 2 of any project)
 
 ---
 
@@ -10,7 +10,7 @@ Template for `.orbti/projects/{project-number}-{name}/{project}-{refine}-REFINE.
 
 ```markdown
 ---
-project: XX-name
+project: name
 refine: NN
 type: execute                    # execute | tdd | research
 wave: N                          # Execution wave (1, 2, 3...). Pre-computed at refine time.
@@ -175,7 +175,7 @@ Before declaring refine complete:
 </success_criteria>
 
 <output>
-After completion, create `.orbti/projects/XX-name/{project}-{refine}-INTEGRATE.md`
+After completion, create `.orbti/projects/{name}/{refine}-INTEGRATE.md`
 </output>
 ```
 
@@ -185,7 +185,7 @@ After completion, create `.orbti/projects/XX-name/{project}-{refine}-INTEGRATE.m
 
 | Field | Required | Purpose |
 |-------|----------|---------|
-| `project` | Yes | Project identifier (e.g., `01-foundation`) |
+| `project` | Yes | Project identifier (e.g., `foundation`) |
 | `refine` | Yes | Refine number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
 | `wave` | Yes | Execution wave number (1, 2, 3...). Pre-computed at refine time. |

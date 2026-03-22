@@ -228,9 +228,9 @@ Work across multiple sessions and multiple projects without losing context:
 
 ```
 Projects Overview:
-│  01  auth-service    1/3   ⏸ Paused        ✓ ◉ ○  │
-│  02  dashboard       0/2   🔵 In Progress  ◉ ○ ○  │
-│  03  api-layer       0/2   ○ Pending       ○ ○ ○  │
+│  auth-service    1/3   ⏸ Paused        ✓ ◉ ○  │
+│  dashboard       0/2   🔵 In Progress  ◉ ○ ○  │
+│  api-layer       0/2   ○ Pending       ○ ○ ○  │
 ```
 
 ---
@@ -319,17 +319,17 @@ Group related projects into milestones for larger initiatives:
 ├── SPECIAL-FLOWS.md     # Optional skill requirements per project
 ├── milestones/          # Archived completed milestones
 │   └── v1.0-launch.md
-└── projects/            # Flat numbering — never restarts at 01
-    ├── 01-auth/
-    │   ├── 01-01-REFINE.md
-    │   ├── 01-01-INTEGRATE.md
+└── projects/            # Named folders — one per project
+    ├── auth/
+    │   ├── 01-REFINE.md
+    │   ├── 01-INTEGRATE.md
     │   └── HANDOFF-2026-03-17.md   # Created on /orbti:pause, deleted on complete
-    └── 02-dashboard/
-        ├── 02-01-REFINE.md
-        └── 02-01-INTEGRATE.md
+    └── dashboard/
+        ├── 01-REFINE.md
+        └── 01-INTEGRATE.md
 ```
 
-Projects are numbered continuously across milestones. Milestone grouping lives in `ROADMAP.md`, not in the folder structure.
+Projects are identified by name. Milestone grouping lives in `ROADMAP.md`, not in the folder structure.
 
 ### State management
 
@@ -344,7 +344,7 @@ A single `STATE.md` acts as the global dashboard — it has two layers:
 
 ```markdown
 ---
-project: 01-auth
+project: auth
 refine: 01
 type: execute
 autonomous: true

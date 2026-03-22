@@ -28,8 +28,8 @@ Templates define the structure for generated documents. Each template file conta
 
 **Curly braces** for variable interpolation:
 ```
-{project}-{refine}-REFINE.md
-.orbti/projects/{project-number}-{name}/
+{refine}-REFINE.md
+.orbti/projects/{name}/
 ```
 
 ## YAML Frontmatter in Template Content
@@ -38,7 +38,7 @@ Templates that define output documents show example frontmatter:
 
 ```yaml
 ---
-project: XX-name
+project: name
 refine: NN
 type: execute
 wave: 1

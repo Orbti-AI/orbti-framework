@@ -102,11 +102,11 @@ Required skills will BLOCK build until confirmed loaded.
 </step>
 
 <step name="create_plan">
-1. Create project directory: `.orbti/projects/{NN}-{project-name}/`
+1. Create project directory: `.orbti/projects/{project-name}/`
 2. Generate REFINE.md following template structure:
 
    **Frontmatter:**
-   - project: NN-name
+   - project: name
    - refine: 01 (or next number if multiple refines in phase)
    - type: execute (or tdd/research)
    - wave: 1 (adjust if dependencies exist)
@@ -206,9 +206,9 @@ Required skills will BLOCK build until confirmed loaded.
 </process>
 
 <output>
-REFINE.md at `.orbti/projects/{NN}-{project-name}/{NN}-{refine}-REFINE.md`
+REFINE.md at `.orbti/projects/{project-name}/{refine}-REFINE.md`
 
-Example: `.orbti/projects/04-workflows-layer/04-01-REFINE.md`
+Example: `.orbti/projects/workflows-layer/01-REFINE.md`
 </output>
 
 <error_handling>

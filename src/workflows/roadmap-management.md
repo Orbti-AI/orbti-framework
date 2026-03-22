@@ -35,8 +35,6 @@ Can be invoked at any time during a milestone.
 
 <step name="add_validate" priority="first">
 1. Read ROADMAP.md for current milestone
-2. Identify highest project number in milestone
-3. Calculate next project number = highest + 1
 
 **If no active milestone:**
 - Error: "No active milestone. Run /orbti:milestone first."
@@ -47,10 +45,10 @@ Can be invoked at any time during a milestone.
 Ask for project details:
 
 ```
-Adding project {next_number} to {milestone_name}.
+Adding project to {milestone_name}.
 
 Project name?
-(Example: "Testing", "Documentation", "Performance")
+(Example: "testing", "documentation", "performance")
 ```
 
 Wait for response. Store as `project_name`.
@@ -73,12 +71,12 @@ Update ROADMAP.md:
 
 2. **Add to projects table:**
    ```markdown
-   | {next_number} | {project_name} | TBD | Not started | - |
+   | {project_name} | TBD | Not started | - |
    ```
 
 3. **Add project details section:**
    ```markdown
-   ### Project {next_number}: {project_name}
+   ### {project_name}
 
    Focus: {project_description}
    Refines: TBD (defined during /orbti:refine)
@@ -92,11 +90,10 @@ Update ROADMAP.md:
 Create project directory:
 
 ```bash
-mkdir -p .orbti/projects/{NN}-{project-slug}
+mkdir -p .orbti/projects/{project-slug}
 ```
 
 Where:
-- `NN` = zero-padded project number
 - `project-slug` = lowercase, hyphenated project name
 </step>
 
@@ -105,12 +102,12 @@ Update STATE.md:
 
 1. **Last activity:**
    ```markdown
-   Last activity: {timestamp} — Added Project {number}: {name}
+   Last activity: {timestamp} — Added project: {name}
    ```
 
 2. **Decisions (add to table):**
    ```markdown
-   | Added Project {number}: {name} | Project {current} | Extends milestone scope |
+   | Added project: {name} | Project {current} | Extends milestone scope |
    ```
 </step>
 
@@ -122,7 +119,7 @@ Display confirmation:
 PROJECT ADDED
 ════════════════════════════════════════
 
-Project {number}: {name}
+Project: {name}
 Directory: .orbti/projects/{slug}/
 
 {milestone_name} now has {total} projects.
@@ -171,13 +168,12 @@ Ask for confirmation:
 REMOVE PROJECT?
 ════════════════════════════════════════
 
-Project {number}: {name}
+Project: {name}
 Status: Not started
 
 This will:
 - Remove from ROADMAP.md
 - Delete .orbti/projects/{slug}/ (if empty)
-- Renumber subsequent projects
 
 [1] Yes, remove | [2] Cancel
 ════════════════════════════════════════
@@ -193,23 +189,19 @@ Update ROADMAP.md:
 
 2. **Remove project details section**
 
-3. **Renumber subsequent projects:**
-   - Project 7 removed → Project 8 becomes 7, Project 9 becomes 8, etc.
-   - Update both table and details sections
-
-4. **Update milestone header:**
+3. **Update milestone header:**
    ```markdown
    Projects: {X} of {new_total} complete
    ```
 
-5. **Update footer timestamp**
+4. **Update footer timestamp**
 </step>
 
 <step name="remove_cleanup_directory">
 Handle project directory:
 
 ```bash
-rmdir .orbti/projects/{NN}-{slug} 2>/dev/null
+rmdir .orbti/projects/{slug} 2>/dev/null
 ```
 
 **If directory not empty:**
@@ -220,30 +212,17 @@ rmdir .orbti/projects/{NN}-{slug} 2>/dev/null
 - Silently removed or was never created
 </step>
 
-<step name="remove_renumber_directories">
-**If subsequent projects exist:**
-
-Renumber project directories to match ROADMAP.md:
-
-```bash
-mv .orbti/projects/08-name .orbti/projects/07-name
-mv .orbti/projects/09-name .orbti/projects/08-name
-```
-
-**Note:** This is why we only allow removing "Not started" projects — they have no artifacts yet.
-</step>
-
 <step name="remove_update_state">
 Update STATE.md:
 
 1. **Last activity:**
    ```markdown
-   Last activity: {timestamp} — Removed Project {number}: {name}
+   Last activity: {timestamp} — Removed project: {name}
    ```
 
 2. **Decisions (add to table):**
    ```markdown
-   | Removed Project {original_number}: {name} | Project {current} | Scope reduction |
+   | Removed project: {name} | Project {current} | Scope reduction |
    ```
 
 3. **If removed project was "next":**
@@ -258,8 +237,7 @@ Display confirmation:
 PROJECT REMOVED
 ════════════════════════════════════════
 
-Removed: Project {original_number}: {name}
-{renumbered_projects count} projects renumbered.
+Removed: {name}
 
 {milestone_name} now has {total} projects.
 

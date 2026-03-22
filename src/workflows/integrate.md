@@ -127,7 +127,7 @@ After team completes, extract:
    **Frontmatter:**
    ```yaml
    ---
-   project: NN-name
+   project: name
    refine: NN
    completed: ISO timestamp
    duration: approximate time
@@ -191,7 +191,7 @@ Report with quick continuation:
 REFINE COMPLETE
 ════════════════════════════════════════
 
-Refine: {NN}-{refine} — [description]
+Refine: {refine} — [description]
 [summary of what was built]
 [deviations if any]
 
@@ -224,7 +224,7 @@ Continue to next loop?
 3. Transition handles (do not skip any):
    - Evolve PROJECT.md (requirements validated → shipped)
    - Update ROADMAP.md (phase status → complete)
-   - Git commit for phase: `feat({phase}): {description}`
+   - Git commit for phase: `feat({project-name}): {description}`
    - Clean stale handoffs
    - Route to next phase or milestone completion
 
@@ -236,7 +236,7 @@ Continue to next loop?
 </process>
 
 <output>
-- INTEGRATE.md at `.orbti/projects/{project}/{refine}-INTEGRATE.md`
+- INTEGRATE.md at `.orbti/projects/{project-name}/{refine}-INTEGRATE.md`
 - Updated STATE.md
 - Updated ROADMAP.md (if phase complete)
 </output>

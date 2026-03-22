@@ -33,22 +33,18 @@ Projects: [X] of [Y] complete
 
 ## Projects
 
-**Project Numbering:**
-- Integer projects (1, 2, 3): Planned milestone work
-- Decimal projects (2.1, 2.2): Urgent insertions (marked with [INSERTED])
+Projects execute in list order. Add new projects at the end or between existing ones as needed.
 
-Projects execute in numeric order: 1 → 2 → 2.1 → 2.2 → 3 → 3.1 → 4
-
-| Project | Name | Refines | Status | Completed |
-|---------|------|-------|--------|-----------|
-| 1 | [Name] | [N] | Not started | - |
-| 2 | [Name] | [N] | Not started | - |
-| 3 | [Name] | [N] | Not started | - |
-| 4 | [Name] | [N] | Not started | - |
+| Project | Refines | Status | Completed |
+|---------|---------|--------|-----------|
+| [name] | [N] | Not started | - |
+| [name] | [N] | Not started | - |
+| [name] | [N] | Not started | - |
+| [name] | [N] | Not started | - |
 
 ## Project Details
 
-### Project 1: [Name]
+### [name]
 
 **Goal:** [What this project delivers - specific outcome]
 **Depends on:** Nothing (first project)
@@ -60,14 +56,14 @@ Projects execute in numeric order: 1 → 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 - [Deliverable 3]
 
 **Refines:**
-- [ ] 01-01: [Brief description]
-- [ ] 01-02: [Brief description]
-- [ ] 01-03: [Brief description]
+- [ ] 01: [Brief description]
+- [ ] 02: [Brief description]
+- [ ] 03: [Brief description]
 
-### Project 2: [Name]
+### [name]
 
 **Goal:** [What this project delivers]
-**Depends on:** Project 1 ([specific dependency])
+**Depends on:** [prior project name] ([specific dependency])
 **Research:** [Unlikely | Likely] ([reason])
 **Research topics:** [If Likely - what needs investigating]
 
@@ -76,22 +72,13 @@ Projects execute in numeric order: 1 → 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 - [Deliverable 2]
 
 **Refines:**
-- [ ] 02-01: [Brief description]
-- [ ] 02-02: [Brief description]
+- [ ] 01: [Brief description]
+- [ ] 02: [Brief description]
 
-### Project 2.1: [Name] [INSERTED]
-
-**Goal:** [Urgent work inserted between projects]
-**Depends on:** Project 2
-**Reason:** [Why this was inserted]
-
-**Refines:**
-- [ ] 02.1-01: [Description]
-
-### Project 3: [Name]
+### [name]
 
 **Goal:** [What this project delivers]
-**Depends on:** Project 2 ([specific dependency])
+**Depends on:** [prior project name] ([specific dependency])
 **Research:** [Unlikely | Likely]
 
 **Scope:**
@@ -99,20 +86,20 @@ Projects execute in numeric order: 1 → 2 → 2.1 → 2.2 → 3 → 3.1 → 4
 - [Deliverable 2]
 
 **Refines:**
-- [ ] 03-01: [Brief description]
-- [ ] 03-02: [Brief description]
+- [ ] 01: [Brief description]
+- [ ] 02: [Brief description]
 
-### Project 4: [Name]
+### [name]
 
 **Goal:** [What this project delivers]
-**Depends on:** Project 3
+**Depends on:** [prior project name]
 **Research:** Unlikely (internal patterns)
 
 **Scope:**
 - [Deliverable 1]
 
 **Refines:**
-- [ ] 04-01: [Brief description]
+- [ ] 01: [Brief description]
 
 ---
 *Roadmap created: [YYYY-MM-DD]*
@@ -142,22 +129,22 @@ After completing first milestone, reorganize with milestone groupings:
 **Status:** Project [X] of [Y]
 **Progress:** [██████░░░░] 60%
 
-### Project 5: [Name]
+### [name]
 
 **Goal:** [What this project delivers]
-**Depends on:** Project 4
+**Depends on:** [prior project name]
 
 **Refines:**
-- [x] 05-01: [Completed refine]
-- [ ] 05-02: [In progress or pending]
+- [x] 01: [Completed refine]
+- [ ] 02: [In progress or pending]
 
-### Project 6: [Name]
+### [name]
 
 **Goal:** [What this project delivers]
-**Depends on:** Project 5
+**Depends on:** [prior project name]
 
 **Refines:**
-- [ ] 06-01: [Brief description]
+- [ ] 01: [Brief description]
 
 ## 📋 Planned Milestone: v2.0 [Name]
 
@@ -169,42 +156,42 @@ After completing first milestone, reorganize with milestone groupings:
 
 | Project | Focus | Research |
 |---------|-------|----------|
-| 7 | [Focus] | Unlikely |
-| 8 | [Focus] | Likely |
-| 9 | [Focus] | Unlikely |
-| 10 | [Focus] | Unlikely |
+| [name] | [Focus] | Unlikely |
+| [name] | [Focus] | Likely |
+| [name] | [Focus] | Unlikely |
+| [name] | [Focus] | Unlikely |
 
 ## ✅ Completed Milestones
 
 <details>
-<summary>v1.0 MVP (Projects 1-4) — Shipped YYYY-MM-DD</summary>
+<summary>v1.0 MVP — Shipped YYYY-MM-DD</summary>
 
-### Project 1: [Name]
+### [name]
 **Goal:** [What was delivered]
 **Refines:** 3 complete
 
-- [x] 01-01: [Description]
-- [x] 01-02: [Description]
-- [x] 01-03: [Description]
+- [x] 01: [Description]
+- [x] 02: [Description]
+- [x] 03: [Description]
 
-### Project 2: [Name]
+### [name]
 **Goal:** [What was delivered]
 **Refines:** 2 complete
 
-- [x] 02-01: [Description]
-- [x] 02-02: [Description]
+- [x] 01: [Description]
+- [x] 02: [Description]
 
-### Project 3: [Name]
+### [name]
 **Goal:** [What was delivered]
 **Refines:** 1 complete
 
-- [x] 03-01: [Description]
+- [x] 01: [Description]
 
-### Project 4: [Name]
+### [name]
 **Goal:** [What was delivered]
 **Refines:** 1 complete
 
-- [x] 04-01: [Description]
+- [x] 01: [Description]
 
 **Milestone archive:** See [milestones/v1.0-mvp.md](milestones/v1.0-mvp.md)
 
@@ -230,7 +217,7 @@ After completing first milestone, reorganize with milestone groupings:
 
 ### Projects Table
 **Purpose:** At-a-glance view of all projects.
-**Contains:** Project number, name, refine count, status, completion date.
+**Contains:** Project name, refine count, status, completion date. Projects are ordered by list position.
 **Update:** After each refine/project completion.
 
 ### Project Details
@@ -246,21 +233,9 @@ After completing first milestone, reorganize with milestone groupings:
 
 ---
 
-## Project Numbering
+## Project Ordering
 
-**Integer projects (1, 2, 3):** Planned work from roadmap creation.
-
-**Decimal projects (2.1, 2.2):** Urgent insertions.
-- Insert between consecutive integers
-- Mark with [INSERTED] tag
-- Include reason for insertion
-- Filesystem sorts correctly: 2 < 2.1 < 2.2 < 3
-
-**Validation for decimal insertion:**
-- Integer X must exist and be complete
-- Integer X+1 must exist in roadmap
-- Decimal X.Y must not already exist
-- Y >= 1
+Projects execute in list order — top to bottom. To insert an urgent project, add it between the relevant existing entries and note the reason.
 
 ---
 
