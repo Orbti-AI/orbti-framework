@@ -83,6 +83,37 @@ Planejar    Executar   Verificar   Fechar
 
 Repita para cada unidade de trabalho.
 
+### Mapa completo
+
+```
+observe → cocreate → research-phase → refine → build → integrate
+  ↑           ↑            ↑
+"o que       "qual        "como funciona
+ quero"      caminho"      no código"
+```
+
+| Comando | Pergunta central | Quando usar |
+|---|---|---|
+| `/orbti:observe` | "O que quero alcançar?" | Escopo nebuloso, ideias vagas |
+| `/orbti:cocreate` | "Qual opção/abordagem escolher?" | Decisão técnica com alternativas |
+| `/orbti:research-phase` | "Como isso funciona aqui/lá?" | Investigar sem decidir ainda |
+| `/orbti:refine` | "Como vamos fazer exatamente?" | Planejar a implementação |
+
+**A diferença chave: `cocreate` vs `research-phase`**
+
+`research-phase` → coleta informação, não decide:
+> "Como o filtro de datas está implementado nas outras telas do CRM?"
+
+`cocreate` → pesquisa para tomar uma decisão:
+> "Devemos usar react-query ou SWR para essa feature?"
+> → Compara opções → Produz recomendação
+
+**Na prática:**
+- Escopo já claro e você sabe como fazer → vai direto pro `/orbti:refine`
+- Tem uma ideia mas não sabe bem o que quer → `/orbti:observe`
+- Tem duas ou mais abordagens e precisa decidir → `/orbti:cocreate`
+- Sabe o que quer mas tem dúvidas técnicas específicas → `/orbti:research-phase`
+
 ---
 
 ## Observe — *o quê*
@@ -148,6 +179,25 @@ O Claude implanta subagentes para pesquisar e comparar opções. Você decide. D
 ## Decision
 ...
 ```
+
+---
+
+## Research Phase — *investigar*
+
+**Quando usar:** quando você sabe o que quer construir, mas tem dúvidas técnicas específicas para investigar antes de planejar.
+
+```
+/orbti:research-phase "tema ou pergunta"
+```
+
+Diferente do `cocreate` (que compara opções para tomar uma decisão), o `research-phase` coleta informação sem decidir. Use para entender como algo já está implementado no projeto, como uma API externa funciona, ou como um padrão específico funciona no codebase.
+
+**Exemplos de uso:**
+- "Como o filtro de datas está implementado nas outras telas do CRM?"
+- "Como o sistema de autenticação atual lida com refresh tokens?"
+- "Quais endpoints da API externa precisamos consumir?"
+
+**Output:** `RESEARCH.md` com achados e contexto coletado — sem recomendação, sem decisão.
 
 ---
 
@@ -506,11 +556,13 @@ Após habilitar, `/orbti:test` roda E2E automaticamente para todos os ACs — se
                     ┌──────────────▼──────────────────────┐
                     │         OPCIONAL (pré-fase)         │
                     │                                     │
-                    │  /orbti:observe "projeto"  ← o quê  │
-                    │    ↓                                │
-                    │  /orbti:cocreate "tema"    ← como   │
-                    │    ↓                                │
-                    │  /orbti:assumptions        ← validar│
+                    │  /orbti:observe "projeto"       ← o quê     │
+                    │    ↓                                         │
+                    │  /orbti:cocreate "tema"         ← decisão   │
+                    │    ↓                                         │
+                    │  /orbti:research-phase "tema"   ← investigar│
+                    │    ↓                                         │
+                    │  /orbti:assumptions             ← validar   │
                     └──────────────┬──────────────────────┘
                                    │
                     ┌──────────────▼──────────────────────┐
@@ -544,6 +596,7 @@ Após habilitar, `/orbti:test` roda E2E automaticamente para todos os ACs — se
 # opcional, quando há incógnitas
 /orbti:observe "auth"
 /orbti:cocreate "jwt vs session"
+/orbti:research-phase "como auth está implementado hoje"
 
 # loop — repita até o projeto completo
 /orbti:refine
