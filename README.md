@@ -83,10 +83,14 @@ Planejar    Executar   Verificar   Fechar
 
 Repita para cada unidade de trabalho.
 
-### Mapa completo
+---
+
+## Pré-Refine — opcional
+
+Antes de planejar, use esses comandos para clarificar o que quer, decidir como fazer, ou investigar dúvidas técnicas. Todos são opcionais — vá direto ao `/orbti:refine` quando o escopo já estiver claro.
 
 ```
-observe → cocreate → research-phase → refine → build → integrate
+observe → cocreate → research-phase → refine
   ↑           ↑            ↑
 "o que       "qual        "como funciona
  quero"      caminho"      no código"
@@ -107,12 +111,6 @@ observe → cocreate → research-phase → refine → build → integrate
 `cocreate` → pesquisa para tomar uma decisão:
 > "Devemos usar react-query ou SWR para essa feature?"
 > → Compara opções → Produz recomendação
-
-**Na prática:**
-- Escopo já claro e você sabe como fazer → vai direto pro `/orbti:refine`
-- Tem uma ideia mas não sabe bem o que quer → `/orbti:observe`
-- Tem duas ou mais abordagens e precisa decidir → `/orbti:cocreate`
-- Sabe o que quer mas tem dúvidas técnicas específicas → `/orbti:research-phase`
 
 ---
 
@@ -511,14 +509,38 @@ Após habilitar, `/orbti:test` roda E2E automaticamente para todos os ACs — se
 
 ---
 
-## Dicas do dia a dia
+## Pausando e continuando o trabalho
 
-**Pausar e retomar entre sessões:**
+O ORBTI persiste o estado entre sessões via `STATE.md`. Você pode parar a qualquer momento e retomar exatamente de onde parou.
+
 ```
-/orbti:pause         # pausa o projeto ativo
-/orbti:resume        # mostra todos os projetos e sugere próxima ação
-/orbti:progress      # onde estou agora + próximo passo
+/orbti:pause         # salva o estado atual e pausa o projeto ativo
+/orbti:resume        # lista projetos em andamento e sugere próxima ação
+/orbti:progress      # onde estou agora + próximo passo recomendado
 ```
+
+**Fluxo típico de pausa e retomada:**
+
+```bash
+# ao terminar o dia (ou sessão)
+/orbti:pause
+
+# na próxima sessão
+/orbti:resume        # lê STATE.md e handoffs automaticamente
+                     # mostra: projeto ativo, fase atual, próximo comando
+```
+
+**O que o `resume` mostra:**
+- Projeto e milestone ativos
+- Último comando executado
+- Próximo passo recomendado (ex: "pronto para /orbti:build")
+- Desvios ou issues pendentes
+
+O `STATE.md` é a fonte de verdade. Se o contexto parecer errado, cheque `.orbti/STATE.md` diretamente antes de continuar.
+
+---
+
+## Dicas do dia a dia
 
 **Múltiplos projetos no mesmo milestone:**
 ```
