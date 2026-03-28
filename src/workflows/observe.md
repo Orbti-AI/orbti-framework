@@ -20,6 +20,7 @@ After discussion, routes to /orbti:refine which creates the project.
 <required_reading>
 @.orbti/STATE.md
 @.orbti/PROJECT.md
+@.orbti/RUNBOOK.md (if exists — read silently, do not announce)
 </required_reading>
 
 <references>
@@ -86,6 +87,29 @@ Consider:
 Wait for user response. Store as `approach` notes.
 </step>
 
+<step name="explore_solution_intent">
+**Before synthesizing context, anchor the solution with three questions:**
+
+```
+Three quick questions to anchor the solution:
+
+WHO uses this? (specific role and context — not "users" or "the team")
+WHAT must they accomplish? (the primary verb/action — what are they trying to do?)
+FEEL? (how should the solution behave — fast and silent? explicit and guided? dense? forgiving?)
+```
+
+Wait for answers. Store as `solution_intent`:
+- `who`: specific person, role, and context
+- `what`: primary action or outcome they need
+- `feel`: personality of the solution — how it should behave in use
+
+**Why this matters:** Without explicit intent, solutions default to generic patterns — the most common implementation seen in training, not the one that fits this specific problem. WHO/WHAT/FEEL forces the solution to be designed for a real context. UI, API design, error handling, and data modeling all change depending on these answers.
+
+This populates CONTEXT.md and informs every phase that follows.
+
+**Skip this step when work has no interface** — purely internal technical work: architecture refactors, security hardening, infrastructure changes, performance optimization. These have no interaction surface — COCREATE and REFINE's ACs handle intent adequately.
+</step>
+
 <step name="synthesize_context">
 From the discussion, derive:
 
@@ -102,7 +126,14 @@ Confirm with user before writing.
 <step name="write_context">
 Create `.orbti/context/CONTEXT.md`:
 
-Use CONTEXT.md template format.
+Use CONTEXT.md template format. Always append the solution intent captured:
+
+```markdown
+## Solution Intent
+- Who: [specific person/role from discussion]
+- What: [primary action or outcome they need]
+- Feel: [how the solution should behave in use]
+```
 
 Display:
 ```

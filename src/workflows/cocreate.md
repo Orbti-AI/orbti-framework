@@ -200,6 +200,23 @@ Options:
 Output: Comprehensive `.orbti/projects/XX-name/COCREATE.md`
 </step>
 
+<step name="anchor_to_solution_intent">
+**Before evaluating options, anchor to solution intent:**
+
+1. Check if CONTEXT.md has `Solution Intent`:
+   ```bash
+   grep "Solution Intent" .orbti/context/CONTEXT.md 2>/dev/null
+   ```
+2. If missing: ask WHO/WHAT/FEEL before researching options.
+   These answers determine which option fits — the same library or pattern can be right or wrong depending on the context it serves.
+3. Evaluate each option through the lens of solution intent:
+   - Does this serve the WHO's actual constraints and context?
+   - Does it enable the WHAT without friction or mismatch?
+   - Does it produce the FEEL at runtime?
+4. In COCREATE.md recommendation, state explicitly why the chosen option maps to the solution intent — not just why it's technically superior.
+5. If discovery involves UI/visual direction: note in COCREATE.md that the design system should be established from Solution Intent before the first UI task in BUILD.
+</step>
+
 <step name="route_to_planning">
 **Complete discovery and route:**
 

@@ -142,6 +142,21 @@ Gaps generate warnings, not blocking errors:
 | Database changes | /migration-helper | required | Schema modifications |
 ```
 
+### Example 3: Product with UI Layer
+
+Solution Intent (WHO/WHAT/FEEL) and agent learning (RUNBOOK) are built into the ORBTI loop — no declaration needed. Declare agentic-design as required skill to enforce visual craft:
+
+```markdown
+# Skills
+
+## Project-Level Dependencies
+
+| Work Type | Skill/Command | Priority | When Required |
+|-----------|---------------|----------|---------------|
+| UI screens | /agentic-design:init | required | Before first UI task in BUILD |
+| E2E tests | playwright | required | After UI feature built |
+```
+
 ## Evolution and Improvement
 
 ### Pattern Recognition

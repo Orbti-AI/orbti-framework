@@ -171,6 +171,51 @@ as the foreground finalize step, then offer INTEGRATE.
 <step name="execute_tasks">
 For each <task> in order:
 
+**Solution checkpoint — before each task:**
+
+Read `Solution Intent` from CONTEXT.md (or REFINE.md objective). State explicitly:
+```
+WHO: [who this serves]
+WHAT: [what they accomplish with this task's output]
+FEEL: [how the solution should behave — fast? explicit? forgiving?]
+```
+
+This prevents defaulting to the most common implementation pattern. Every decision in the task — data model, error handling, API shape, or UI component — should connect back to these answers.
+
+If CONTEXT.md has no Solution Intent: proceed, but note the absence. Defaults are more likely.
+
+**Skip the solution checkpoint when the task has no interface** — purely internal work (architecture, security, infra, refactor with no interaction surface). The REFINE.md ACs define success for these tasks.
+
+**If the task produces visual UI:**
+
+Visual craft is delegated to the agentic-design skill declared in `.orbti/SPECIAL-FLOWS.md`.
+
+If agentic-design was loaded (confirmed by `verify_required_skills`):
+- The skill handles design system, tokens, and craft review
+- Feed it the Solution Intent from CONTEXT.md as WHO/WHAT/FEEL input when invoking
+
+If agentic-design is NOT declared in SPECIAL-FLOWS.md:
+```
+This task builds UI. Visual craft is not enforced without the agentic-design skill.
+→ Add it to .orbti/SPECIAL-FLOWS.md as required and reload, OR
+→ Type "proceed" to continue — Solution Intent will guide decisions but no craft system
+```
+If user proceeds without the skill: apply Solution Intent (WHO/WHAT/FEEL) to visual decisions at minimum.
+
+**Agent learning (all task types):**
+After task execution, if ANY of these occurred:
+- User corrected an approach or redirected the implementation
+- A tool or command behaved unexpectedly
+- A deviation from REFINE was required
+- A technique worked unusually well
+
+→ Append to `.orbti/RUNBOOK.md` under the relevant category:
+```
+1. **[YYYY-MM-DD] [Short rule title]**
+   Do instead: [concrete repeatable action]
+```
+Only log recurring, high-value guidance. Skip one-off events.
+
 **If type="auto":**
 1. Log task start: "Task N: [name]"
 2. Execute <action> content:

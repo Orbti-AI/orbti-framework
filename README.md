@@ -124,6 +124,20 @@ observe → cocreate → research-phase → refine
 
 Exploração conversacional guiada por você. O Claude faz perguntas para ajudar a articular metas, escopo e restrições. Você fala, o Claude escuta e organiza. Evita construir a coisa errada.
 
+### Solution Intent — WHO / WHAT / FEEL
+
+Toda solução com uma interface (visual, API, CLI, contrato de dados) passa por três perguntas antes de sintetizar o contexto:
+
+```
+WHO   — quem usa isso? (papel e contexto específico, não "os usuários")
+WHAT  — o que precisam realizar? (o verbo principal — a ação que importa)
+FEEL  — como a solução deve se comportar? (rápida e silenciosa? explícita? densa? forgiving?)
+```
+
+Essas respostas são salvas no `CONTEXT.md` como `Solution Intent` e usadas em todas as fases seguintes. O REFINE escreve ACs para esse WHO específico. O BUILD conecta cada decisão de implementação a esse contexto. Sem intent explícito, soluções convergem para o padrão mais genérico — não o que o problema exige.
+
+**Não se aplica** a trabalho puramente técnico sem interface (refactor de arquitetura, hardening de segurança, infra).
+
 **Output:** `CONTEXT.md` na pasta do projeto.
 
 ```
@@ -360,6 +374,47 @@ Continue to TEST?
 
 ---
 
+## RUNBOOK — *aprendizado contínuo*
+
+O ORBTI mantém um runbook vivo em `.orbti/RUNBOOK.md` que acumula aprendizado de sessão para sessão. Não é um log — é um guia de comportamento curado.
+
+### Como funciona
+
+| Fase | Comportamento |
+|------|--------------|
+| **OBSERVE** | Lê o RUNBOOK silenciosamente no início da sessão — absorve o aprendizado anterior sem anunciar |
+| **BUILD** | Após cada task, se houve correção, desvio inesperado ou técnica que funcionou bem, loga no RUNBOOK |
+| **INTEGRATE** | Curação: re-prioriza por impacto, merge de duplicatas, remove entradas obsoletas, limite de 10 por categoria |
+
+### Estrutura do RUNBOOK.md
+
+```markdown
+## Execution & Validation
+1. **[2026-03-28] Regra curta**
+   Do instead: ação concreta e repetível
+
+## Shell & Command Reliability
+1. **[2026-03-28] Regra curta**
+   Do instead: ação concreta e repetível
+
+## User Directives
+1. **[2026-03-28] Diretiva**
+   Do instead: seguir exatamente
+```
+
+### O que entra no RUNBOOK
+
+- Correções que o usuário fez durante a execução
+- Comportamento inesperado de ferramentas ou comandos
+- Desvios do REFINE que revelam um padrão
+- Técnicas que funcionaram bem e devem ser repetidas
+
+**O que não entra:** eventos únicos sem padrão, conclusões de tasks sem surpresas, logs de rotina.
+
+Por volta da 3ª sessão, o agente começa a evitar erros antes que você precise corrigir.
+
+---
+
 ## Test — *a verificação*
 
 **Quando usar:** após o BUILD, antes do INTEGRATE.
@@ -486,6 +541,44 @@ Isso cria `.orbti/SPECIAL-FLOWS.md`:
 ```
 
 Skills marcadas como `required` **bloqueiam o BUILD** até serem carregadas. O REFINE.md inclui uma seção `<skills>` com checklist de confirmação.
+
+### agentic-design — craft visual para projetos com UI
+
+O ORBTI captura o Solution Intent (WHO/WHAT/FEEL) nativamente. Para projetos com interface visual, a skill **agentic-design** usa esse intent para criar um sistema de design consistente e evitar outputs genéricos.
+
+```
+https://github.com/Orbti-AI/agentic-design
+```
+
+**O que ela faz:**
+- Cria `.orbti/design-system.md` com tokens (espaçamento, cores, tipografia, profundidade) derivados do Solution Intent
+- Antes de cada componente: declara checkpoint de design (quem, o quê, como deve sentir)
+- Após cada task de UI: revisa craft antes de mostrar o output (composição, espaçamento, hierarquia)
+- Persiste decisões de design entre sessões via `design-system.md`
+
+**Como configurar:**
+
+1. Instale a skill:
+```bash
+npx github:Orbti-AI/agentic-design
+```
+
+2. Declare no projeto via SPECIAL-FLOWS.md:
+```
+/orbti:skills add
+```
+
+```markdown
+| Work Type  | Skill/Command           | Priority | When Required              |
+|------------|-------------------------|----------|----------------------------|
+| UI screens | /agentic-design:init    | required | Antes do primeiro task de UI |
+```
+
+3. No BUILD, a skill é carregada automaticamente quando requerida. Ela lê o `CONTEXT.md` do projeto e usa o Solution Intent como base para as decisões visuais.
+
+**Sem essa skill:** o ORBTI aplica o Solution Intent às decisões visuais via princípios básicos, mas sem sistema de tokens persistente nem revisão de craft automatizada.
+
+---
 
 ### Instalar Playwright CLI como skill
 

@@ -144,6 +144,22 @@ After team completes, extract:
    - Next Phase (what comes next)
 </step>
 
+<step name="update_runbook">
+**Update agent learning from this BUILD:**
+
+1. Check if `.orbti/RUNBOOK.md` exists
+2. If exists: curate — re-prioritize by impact, merge duplicates, remove stale entries
+3. If not exists AND this BUILD had corrections, deviations, or notable patterns: create it
+4. Add any entries logged during `execute_tasks` that weren't yet written
+5. Rules:
+   - Keep each category ≤ 10 items, highest impact first
+   - Every entry must have a `Do instead:` line
+   - Remove entries that are now obvious or no longer apply
+   - Do NOT log one-off events or routine completions
+
+Skip if BUILD was clean with no notable corrections or surprises.
+</step>
+
 <step name="update_state">
 Update STATE.md — three sections:
 
