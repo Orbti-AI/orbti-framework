@@ -547,7 +547,7 @@ Skills marcadas como `required` **bloqueiam o BUILD** até serem carregadas. O R
 O ORBTI captura o Solution Intent (WHO/WHAT/FEEL) nativamente. Para projetos com interface visual, a skill **agentic-design** usa esse intent para criar um sistema de design consistente e evitar outputs genéricos.
 
 ```
-https://github.com/Orbti-AI/agentic-design
+https://github.com/Orbti-AI/orbti-design
 ```
 
 **O que ela faz:**
