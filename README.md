@@ -12,6 +12,22 @@
 
 ---
 
+## Documentação
+
+| Arquivo | O que cobre |
+|---------|-------------|
+| [workflow-dev/README.md](workflow-dev/README.md) | Quick-reference — comandos, naming, estrutura de arquivos |
+| [workflow-dev/observe-workflow.md](workflow-dev/observe-workflow.md) | OBSERVE — mapear cenário antes de iniciar |
+| [workflow-dev/cocreate-workflow.md](workflow-dev/cocreate-workflow.md) | COCREATE — plano estratégico por loop e specialist |
+| [workflow-dev/refine-workflow.md](workflow-dev/refine-workflow.md) | REFINE — planejamento técnico (obrigatório) |
+| [workflow-dev/build-workflow.md](workflow-dev/build-workflow.md) | BUILD — execução (obrigatório) |
+| [workflow-dev/test-workflow.md](workflow-dev/test-workflow.md) | TEST — validação dos critérios de aceite |
+| [workflow-dev/integrate-workflow.md](workflow-dev/integrate-workflow.md) | INTEGRATE — code review e fechamento do loop (obrigatório) |
+| [workflow-dev/research-workflow.md](workflow-dev/research-workflow.md) | RESEARCH — ferramenta transversal de pesquisa progressiva |
+| [workflow-dev/pause-workflow.md](workflow-dev/pause-workflow.md) | PAUSE / RESUME / PROGRESS — gestão de sessão |
+
+---
+
 ## Instalação
 
 **Pré-requisitos:** [Node.js](https://nodejs.org) 18+ e [Claude Code](https://claude.ai/code).
@@ -138,7 +154,7 @@ Essas respostas são salvas no `CONTEXT.md` como `Solution Intent` e usadas em t
 
 **Não se aplica** a trabalho puramente técnico sem interface (refactor de arquitetura, hardening de segurança, infra).
 
-**Output:** `CONTEXT.md` na pasta do projeto.
+**Output:** `OBSERVE.md` na pasta do projeto — visão, contexto e research de negócio em um único arquivo.
 
 ```
 /orbti:observe-milestone   # mesma coisa, mas para o milestone inteiro
@@ -148,7 +164,7 @@ Essas respostas são salvas no `CONTEXT.md` como `Solution Intent` e usadas em t
 
 ```
 .orbti/projects/meu-projeto/
-└── CONTEXT.md    # visão, restrições, escopo articulados
+└── OBSERVE.md    # visão, restrições, escopo + research de negócio
 ```
 
 ---
@@ -229,11 +245,11 @@ Cria um `REFINE.md` — o contrato do que será construído. Se você não conse
 ```markdown
 ---
 project: auth
-refine: 01
+refine: "01_01"        # LL_SS — loop_sequencial
+specialist: B          # F=Front | B=Back | T=Test | A=Agent
+loop: 1                # número do loop
 type: execute          # execute | tdd | research
-wave: 1                # onda de execução (para paralelo)
-depends_on: []         # IDs de refines que este depende
-files_modified: []     # arquivos que este refine toca
+depends_on: []         # arquivos de refine que este depende
 autonomous: true       # false se tem checkpoints que exigem input
 ---
 
@@ -298,7 +314,7 @@ O `ROADMAP.md` define a estrutura completa: milestones e projetos dentro de cada
 ### 03. api-layer        (not started)
 ```
 
-Projetos com `depends_on: []` e sem conflito de arquivos podem rodar em paralelo (mesmo wave). Use `wave` para declarar a ordem de execução quando há dependências reais.
+Projetos com `depends_on: []` e sem conflito de arquivos podem rodar em paralelo no mesmo loop. Use `depends_on` para declarar dependências reais entre refines.
 
 Após criar o refine, o Claude oferece:
 ```
@@ -314,7 +330,7 @@ Continue to BUILD?
 
 ```
 /orbti:build
-/orbti:build .orbti/projects/auth/01-REFINE.md   # caminho específico
+/orbti:build .orbti/projects/auth/01_01-B-REFINE.md   # refine específico
 /orbti:build-bg                                   # background (requer autonomous: true)
 ```
 
@@ -471,7 +487,7 @@ Problemas encontrados são logados no `UAT.md` para `/orbti:refine-fix`.
 
 ```
 /orbti:integrate
-/orbti:integrate .orbti/projects/auth/01-REFINE.md   # caminho específico
+/orbti:integrate .orbti/projects/auth/01_01-B-REFINE.md   # refine específico
 ```
 
 ### O que o INTEGRATE registra
