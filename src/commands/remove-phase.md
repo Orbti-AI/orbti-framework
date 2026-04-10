@@ -14,7 +14,7 @@ Remove a future project from the roadmap and clean up its directory.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/roadmap-management.md
+@./.claude/orbti-framework/workflows/roadmap-management.md
 </execution_context>
 
 <context>
@@ -26,7 +26,7 @@ $ARGUMENTS
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/roadmap-management.md
+Follow workflow: @./.claude/orbti-framework/workflows/roadmap-management.md
 
 Execute: **remove-project** operation
 </process>

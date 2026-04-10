@@ -1,6 +1,6 @@
 ---
 name: orbti:milestone
-description: Create a new milestone in the project
+description: Create a new milestone inside a projeto
 argument-hint: "[milestone-name]"
 allowed-tools: [Read, Write, Edit, Bash, Glob, AskUserQuestion]
 ---
@@ -8,29 +8,32 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, AskUserQuestion]
 <model>haiku</model>
 
 <objective>
-Create a new milestone with defined scope and phases.
+Create a new milestone inside a projeto folder.
 
-**When to use:** Starting a new milestone cycle after completing the previous one.
+**Hierarchy:** projeto → milestones → phases
+**Folder:** `.orbti/projetos/{projeto}/milestones/{milestone}/`
+
+**When to use:** Starting a new development cycle inside an existing projeto.
+Requires a projeto created with /orbti:add-projeto.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/create-milestone.md
+@./.claude/orbti-framework/workflows/create-milestone.md
 </execution_context>
 
 <context>
 $ARGUMENTS
 
-@.orbti/PROJECT.md
 @.orbti/STATE.md
-@.orbti/ROADMAP.md
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/create-milestone.md
+Follow workflow: @./.claude/orbti-framework/workflows/create-milestone.md
 </process>
 
 <success_criteria>
-- [ ] Milestone created in MILESTONES.md
-- [ ] ROADMAP.md updated with milestone grouping
-- [ ] STATE.md reflects new milestone
+- [ ] Milestone folder created inside projeto
+- [ ] projeto ROADMAP.md updated with milestone entry
+- [ ] STATE.md reflects active milestone
+- [ ] Phase directories initialized inside milestone
 </success_criteria>

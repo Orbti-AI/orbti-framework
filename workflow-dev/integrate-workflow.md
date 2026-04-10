@@ -2,7 +2,9 @@
 
 **Obrigatória?** Sim — presente em todo loop, sem exceção.
 
-O INTEGRATE fecha o loop. Reconcilia o que foi planejado (REFINE) com o que foi construído (BUILD), executa code review estruturado, documenta o resultado e atualiza o estado do projeto.
+O INTEGRATE fecha o loop inteiro. Reconcilia o que foi planejado (todos os REFINEs do loop) com o que foi construído (todos os BUILDs do loop), executa code review estruturado, documenta o resultado e atualiza o estado do projeto.
+
+**Regra fundamental:** INTEGRATE é **um por loop** — não por specialist. Só executa quando TODOS os specialists do loop (F, B, T, A) encerraram o BUILD. Loop parcial = apenas pause.
 
 **Importante:** o INTEGRATE não faz git commit ou push. Isso é responsabilidade de special flows separados.
 
@@ -10,23 +12,48 @@ O INTEGRATE fecha o loop. Reconcilia o que foi planejado (REFINE) com o que foi 
 
 ## O que o INTEGRATE faz
 
-1. **Verifica evidência de testes** — lê TEST-PLAN.md se existir
-2. **Reconcilia** — compara cada AC do REFINE com o resultado real do BUILD
-3. **Code review** — análise estruturada de qualidade, segurança e cobertura de ACs
-4. **Cria INTEGRATE.md** — documentação do que foi construído
-5. **Cria REVIEW.md** — resultado do code review
-6. **Atualiza STATE.md** — marca o loop como completo
+1. **Verifica se o loop está completo** — todos os specialists concluíram BUILD
+2. **Verifica evidência de testes** — lê TEST-PLAN.md se existir
+3. **Reconcilia** — compara cada AC de todos os REFINEs do loop com o resultado real
+4. **Code review** — análise estruturada de qualidade, segurança e cobertura de ACs
+5. **Cria `loopN-INTEGRATE.md`** — um único documento de fechamento do loop
+6. **Cria REVIEWs** — `NN-loopN-S-REVIEW.md` por specialist
+7. **Atualiza STATE.md** — marca o loop como completo
 
 ---
 
 ## Como usar
 
 ```bash
-/orbti:integrate .orbti/projects/{slug}/01-loop1-F-REFINE.md
-/orbti:integrate .orbti/projects/{slug}/02-loop1-B-REFINE.md
+/orbti:integrate {slug}          # fecha o loop atual completo
+/orbti:integrate eficiencia-debito
 ```
 
-Cada specialist tem seu próprio INTEGRATE — rodar separadamente para F, B, T, A.
+Um único comando por loop — não por specialist.
+
+---
+
+## Loop parcial → apenas pause
+
+Se algum specialist ainda está em BUILD quando o INTEGRATE é chamado:
+
+```
+════════════════════════════════════════
+⏸ INTEGRATE INDISPONÍVEL — LOOP PARCIAL
+════════════════════════════════════════
+Loop 1 ainda não está completo.
+
+Specialists concluídos:  F ✓  B ✓
+Specialists pendentes:   T ○
+
+INTEGRATE só executa quando todos os specialists fecharem BUILD.
+
+[1] Pausar — salvar estado e continuar depois
+[2] Cancelar
+════════════════════════════════════════
+```
+
+**Pause** salva o progresso parcial no STATE.md sem criar INTEGRATE.md. Quando o specialist pendente terminar, o INTEGRATE executa normalmente.
 
 ---
 
@@ -63,17 +90,20 @@ O INTEGRATE sempre executa code review antes de fechar o loop. A fonte é escolh
 
 ```
 .orbti/projects/{slug}/
-├── 01-loop1-F-INTEGRATE.md   ← reconciliação + resultado
-└── 01-loop1-F-REVIEW.md      ← code review detalhado
+├── loop1-INTEGRATE.md        ← fechamento do loop inteiro (único por loop)
+├── 01-loop1-F-REVIEW.md      ← code review do Front
+└── 02-loop1-B-REVIEW.md      ← code review do Back
 ```
 
-**INTEGRATE.md contém:**
-- O que foi construído (tabela: arquivo, propósito, linhas)
-- ACs: cada uma passou ou falhou, com evidência
-- Resultado do code review (link para REVIEW.md + status: PASS / PASS COM RESSALVAS / FAIL)
+**`loopN-INTEGRATE.md` contém:**
+- Objetivo do loop (do COCREATE ou REFINE)
+- Tabela de specialists: cada um com status PASS/FAIL
+- O que foi construído (tabela consolidada: arquivo, specialist, propósito)
+- ACs consolidadas: cada uma de todos os specialists (passou ou falhou, com evidência)
+- Resultado dos code reviews (links para cada REVIEW.md)
 - Desvios em relação ao REFINE.md (com explicação)
 - Deferred issues (minor findings para tratar depois)
-- Próxima ação
+- Próximo loop
 
 ---
 
@@ -89,39 +119,36 @@ Para commitar após integrar, use os special flows configurados em `SPECIAL-FLOW
 
 ---
 
-## Reconciliação: Plano vs Real
+## Reconciliação: Plano vs Real (por specialist)
 
-Para cada AC do REFINE:
+Para cada AC de cada REFINE do loop:
 
 ```
-AC: "GET /remessas retorna 200 com lista paginada"
+Specialist B — AC 1: "POST /automacao enfileira job corretamente"
   Status: ✓ PASS
-  Evidência: endpoint criado em carteira.controller.ts, teste manual confirmado
+  Evidência: unit test passando, job shape confirmado
 
-AC: "Filtro por status funciona"
-  Status: ✓ PASS
-  Evidência: implementado via query param ?status=
-
-AC: "Estado de erro exibe toast"
+Specialist F — AC 2: "Tela exibe status da automação em tempo real"
   Status: ✗ FAIL
-  Detalhe: implementado sem toast — exibe texto inline. Desvio documentado.
+  Detalhe: polling implementado mas sem feedback visual de loading. Desvio documentado.
 ```
 
 ---
 
 ## STATE.md após o INTEGRATE
 
-O loop é marcado como completo:
+O loop inteiro é marcado como completo (não por specialist):
 
 ```
-Loop 1 — Front:
-  REFINE ✓  BUILD ✓  INTEGRATE ✓
+Loop 1 — Automação D-5:
+  F: REFINE ✓  BUILD ✓
+  B: REFINE ✓  BUILD ✓
+  INTEGRATE ✓  ← loop fechado
 
-Loop 1 — Back:
-  REFINE ✓  BUILD ✓  INTEGRATE ✓
-
-Loop 2 — Front:
-  REFINE ○  BUILD ○  INTEGRATE ○  ← próximo
+Loop 2 — Efetividade:
+  F: REFINE ○  BUILD ○
+  B: REFINE ○  BUILD ○
+  INTEGRATE ○  ← próximo
 ```
 
 ---
@@ -129,7 +156,7 @@ Loop 2 — Front:
 ## Após o INTEGRATE
 
 ```
-INTEGRATE completo
+INTEGRATE do Loop N completo
       │
       ├── Mais loops no projeto → /orbti:refine {slug}  (loop N+1)
       │

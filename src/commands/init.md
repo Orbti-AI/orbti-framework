@@ -16,10 +16,10 @@ Creates PROJECT.md, STATE.md, and ROADMAP.md populated from conversation - user 
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/init-project.md
-@~/.claude/orbti-framework/templates/PROJECT.md
-@~/.claude/orbti-framework/templates/STATE.md
-@~/.claude/orbti-framework/templates/ROADMAP.md
+@./.claude/orbti-framework/workflows/init-project.md
+@./.claude/orbti-framework/templates/PROJECT.md
+@./.claude/orbti-framework/templates/STATE.md
+@./.claude/orbti-framework/templates/ROADMAP.md
 </execution_context>
 
 <context>
@@ -27,7 +27,7 @@ Current directory state (check for existing .orbti/)
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbti-framework/workflows/init-project.md**
+**Follow workflow: @./.claude/orbti-framework/workflows/init-project.md**
 
 The workflow implements conversational setup:
 

@@ -26,8 +26,8 @@ No multiple options. Prevents decision fatigue. User can redirect if needed.
 </required_reading>
 
 <references>
-@~/.claude/orbti-framework/references/context-management.md
-@~/.claude/orbti-framework/references/loop-phases.md
+@./.claude/orbti-framework/references/context-management.md
+@./.claude/orbti-framework/references/loop-phases.md
 </references>
 
 <process>
@@ -157,8 +157,40 @@ Stopped at: [what was happening]
   [brief description of what it does]
 ────────────────────────────────────────
 
-Type "yes" to proceed, or type a project number/name to switch projects.
 ```
+
+Then use AskUserQuestion — **opções variam conforme a fase atual:**
+
+**Se loop position = OBSERVE ✓, REFINE ○** (vindo de um observe):
+```
+question: "Como quer prosseguir?"
+header: "Próximo passo"
+options:
+  - label: "Refine"
+    description: "Quebrar goals em fases e tarefas → /orbti:refine {slug}"
+  - label: "Cocreation"
+    description: "Pesquisar opções técnicas antes de planejar → /orbti:cocreate {slug}"
+```
+
+**Para qualquer outra fase (BUILD, INTEGRATE, etc.):**
+```
+question: "O que quer fazer?"
+header: "Próximo passo"
+options:
+  - label: "Continuar"
+    description: "Prosseguir com a próxima ação: {next_command}"
+  - label: "Atualizar contexto"
+    description: "Adicionar informações ou corrigir algo antes de continuar"
+  - label: "Trocar projeto"
+    description: "Trabalhar em outro projeto pendente"
+```
+
+**Route:**
+- "Refine" → run `/orbti:refine {slug}`
+- "Cocreation" → run `/orbti:cocreate {slug}`
+- "Continuar" → execute the single next action
+- "Atualizar contexto" → ask what needs updating, apply to OBSERVE.md or STATE.md, then re-display
+- "Trocar projeto" → run `detect_active_projects` to list and select
 
 **IMPORTANT:** If only one active project — ONE next action, no choice needed.
 If multiple active/paused — run `detect_active_projects` step first to let user pick.

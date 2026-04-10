@@ -11,7 +11,7 @@ Execute an approved REFINE.md by running tasks in order, verifying each, handlin
 <loop_context>
 Expected phase: BUILD
 Prior phase: REFINE (approval just received)
-Next phase:  INTEGRATE (after execution completes)
+Next phase: TEST → INTEGRATE
 </loop_context>
 
 <required_reading>
@@ -20,38 +20,125 @@ Next phase:  INTEGRATE (after execution completes)
 </required_reading>
 
 <references>
-@~/.claude/orbti-framework/references/checkpoints.md (if refine has checkpoints)
-@~/.claude/orbti-framework/references/loop-phases.md
+@./.claude/orbti-framework/references/checkpoints.md (if refine has checkpoints)
+@./.claude/orbti-framework/references/loop-phases.md
+@./.claude/orbti-framework/references/tdd.md (se test_writer.enabled: true)
 </references>
 
 <process>
 
-<step name="check_test_writer" priority="blocking">
-**BLOCKING CHECK: Must run before any task execution. Do not skip.**
+<step name="check_parallel_mode" priority="blocking">
+**Primeiro: detectar o modo de invocação pelo argumento passado.**
 
-Check if Test Writer is enabled:
+## Regra de roteamento por argumento
+
+| Argumento | Modo | Comportamento |
+|-----------|------|---------------|
+| Arquivo REFINE (ex: `.orbti/projects/foo/01-loop1-F-REFINE.md`) | **single** | Executa APENAS aquele refine — explícito e exclusivo |
+| Diretório de projeto (ex: `.orbti/projects/foo`) | **next-loop** | Executa a PRÓXIMA loop pendente — apenas ela |
+| Nome do projeto (ex: `eficiencia-debito`) | **next-loop** | Resolve para o diretório, comportamento idêntico |
+
+**Se argumento é um arquivo:**
+→ Modo **single**: executa apenas aquele refine. Ignora todos os outros. Ir para `validate_approval`.
+
+**Se argumento é um diretório ou nome de projeto:**
+→ Modo **next-loop**: identificar a próxima loop pendente, executar SOMENTE ela. Parar ao terminar a loop — loop N+1 requer novo `/orbti:build`.
+
+---
+
+## Identificar próxima loop pendente (modo next-loop)
+
+**1. Ler LOOP.md se existir:**
+```bash
+cat .orbti/projects/{projeto}/LOOP.md 2>/dev/null
+```
+LOOP.md é a fonte de verdade sobre a estrutura de loops do projeto. Se existir, usá-la para identificar qual loop está pendente.
+
+**2. Fallback — escanear REFINEs sem INTEGRATE (novo naming):**
+```bash
+for f in .orbti/projects/{projeto}/[0-9]*-loop*-*-REFINE.md; do
+  base="${f%-REFINE.md}"
+  [ ! -f "${base}-INTEGRATE.md" ] && echo "$f"
+done
+```
+Agrupar por `loop:` do frontmatter. O menor número de loop sem todos os REFINEs integrados = próxima loop.
+
+**Nota sobre refine T (Test):** ao identificar refines da loop, incluir o `NN-loopN-T-REFINE.md` se existir — ele faz parte da loop e deve ser executado junto.
+
+**3. Determinar modo de execução:**
 
 ```bash
-grep "test_writer:" .orbti/config.md 2>/dev/null | grep "enabled: true"
-grep "agent_teams:" .orbti/config.md 2>/dev/null | grep "enabled: true"
+grep "parallel_build:" .orbti/config.md 2>/dev/null -A1 | grep "enabled: true"
+echo $CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS
 ```
 
-Both off by default. Enable via `/orbti:config`.
+Se `parallel_build.enabled: false` OU env var ausente → sequencial:
+```
+⚠ Rodando sequencial (parallel_build desativado ou CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS não setado).
+Para ativar paralelo: ./.claude/settings.json → { "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }
+```
 
-| Test Writer | Agent Teams | BUILD behavior |
-|-------------|-------------|----------------|
-| OFF (default) | OFF | Build only — no test writing |
-| OFF (default) | ON  | Build only — no test writing. Agent Teams active in other phases (cocreate, integrate) |
-| ON | OFF | Sequential — write test after each task completes |
-| ON | ON  | Parallel — spawn builder + test-writer agents simultaneously |
+Se `parallel_build.enabled: true` e env var = "1":
+- 1 REFINE na loop → modo single
+- 2+ REFINEs na loop → `parallel_team_build`
+</step>
 
-Route:
-- `test_writer.enabled: false` (any teams state) → proceed to `execute_tasks`, no test writing
-- `test_writer.enabled: true` AND teams ON → skip to `parallel_team_build`
-- `test_writer.enabled: true` AND teams OFF → proceed to `execute_tasks` with sequential test writing
+<step name="check_test_refine">
+**Verificar se há refine T (Test) na loop sendo executada.**
 
-If this step was skipped and tasks were already executed: log deviation to STATE.md Decisions:
-`| [date]: check_test_writer skipped — test_writer config not checked before BUILD | Project [N] | Tests may need to be written manually post-build |`
+```bash
+# Detectar refine T da loop atual
+LOOP_NUM=$(grep "^loop:" {refine_path} | cut -d: -f2 | tr -d ' ')
+ls .orbti/projects/{projeto}/[0-9]*-loop${LOOP_NUM}-T-REFINE.md 2>/dev/null
+```
+
+**Se refine T existe:**
+- Incluir na execução da loop (junto com F, B, A)
+- O BUILD irá construir os testes automatizados definidos no refine T
+- Exibir ao usuário: `✓ Refine T encontrado — testes automatizados serão construídos`
+
+**Se refine T não existe:**
+- Não construir testes automatizados
+- Silencioso — não avisar ao usuário sobre ausência de testes
+- O TEST workflow (manual/checkpoint) ainda pode ser executado após o BUILD
+</step>
+
+<step name="check_tdd_mode" priority="first">
+**Verificar se o projeto usa TDD (testes escritos antes do BUILD):**
+
+```bash
+grep -i "tdd\|test.first\|test-first" .orbti/SPECIAL-FLOWS.md 2>/dev/null
+```
+
+**Se TDD declarado em SPECIAL-FLOWS.md:**
+
+1. Verificar se já existem testes escritos para este refine:
+   ```bash
+   ls testes/*/$(basename $REFINE_PATH | sed 's/-REFINE.md//')/ 2>/dev/null || \
+   cat .orbti/TESTS.md 2>/dev/null | grep -A2 "path:" | head -6
+   ```
+
+2. Se testes NÃO existem ainda → **BLOQUEAR BUILD**:
+   ```
+   ════════════════════════════════════════
+   ⛔ BLOQUEADO: Projeto em modo TDD
+   ════════════════════════════════════════
+   Testes devem ser escritos ANTES do BUILD.
+
+   ▶ NEXT: /orbti:test [refine-path]
+     Escreva os testes (devem falhar), depois aprove o BUILD.
+   ════════════════════════════════════════
+   ```
+
+3. Se testes EXISTEM → confirmar que estão falhando (esperado em TDD):
+   ```
+   ✓ Testes encontrados — modo TDD ativo.
+   Os testes devem estar falhando agora (red).
+   O BUILD vai fazê-los passar (green).
+   ```
+   → Continuar para `validate_approval`.
+
+**Se TDD não declarado:** → continuar para `validate_approval` normalmente.
 </step>
 
 <step name="validate_approval" priority="first">
@@ -64,9 +151,7 @@ If this step was skipped and tasks were already executed: log deviation to STATE
 3. If approval unclear:
    - Ask: "Refine ready at [path]. Approve refine execution?"
    - Wait for explicit approval before proceeding
-4. Check execution mode:
-   - If invoked via `/orbti:build-bg` → route to `background_build` step
-   - Otherwise → proceed with foreground execution
+4. Proceed with foreground execution.
 </step>
 
 <step name="background_build">
@@ -74,59 +159,207 @@ If this step was skipped and tasks were already executed: log deviation to STATE
 
 Check REFINE.md frontmatter:
 ```
-autonomous: true   → background allowed
-autonomous: false  → has checkpoints, cannot run unattended
+autonomous: true   → executa todas as tasks direto, sem pedir confirmação a cada passo
+autonomous: false  → pausa após cada task para revisão/confirmação do usuário — não pode rodar em background
 ```
 
-If `autonomous: false`:
+**Com `autonomous: true`, o agente ainda para em:**
+- `checkpoint:human-verify` — validação humana explícita no REFINE
+- `checkpoint:human-action` — ação humana indispensável
+- Cenários `manual` no TEST-PLAN
+- INTEGRATE — **sempre** requer aprovação humana
+
+Se `autonomous: false`:
 ```
-This refine has checkpoints that require your input — it cannot run in the background.
-Run in foreground instead? [yes / no]
+Este refine requer confirmação a cada task — não pode rodar em background.
+Rodar em foreground? [sim / não]
 ```
 
-If `autonomous: true`, spawn a background agent:
+**Worktree: isolamento nativo via parâmetro `isolation: "worktree"` do Agent tool:**
+
+Se `worktree.enabled: true` no frontmatter do REFINE.md:
+
+Passar `isolation: "worktree"` diretamente no Agent tool ao spawnar o builder:
+
+```
+Agent(
+  name: "builder-{slug}",
+  run_in_background: true,
+  isolation: "worktree",     ← Claude Code cria branch física isolada automaticamente
+  prompt: "..."
+)
+```
+
+O Claude Code gerencia o worktree automaticamente:
+- Cria um branch isolado fisicamente separado
+- O agente trabalha nessa cópia sem afetar a branch atual
+- Se o agente fez mudanças: `worktree_path` e `branch` são retornados no resultado
+- Se o agente não fez mudanças: worktree é removido automaticamente
+
+No BUILD COMPLETE (quando `worktree_path` e `branch` retornados):
+```
+Branch: [branch retornada]
+Path:   [worktree_path retornado]
+
+Para revisar:  cd [worktree_path] && git diff main
+```
+
+No INTEGRATE: usar branch retornada para merge.
+
+Se `worktree: enabled: false` ou ausente → spawnar normalmente sem `isolation`.
+
+Se `autonomous: true`, spawn a background agent:
 
 ```
 Spawn background agent for: [refine-path]
 
-The agent must:
-1. Execute all tasks in order (same rules as execute_tasks step)
-2. Run each <verify> step
-3. Respect all <boundaries>
-4. On task failure: log the failure, stop, do NOT continue to next task
-5. On completion: update STATE.md loop position to BUILD ✓
-6. Report summary when done
-
-The agent does NOT pause for checkpoints — refine must be fully autonomous.
+O agente deve:
+1. Executar todas as tasks em ordem
+2. Rodar cada <verify>
+3. Respeitar todos os <boundaries>
+4. Se test_writer.enabled: seguir TDD para cada task (RED→GREEN→REFACTOR)
+5. Ao encontrar checkpoint:human-verify ou human-action: PARAR, reportar ao lead via SendMessage
+6. Ao encontrar cenário `manual` no TEST-PLAN: registrar como 'skipped' e continuar
+7. Em falha de task: logar, parar, NÃO continuar para próxima task
+8. Ao concluir BUILD + TESTS: reportar 'BUILD DONE: <refine-id> | TESTS: <status>'
+9. NUNCA rodar INTEGRATE — parar após BUILD DONE
 ```
 
 Confirm to user:
 ```
 ════════════════════════════════════════
-BUILD RUNNING IN BACKGROUND
+BUILD RUNNING IN BACKGROUND (worktree isolado)
 ════════════════════════════════════════
 
 Refine: [refine-path]
 Tasks: [N] tasks
 
-You will be notified when complete.
-You can continue other work in the meantime.
+Execução isolada — sua branch atual não será afetada.
+Você será notificado quando concluir.
 ════════════════════════════════════════
 ```
 
-When background agent completes, present the same BUILD COMPLETE summary
-as the foreground finalize step, then offer INTEGRATE.
+When background agent completes:
+
+**Se o agente fez mudanças** (worktree_path e branch retornados):
+```
+════════════════════════════════════════
+BUILD COMPLETE — worktree disponível
+════════════════════════════════════════
+[execution summary]
+────────────────────────────────────────
+Branch: [branch retornada pelo agente]
+Path:   [worktree_path retornado pelo agente]
+
+Para revisar:  cd [worktree_path] && git diff main
+Para aprovar:  git merge [branch]
+Para descartar: git worktree remove [worktree_path] && git branch -d [branch]
+────────────────────────────────────────
+Continue to TEST?
+[1] Yes, run /orbti:test | [2] Pause here
+════════════════════════════════════════
+```
+
+**Se o agente não fez mudanças** (worktree removida automaticamente):
+Apresentar o BUILD COMPLETE summary padrão do foreground finalize step, então oferecer INTEGRATE.
 </step>
 
 <step name="load_plan">
 1. Read the REFINE.md file
 2. Parse frontmatter:
+   - type: determines execution route (execute | prototype | tdd | research)
    - autonomous: determines checkpoint handling
    - files_modified: track what we'll change
    - depends_on: verify dependencies met
-3. Extract tasks from <tasks> section
-4. Note boundaries from <boundaries> section
-5. Load acceptance criteria for verification reference
+3. **Se `type: front`:** ir para `front_build` — não executar fluxo backend padrão.
+4. Extract tasks from <tasks> section
+5. Note boundaries from <boundaries> section
+6. Load acceptance criteria for verification reference
+</step>
+
+<step name="front_build">
+**Executar quando `type: front`. Constrói frontend — componentes React, páginas, UI.**
+
+## 1. Detectar contexto de execução
+
+Antes de construir, verificar se este REFINE-FRONT declara um backend associado:
+
+```bash
+# 1. Checar campo integrates_with no frontmatter (declaração explícita — preferencial)
+grep "^integrates_with:" {refine-path}
+
+# 2. Fallback: escanear backends na mesma loop sem INTEGRATE.md
+for f in .orbti/projects/{projeto}/[0-9]*-REFINE.md; do
+  [ ! -f "${f%-REFINE.md}-INTEGRATE.md" ] && grep -q "type: execute\|type: tdd" "$f" 2>/dev/null && echo "$f"
+done
+```
+
+**Preferir `integrates_with` quando presente** — é a declaração explícita do refine. O scan é fallback para REFINEs criados antes desta feature.
+
+**Dois cenários possíveis:**
+
+### Cenário A — Só frontend (sem backend na loop)
+
+→ Construir com dados mockados. Finalizar normalmente. Ir para `finalize`.
+
+### Cenário B — Frontend + Backend em paralelo
+
+→ Executar em duas fases:
+
+**Fase 1 — Construir com mocks (não aguardar backend)**
+
+Construir o frontend completo usando dados mockados:
+- Componentes, páginas, layout
+- Dados mockados inline ou em arquivo `_mock.ts`
+- Todos os ACs de UI verificados com dados mockados
+
+Quando fase 1 completa → se rodando como builder em parallel_team_build:
+```
+SendMessage → lead: "FRONT MOCK DONE: <refine-id> — frontend construído com mocks, aguardando backend"
+```
+
+**Fase 2 — Aguardar backend e finalizar integração**
+
+Aguardar o builder do backend reportar `BUILD DONE` (via notificação do lead ou diretamente).
+
+Quando backend disponível, executar tasks de integração:
+- Substituir chamadas mockadas pelos hooks/services reais
+- Conectar ao endpoint criado pelo backend
+- Remover arquivos `_mock.ts` se dados agora vêm da API
+- Verificar que a tela funciona com dados reais (ou com os types/contracts exportados pelo backend)
+
+**Se rodando em modo sequencial (sem Agent Teams):**
+O lead verifica manualmente se o backend foi construído antes de continuar a fase 2.
+Se backend ainda não foi construído → pausar e informar:
+```
+⏸ Frontend (fase 1 com mocks) concluído.
+  Aguardando backend ser construído antes de integrar.
+  Quando backend estiver pronto: /orbti:build [projeto] para continuar fase 2.
+```
+
+---
+
+## 2. Carregar referências de design
+
+- Ler frontmatter do REFINE-FRONT.md: `prototype` e `prototype_tool`
+  - Se `prototype` presente → usar como referência visual primária durante a construção
+  - `prototype_tool` indica onde buscar: paper (MCP paper), pencil (MCP pencil), figma (MCP plugin), html (ler arquivo)
+- Se `.orbti-design/system.md` existe → carregar tokens, componentes e padrões antes de executar tasks
+
+## 3. Usar o Component Map
+
+Ler a seção `## Component Map` do REFINE-FRONT.md.
+Para cada elemento:
+- **reutilizar**: importar o componente exato especificado — não criar alternativa
+- **estender**: usar o componente base + aplicar o wrapper/variante descrito
+- **criar**: criar o componente novo seguindo as props e tokens especificados no refine
+
+## 4. Executar tasks de frontend
+
+Mesma engine que refines tech: checkpoints, qualidade e verificação padrão.
+Diferença: não rodar testes de backend, migrations ou scripts de banco.
+
+Ao concluir (fase 1 ou fase 1+2 dependendo do cenário), ir para `finalize`.
 </step>
 
 <step name="verify_required_skills" priority="blocking">
@@ -169,67 +402,38 @@ as the foreground finalize step, then offer INTEGRATE.
 </step>
 
 <step name="execute_tasks">
+**Ler `autonomous:` do frontmatter do REFINE antes de iniciar as tasks.**
+
+| autonomous | Comportamento |
+|------------|---------------|
+| `true` | Executa todas as tasks direto, sem parar. Só para em `checkpoint:*` explícitos. |
+| `false` | Após cada task `type="auto"`, apresenta o que foi feito e aguarda confirmação antes de avançar para a próxima. |
+
+---
+
 For each <task> in order:
 
-**Solution checkpoint — before each task:**
-
-Read `Solution Intent` from CONTEXT.md (or REFINE.md objective). State explicitly:
-```
-WHO: [who this serves]
-WHAT: [what they accomplish with this task's output]
-FEEL: [how the solution should behave — fast? explicit? forgiving?]
-```
-
-This prevents defaulting to the most common implementation pattern. Every decision in the task — data model, error handling, API shape, or UI component — should connect back to these answers.
-
-If CONTEXT.md has no Solution Intent: proceed, but note the absence. Defaults are more likely.
-
-**Skip the solution checkpoint when the task has no interface** — purely internal work (architecture, security, infra, refactor with no interaction surface). The REFINE.md ACs define success for these tasks.
-
-**If the task produces visual UI:**
-
-Visual craft is delegated to the agentic-design skill declared in `.orbti/SPECIAL-FLOWS.md`.
-
-If agentic-design was loaded (confirmed by `verify_required_skills`):
-- The skill handles design system, tokens, and craft review
-- Feed it the Solution Intent from CONTEXT.md as WHO/WHAT/FEEL input when invoking
-
-If agentic-design is NOT declared in SPECIAL-FLOWS.md:
-```
-This task builds UI. Visual craft is not enforced without the agentic-design skill.
-→ Add it to .orbti/SPECIAL-FLOWS.md as required and reload, OR
-→ Type "proceed" to continue — Solution Intent will guide decisions but no craft system
-```
-If user proceeds without the skill: apply Solution Intent (WHO/WHAT/FEEL) to visual decisions at minimum.
-
-**Agent learning (all task types):**
-After task execution, if ANY of these occurred:
-- User corrected an approach or redirected the implementation
-- A tool or command behaved unexpectedly
-- A deviation from REFINE was required
-- A technique worked unusually well
-
-→ Append to `.orbti/RUNBOOK.md` under the relevant category:
-```
-1. **[YYYY-MM-DD] [Short rule title]**
-   Do instead: [concrete repeatable action]
-```
-Only log recurring, high-value guidance. Skip one-off events.
-
-**If type="auto":**
+**If type="auto" e autonomous: true:**
 1. Log task start: "Task N: [name]"
-2. Execute <action> content:
-   - Create/modify files specified in <files>
-   - Follow specific instructions
-   - Respect boundaries (DO NOT CHANGE protected files)
-3. Run <verify> command/check
-4. Record result:
-   - PASS: verification succeeded
-   - FAIL: verification failed (stop and report)
-5. Note <done> criteria satisfied
-6. **If sequential test writing active** (`test_writer.enabled: true` AND teams not active):
-   Write integration test for the AC this task satisfies (from <done> field).
-   Use project's existing test runner and conventions. One test per AC, behavior not implementation.
+2. Executar ação
+3. Rodar verify
+4. Registrar resultado (PASS/FAIL) e continuar imediatamente para próxima task
+
+**If type="auto" e autonomous: false:**
+1. Log task start: "Task N: [name]"
+2. Executar ação
+3. Rodar verify
+4. Apresentar resultado:
+   ```
+   ──────────────────────────────
+   Task [N]/[Total]: [nome]
+   ✓ [O que foi feito — arquivos criados/modificados]
+   Verify: [output do verify]
+   ──────────────────────────────
+   Continuar para task [N+1]? (sim / abortar)
+   ```
+5. Aguardar confirmação antes de continuar
+6. Se "abortar": registrar onde parou, oferecer retomada
 
 **If type="checkpoint:human-verify":**
 1. Stop execution
@@ -305,42 +509,237 @@ Only log recurring, high-value guidance. Skip one-off events.
 </step>
 
 <step name="parallel_team_build">
-**Team mode: builder + test-writer in parallel**
+**Modo paralelo — Agent Teams. Só chega aqui com 2+ refines elegíveis e env var ativa.**
 
-Only runs when `test_writer.enabled: true` AND `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`.
+## Modelo de execução: Loop = um bloco de construção
 
-Spawn a 2-agent team sharing the same task list:
+**Uma invocação de `/orbti:build` = uma loop. Loop N+1 requer novo `/orbti:build`.**
+
+Uma loop pode conter múltiplos REFINEs. Todos os REFINEs da loop são spawnados em paralelo — a diferença está em como eles se comunicam:
 
 ```
-Create a build team for refine: [refine-path]
-
-Spawn 2 teammates:
-
-- builder: implement the tasks in REFINE.md in order.
-  For each task: execute <action>, run <verify>, log result.
-  After each task completes, post to shared task list: "task-N done: [AC satisfied]"
-
-- test-writer: write integration tests for each AC as builder completes tasks.
-  Watch the task list for "task-N done" signals.
-  For each completed task: write a focused integration test for the AC it satisfies.
-  Rules:
-    - Use the project's existing test runner (detect from package.json / pytest.ini / go.mod)
-    - Place tests in the project's existing test directory (match conventions)
-    - One test per AC, named clearly referencing the AC
-    - Test behavior, not implementation details
-    - No new dependencies
-  Post to task list when each test is written: "test-AC-N written"
-
-Both agents respect REFINE.md boundaries (DO NOT CHANGE sections).
-Builder blocks on checkpoints — test-writer continues working on other ACs.
+LOOP 1
+  ├── sem depends_on: []    → spawna e executa de forma independente
+  └── depends_on: ['02']   → spawna em paralelo MAS comunica com builder-02 via SendMessage
+      ↓ quando TODA a loop terminar + INTEGRATE aprovado → pode iniciar LOOP 2
+LOOP 2
+  ├── sem depends_on: []    → spawna independente
+  └── depends_on: ['04']   → spawna em paralelo, comunica com builder-04
 ```
 
-Team lead monitors both agents. On builder checkpoint: pause team, present checkpoint to user, resume after response.
+**Regra de `depends_on`:**
+`depends_on` NÃO significa "esperar X terminar antes de começar". Significa "ambos constroem em paralelo, mas há um ponto de comunicação obrigatório entre eles". O builder dependente envia/recebe sinais do builder do qual depende via SendMessage quando precisar de informação (ex: contrato de API, tipos exportados, URL do endpoint).
 
-After both agents complete:
-- Verify all tasks have a corresponding test
-- Any missing: test-writer fills the gap before proceeding
-- Proceed to `finalize` step
+---
+
+### 1. Agrupar REFINEs por loop e montar grafo de dependências
+
+```bash
+# Para cada REFINE pendente, extrair loop e depends_on do frontmatter
+for f in .orbti/projects/{projeto}/[0-9]*-REFINE.md; do
+  [ ! -f "${f%-REFINE.md}-INTEGRATE.md" ] && echo "$f"
+done
+```
+
+Construir estrutura:
+```
+loop 1:
+  01 — depends_on: []        → PARALELO (disponível já)
+  02 — depends_on: []        → PARALELO (disponível já)
+  03 — depends_on: ['02']    → SEQUENCIAL (aguarda 02 dentro da loop)
+
+loop 2:
+  04 — depends_on: []        → PARALELO (disponível quando loop 1 terminar)
+  05 — depends_on: ['04']    → SEQUENCIAL (aguarda 04 dentro da loop 2)
+```
+
+---
+
+### 2. Executar loop por loop
+
+**Para cada loop (em ordem crescente):**
+
+#### 2a. Spawnar todos os REFINEs da loop atual
+
+**Todos os REFINEs da loop são spawnados simultaneamente** — independente de `depends_on`.
+
+`depends_on` não bloqueia o spawn. Controla a **comunicação** entre os builders durante a execução.
+
+Spawnar todos de uma vez em uma única mensagem (paralelo real):
+
+```
+Agent tool — uma chamada por REFINE, TODAS na mesma mensagem:
+
+Agent(
+  name: "builder-<refine-id>",
+  run_in_background: true,                    ← fork — não bloqueia o lead
+  isolation: "worktree" (se worktree: enabled: true no REFINE),  ← isolamento nativo
+  prompt: "Você é o builder do refine <refine-id>.
+           Execute o REFINE.md em: <caminho>
+           Siga as regras do workflow build.md (execute_tasks, verify, boundaries).
+
+           ## Testes (se test_writer.enabled: true no config)
+
+           Seguir o ciclo TDD para cada task de implementação:
+
+           **LEI ABSOLUTA: NENHUM CÓDIGO DE PRODUÇÃO SEM UM TESTE FALHANDO PRIMEIRO.**
+           Escrever código antes do teste? Deletar. Começar de novo.
+
+           Entrada: TEST-PLAN.md em <caminho-test-plan> — cenários por AC.
+
+           Para cada AC no TEST-PLAN:
+           1. RED: Escrever o teste mínimo que descreve o comportamento esperado.
+              Rodar. CONFIRMAR que FALHA pelo motivo correto (feature ausente, não typo).
+              Se o teste passar: você está testando comportamento já existente — corrigir o teste.
+           2. GREEN: Escrever o código MÍNIMO para o teste passar.
+              Sem otimizações, sem features extras. Só fazer o teste verde.
+              Rodar. CONFIRMAR que passa. Confirmar que outros testes não quebraram.
+           3. REFACTOR: Limpar sem adicionar comportamento.
+              Rodar. CONFIRMAR que continua verde.
+
+           Racionalizações proibidas:
+           - "Vou escrever os testes depois" → deletar o código, começar com TDD
+           - "É simples demais para testar" → testes simples levam 30 segundos
+           - "Já testei manualmente" → manual não é automático, não reentra
+           - "Manter como referência enquanto escrevo os testes" → deletar
+
+           Se agent_teams.enabled: true → após escrever todos os testes (RED completo),
+           spawnar agentes em paralelo (um por AC) para GREEN+REFACTOR simultâneos.
+           Cada agente reporta: 'TEST PASS: AC-N' ou 'TEST FAIL: AC-N — [erro]'
+
+           Ao finalizar: atualizar TEST-PLAN.md (resultado por cenário + status: passed|failed|partial).
+
+           ## Checkpoints
+           Quando encontrar checkpoint (human-verify, decision, human-action):
+             - PARE a execução
+             - Envie mensagem ao lead via SendMessage: 'CHECKPOINT [tipo] em task [N]: [conteúdo]'
+             - Aguarde resposta do lead antes de continuar.
+
+           ## Comunicação com outros builders (se depends_on presente)
+
+           Se este REFINE tem depends_on: ['<outro-id>']:
+           - Você e o outro builder estão rodando em paralelo
+           - Quando precisar de informação do outro (contrato de API, tipos, endpoint):
+             SendMessage → builder-<outro-id>: 'PRECISO: <o que precisa>'
+           - Quando o outro te pedir informação:
+             Responder via SendMessage com o que foi solicitado
+           - Quando tiver algo pronto que o outro precisa (ex: endpoint, types):
+             SendMessage → builder-<outro-id>: 'PRONTO: <o que está disponível>'
+           - Nunca bloquear indefinidamente — se o outro não responder em tempo razoável,
+             continuar com mocks e reportar ao lead
+
+           Ao finalizar todas as tasks: envie ao lead via SendMessage:
+           'BUILD DONE: <refine-id> | TESTS: passed/failed/partial/skipped | URLS: <lista de rotas criadas, separadas por vírgula — só se type: front>'
+
+           ⚠ NUNCA rodar INTEGRATE automaticamente.
+           INTEGRATE só ocorre quando o usuário aprovar explicitamente.
+           Sua responsabilidade termina em BUILD DONE."
+)
+```
+
+Lançar **todos os REFINEs da loop em uma única mensagem** para execução simultânea real.
+
+Anunciar ao usuário:
+```
+▶ Loop [N] iniciada:
+  [builder-01] → fork background
+  [builder-02] → fork background
+  [builder-03] → fork background (comunica com builder-02 via depends_on)
+```
+
+#### 2b. Monitorar execução da loop
+
+O lead aguarda notificações dos builders em background.
+
+**Quando receber `CHECKPOINT` via SendMessage de um builder:**
+- Apresentar ao usuário (human-verify / decision / human-action)
+- Aguardar resposta do usuário
+- Repassar ao builder via `SendMessage → builder-<refine-id>`
+- Builder retoma
+
+**Quando receber `BUILD DONE: <refine-id>` via SendMessage:**
+- Registrar conclusão
+- Verificar se algum REFINE bloqueado na loop foi desbloqueado por esta conclusão:
+  - Se sim → spawnar agora com `run_in_background: true`:
+    ```
+    ▶ builder-<refine-bloqueado> desbloqueado — fork background iniciado
+    ```
+  - Se não → aguardar demais builders da loop
+
+#### 2c. Fechar o ciclo da loop antes de avançar
+
+**Loop N+1 só começa após o ciclo completo da loop N: BUILD + INTEGRATE.**
+
+⚠ **INTEGRATE NUNCA ocorre automaticamente — nem para `autonomous: true`.**
+O INTEGRATE sempre requer aprovação explícita do usuário, independente do tipo de REFINE.
+
+**Comportamento por tipo de REFINE:**
+
+`autonomous: true` → o builder faz BUILD sem checkpoints e reporta `BUILD DONE`.
+O lead aguarda todos os builders reportarem `BUILD DONE`, apresenta o resumo ao usuário e aguarda aprovação para INTEGRATE.
+
+`autonomous: false` → o builder faz BUILD, pausa em checkpoints, lead trata manualmente.
+Após BUILD concluído, mesma regra: lead apresenta ao usuário e aguarda aprovação para INTEGRATE.
+
+**Finalizar a loop atual e parar:**
+
+Quando todos os builders da loop atual reportarem `BUILD DONE`:
+
+```
+════════════════════════════════════════
+LOOP [N] COMPLETA
+════════════════════════════════════════
+builder-01 → ✓ BUILD DONE
+builder-02 → ✓ BUILD DONE  http://localhost:3010/carteira/eficiencia/remessas
+builder-03 → ✓ BUILD DONE
+
+Próximo passo obrigatório: TESTE — INTEGRATE só roda após testes aprovados.
+Execute: /orbti:test .orbti/projects/[projeto]/
+Após testes aprovados: /orbti:integrate [projeto]
+Após INTEGRATE: /orbti:build [projeto] para iniciar loop [N+1]
+════════════════════════════════════════
+```
+
+**PARAR.** Não iniciar loop N+1 automaticamente.
+O usuário decide quando rodar `/orbti:build` novamente para a próxima loop.
+
+**Regra absoluta: uma invocação de `/orbti:build` = uma loop. Loop N+1 requer novo `/orbti:build`.**
+
+---
+
+### 3. Finalizar após última loop
+
+Após todos os builders de todas as loops reportarem `BUILD DONE`:
+
+```
+════════════════════════════════════════
+BUILD COMPLETO
+════════════════════════════════════════
+
+Loop 1:
+  builder-01 → ✓ concluído
+  builder-02 → ✓ concluído
+  builder-03 → ✓ concluído (sequencial após 02)
+
+Loop 2:
+  builder-04 → ✓ concluído
+────────────────────────────────────────
+Falhas: nenhuma | Desvios: nenhum
+════════════════════════════════════════
+```
+
+Atualizar STATE.md: loop position BUILD ✓ para cada refine.
+
+Cleanup:
+```
+Clean up the team
+```
+
+Oferecer TEST:
+```
+Continue to TEST?
+[1] Yes, run /orbti:test | [2] Pause here
+```
 </step>
 
 <step name="handle_failures">
@@ -378,35 +777,71 @@ After all tasks attempted:
    - Failures: list any
    - Deviations: list any
 
-2. **Run tests** (if `test_writer.enabled: true` or tests exist for this refine):
-   - Run the project's test command scoped to the files/ACs touched in this build
-   - Collect: total tests, passed, failed, duration
+2. Update STATE.md e LOOP.md:
+   - STATE.md: loop position REFINE ✓ → BUILD ✓ → INTEGRATE ○
+   - Se LOOP.md existe: atualizar status da loop executada para "built — aguardando INTEGRATE"
+   - Last activity: timestamp e loop executada
 
-3. Update STATE.md:
-   - Loop position: REFINE ✓ → BUILD ✓ → INTEGRATE ○
-   - Last activity: timestamp and completion status
+3. **Gate de verificação — obrigatório antes de declarar BUILD DONE:**
 
-5. Report build results:
+   **LEI: Não afirmar BUILD DONE sem evidência real de execução.**
+
+   Para cada task concluída: mostrar o output dos comandos `<verify>`.
+   Para testes: mostrar output completo (pass count, fail count, names).
+   Para comandos: mostrar stdout/exit code.
+
+   Frases proibidas sem evidência:
+   - "deveria funcionar agora"
+   - "provavelmente passa"
+   - "parece correto"
+   - "o agente reportou sucesso" → verificar independentemente
+
+   Só após mostrar evidência real → reportar:
+
+   **Se `type: front`:** extrair as rotas e localização no menu do REFINE-FRONT.md e incluir no output:
    ```
    ════════════════════════════════════════
    BUILD COMPLETE
    ════════════════════════════════════════
-   [execution summary]
-
-   Tests written: [N tests for ACs: AC-1, AC-2, AC-3 | none — test_writer off]
+   [execution summary com output real das verificações]
    ────────────────────────────────────────
+   Páginas disponíveis:
+     http://localhost:3010/carteira/eficiencia/remessas
+     http://localhost:3010/carteira/eficiencia/automacao
+
+   Menu: Carteira → Eficiência de Débito → Remessas
+   ────────────────────────────────────────
+   Branch: fix/{slug} — visível no VS Code Source Control
    ```
 
-6. **Route to TEST:**
+   - `base_url` vem de `.orbti/config.md` (campo `e2e.base_url`). Se não configurado, usar `http://localhost:3000`.
+   - **Localização no menu:** extrair do que foi implementado na task de sidebar — grupo pai → subitem. Formato: `{Seção} → {Grupo} → {Item}`. Ex: `Carteira → Eficiência de Débito → Remessas`.
+
+   **Se `type: execute` (backend) ou sem páginas:** omitir URLs e menu.
+
+4. **Informar worktree quando `isolation: "worktree"` foi usado:**
+
+   Se o REFINE.md tinha `worktree.enabled: true` e o agente retornou `worktree_path` + `branch`:
+
    ```
-   ---
+   Mudanças em branch isolada:
+     Branch: [branch]
+     Path:   [worktree_path]
+   Para revisar: cd [worktree_path] && git diff main
+   ```
+
+   O INTEGRATE cuidará do merge. Nesta fase, apenas informar.
+
+   ```
+   ────────────────────────────────────────
    Continue to TEST?
 
-   [1] Yes, run /orbit:test | [2] Pause here
+   [1] Yes, run /orbti:test | [2] Pause here
+   ════════════════════════════════════════
    ```
-   **Accept quick inputs:** "1", "yes", "test", "go" → run `/orbit:test [refine-path]`
+   **Accept quick inputs:** "1", "yes", "test", "go" → run `/orbti:test [refine-path]`
 
-   TEST handles: running the written tests, E2E checkpoint, and routing to INTEGRATE.
+   `/orbti:test` escreve os testes, executa, e roteia para INTEGRATE.
 </step>
 
 </process>
@@ -442,12 +877,17 @@ After all tasks attempted:
 **Assuming approval:**
 Do NOT start BUILD without explicit user approval of the refine.
 
-**Skipping check_test_writer:**
-Do NOT jump directly to task execution without checking test_writer config first. With `test_writer: true` + `agent_teams: true`, the correct mode is parallel team build — skipping this step silently drops the test-writing behavior. Always run `check_test_writer` before any task. If already skipped, log the deviation and write tests manually post-build.
+**Writing tests during BUILD:**
+BUILD does NOT write tests. Tests are written and executed by `/orbti:test` AFTER the human checkpoint. Keep BUILD focused on implementation only.
 
-**REFINE.md created before test_writer feature existed:**
-If the REFINE refine was approved in a prior ORBTI version that lacked `check_test_writer`, the REFINE.md will not reference this step — the build executes as if test writing doesn't exist, even with `test_writer: true` in config. Detection: config has test_writer enabled but no tests were written during build.
-Mitigation: After completing build, check config → if `test_writer: true`, write tests manually for each AC before INTEGRATE. Log to STATE.md: `| [date]: REFINE.md pre-dates test_writer feature — tests written manually post-build | Project [N] | All ACs covered |`
+**Ignorar check_parallel_mode:**
+Não pular o check de paralelo. Com `parallel_build: true` e múltiplos refines na loop, o modo correto é Agent Teams — ignorar silencia o paralelismo.
+
+**Spawnar teammate para task bloqueada:**
+Tasks com `depends_on` não resolvidos NÃO devem ser spawnadas. Aguardar o desbloqueio automático via task list antes de spawnar o teammate correspondente.
+
+**Editar arquivos sobrepostos em paralelo:**
+Dois teammates editando o mesmo arquivo causam sobrescrita. Garantir que os REFINEs paralelos toquem conjuntos de arquivos disjuntos (verificar `files_modified` no frontmatter antes de spawnar).
 
 **Skipping verification:**
 Every task MUST have its verify step run. No "it looks right" assumptions.
@@ -465,3 +905,60 @@ If the user asks to create another refine after BUILD, respond:
 "Loop not closed — run /orbti:integrate [refine-path] first."
 No exceptions.
 </anti_patterns>
+
+<workflow-dev>
+# Decisões de Design — BUILD workflow
+
+## Modelo de Loop (2026-04-08)
+
+**Decisão:** Uma loop = um bloco de construção. Uma invocação de `/orbti:build` executa APENAS a próxima loop pendente.
+
+**Rationale:** Loops são blocos autônomos e revisáveis. Avançar automaticamente para a próxima loop sem INTEGRATE+aprovação cria risco de divergência acumulada entre o que foi planejado e o que foi construído. O usuário decide conscientemente quando avançar.
+
+**Comportamento:**
+- Argumento arquivo → executa aquele refine EXCLUSIVAMENTE (sem orquestração)
+- Argumento diretório → identifica a próxima loop pendente via LOOP.md, executa só ela
+
+---
+
+## depends_on = Comunicação, não Sequenciamento (2026-04-08)
+
+**Decisão:** `depends_on` NÃO bloqueia o spawn do agente. Todos os REFINEs da loop são spawnados simultaneamente. `depends_on` define que há comunicação via SendMessage entre os agents.
+
+**Rationale:** Front e back podem construir em paralelo — o front constrói com mocks, enquanto o back constrói a API. O `depends_on` indica o ponto onde o front precisa de informação do back (ex: "endpoint pronto em /v2/foo com esses types"). Bloquear o spawn seria desperdiçar paralelismo disponível.
+
+**Protocolo de comunicação:**
+- Builder dependente envia `PRECISO: <o que precisa>` quando chega ao ponto de integração
+- Builder da dependência responde `PRONTO: <o que está disponível>` quando termina
+- Se não houver resposta → continuar com mocks e reportar ao lead
+
+---
+
+## worktree = isolation: "worktree" nativo (2026-04-08)
+
+**Decisão:** Usar o parâmetro `isolation: "worktree"` nativo do Agent tool do Claude Code. NÃO usar comandos bash para criar git worktrees manualmente.
+
+**Rationale:** O Claude Code gerencia o worktree nativamente — cria o branch físico isolado, executa o agente nele, e retorna `worktree_path` + `branch` no resultado. Implementação manual via bash era frágil (symlinks, cleanup manual, race conditions entre agentes paralelos).
+
+**Consequência:** O REFINE define `worktree: enabled: true` no frontmatter → o BUILD passa `isolation: "worktree"` no Agent tool. Sem configuração adicional necessária.
+
+---
+
+## autonomous = Confirmação por Task (2026-04-08)
+
+**Decisão:** `autonomous: false` significa pausar após CADA task type="auto" para revisão e confirmação. `autonomous: true` executa tudo direto.
+
+**Rationale:** `autonomous` controla o nível de supervisão humana durante o BUILD. Com `false`, o usuário revisa cada passo incrementalmente — útil para refines de alto risco ou que tocam código crítico. Com `true`, o agente corre autônomo e o usuário revisa apenas no BUILD COMPLETE.
+
+**Consequência:** Refines com `autonomous: false` NÃO podem rodar em background (requerem humano a cada task).
+
+---
+
+## LOOP.md como Fonte de Verdade (2026-04-08)
+
+**Decisão:** Quando um projeto tem 2+ loops, o LOOP.md é a fonte de verdade sobre a estrutura de construção. O BUILD lê LOOP.md antes de qualquer scan de arquivos.
+
+**Rationale:** Evita reconstruir o grafo de loops a cada invocação por scanning de frontmatter. O LOOP.md documenta intenção (o que cada loop entrega) além de status técnico.
+
+**Atualização:** BUILD atualiza LOOP.md ao completar uma loop (status → "built — aguardando INTEGRATE").
+</workflow-dev>

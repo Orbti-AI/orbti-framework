@@ -12,12 +12,12 @@ Create FIX.md refine from UAT issues found during verify.
 
 **When to use:** After `/orbti:test` logs issues to project-scoped UAT file.
 
-**Output:** `{refine}-FIX.md` in the project directory, ready for execution.
+**Output:** `{slug}-FIX.md` in `.orbti/fix/`, ready for execution.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/references/refine-format.md
-@~/.claude/orbti-framework/references/checkpoints.md
+@./.claude/orbti-framework/references/refine-format.md
+@./.claude/orbti-framework/references/checkpoints.md
 </execution_context>
 
 <context>
@@ -30,38 +30,44 @@ Refine number: $ARGUMENTS (required - e.g., "04-02" or "10-01")
 <process>
 
 <step name="parse">
-**Parse refine argument:**
+**Parse argument — dois modos:**
 
-$ARGUMENTS should be a refine number like "04-02" or "10-01".
-Extract project number (XX) and refine number (NN).
+**Modo 1 — bug direto (sem número de refine):**
+$ARGUMENTS contém uma descrição de bug, URL, imagem ou texto livre.
+→ Criar fix a partir da descrição diretamente (sem UAT.md).
+→ Gerar slug a partir do contexto: "status quitado fluxo pagamentos" → `status-quitado-fluxo-pagamentos`
 
-If no argument provided:
+**Modo 2 — com número de refine:**
+$ARGUMENTS é um número de refine como "04-02" ou "10-01".
+→ Buscar UAT.md correspondente em `.orbti/projects/`.
+
+Se $ARGUMENTS estiver vazio:
 ```
-Error: Refine number required.
+Uso: /orbti:refine-fix <descrição do bug | número de refine>
 
-Usage: /orbti:refine-fix 04-02
-
-This creates a fix refine from .orbti/projects/XX-name/{refine}-UAT.md
+Exemplos:
+  /orbti:refine-fix 04-02
+  /orbti:refine-fix status quitado não aparece em /carteira/fluxo-pagamentos
 ```
 Exit.
 </step>
 
 <step name="find">
-**Find UAT.md file:**
+**Modo 2 apenas — Find UAT.md file:**
 
-Search for matching UAT file:
+Se for número de refine, buscar:
 ```bash
 ls .orbti/projects/*/{refine}-UAT.md 2>/dev/null
 ```
 
-If not found:
+Se não encontrar:
 ```
 No UAT.md found for refine {refine}.
-
 UAT.md files are created by /orbti:test when testing finds issues.
-If no issues were found during testing, no fix refine is needed.
 ```
 Exit.
+
+**Modo 1:** pular este step — o bug vem direto dos $ARGUMENTS.
 </step>
 
 <step name="read">
@@ -105,17 +111,39 @@ Prioritize: Blocker → Major → Minor → Cosmetic
 <step name="write">
 **Write FIX.md:**
 
-Create `.orbti/projects/XX-name/{refine}-FIX.md`:
+**Antes de escrever, detectar worktree ativa:**
+```bash
+git worktree list 2>/dev/null
+ls .worktrees/ 2>/dev/null
+```
+
+Se já existe worktree ativa para o `repository` dos arquivos afetados:
+- `worktree.enabled: false`
+- `worktree.branch`: branch da worktree ativa (ex: `fix/dash-fluxo-agrupamento`)
+- `worktree.path`: caminho da worktree ativa (ex: `.worktrees/crm-dash-fluxo-agrupamento`)
+- Os arquivos no `<context>` e `<tasks>` devem apontar para o path da worktree, não para `apps/`
+
+Se não existe worktree ativa:
+- `worktree.enabled: true`
+- `worktree.branch: main`
+- `worktree.repository`: repositório principal dos arquivos afetados
+
+Create `.orbti/fix/{slug}/01-FIX.md`:
 
 ```markdown
 ---
-project: XX-name
-refine: {refine}-FIX
+project: {slug}
+refine: 01-FIX
 type: fix
-wave: 1
+loop: 1
 depends_on: []
 files_modified: [files from issues]
 autonomous: true
+worktree:
+  enabled: [true se nova worktree | false se já existe ativa]
+  branch: [main se nova | branch ativa se existente]
+  repository: [main repository of affected files, e.g. apps/crm-menos-juros]
+  path: [omitir se enabled:true | .worktrees/{slug} se enabled:false]
 ---
 
 <objective>
@@ -205,7 +233,7 @@ Continue to BUILD?
 ```
 
 Use AskUserQuestion to get response.
-If approved: `/orbti:build .orbti/projects/XX-name/{refine}-FIX.md`
+If approved: `/orbti:build .orbti/fix/{slug}/01-FIX.md`
 </step>
 
 </process>

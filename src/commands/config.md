@@ -94,7 +94,7 @@ If enabling:
 
 2. Check if the Playwright CLI skill is installed:
    ```bash
-   ls ~/.claude/skills/playwright-cli 2>/dev/null || echo "NOT_INSTALLED"
+   ls ./.claude/skills/playwright-cli 2>/dev/null || echo "NOT_INSTALLED"
    ```
 
 3. If either is missing — show instructions and **do NOT enable**:

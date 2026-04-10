@@ -13,7 +13,7 @@ Review all open issues from ISSUES.md and phase-scoped UAT files with current co
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/consider-issues.md
+@./.claude/orbti-framework/workflows/consider-issues.md
 </execution_context>
 
 <context>
@@ -23,7 +23,7 @@ Review all open issues from ISSUES.md and phase-scoped UAT files with current co
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbti-framework/workflows/consider-issues.md**
+**Follow workflow: @./.claude/orbti-framework/workflows/consider-issues.md**
 
 The workflow implements:
 1. Find all issue files (ISSUES.md, phase-scoped UAT files)

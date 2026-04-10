@@ -1,6 +1,6 @@
 ---
 name: orbti:assumptions
-description: Surface Claude's assumptions about a phase before planning
+description: Espelho do contexto acumulado — sintetiza OBSERVE + RESEARCH + COCREATE para validar antes do REFINE
 argument-hint: "<phase-number>"
 allowed-tools: [Read, Bash]
 ---
@@ -16,7 +16,7 @@ Surface Claude's assumptions about a phase to validate understanding before plan
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/phase-assumptions.md
+@./.claude/orbti-framework/workflows/phase-assumptions.md
 </execution_context>
 
 <context>
@@ -28,7 +28,7 @@ Phase number: $ARGUMENTS (required)
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/phase-assumptions.md
+Follow workflow: @./.claude/orbti-framework/workflows/phase-assumptions.md
 </process>
 
 <success_criteria>

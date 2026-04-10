@@ -16,20 +16,19 @@ Available models (as of Claude 4.x):
 | `/orbti:observe`      | Opus    | Vision articulation, creative synthesis |
 | `/orbti:cocreate`       | Opus    | Architecture decisions, trade-off analysis |
 | `/orbti:refine`        | Opus    | Planning quality directly affects all downstream work |
-| `/orbti:research`      | Opus    | Synthesis of complex, ambiguous information |
+| `/orbti:research`      | Sonnet  | Dispatcher + formatter — subagents fazem a descoberta pesada |
 | `/orbti:assumptions`   | Opus    | Surfacing blind spots requires deep reasoning |
 | `/orbti:build`         | Sonnet  | Execution of an approved refine — capability over cost |
 | `/orbti:test`          | Sonnet  | Test writing + result analysis |
 | `/orbti:integrate`     | Sonnet  | Reconciliation and deviation analysis |
 | `/orbti:refine-fix`      | Sonnet  | Debugging and fix refinening |
-| `/orbti:debug`         | Sonnet  | Root cause analysis |
 | `/orbti:progress`      | Haiku   | Status read — no reasoning required |
 | `/orbti:pause`         | Haiku   | Handoff file generation — structured, low-complexity |
 | `/orbti:resume`        | Haiku   | Context restore from file |
 | `/orbti:config`        | Haiku   | Config read/write — purely mechanical |
 | `/orbti:help`          | Haiku   | Static reference lookup |
 | Subagents (research)   | Sonnet  | Parallelized research tasks — Opus overkill at scale |
-| Subagents (background) | Sonnet  | Build agents spawned by `/orbti:build-bg` |
+| Subagents (background) | Sonnet  | Build agents spawnados em background |
 
 </routing_table>
 

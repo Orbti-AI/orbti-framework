@@ -14,7 +14,7 @@ Facilitate vision discussion for the next milestone and create context handoff.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/observe-milestone.md
+@./.claude/orbti-framework/workflows/observe-milestone.md
 </execution_context>
 
 <context>
@@ -25,7 +25,7 @@ Facilitate vision discussion for the next milestone and create context handoff.
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/observe-milestone.md
+Follow workflow: @./.claude/orbti-framework/workflows/observe-milestone.md
 </process>
 
 <success_criteria>

@@ -22,9 +22,9 @@ Validate that what was built satisfies the acceptance criteria defined in REFINE
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/test-auto.md
-@~/.claude/orbti-framework/workflows/verify-work.md
-@~/.claude/orbti-framework/templates/TEST.md
+@./.claude/orbti-framework/workflows/test-auto.md
+@./.claude/orbti-framework/workflows/verify-work.md
+@./.claude/orbti-framework/templates/TEST.md
 </execution_context>
 
 <context>
@@ -38,10 +38,10 @@ Scope: $ARGUMENTS (optional)
 
 <process>
 **If --manual flag present:**
-  Follow workflow: @~/.claude/orbti-framework/workflows/verify-work.md
+  Follow workflow: @./.claude/orbti-framework/workflows/verify-work.md
 
 **Otherwise:**
-  Follow workflow: @~/.claude/orbti-framework/workflows/test-auto.md
+  Follow workflow: @./.claude/orbti-framework/workflows/test-auto.md
 </process>
 
 <success_criteria>

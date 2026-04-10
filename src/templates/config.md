@@ -90,14 +90,64 @@ Reserved for future use:
 #   coverage_threshold: 80
 ```
 
+### Design (orbti:design)
+
+Habilita o special flow de design: após `/orbti:observe`, se há interfaces a construir, sugere rodar `/orbti:design` para criar protótipos antes do planejamento.
+
+```yaml
+design:
+  enabled: false
+  prototype_tool: paper   # paper | pencil | figma | stitch | html
+  auto_suggest: true      # true = sugere automaticamente no handoff do observe
+```
+
+**Quando enabled:**
+- `/orbti:observe` detecta interfaces no CONTEXT.md e oferece rodar `/orbti:cocreate` em design mode
+- Protótipos são gerados com a ferramenta definida em `prototype_tool`
+- DESIGN.md + system.md são produzidos e servem de referência para `/orbti:refine`
+- `/orbti:refine` lê os protótipos e gera ACs visuais específicas
+
+**Ferramentas disponíveis:**
+- `paper` — Paper.design (MCP: `mcp__paper__*`) — nativo HTML/CSS, ideal para iteração rápida
+- `pencil` — Pencil (MCP: `mcp__pencil__*`) — arquivos .pen, componentes visuais
+- `figma` — Figma (MCP: `mcp__plugin_figma_figma__*`) — implementar designs existentes
+- `stitch` — Google Stitch — geração visual standalone sem MCP
+- `html` — HTML puro — zero setup, sem MCP necessário
+
+**Requisitos:**
+- MCP da ferramenta conectado (exceto `html` e `stitch`)
+- `.orbti-design/` diretório criado (gerado automaticamente pelo orbti:design)
+
 ## Models
 
-Model routing for ORBTI phases. See `~/.claude/orbti-framework/references/model-routing.md` for defaults.
+Model routing for ORBTI phases. See `./.claude/orbti-framework/references/model-routing.md` for defaults.
 
 ```yaml
 models:
   default: sonnet             # Fallback for any phase not listed
   overrides: {}               # Override per-phase: refine: opus, build: haiku, etc.
+```
+
+## Parallel Build (Agent Teams)
+
+Executa múltiplos REFINEs simultaneamente quando estão no mesmo loop sem dependências entre si.
+Requer `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` no ambiente.
+
+```yaml
+parallel_build:
+  enabled: false   # true = Agent Teams paralelo | false = sequencial (padrão)
+```
+
+**Quando enabled:**
+- BUILD detecta refines na mesma loop sem depends_on pendentes
+- Spawna um teammate por refine independente
+- Refines com depends_on aguardam a task bloqueante completar antes de iniciar
+- Checkpoints (human-verify, decision) pausam o teammate e sobem ao lead
+- Fallback automático para sequencial se env var não estiver setada
+
+**Requisito:** `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` em `./.claude/settings.json`:
+```json
+{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }
 ```
 
 ## Preferences
@@ -108,7 +158,6 @@ Optional user preferences for ORBTI behavior.
 preferences:
   auto_commit: false          # Auto-commit after successful tasks
   verbose_output: false       # Show detailed step output
-  parallel_agents: false      # Allow parallel agent spawning (advanced)
 ```
 
 ---
@@ -156,10 +205,17 @@ sonarqube:
 ## Preferences
 
 ```yaml
+design:
+  enabled: true
+  prototype_tool: paper
+  auto_suggest: true
+
+parallel_build:
+  enabled: false
+
 preferences:
   auto_commit: false
   verbose_output: false
-  parallel_agents: false
 ```
 
 ---

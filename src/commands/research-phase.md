@@ -20,8 +20,8 @@ Identify and research technical unknowns before planning. Runs before /orbti:ref
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/research.md
-@~/.claude/orbti-framework/references/subagent-criteria.md
+@./.claude/orbti-framework/workflows/research.md
+@./.claude/orbti-framework/references/subagent-criteria.md
 </execution_context>
 
 <context>

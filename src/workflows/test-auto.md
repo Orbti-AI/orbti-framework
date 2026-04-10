@@ -1,7 +1,18 @@
 <purpose>
-Auto-detect the project's test runner, write integration tests for any acceptance criteria without coverage, run tests, and map results to ACs.
+Criar o TEST-PLAN.md do refine, executar testes automatizados disponíveis e mapear resultados por AC.
 
-Falls back to manual UAT if no test runner is found and --e2e is not passed.
+`/orbti:test` é o único responsável por escrever e executar testes — BUILD não escreve testes.
+
+**Responsabilidades:**
+- Criar `{refine}-TEST-PLAN.md` documentando cenários, tipos e checkpoints
+- Detectar e executar runner do projeto (unit/integration)
+- Mapear resultados por AC: PASS / FAIL / MANUAL
+- Atualizar TEST-PLAN.md com status final
+- Rotear para INTEGRATE (pass) ou refine-fix (fail)
+
+**Fora do escopo deste workflow:**
+- Testes E2E/browser — se o projeto declarar uma skill de E2E em SPECIAL-FLOWS.md, invocar essa skill passando o TEST-PLAN.md como entrada
+- Playwright, Cypress ou qualquer runner de browser — não invocar diretamente
 </purpose>
 
 <test_runner_detection>
@@ -40,6 +51,104 @@ ls Makefile 2>/dev/null && grep -E "^test:" Makefile
 
 <process>
 
+<step name="create_test_plan" priority="first">
+**Criar TEST-PLAN.md antes de qualquer execução de testes.**
+
+Este arquivo é o contrato de testes do refine. Deve ser criado SEMPRE — mesmo antes de rodar um único teste.
+
+**Localização:** `.orbti/projects/{projeto}/{refine}-TEST-PLAN.md`
+
+**Como construir:**
+
+1. Ler o REFINE.md do escopo identificado
+2. Para cada AC, mapear:
+   - Cenário principal (happy path)
+   - Cenários de edge case relevantes
+   - Tipo de teste: `unit` | `integration` | `e2e` | `manual`
+   - Checkpoint necessário: `auto` (roda sem humano) | `human` (precisa de aprovação)
+   - Dados necessários (seletores, fixtures, usuário de teste, etc.)
+
+**Template do arquivo:**
+
+```markdown
+---
+project: {projeto}
+refine: {N}
+type: test-plan
+status: pending   ← muda para: running | passed | failed
+date: {data}
+---
+
+# TEST-PLAN: {nome do refine}
+
+## Escopo
+Testando: {descrição de 1 linha do que foi construído}
+Arquivo(s) modificado(s): {lista}
+
+## Cenários por AC
+
+### AC-1: {título}
+| # | Cenário | Tipo | Checkpoint | Dados necessários |
+|---|---------|------|------------|-------------------|
+| 1 | Happy path: {descrição} | e2e | auto | {seletor, url, usuário} |
+| 2 | Edge case: {descrição} | unit | auto | {mock, fixture} |
+| 3 | Erro esperado: {descrição} | manual | human | {passos manuais} |
+
+### AC-2: {título}
+...
+
+## Checkpoints Humanos
+Lista de checks que requerem validação humana (tipo: `human`):
+- [ ] AC-1 cenário 3: {o que verificar}
+- [ ] AC-2 cenário 2: {o que verificar}
+
+## Infraestrutura de Testes
+- Runner detectado: {vitest | jest | playwright | manual}
+- Base URL: {se E2E}
+- Usuário de teste: {se necessário}
+- Fixtures/mocks: {se necessário}
+
+## Resultado (preenchido após execução)
+| AC | Cenário | Status | Observação |
+|----|---------|--------|------------|
+| AC-1 | Happy path | ⏳ | — |
+
+## Veredicto final
+Status: PENDING → PASS | FAIL | PARTIAL
+```
+
+Salvar o arquivo com `status: pending` antes de começar os testes.
+Atualizar `status` e a tabela de Resultado durante e após execução.
+</step>
+
+<step name="detect_autonomous_mode">
+**Verificar se está rodando dentro de um loop worktree (autonomous).**
+
+```bash
+grep "worktree_branch:" .orbti/projects/*/*.md 2>/dev/null | grep -v "^Binary" | head -1
+```
+**Verificar se está rodando dentro de um loop worktree (autonomous).**
+
+```bash
+grep "worktree_branch:" .orbti/projects/*/*.md 2>/dev/null | grep -v "^Binary" | head -1
+```
+
+Ou verificar no REFINE.md identificado:
+```bash
+grep "worktree_branch:" [refine-path]
+```
+
+**Se `worktree_branch` presente no REFINE.md → `autonomous_mode: true`**
+
+Impactos do `autonomous_mode: true`:
+- Checkpoints manuais são **pulados** — não há humano disponível
+- Cenários `manual` no TEST-PLAN ficam com status `skipped` (não bloqueiam)
+- Skill de E2E declarada em SPECIAL-FLOWS → invocar automaticamente se disponível
+- Todos os resultados são logados no TEST-PLAN e o fluxo reporta ao lead via SendMessage
+
+**Se `worktree_branch` ausente → `autonomous_mode: false` (fluxo interativo com checkpoints)**
+</step>
+
 <step name="identify_scope">
 **Determine what to test:**
 
@@ -52,56 +161,89 @@ Read REFINE.md to extract:
 - Boundaries (what was NOT changed)
 </step>
 
+<step name="check_custom_skill">
+**Verificar se projeto tem skill de teste declarada em SPECIAL-FLOWS.md:**
+
+```bash
+grep -i "test\|spec\|testes" .orbti/SPECIAL-FLOWS.md 2>/dev/null | grep -o '`[^`]*`' | tr -d '`'
+```
+
+Procurar nas linhas da tabela Project-Level Skills que mencionem "test", "spec" ou "testes".
+Extrair o nome da skill da coluna Skill (formato: `nome-da-skill`).
+
+**Se encontrar:** invocar a skill → ela substitui este workflow inteiro.
+A skill pode declarar `tdd: true` no seu output — nesse caso:
+- Os testes são escritos para FALHAR (red) antes do BUILD
+- O BUILD lê SPECIAL-FLOWS, detecta TDD, e executa para fazê-los passar (green)
+- O `/orbti:test` pós-BUILD confirma que estão passando
+
+**Se não encontrar:** continuar com o agente padrão abaixo (cobre casos básicos).
+</step>
+
 <step name="detect_runner">
-**Auto-detect test runner:**
+**Auto-detect test runner (unit/integration only):**
 
 Run the detection commands above.
 
-**E2E trigger — check any of these sources (in order):**
+**Decision:**
+- Runner encontrado → escrever e executar testes automatizados
+- Runner não encontrado → fallback para manual UAT
+
+**E2E / browser tests:**
+Verificar se projeto declara skill de E2E em SPECIAL-FLOWS.md:
 ```bash
-# 1. config.md explicit flag
-grep -A3 "^e2e:" .orbti/config.md 2>/dev/null | grep "enabled: true"
-
-# 2. SPECIAL-FLOWS declaration of playwright as required
-grep -i "playwright" .orbti/SPECIAL-FLOWS.md 2>/dev/null | grep -i "required"
+grep -i "e2e\|playwright\|cypress\|browser" .orbti/SPECIAL-FLOWS.md 2>/dev/null | head -3
 ```
+Se declarar uma skill de E2E:
+- Criar o TEST-PLAN.md normalmente (com cenários E2E documentados como tipo `e2e`)
+- Após criar TEST-PLAN.md, invocar a skill de E2E declarada passando o caminho do TEST-PLAN como argumento
+- A skill de E2E lê o TEST-PLAN e executa os cenários `e2e`
+- NÃO invocar Playwright, Cypress ou qualquer runner de browser diretamente neste workflow
 
-**Playwright availability — check both variants:**
-```bash
-playwright-cli --version 2>/dev/null || \
-npx playwright --version 2>/dev/null || \
-echo "NOT_INSTALLED"
+Se não declarar skill de E2E:
+- Cenários de tipo `e2e` ficam como `manual` no TEST-PLAN
+- Usuário executa manualmente e confirma resultado
+
+Se nenhum runner encontrado:
 ```
-
-Use whichever variant is available. Prefer `playwright-cli` if both present.
-
-If E2E triggered by any source above AND playwright available → run `handle_e2e` step.
-If E2E triggered but playwright not available → warn, continue with integration tests only.
-
-If `--e2e` flag passed manually → always attempt E2E regardless of config.
-
-If no runner found and no E2E source:
+Nenhum runner detectado. Usando UAT manual.
 ```
-No test runner detected in this project.
-
-Falling back to manual UAT.
-```
-→ Switch to: @~/.claude/orbti-framework/workflows/verify-work.md
+→ Switch to: @./.claude/orbti-framework/workflows/verify-work.md
 </step>
 
-<step name="map_acs_to_tests">
-**Verify tests were written during BUILD:**
+<step name="write_tests">
+**Escrever testes para cada AC do REFINE.md:**
 
-Tests should already exist — they are written during BUILD alongside the implementation.
+## Descobrir convenção de pasta
 
-For each AC in the REFINE.md, confirm a test exists:
+**1. Verificar se projeto tem `.orbti/TESTS.md`:**
 ```bash
-grep -r "AC-[0-9]" tests/ spec/ __tests__/ test/ 2>/dev/null
+cat .orbti/TESTS.md 2>/dev/null
 ```
 
-If any AC has no test:
-- Warn: "AC-N has no test — was BUILD completed? Writing test now."
-- Write the missing test before running (same rules as BUILD: one test per AC, behavior not implementation, no new dependencies)
+Se existir → usar as configurações definidas lá (módulos, runners, paths, aliases).
+
+Se não existir → usar convenção padrão:
+```
+tests/
+  {feature}/    ← mesma pasta do runner detectado na raiz
+```
+E imports relativos ao runner detectado.
+
+**2. Para cada AC extraído:**
+1. Identificar qual módulo é afetado (ler `TESTS.md` — coluna `module` ou `affects`)
+2. Escrever arquivo no path configurado para aquele módulo
+3. Nome de arquivo descritivo: `buscar-pendentes.use-case.spec.ts`, `dashboard-sort.test.ts`
+4. Usar o import alias definido em `TESTS.md` (ex: `src/`, `@/`, relativo)
+5. Testar comportamento (não implementação interna)
+6. Sem novas dependências além das já instaladas
+
+Verificar se algum teste já existe antes de escrever (evitar duplicata):
+```bash
+ls .orbti/TESTS.md 2>/dev/null && \
+  grep -r "AC-[0-9]" $(grep "path:" .orbti/TESTS.md | awk '{print $2}' | head -1) 2>/dev/null || \
+  grep -r "AC-[0-9]" tests/ 2>/dev/null
+```
 </step>
 
 <step name="run_tests">
@@ -133,168 +275,85 @@ For each FAIL:
 - Categorize: assertion error / exception / timeout / setup failure
 </step>
 
-<step name="handle_e2e">
-**E2E with Playwright — auto-runs when configured, covers ALL ACs.**
-
-Check config first:
-```bash
-grep -A3 "^e2e:" .orbti/config.md 2>/dev/null
-npx playwright --version 2>/dev/null || echo "NOT_INSTALLED"
-```
-
-**Decision matrix:**
-
-| `e2e.enabled` | Playwright available | `--e2e` flag | Action |
-|--------------|---------------------|--------------|--------|
-| `true` | yes | any | **Auto-run E2E for ALL ACs** |
-| `true` | no | any | Warn + skip E2E, continue to human verification |
-| `false` | any | `--e2e` | Run E2E for ALL ACs (flag override) |
-| `false` | any | absent | Skip E2E |
-
-**If E2E should run:**
-
-1. Read `base_url` from `.orbti/config.md` (e2e.base_url).
-   If empty, ask: "What is your app's base URL? (e.g. http://localhost:3000)"
-
-2. Verify app is reachable:
-   ```bash
-   curl -s -o /dev/null -w "%{http_code}" <base_url>
-   ```
-   If not reachable → present `checkpoint:human-action`:
-   ```
-   ════════════════════════════════════════
-   CHECKPOINT: Start the application
-   ════════════════════════════════════════
-   The app must be running at <base_url> for E2E tests.
-   Start it (e.g. npm run dev), then type "ready".
-   ════════════════════════════════════════
-   ```
-
-3. **Check for login automation in SPECIAL-FLOWS:**
-   ```bash
-   grep -A5 "playwright" .orbti/SPECIAL-FLOWS.md 2>/dev/null | grep -i "login\|auth\|credential"
-   ```
-   If login config found → include login steps in each test (navigate to login URL, fill credentials, submit).
-   Credentials come from SPECIAL-FLOWS config — never hardcode in test files; read from env or config.
-
-4. For **each AC** in REFINE.md (not just user-facing ones), write a Playwright test:
-   ```bash
-   # Tests go in tests/e2e/ or playwright/ (match project convention)
-   # Inspect page structure first using available CLI:
-   playwright-cli goto <base_url> 2>/dev/null || npx playwright open <base_url>
-   playwright-cli snapshot 2>/dev/null
-   ```
-   Rules per AC:
-   - One test file per AC, named `ac-N-<slug>.spec.ts`
-   - Test behavior observable via the browser, not internals
-   - No new npm dependencies beyond `@playwright/test`
-   - Take screenshot at end of each test as evidence: `ac-N-<slug>.png`
-
-5. Run all E2E tests:
-   ```bash
-   # If playwright-cli available:
-   playwright-cli test tests/e2e/ 2>/dev/null || \
-   npx playwright test tests/e2e/ --reporter=list
-   ```
-
-6. Map results to ACs:
-   ```
-   AC-1: [description] ........... PASS (screenshot: ac-1.png)
-   AC-2: [description] ........... FAIL — [error]
-   AC-3: [description] ........... PASS (screenshot: ac-3.png)
-   ```
-
-7. E2E failures are **warnings**, not blockers:
-   - Log each failure to `.orbti/projects/{name}/{refine}-UAT.md`
-   - Do not block INTEGRATE for E2E failures
-   - Integration test failures block; E2E failures warn
-</step>
-
 <step name="report_and_route">
-**Present results and Playwright checkpoint:**
+**Apresentar resultados, atualizar TEST-PLAN.md e rotear.**
+
+**Gate obrigatório: evidência antes de qualquer veredicto.**
+Mostrar o output real do runner (comando executado + saída completa com pass/fail count) antes de declarar qualquer AC como PASS.
+Não afirmar "todos passaram" sem mostrar o output. "O runner não deu erro" não é evidência — é ausência de evidência.
 
 ```
 ════════════════════════════════════════
-TEST RESULTS: [Refine Name]
+TEST RESULTS: [Nome do Refine]
 ════════════════════════════════════════
 
-Runner: [detected runner]
-Tests written: [N new] / [M existing]
+Runner: [detectado]
+TEST-PLAN: .orbti/projects/{projeto}/{refine}-TEST-PLAN.md
 
-AC-1: ✓ PASS
-AC-2: ✗ FAIL — [error]
-AC-3: ✓ PASS
+AC-1: ✓ PASS — [cenário]
+AC-2: ✗ FAIL — [erro resumido]
+AC-3: ○ MANUAL — aguarda validação humana
 
-Tests: [total] | Passed: [N] | Failed: [N]
+Automatizados: [total] | Passou: [N] | Falhou: [N]
+Manuais pendentes: [N]
 
 ════════════════════════════════════════
-Verdict: [ALL PASS | FAILURES FOUND]
-════════════════════════════════════════
-```
-
-**If FAILURES FOUND:**
-- Log each failing AC to `.orbti/projects/{name}/{refine}-UAT.md`
-- Offer: "Run /orbti:refine-fix to address failing tests before integrating"
-- User can override and continue anyway (with issues logged)
-
-**Playwright checkpoint — always show after test results:**
-
-```
-════════════════════════════════════════
-CHECKPOINT: E2E com Playwright
-════════════════════════════════════════
-
-Quer ativar o agente Playwright para rodar os
-testes E2E cobrindo todos os ACs?
-
-O agente vai:
-1. Navegar até a app em execução
-2. Executar um cenário por AC
-3. Capturar screenshot de evidência
-4. Mapear: AC-1 ✓ / AC-2 ✗
-
-[1] Sim, rodar Playwright agora
-[2] Não, ir direto para INTEGRATE
+Veredicto: [ALL PASS | FAILURES FOUND | MANUAL PENDING]
 ════════════════════════════════════════
 ```
 
-**If "1" / "sim" / "yes" / "playwright":**
-→ Follow `handle_e2e` step — agent runs Playwright for ALL ACs.
-After E2E completes, offer INTEGRATE:
+**Atualizar TEST-PLAN.md:**
+- Preencher tabela de Resultado com status por cenário
+- Atualizar `status:` no frontmatter:
+  - Todos passando → `passed`
+  - Algum falhou → `failed`
+  - Testes automatizados passaram mas há manuais pendentes → `partial`
+
+**Cenários `manual` no TEST-PLAN:**
+Apresentar cada um como checkpoint ao usuário:
 ```
-Continue to INTEGRATE? [1] Yes | [2] Review issues first
+════════════════════════════════════════
+CHECKPOINT MANUAL: AC-{N} — {título}
+════════════════════════════════════════
+{passos descritos no TEST-PLAN}
+
+Resultado: [pass / fail / skip]
+════════════════════════════════════════
+```
+Registrar resultado no TEST-PLAN.
+
+**Se skill de E2E declarada em SPECIAL-FLOWS e cenários `e2e` existem no TEST-PLAN:**
+```
+Cenários E2E identificados no TEST-PLAN.
+Invocar skill de E2E com: {caminho do TEST-PLAN}
+Aguardar resultado da skill → registrar no TEST-PLAN.
 ```
 
-**If "2" / "não" / "skip":**
-→ Offer INTEGRATE directly:
-```
-Continue to INTEGRATE? [1] Yes | [2] Pause here
-```
+**Roteamento final:**
 
-Accept "1", "yes", "go", "continue" → run `/orbti:integrate [refine-path]`
+| Veredicto | Ação |
+|-----------|------|
+| `passed` | Atualizar STATE.md → TEST ✓ → informar que INTEGRATE está liberado |
+| `partial` | Perguntar: continuar com manuais pendentes ou resolver primeiro |
+| `failed` | Oferecer `/orbti:refine-fix` — INTEGRATE bloqueado até resolver |
 
-```
-────────────────────────────────────────
-⚠ Testes automatizados não substituem a verificação humana.
-────────────────────────────────────────
-```
-
-→ Follow: @~/.claude/orbti-framework/workflows/verify-work.md
-
-Human verification runs for every AC, independent of automated results. An AC that passes automated tests can still fail human review — that outcome is valid and must be captured.
+**Se FAILURES FOUND:**
+- Logar falhas em `.orbti/projects/{projeto}/{refine}-UAT.md`
+- Oferecer: "Rodar /orbti:refine-fix para corrigir antes do INTEGRATE?"
+- Usuário pode aprovar INTEGRATE mesmo assim (falhas ficam documentadas no INTEGRATE.md)
 </step>
 
 </process>
 
 <success_criteria>
-- [ ] Test runner detected (or manual fallback triggered)
-- [ ] ACs extracted from REFINE.md
-- [ ] Existing test coverage mapped
-- [ ] Missing tests written (one per uncovered AC)
-- [ ] Tests executed
-- [ ] Results mapped to AC-1, AC-2...
-- [ ] Issues logged if any failures
-- [ ] Human verification checklist presented (always — automated tests do not substitute)
-- [ ] Human verdict captured for each AC
-- [ ] User routed to integrate or refine-fix
+- [ ] TEST-PLAN.md criado em `.orbti/projects/{projeto}/{refine}-TEST-PLAN.md`
+- [ ] Cenários mapeados por AC com tipo (unit/integration/e2e/manual) e checkpoint
+- [ ] Custom skill de E2E verificada em SPECIAL-FLOWS.md (invocar se existir)
+- [ ] Test runner detectado (ou fallback manual ativado)
+- [ ] Testes automatizados escritos e executados
+- [ ] Resultados mapeados por AC: AC-1 PASS/FAIL, AC-2 PASS/FAIL...
+- [ ] TEST-PLAN.md atualizado com status final (passed/failed/partial)
+- [ ] Issues logadas em `{refine}-UAT.md` se falhas
+- [ ] STATE.md atualizado: TEST ✓ ou TEST ✗
+- [ ] Usuário roteado para INTEGRATE (passed) ou refine-fix (failed)
 </success_criteria>

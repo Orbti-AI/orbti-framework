@@ -1,23 +1,35 @@
 <purpose>
-Define a new milestone in the project. Creates milestone structure in ROADMAP.md, initializes project directories, and updates project state. Uses MILESTONE-CONTEXT.md handoff if available from observe-milestone.
+Create a new milestone inside a projeto folder. Milestones are the development cycles inside a project.
+
+**Hierarchy:**
+```
+.orbti/projetos/{projeto}/
+  ROADMAP.md
+  milestones/
+    {milestone-slug}/      ← this workflow creates this
+      01-{phase}/
+      02-{phase}/
+```
+
+Uses MILESTONE-CONTEXT.md handoff if available from observe-milestone.
 </purpose>
 
 <when_to_use>
 - User explicitly requests new milestone
 - Triggered after /orbti:observe-milestone (reads context)
-- Project completed previous milestone, needs next
-- Starting fresh project milestone refinening
+- Projeto completed previous milestone, needs next cycle
+- First milestone in a new projeto
 </when_to_use>
 
 <loop_context>
 N/A - This is a milestone setup workflow, not a loop phase.
-After create-milestone, project is ready for first project REFINE.
+After create-milestone, projeto is ready for first REFINE.
 </loop_context>
 
 <required_reading>
 @.orbti/STATE.md
-@.orbti/ROADMAP.md
-@.orbti/projects/{name}/MILESTONE-CONTEXT.md (if exists)
+@.orbti/projetos/{projeto}/ROADMAP.md (if exists)
+@.orbti/projetos/{projeto}/milestones/{name}/MILESTONE-CONTEXT.md (if exists)
 </required_reading>
 
 <references>
@@ -84,26 +96,28 @@ For each project, derive:
 </step>
 
 <step name="update_roadmap">
-Read current ROADMAP.md and update:
+Update `.orbti/projetos/{projeto_slug}/ROADMAP.md`:
 
-1. **Add milestone header section:**
+1. **Update Milestones table:**
    ```markdown
-   ## Current Milestone
-   **{milestone_name}** ({version})
-   Status: 🚧 In Progress
-   Phases: 0 of {phase_count} complete
+   | {milestone_name} | 🚧 In Progress | 0/{phase_count} | - |
    ```
 
-2. **Add projects to table:**
+2. **Add Active Milestone section:**
    ```markdown
-   | Project | Name | Refines | Status | Completed |
-   |---------|------|-------|--------|-----------|
+   ## Active Milestone: {milestone_name} ({version})
+
+   **Goal:** {milestone_theme}
+   **Status:** Phase 1 of {phase_count}
+
+   | Phase | Name | Refines | Status | Completed |
+   |-------|------|---------|--------|-----------|
    | {N} | {name} | TBD | Not started | - |
    ```
 
-3. **Add project details section:**
+3. **Add phase details:**
    ```markdown
-   ### Project {N}: {name}
+   ### Phase {N}: {name}
 
    Focus: {description}
    Refines: TBD (defined during /orbti:refine)
@@ -112,11 +126,32 @@ Read current ROADMAP.md and update:
 4. **Update footer timestamp**
 </step>
 
+<step name="select_projeto">
+**Determine which projeto this milestone belongs to:**
+
+1. Check STATE.md for a single active projeto — if only one, use it directly
+2. If multiple projetos exist, ask:
+   ```
+   Which projeto for this milestone?
+
+   [list projetos from .orbti/projetos/]
+   ```
+3. If no projetos exist:
+   - Error: "No projetos found. Run /orbti:add-projeto first."
+   - Exit workflow
+
+Store as `projeto_slug`.
+</step>
+
 <step name="create_phase_directories">
-For each phase in the new milestone:
+Create milestone folder and initial phase directories:
 
 ```bash
-mkdir -p .orbti/projects/{NN}-{name-slug}
+# Milestone folder inside the projeto
+mkdir -p .orbti/projetos/{projeto_slug}/milestones/{milestone_slug}
+
+# Phase directories inside the milestone
+mkdir -p .orbti/projetos/{projeto_slug}/milestones/{milestone_slug}/{NN}-{name-slug}
 ```
 
 Where:

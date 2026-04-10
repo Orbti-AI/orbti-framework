@@ -14,7 +14,7 @@ Complete the current milestone, archive it, and evolve PROJECT.md.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/complete-milestone.md
+@./.claude/orbti-framework/workflows/complete-milestone.md
 </execution_context>
 
 <context>
@@ -27,7 +27,7 @@ $ARGUMENTS
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/complete-milestone.md
+Follow workflow: @./.claude/orbti-framework/workflows/complete-milestone.md
 </process>
 
 <success_criteria>

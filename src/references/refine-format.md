@@ -17,10 +17,14 @@ Every REFINE.md starts with YAML frontmatter:
 project: name
 refine: NN
 type: execute
-wave: N
+loop: N
 depends_on: []
 files_modified: []
 autonomous: true
+worktree:
+  enabled: false
+  branch: main
+  repository: ""
 ---
 ```
 
@@ -29,10 +33,11 @@ autonomous: true
 | `project` | Yes | Project identifier (e.g., `rules-layer`) |
 | `refine` | Yes | Refine number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
-| `wave` | Yes | Execution wave number (pre-computed at refine time) |
+| `loop` | Yes | Execution loop number (pre-computed at refine time) |
 | `depends_on` | Yes | Array of refine IDs this refine requires |
 | `files_modified` | Yes | Files this refine touches (for conflict detection) |
 | `autonomous` | Yes | `true` if no checkpoints, `false` if has checkpoints |
+| `worktree` | No | When `enabled: true`, build agent creates an isolated git worktree from `branch` inside `repository` |
 
 ## Loop Structure
 

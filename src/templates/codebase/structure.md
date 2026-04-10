@@ -230,7 +230,7 @@ orbti-framework/
 ## Special Directories
 
 **src/**
-- Purpose: Resources installed to ~/.claude/orbti-framework/
+- Purpose: Resources installed to ./.claude/orbti-framework/
 - Source: Copied by bin/install.js during installation
 - Committed: Yes (source of truth)
 

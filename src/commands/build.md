@@ -15,9 +15,9 @@ Execute an approved REFINE.md file, running tasks in order with verification at 
 <model>sonnet</model>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/build.md
-@~/.claude/orbti-framework/references/checkpoints.md
-@~/.claude/orbti-framework/references/model-routing.md
+@./.claude/orbti-framework/workflows/build.md
+@./.claude/orbti-framework/references/checkpoints.md
+@./.claude/orbti-framework/references/model-routing.md
 </execution_context>
 
 <context>
@@ -27,7 +27,7 @@ Refine path: $ARGUMENTS
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/build.md
+Follow workflow: @./.claude/orbti-framework/workflows/build.md
 </process>
 
 <success_criteria>

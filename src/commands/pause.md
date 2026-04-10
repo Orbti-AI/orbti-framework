@@ -18,7 +18,7 @@ Create a HANDOFF.md file capturing current context and update STATE.md for sessi
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/pause-work.md
+@./.claude/orbti-framework/workflows/pause-work.md
 </execution_context>
 
 <context>
@@ -29,7 +29,7 @@ $ARGUMENTS
 </context>
 
 <process>
-**Follow the pause-work workflow** from `@~/.claude/orbti-framework/workflows/pause-work.md`.
+**Follow the pause-work workflow** from `@./.claude/orbti-framework/workflows/pause-work.md`.
 
 The workflow handles:
 1. Detecting current position

@@ -24,8 +24,8 @@ Configure, amend, or audit specialized skill integrations for a ORBTI project.
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/configure-skills.md
-@~/.claude/orbti-framework/references/specialized-workflow-integration.md
+@./.claude/orbti-framework/workflows/configure-skills.md
+@./.claude/orbti-framework/references/specialized-workflow-integration.md
 </execution_context>
 
 <context>

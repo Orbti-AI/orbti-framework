@@ -46,8 +46,8 @@ Can be run at any time without affecting REFINE/BUILD/INTEGRATE state.
 <step name="discover_available_skills">
 1. Scan for available skills (both formats):
    ```bash
-   ls ~/.claude/commands/ 2>/dev/null | head -20
-   ls ~/.claude/skills/ 2>/dev/null | head -20
+   ls ./.claude/commands/ 2>/dev/null | head -20
+   ls ./.claude/skills/ 2>/dev/null | head -20
    ```
 
 2. Present categorized list to user:
@@ -259,7 +259,7 @@ Display current configuration:
 <error_handling>
 **No skills found:**
 ```
-No skills found at ~/.claude/commands/ or ~/.claude/skills/
+No skills found at ./.claude/commands/ or ./.claude/skills/
 Add skills to your Claude Code configuration first.
 
 You can still manually specify skill names.
@@ -280,5 +280,5 @@ Run /orbti:init first, or create .orbti/ manually.
 
 **User provides invalid skill name:**
 - Warn but proceed (skill may exist elsewhere)
-- Note: "Skill not found in ~/.claude/commands/ but adding anyway"
+- Note: "Skill not found in ./.claude/commands/ but adding anyway"
 </error_handling>

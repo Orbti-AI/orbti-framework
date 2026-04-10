@@ -41,7 +41,7 @@ Templates that define output documents show example frontmatter:
 project: name
 refine: NN
 type: execute
-wave: 1
+loop: 1
 depends_on: []
 files_modified: []
 autonomous: true

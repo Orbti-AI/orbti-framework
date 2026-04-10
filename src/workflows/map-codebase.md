@@ -59,6 +59,7 @@ Will create:
 - .orbti/codebase/{submodule}/TESTING.md (×N)
 - .orbti/codebase/{submodule}/INTEGRATIONS.md (×N)
 - .orbti/codebase/{submodule}/CONCERNS.md (×N)
+- .orbti/codebase/{submodule}/COMPONENTS.md (if frontend detected)
 ```
 
 Continue to **check_existing_monorepo**.
@@ -116,6 +117,7 @@ mkdir -p .orbti/codebase
 - TESTING.md (from testing.md template)
 - INTEGRATIONS.md (from integrations.md template)
 - CONCERNS.md (from concerns.md template)
+- COMPONENTS.md (if frontend/React detected in stack)
 
 Continue to spawn_agents.
 </step>
@@ -265,6 +267,39 @@ run_in_background: true
 description: "Identify technical debt and areas of concern"
 ```
 
+**Agent 5: UI Components (Frontend only — skip if no React/frontend detected)**
+
+Before spawning: check if project has a `src/components/` or `client/src/components/` directory. Skip agent if not found.
+
+Task tool parameters:
+```
+subagent_type: "Explore"
+run_in_background: true
+description: "Map UI component library and usage patterns"
+```
+
+Prompt:
+```
+Map the UI component library for this frontend codebase. Be concise — this is a reference document, not a catalog. Focus on what's available and how it's typically composed, not exhaustive prop documentation.
+
+Search for:
+- src/components/ui/*.tsx (or client/src/components/ui/*.tsx) — UI primitives
+- src/components/*.tsx — custom reusable components
+- Frequent import patterns across pages to identify composition patterns
+
+Output findings for COMPONENTS.md with these sections:
+
+**UI Library** — one line naming the library (shadcn/ui, MUI, etc.) and location. Then a flat list of available primitives by name only. Note key variants for Badge and Button (those change behavior). Nothing else.
+
+**Custom Components** — table with columns: Component | Purpose. One line per component. Skip one-off page-specific components — only list ones used in 2+ places or that are clearly reusable by name.
+
+**Composition Patterns** — 3 to 6 named patterns that repeat across pages. Each pattern: name, one-sentence description, and the key components involved. Reference a real file as example.
+
+**Icons & Charts** — icon library and chart library, one line each.
+
+Keep the total document under 80 lines. Prioritize patterns over inventory.
+```
+
 Prompt:
 ```
 Analyze this codebase for technical debt, known issues, and areas of concern.
@@ -331,6 +366,9 @@ From Agent 3 output, extract:
 From Agent 4 output, extract:
 - CONCERNS.md sections: Technical Debt, Known Issues, Security, Performance, Missing
 
+From Agent 5 output (if ran), extract:
+- COMPONENTS.md sections: UI Primitives, Custom Components, Layout Components, Composition Patterns, Missing/Build New
+
 **Handling missing findings:**
 
 If an agent didn't find information for a section, use placeholder:
@@ -368,6 +406,9 @@ For each document:
 5. **CONVENTIONS.md** (from conventions.md template + Agent 3 findings)
 6. **TESTING.md** (from testing.md template + Agent 3 findings)
 7. **CONCERNS.md** (from concerns.md template + Agent 4 findings)
+8. **COMPONENTS.md** (if Agent 5 ran) — write to `.orbti/codebase/COMPONENTS.md`
+   Sections: UI Library, Custom Components, Composition Patterns, Icons & Charts.
+   Target: under 80 lines. Reference document — aponta o que existe e como é composto, não documenta props.
 
 After all documents written, continue to verify_output.
 </step>
@@ -520,6 +561,7 @@ done
 - `.orbti/codebase/{submodule}/CONVENTIONS.md` (×N)
 - `.orbti/codebase/{submodule}/TESTING.md` (×N)
 - `.orbti/codebase/{submodule}/CONCERNS.md` (×N)
+- `.orbti/codebase/{submodule}/COMPONENTS.md` (if frontend detected in that submodule)
 
 Continue to spawn_agents_monorepo.
 </step>
@@ -540,16 +582,24 @@ Analyze the root of the monorepo — docker-compose.yml, package.json, .gitmodul
 - Deployment strategy per project
 - Dependency graph
 
-**Per-submodule agents (4 per submodule — all in background)**
+**Per-submodule agents (4-5 per submodule — all in background)**
 
-For each submodule `{sub}`, spawn 4 agents analyzing `./{sub}/`:
+For each submodule `{sub}`, spawn agents analyzing `./{sub}/`:
 
 Agent A: Stack + Integrations
 Agent B: Architecture + Structure
 Agent C: Conventions + Testing
 Agent D: Concerns
+Agent E: UI Components — **only if frontend detected** (check for `{sub}/src/components/` or `{sub}/client/src/components/`)
 
-Use the same prompts as single-repo spawn_agents step, but scoped to the submodule directory.
+Use the same prompts as single-repo `spawn_agents` step, but scoped to the submodule directory.
+
+**Frontend detection per submodule:**
+```bash
+ls {sub}/src/components/ 2>/dev/null || ls {sub}/client/src/components/ 2>/dev/null
+```
+If found → spawn Agent E with the UI Components prompt for that submodule.
+If not found → skip Agent E, no COMPONENTS.md for that submodule.
 
 Continue to collect_results_monorepo.
 </step>
@@ -602,6 +652,12 @@ _Last mapped: {date}_
 
 7 files per submodule using same templates as single-repo mode.
 
+**3. COMPONENTS.md per frontend submodule** (if Agent 5 ran for that submodule)
+
+Write to `.orbti/codebase/{submodule}/COMPONENTS.md`
+Sections: UI Library, Custom Components, Composition Patterns, Icons & Charts.
+Target: under 80 lines. Referência — aponta o que existe e como é composto, não documenta props.
+
 Continue to verify_output_monorepo.
 </step>
 
@@ -614,7 +670,7 @@ ls -la .orbti/codebase/*/
 wc -l .orbti/codebase/**/*.md
 ```
 
-Expected: OVERVIEW.md + 7 docs × N submodules = 1 + (7×N) files total.
+Expected: OVERVIEW.md + 7 docs × N submodules + COMPONENTS.md per frontend submodule.
 
 Continue to commit_codebase_map_monorepo.
 </step>
@@ -629,6 +685,7 @@ docs: map monorepo codebase
 
 OVERVIEW.md — project inventory and architecture
 {submodule}/: STACK, INTEGRATIONS, ARCHITECTURE, STRUCTURE, CONVENTIONS, TESTING, CONCERNS
+{submodule}/COMPONENTS.md — UI components (frontend submodules only)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 EOF
@@ -642,10 +699,32 @@ End workflow.
 
 <success_criteria>
 - .gitmodules detection as first step (auto-selects single or monorepo mode)
-- Single-repo: .orbti/codebase/ with 7 documents
-- Monorepo: OVERVIEW.md + 7 docs per submodule in subdirectories
+- Single-repo: .orbti/codebase/ with 7 documents (+ COMPONENTS.md if frontend)
+- Monorepo: OVERVIEW.md + 7 docs per submodule + COMPONENTS.md per frontend submodule
 - All documents contain actual file paths (not placeholders)
 - 4 parallel Explore agents per submodule (run_in_background=true)
 - Clear completion summary
 - Codebase map committed
 </success_criteria>
+
+<workflow-dev>
+# Decisões de Design — MAP-CODEBASE workflow
+
+## COMPONENTS.md para Submodules Frontend (2026-04-08)
+
+**Decisão:** Agent 5 (UI Components) gera COMPONENTS.md e ele é escrito como documento de saída em `.orbti/codebase/{submodule}/COMPONENTS.md` — não apenas coletado internamente.
+
+**Rationale:** O REFINE-FRONT precisa consultar COMPONENTS.md para o sub-step `map_ui_components`. Sem o arquivo escrito no disco, cada REFINE precisaria re-escanear os componentes do zero. O COMPONENTS.md persiste entre sessões e acelera a criação de futuros refines.
+
+**Quando:** Agent 5 só roda quando o projeto tem `src/components/` ou `client/src/components/`. Monorepos: um COMPONENTS.md por submodule frontend.
+
+**Estrutura do COMPONENTS.md:**
+- UI Primitives: componentes shadcn/ui/Radix com import path e variantes
+- Custom Components: componentes reutilizáveis do projeto com props
+- Layout Components: wrappers, sidebars, headers
+- Composition Patterns: combinações frequentes em páginas reais
+- Missing/Build New: elementos sem equivalente na biblioteca
+
+**Consumidor:** `refine.md` sub-step `map_ui_components` — lê COMPONENTS.md como fonte primária antes de escanear diretamente.
+</workflow-dev>
+

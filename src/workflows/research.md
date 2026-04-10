@@ -19,7 +19,7 @@ Research informs planning but doesn't gate it.
 </loop_context>
 
 <required_reading>
-@~/.claude/orbti-framework/references/subagent-criteria.md
+@./.claude/orbti-framework/references/subagent-criteria.md
 </required_reading>
 
 <references>
@@ -151,20 +151,62 @@ Use Task tool:
 </step>
 
 <step name="save_findings">
-Create `.orbti/research/{topic-slug}.md`:
+**Detectar modo de saída (project-aware vs standalone):**
 
-1. Create research directory if needed:
-   ```bash
-   mkdir -p .orbti/research
-   ```
+### 1. Resolver destino
 
-2. Generate topic slug (lowercase, hyphens):
-   - "nextjs app router patterns" → "nextjs-app-router-patterns"
-   - "auth patterns in this codebase" → "auth-patterns-codebase"
+**Se `--project {slug}` nos argumentos:**
+→ destino = `.orbti/projects/{slug}/RESEARCH.md`
 
-3. Write findings using RESEARCH.md template format
+**Se sem flag `--project`:**
+→ verificar STATE.md: há projeto ativo com status em andamento?
+→ Se sim, perguntar: "Salvar no RESEARCH.md do projeto {slug} ou standalone?"
+→ Se não, ou se o usuário escolher standalone → destino = `.orbti/research/{topic-slug}.md`
 
-4. Display:
+### 2. Salvar no destino
+
+**Modo project-aware** — adicionar seção ao RESEARCH.md do projeto:
+
+Se `.orbti/projects/{slug}/RESEARCH.md` não existe → criar com header:
+```markdown
+# RESEARCH — {slug}
+
+> Research progressivo. Cada fase adiciona uma camada mais profunda.
+> OBSERVE → negócio | COCREATE → estratégico/UX | REFINE → técnico
+```
+
+Adicionar nova seção ao final:
+```markdown
+## {Tópico} — {YYYY-MM-DD}
+
+**Tipo:** {codebase | web | estratégico}
+**Contexto:** {de qual fase veio — cocreate / refine / standalone}
+
+### Descobertas
+
+{findings estruturados}
+
+### Perguntas respondidas
+- {pergunta}: {resposta}
+
+### Perguntas abertas
+- {o que ficou sem resposta}
+
+### Para a próxima fase
+Ponteiros de *onde* buscar na fase seguinte — caminhos concretos, não tópicos abstratos:
+- `[path/módulo/tabela/pessoa]` — [o que confirmar / o que a resposta impacta]
+```
+
+**Regra:** preencher sempre que o research revelar que a próxima fase vai precisar investigar algo específico. Lista de ponteiros, não de tarefas. O objetivo é que a próxima fase abra nos arquivos certos sem busca aleatória.
+
+**Modo standalone** — criar arquivo dedicado:
+```bash
+mkdir -p .orbti/research
+```
+Salvar em `.orbti/research/{topic-slug}.md` com o mesmo formato.
+
+### 3. Exibir resultado
+
 ```
 ════════════════════════════════════════
 RESEARCH COMPLETE
@@ -172,10 +214,10 @@ RESEARCH COMPLETE
 
 Topic: {topic}
 Agent: {agent_type}
-Output: .orbti/research/{topic-slug}.md
+Output: {caminho do arquivo}
 
 Summary:
-{key findings in 3-5 bullets}
+{key findings em 3-5 bullets}
 
 ────────────────────────────────────────
 Review the findings above. This research informs but does not

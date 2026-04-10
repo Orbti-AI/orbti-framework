@@ -14,7 +14,7 @@ Facilitate vision discussion before a project exists and create context handoff 
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/observe.md
+@./.claude/orbti-framework/workflows/observe.md
 </execution_context>
 
 <context>
@@ -25,7 +25,7 @@ Topic: $ARGUMENTS (optional)
 </context>
 
 <process>
-Follow workflow: @~/.claude/orbti-framework/workflows/observe.md
+Follow workflow: @./.claude/orbti-framework/workflows/observe.md
 </process>
 
 <success_criteria>

@@ -16,7 +16,7 @@ Restore ORBTI context after a session break, determine current position, and sug
 </objective>
 
 <execution_context>
-@~/.claude/orbti-framework/workflows/resume-project.md
+@./.claude/orbti-framework/workflows/resume-project.md
 </execution_context>
 
 <context>
@@ -26,7 +26,7 @@ $ARGUMENTS (optional handoff path)
 </context>
 
 <process>
-**Follow workflow: @~/.claude/orbti-framework/workflows/resume-project.md**
+**Follow workflow: @./.claude/orbti-framework/workflows/resume-project.md**
 
 The workflow implements:
 1. Verify .orbti/ exists

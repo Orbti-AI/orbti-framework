@@ -1,181 +1,141 @@
 <purpose>
-Surface Claude's assumptions about a phase before planning, enabling users to correct misconceptions early.
+Sintetizar tudo que foi descoberto até agora (OBSERVE + RESEARCH + COCREATE) em um espelho compacto e verificável do contexto acumulado do projeto. O usuário lê em 30 segundos, confirma ou corrige — e o REFINE começa sem surpresas.
 
-Key insight: This is ANALYSIS of what Claude thinks, not INTAKE of what user knows. No file output - purely conversational to prompt discussion before planning begins.
+**Diferença do OBSERVE:** o OBSERVE captura o que o usuário quer. O assumptions mostra o que Claude entendeu e deduziu — e onde ainda há incerteza.
 </purpose>
 
 <process>
 
-<step name="validate_phase" priority="first">
-**Validate phase exists**
-
-Phase number: $ARGUMENTS (required)
-
-**If argument missing:**
-
-```
-Error: Phase number required.
-
-Usage: phase-assumptions [phase-number]
-Example: phase-assumptions 3
-```
-
-Exit workflow.
-
-**If argument provided:**
-
-Validate phase exists in ROADMAP.md:
+<step name="load_context" priority="first">
+**Carregar todo o contexto acumulado do projeto.**
 
 ```bash
-cat .orbti/ROADMAP.md | grep -i "Phase ${PHASE}"
+# Identificar projeto pelo argumento ou STATE.md
+SLUG=$ARGUMENTS
+cat .orbti/projects/${SLUG}/OBSERVE.md    2>/dev/null
+cat .orbti/projects/${SLUG}/COCREATE.md   2>/dev/null
+cat .orbti/projects/${SLUG}/RESEARCH.md   2>/dev/null
 ```
 
-**If phase not found:**
-
-```
-Error: Phase ${PHASE} not found in roadmap.
-
-Available phases:
-[list phases from roadmap]
+Se `$ARGUMENTS` vazio → usar projeto ativo do STATE.md:
+```bash
+cat .orbti/STATE.md 2>/dev/null | grep "Project:" | head -1
 ```
 
-Exit workflow.
+Se nenhum projeto identificado:
+```
+Error: projeto não encontrado.
+Uso: /orbti:assumptions {slug}
+```
+→ PARAR.
 
-**If phase found:**
-
-Parse phase details:
-- Phase number
-- Phase name
-- Phase description/goal
-- Any scope details mentioned
-
-Continue to analyze_phase.
+**Coletar por fonte:**
+- `OBSERVE.md` → goals, decisões estratégicas, riscos, solution intent
+- `COCREATE.md` → plano por loop, decisões de cocriação, handoff
+- `RESEARCH.md` → o que foi confirmado no codebase, perguntas respondidas, perguntas abertas
 </step>
 
-<step name="analyze_phase">
-**Identify assumptions across five areas:**
+<step name="synthesize">
+**Sintetizar em 4 blocos — do mais certo ao mais incerto.**
 
-Based on ROADMAP.md description and PROJECT.md context, surface assumptions:
+### Bloco 1 — O que sabemos (alta confiança)
+Fatos confirmados: decisões fechadas no COCREATE, descobertas confirmadas no RESEARCH.
+- Goals do projeto e loops planejados
+- Decisões estratégicas já tomadas (ex: "reutilizar fila X", "nova coluna Y")
+- O que o research confirmou no codebase (arquivos existentes, padrões, schemas)
 
-**1. Technical Approach:**
-What libraries, frameworks, patterns, or tools would Claude use?
-- "I'd use X library because..."
-- "I'd follow Y pattern because..."
-- "I'd structure this as Z because..."
+### Bloco 2 — O que foi planejado (média confiança)
+O plano existe mas ainda não foi validado tecnicamente pelo REFINE.
+- Estrutura de loops e specialists
+- Arquivos a criar/modificar (do handoff do COCREATE)
+- Dependências entre loops
 
-**2. Implementation Order:**
-What would Claude build first, second, third?
-- "I'd start with X because it's foundational"
-- "Then Y because it depends on X"
-- "Finally Z because..."
+### Bloco 3 — O que ainda está aberto (baixa confiança / incerto)
+Perguntas abertas do RESEARCH.md + HMW técnicos do handoff + o que não foi possível confirmar.
+- HMW técnicos não respondidos
+- Perguntas abertas do research
+- Decisões que o REFINE precisa tomar
 
-**3. Scope Boundaries:**
-What's included vs excluded in Claude's interpretation?
-- "This phase includes: A, B, C"
-- "This phase does NOT include: D, E, F"
-- "Boundary ambiguities: G could go either way"
-
-**4. Risk Areas:**
-Where does Claude expect complexity or challenges?
-- "The tricky part is X because..."
-- "Potential issues: Y, Z"
-- "I'd watch out for..."
-
-**5. Dependencies:**
-What does Claude assume exists or needs to be in place?
-- "This assumes X from previous phases"
-- "External dependencies: Y, Z"
-- "This will be consumed by..."
-
-**Confidence levels:**
-- "Fairly confident: ..." (clear from roadmap)
-- "Assuming: ..." (reasonable inference)
-- "Unclear: ..." (could go multiple ways)
+### Bloco 4 — O que Claude está assumindo (inferências)
+Deduções razoáveis que NÃO estão explicitamente documentadas — onde o usuário deve corrigir se errado.
+- Padrões inferidos (ex: "assumindo que o controller segue o padrão v2/carteira")
+- Dependências implícitas
+- Comportamentos esperados não documentados
 </step>
 
-<step name="present_assumptions">
-**Present assumptions in scannable format:**
+<step name="present_and_save">
+**Salvar ASSUMPTIONS.md na pasta do projeto e exibir ao usuário.**
 
-```
-## My Assumptions for Phase ${PHASE}: ${PHASE_NAME}
+Path: `.orbti/projects/{slug}/ASSUMPTIONS.md`
 
-### Technical Approach
-[List assumptions about how to implement]
-
-### Implementation Order
-[List assumptions about sequencing]
-
-### Scope Boundaries
-**In scope:** [what's included]
-**Out of scope:** [what's excluded]
-**Ambiguous:** [what could go either way]
-
-### Risk Areas
-[List anticipated challenges]
-
-### Dependencies
-**From prior phases:** [what's needed]
-**External:** [third-party needs]
-**Feeds into:** [what future phases need from this]
-
+```markdown
+---
+project: {slug}
+created: YYYY-MM-DD
+sources: [OBSERVE.md, COCREATE.md, RESEARCH.md]
 ---
 
-**What do you think?**
+# ASSUMPTIONS — {slug}
+{descrição do marco/contexto}
 
-Are these assumptions accurate? Let me know:
-- What I got right
-- What I got wrong
-- What I'm missing
+## O que sabemos
+{bloco 1 — fatos confirmados, decisões fechadas}
+
+## O que foi planejado
+{bloco 2 — loops, specialists, handoff}
+
+## O que ainda está aberto
+{bloco 3 — HMW técnico, perguntas abertas}
+
+## O que estou assumindo
+{bloco 4 — inferências, marcadas como [inferência]}
+
+---
+*Gerado em {data} — corrija antes de /orbti:refine ou /orbti:build*
 ```
 
-Wait for user response.
+Exibir o conteúdo ao usuário e em seguida:
+
+```
+════════════════════════════════════════
+ASSUMPTIONS salvo em .orbti/projects/{slug}/ASSUMPTIONS.md
+
+Corrija o que estiver errado — as correções atualizam o arquivo.
+▶ NEXT: /orbti:refine {slug} ou /orbti:build {refine}
+════════════════════════════════════════
+```
+
+Aguardar resposta do usuário.
 </step>
 
-<step name="gather_feedback">
-**Process user corrections:**
+<step name="apply_corrections">
+**Incorporar correções, atualizar ASSUMPTIONS.md e confirmar.**
 
-**If user provides corrections:**
-
+Se usuário corrigiu algo:
+1. Atualizar o arquivo `.orbti/projects/{slug}/ASSUMPTIONS.md` com as correções
+2. Exibir:
 ```
-Got it. Key corrections:
-- [correction 1]
-- [correction 2]
-
-This changes my understanding significantly. [Summarize new understanding]
+Correções incorporadas em ASSUMPTIONS.md:
+- [o que mudou]
 ```
 
-**If user confirms assumptions:**
-
+Se usuário confirmou sem correções:
 ```
-Great, assumptions validated.
-```
-
-Continue to offer_next.
-</step>
-
-<step name="offer_next">
-**Present next steps:**
-
-```
-What's next?
-1. Refine this phase - Create detailed execution refines with corrected assumptions
-2. Re-examine assumptions - I'll analyze again with your corrections
-3. Done for now
+Contexto validado.
 ```
 
-Wait for user selection.
-
-If "Refine this phase": Proceed to refine workflow with validated assumptions
-If "Re-examine": Return to analyze_phase with updated understanding
+Oferecer próximo passo:
+```
+▶ NEXT: /orbti:refine {slug} ou /orbti:build {refine}
+```
 </step>
 
 </process>
 
 <success_criteria>
-- [ ] Phase number validated against ROADMAP.md
-- [ ] Assumptions surfaced across five areas
-- [ ] Confidence levels marked where appropriate
-- [ ] "What do you think?" prompt presented
-- [ ] User feedback acknowledged
-- [ ] Clear next steps offered
+- [ ] Todo contexto acumulado lido (OBSERVE + COCREATE + RESEARCH)
+- [ ] 4 blocos apresentados: sabemos / planejado / aberto / inferências
+- [ ] Inferências claramente marcadas como [inferência]
+- [ ] Usuário pode corrigir ou confirmar
+- [ ] Próximo passo oferecido após validação
 </success_criteria>

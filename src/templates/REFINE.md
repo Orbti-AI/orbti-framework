@@ -1,8 +1,17 @@
 # REFINE.md Template
 
-Template for `.orbti/projects/{name}/{refine}-REFINE.md` - executable project refines.
+Template for `.orbti/projects/{name}/LL_SS-S-REFINE.md` - executable project refines.
 
-**Naming:** `{refine}-REFINE.md` (e.g., `02-REFINE.md` for Refine 2 of any project)
+**Naming:** `LL_SS-S-REFINE.md`
+- `LL` = número do loop (01, 02, 03...)
+- `SS` = sequencial dentro do loop, evita colisão de nomes (01, 02, 03...)
+- `S` = specialist: `F` (Front), `B` (Back), `T` (Test), `A` (Agent)
+
+**Exemplos:**
+- `01_01-B-REFINE.md` — loop 1, seq 1, backend
+- `01_02-F-REFINE.md` — loop 1, seq 2, frontend (paralelo com B)
+- `02_01-B-REFINE.md` — loop 2, seq 1, backend
+- `02_02-F-REFINE.md` — loop 2, seq 2, frontend (paralelo com B)
 
 ---
 
@@ -12,9 +21,10 @@ Template for `.orbti/projects/{name}/{refine}-REFINE.md` - executable project re
 ---
 project: name
 refine: NN
+specialist: F                    # F=Front | B=Back | T=Test | A=Agent
 type: execute                    # execute | tdd | research
-wave: N                          # Execution wave (1, 2, 3...). Pre-computed at refine time.
-depends_on: []                   # Refine IDs this refine requires (e.g., ["01-01"]).
+loop: N                          # Loop number (1, 2, 3...). Pre-computed at refine time.
+depends_on: []                   # Refine IDs this refine requires.
 files_modified: []               # Files this refine modifies.
 autonomous: true                 # false if refine has checkpoints requiring user interaction
 ---
@@ -188,7 +198,7 @@ After completion, create `.orbti/projects/{name}/{refine}-INTEGRATE.md`
 | `project` | Yes | Project identifier (e.g., `foundation`) |
 | `refine` | Yes | Refine number within project (e.g., `01`, `02`) |
 | `type` | Yes | `execute` for standard, `tdd` for test-driven, `research` for exploration |
-| `wave` | Yes | Execution wave number (1, 2, 3...). Pre-computed at refine time. |
+| `loop` | Yes | Execution loop number (1, 2, 3...). Pre-computed at refine time. |
 | `depends_on` | Yes | Array of refine IDs this refine requires. Empty = parallel candidate. |
 | `files_modified` | Yes | Files this refine touches. For conflict detection. |
 | `autonomous` | Yes | `true` if no checkpoints, `false` if has checkpoints |
@@ -264,9 +274,9 @@ AVOID:  Refine 01 = All models
 
 ## Parallel Execution
 
-**Wave 1 candidates (parallel):**
+**Loop 1 candidates (parallel):**
 - `depends_on: []` - No dependencies
-- No file conflicts with other Wave 1 refines
+- No file conflicts with other Loop 1 refines
 - `autonomous: true` - No checkpoints blocking
 
 **Sequential (genuine dependency):**

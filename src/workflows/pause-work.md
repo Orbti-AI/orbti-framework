@@ -19,8 +19,8 @@ Any position in REFINE/BUILD/INTEGRATE loop. Captures state regardless of where 
 </required_reading>
 
 <references>
-@~/.claude/orbti-framework/references/context-management.md
-@~/.claude/orbti-framework/templates/HANDOFF.md
+@./.claude/orbti-framework/references/context-management.md
+@./.claude/orbti-framework/templates/HANDOFF.md
 </references>
 
 <process>
@@ -176,6 +176,42 @@ Resume file: .orbti/projects/[project]/HANDOFF-[date].md
 ```
 </step>
 
+<step name="capture_to_napkin">
+**Capture session learnings to napkin before pausing:**
+
+1. Check if `.orbti/napkin.md` exists — if not, create it with the structure below
+2. Append a session entry with what happened this session:
+
+```markdown
+## [YYYY-MM-DD HH:MM] Session — {project}/{refine}
+
+### What Was Done
+- [Accomplishment 1]
+- [Accomplishment 2]
+
+### Corrections & Redirects
+- [Any time user corrected approach or redirected]
+  Do instead: [concrete repeatable action]
+
+### Surprises
+- [Unexpected tool/command behavior, env quirks]
+  Do instead: [concrete repeatable action]
+
+### What Worked Well
+- [Technique or approach worth repeating]
+```
+
+3. After appending, curate the file:
+   - Keep only recurring, high-value entries (skip one-off events with no pattern)
+   - Each entry with `Do instead:` must be actionable and specific
+   - Remove entries older than 30 days that haven't recurred
+   - Max 15 session entries total (remove oldest if exceeded)
+
+4. This file is consumed by `/orbti:integrate` to reconstruct what happened — write clearly enough for a fresh agent to understand.
+
+If nothing notable happened (clean session, no corrections, no surprises): write a minimal entry with just "What Was Done".
+</step>
+
 <step name="optional_commit">
 **If git repo, offer WIP commit with explicit two-question flow:**
 
@@ -234,7 +270,7 @@ This enables transition-phase.md to know the branch strategy when reconciling.
 </step>
 
 <step name="confirm">
-**Display confirmation:**
+**Display confirmation block:**
 
 ```
 ════════════════════════════════════════
@@ -243,18 +279,31 @@ ORBTI SESSION PAUSED
 
 Handoff: .orbti/projects/[project]/HANDOFF-[date].md
 
-Project [N] — [Name]
+[Name]
   Status: ⏸ Paused
   Loop: REFINE [✓/○] → BUILD [✓/○] → INTEGRATE [✓/○]
 
-To continue this project later:
-  /orbti:resume → select [project name]
-
-To start another project now:
-  /orbti:refine (for next project in ROADMAP)
-
+[If other pending projects, list them here]
 ════════════════════════════════════════
 ```
+
+Then use AskUserQuestion:
+```
+question: "O que fazer agora?"
+header: "Próximo passo"
+options:
+  - label: "Encerrar"
+    description: "Terminar a sessão — retomar depois com /orbti:resume"
+  - label: "Continuar projeto"
+    description: "Ir para o próximo passo deste projeto agora"
+  - label: "Outro projeto"
+    description: "Trabalhar em outro projeto pendente"
+```
+
+**Route:**
+- "Encerrar" → end session, show resume command
+- "Continuar projeto" → run the next action from the handoff
+- "Outro projeto" → list pending projects and ask which to resume
 </step>
 
 </process>

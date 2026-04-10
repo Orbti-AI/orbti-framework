@@ -1,8 +1,10 @@
 # COCREATE.md Template
 
-Template for `.orbti/projects/{project-number}-{name}/COCREATE.md` — technical discovery documentation.
+Template for `.orbti/projects/{slug}/COCREATE.md` — strategic co-creation document.
 
-**Purpose:** Document technical research, options comparison, and recommendations before planning.
+**Purpose:** Materializar a visão do observe em um plano estratégico por specialist e por loop. Nível: estratégico (não técnico).
+
+**Pré-requisito:** OBSERVE.md deve existir na pasta do projeto.
 
 ---
 
@@ -10,139 +12,154 @@ Template for `.orbti/projects/{project-number}-{name}/COCREATE.md` — technical
 
 ```markdown
 ---
-phase: XX-name
-topic: [what was discovered]
-depth: [quick | standard | deep]
-confidence: [HIGH | MEDIUM | LOW]
+project: {slug}
 created: YYYY-MM-DD
+observe: OBSERVE.md
+loops: N
 ---
 
-# Discovery: [Topic]
+# COCREATE — {Tópico}
 
-**Recommendation:** [One-liner recommendation]
+## Visão Materializada
+[Síntese da visão desejada — mais concreta que o observe, menos técnica que o refine.
+O que será verdade quando o projeto estiver pronto, do ponto de vista do usuário.]
 
-**Confidence:** [HIGH/MEDIUM/LOW] — [Brief justification]
+## HMW — Perguntas de Cocriação
 
-## Objective
+1. Como poderíamos {X} para que {usuário/role} consiga {resultado esperado}?
+2. Como poderíamos {X} sem {trade-off indesejado identificado no observe}?
+3. Como poderíamos {X} mesmo que {restrição ou risco do OBSERVE.md}?
+4. Como poderíamos garantir {Y} considerando {contexto específico do projeto}?
+5. Como poderíamos {X} de forma que {feel do Solution Intent do OBSERVE.md}?
 
-What we needed to learn before planning:
-- [Question 1]
-- [Question 2]
-- [Question 3]
+## Research Aprofundado
+[Descobertas além do OBSERVE.md — nível de experiência do usuário e planejamento estratégico.
+Não inclui arquivos específicos ou funções — isso é papel do refine.]
 
-## Scope
+- [Área de UX]: [descoberta sobre como o usuário usa / deve usar]
+- [Dependência estratégica]: [o que precisa existir antes de quê]
+- [Complexidade]: [o que é simples vs complexo de construir]
 
-**Include:**
-- [What was researched]
+## Plano por Loop e Specialist
 
-**Exclude:**
-- [What was explicitly out of scope]
+### Loop 1 — [Descrição do objetivo do loop]
 
-## Findings
+#### Front (F)
+O que será construído ou alterado no frontend:
+- [Tela/componente]: [como funciona — o que mostra, interações, estado vazio, ação primária]
+- [Navegação]: [alterações no menu, rotas ou breadcrumbs]
+- [Reutilizar]: [o que já existe e será mantido]
 
-### Option A: [Name]
+#### Back (B)
+O que será alterado ou construído no backend:
+- [Endpoint/regra]: [descrição — dados, comportamento]
+- [O que muda vs o que é novo]
 
-**Source:** [URL or documentation reference]
+#### Agents (A) [omitir se não aplicável]
+- [Automação] → trigger: [X], ação: [Y], resultado: [Z]
 
-**Summary:** [Brief description]
-
-**Pros:**
-- [Advantage 1]
-- [Advantage 2]
-
-**Cons:**
-- [Disadvantage 1]
-- [Disadvantage 2]
-
-**For our use case:** [Fit assessment]
-
-### Option B: [Name]
-
-**Source:** [URL or documentation reference]
-
-**Summary:** [Brief description]
-
-**Pros:**
-- [Advantage 1]
-- [Advantage 2]
-
-**Cons:**
-- [Disadvantage 1]
-- [Disadvantage 2]
-
-**For our use case:** [Fit assessment]
-
-## Comparison
-
-| Criteria | Option A | Option B |
-|----------|----------|----------|
-| [Criterion 1] | [Rating] | [Rating] |
-| [Criterion 2] | [Rating] | [Rating] |
-| [Criterion 3] | [Rating] | [Rating] |
-
-## Recommendation
-
-**Choose: [Option]**
-
-**Rationale:**
-[Why this option is best for our specific use case]
-
-**Caveats:**
-- [Any limitations or concerns to watch for]
-
-## Open Questions
-
-[Questions that remain after discovery - may affect implementation]
-
-- [Question 1] — Impact: [low/medium/high]
-- [Question 2] — Impact: [low/medium/high]
-
-Or: "None — discovery answered all questions."
-
-## Quality Report
-
-**Sources consulted:**
-- [Source 1 with date]
-- [Source 2 with date]
-
-**Verification:**
-- [Claim 1]: Verified via [source]
-- [Claim 2]: Verified via [source]
-
-**Assumptions (not verified):**
-- [Assumption 1]
+#### Tests (T)
+Cenários de validação deste loop:
+- [Cenário]: [o que valida, resultado esperado]
 
 ---
-*Discovery completed: [date]*
-*Confidence: [level]*
-*Ready for: /orbti:refine [phase]*
+
+### Loop 2 — [Descrição]
+
+#### Front (F)
+...
+
+#### Back (B)
+...
+
+---
+
+## Protótipos [adicionar após /orbti:design, se executado]
+- [Tela X]: [tool usado — arquivo/artboard/URL]
+- [Tela Y]: [tool usado — arquivo/artboard/URL]
+
+## Decisões de Cocriação
+Escolhas estratégicas feitas — com rationale:
+- [Decisão]: [por que essa escolha e não outra]
+
+## Handoff para Refine
+
+> Leitura obrigatória do /orbti:refine antes de criar qualquer task.
+> Objetivo: reaproveitamento máximo de contexto — o refine não re-descobre o que o cocreate já resolveu.
+
+### Loop 1 — [Descrição]
+
+**Leia antes de criar tasks:**
+- `[arquivo/path]` — [o que verificar / por que importa]
+- `[outro arquivo]` — [o que confirmar]
+
+**HMW técnico (abrir no início do refine):**
+- [Decisão a tomar]: [contexto — o que já se sabe, opções conhecidas]
+- [Outra decisão]: [contexto]
+
+**Riscos a endereçar nas tasks:**
+- [Risco]: [como mitigar / o que verificar]
+
+**Protótipos para este loop** (se design executado):
+- [Tela X]: [referência — arquivo .pen / artboard Paper / URL Figma]
+
+---
+
+### Loop 2 — [Descrição]
+
+**Leia antes de criar tasks:**
+- `[arquivo]` — [por que importa]
+
+**HMW técnico:**
+- [Decisão]: [contexto]
+
+**Riscos:**
+- [Risco]: [mitigação]
+
+**Protótipos:**
+- [Tela Y]: [referência]
 ```
 
 ---
 
-## Section Specifications
+## Regras de Preenchimento
 
-### Frontmatter
+### Seção Front (F)
 
-| Field | Required | Purpose |
-|-------|----------|---------|
-| `phase` | Yes | Phase this discovery informs |
-| `topic` | Yes | What was discovered |
-| `depth` | Yes | quick, standard, or deep |
-| `confidence` | Yes | HIGH, MEDIUM, or LOW |
-| `created` | Yes | Discovery date |
+Especificar como as telas funcionam — não só o que existe:
 
-### Confidence Levels
+| Elemento | O que especificar |
+|----------|------------------|
+| Tela | O que mostra, como organiza a informação |
+| Filtros | Quais filtros, comportamento padrão |
+| Ação primária | O que acontece ao executar |
+| Estado vazio | O que o usuário vê quando não há dados |
+| Estado de erro | Como erros são apresentados |
+| Navegação | Como o usuário chega e sai desta tela |
 
-| Level | Meaning | Evidence Required |
-|-------|---------|-------------------|
-| HIGH | Verified, low risk | Multiple authoritative sources, tested |
-| MEDIUM | Likely accurate | Official docs OR multiple sources |
-| LOW | Uncertain | Single source, assumptions, gaps |
+### Seção Back (B)
 
-### Quality Report
+Especificar em nível de domínio — não de implementação:
 
-Required for Level 2-3 discovery:
-- List all sources with dates
-- Verify each key claim
-- Document assumptions explicitly
+- O que a operação faz (verbo + objeto)
+- Dados que entram e saem
+- Regras de negócio envolvidas
+- O que muda vs o que é construído do zero
+
+### HMW (How Might We)
+
+Cada pergunta deve ser:
+- Específica ao projeto (não genérica)
+- Orientada a um ângulo diferente (usuário, técnica, restrição, risco, feel)
+- Aberta o suficiente para ter mais de uma resposta possível
+
+---
+
+## Campos do Frontmatter
+
+| Campo | Obrigatório | Descrição |
+|-------|-------------|-----------|
+| `project` | Sim | Slug do projeto |
+| `created` | Sim | Data de criação |
+| `observe` | Sim | Arquivo de observe usado como input |
+| `loops` | Sim | Número de loops planejados |

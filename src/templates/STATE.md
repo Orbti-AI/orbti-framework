@@ -11,9 +11,21 @@ Template for `.orbti/STATE.md` — the project's living memory.
 ```markdown
 # Project State
 
+## Projetos
+
+All projects registered in this workspace.
+
+| Projeto | Active Milestone | Status |
+|---------|-----------------|--------|
+| [name] | - | ○ Pending |
+| [name] | v1.0 MVP | 🔵 In Progress |
+| [name] | v1.1 Features | ⏸ Paused |
+| [name] | v2.0 Scale | ✅ Complete |
+
 ## Projects Overview
 
-All projects in the current milestone — updated after every loop completion.
+All phases in the current milestone — updated after every loop completion.
+Milestone: [{milestone_name}] — Projeto: [{projeto_name}]
 
 | Project | Loops | Status | Loop Position |
 |---------|-------|--------|---------------|
@@ -22,7 +34,7 @@ All projects in the current milestone — updated after every loop completion.
 | [name] | 1/N | 🔵 In Progress | ◉ ○ ○ |
 | [name] | N/N | ✅ Complete | ✓ ✓ ✓ |
 
-**Milestone progress:** [X] of [Y] projects complete
+**Milestone progress:** [X] of [Y] phases complete
 
 ---
 
