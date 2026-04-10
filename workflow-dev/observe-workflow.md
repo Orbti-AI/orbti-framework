@@ -6,6 +6,16 @@ O OBSERVE é a fase do **porquê**. Antes de qualquer planejamento, é preciso e
 
 ---
 
+## Papel no Framework
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
+
+---
+
 ## O que o OBSERVE faz
 
 1. **Discussão estruturada** — mapeia cenário atual e futuro via perguntas

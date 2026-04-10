@@ -4,6 +4,14 @@ Research a topic using subagents and save findings for main session review.
 **Philosophy:** Subagents are appropriate for research because research is self-contained, has clear scope, can parallelize, and doesn't require iterative feedback.
 
 **Key principle:** Main session always reviews findings. Never auto-integrate research.
+
+**Papel no framework:**
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
 </purpose>
 
 <when_to_use>

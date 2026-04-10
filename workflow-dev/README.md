@@ -34,17 +34,27 @@ Todo trabalho passa por essas três fases. Sem exceção. Um "loop" é uma execu
 
 ---
 
+## Papéis das Fases Opcionais
+
+Cada fase pré-REFINE tem um papel distinto e um output específico:
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
+
 ## Como o entendimento se aprofunda
 
-O RESEARCH.md cresce a cada fase — cada uma adiciona uma camada mais profunda:
+O RESEARCH.md é preenchido progressivamente — cada fase adiciona uma camada mais profunda:
 
 ```
-OBSERVE   → pesquisa de negócio  (domínios, menus, fluxos existentes)
-COCREATE  → pesquisa estratégica (UX, dependências, ordem de construção)
-REFINE    → pesquisa técnica     (arquivos, hooks, schemas, endpoints)
+OBSERVE   → enquadramento de negócio  (domínios, menus, fluxos, regras)
+COCREATE  → decisões estratégicas     (o que construir, esboços técnicos)
+REFINE    → contexto técnico acumulado (confirmações de cada loop)
 ```
 
-A profundidade do research é determinada pela profundidade da pergunta — o mesmo mecanismo em todas as fases.
+O REFINE lê o RESEARCH.md antes de qualquer pesquisa técnica — evita re-descobrir o que as fases anteriores já responderam.
 
 ---
 

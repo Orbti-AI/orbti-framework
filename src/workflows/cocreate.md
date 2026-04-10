@@ -2,6 +2,16 @@
 Fase opcional entre o observe e o refine. Materializa a visão desejada em um plano estratégico por specialist (F, B, T, A) e por loop. Aprofunda o research do OBSERVE.md. Não é o como técnico — é o como estratégico.
 
 **Pré-requisito obrigatório:** OBSERVE.md deve existir na pasta do projeto. Se não existir, bloquear e orientar `/orbti:observe` primeiro.
+
+**O COCREATE pode e deve ter código quando o código ilustra uma decisão** — schemas SQL, job formats, estruturas decididas são artefatos de cocriação. O que não pertence aqui: detalhe de implementação que só o BUILD precisa.
+
+**Papel no framework:**
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
 </purpose>
 
 <when_to_use>

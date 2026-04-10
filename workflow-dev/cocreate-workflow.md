@@ -8,6 +8,16 @@ O COCREATE é a fase do **como estratégico**. Não é planejamento técnico —
 
 ---
 
+## Papel no Framework
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
+
+---
+
 ## O que o COCREATE faz
 
 1. **5 perguntas HMW** — abre a cocriação com perguntas "How Might We?" específicas ao projeto

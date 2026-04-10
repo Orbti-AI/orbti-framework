@@ -6,6 +6,14 @@ Mapear o cenário atual e o cenário futuro antes de qualquer planejamento. O ob
 **Ferramentas de mapeamento:** Quando o cenário tem fluxos de informação, dependências entre componentes ou atores, ou uma sequência de passos que muda entre hoje e o futuro — usar Mermaid para tornar a diferença visível. Diagramas são opcionais: usar quando ajudam a clarificar, não como ritual obrigatório.
 
 **Model:** Observe corre antes de o projeto existir. Output → OBSERVE.md → /orbti:refine cria o projeto.
+
+**Papel no framework:**
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
 </purpose>
 
 <when_to_use>
