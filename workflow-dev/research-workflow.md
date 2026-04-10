@@ -8,6 +8,39 @@ escopo, não reabra decisões já tomadas, e não desperdice tokens re-pesquisan
 
 ---
 
+## Os Três Papéis: OBSERVE, COCREATE, RESEARCH
+
+Cada fase tem um papel distinto. Confundi-los é o erro mais comum ao usar o framework.
+
+| Fase | Quem faz | Quando | Output |
+|------|----------|--------|--------|
+| **OBSERVE** | AI + usuário | antes de decidir | entendimento da realidade — o que existe, regras de negócio, o que está fora do escopo |
+| **COCREATE** | AI especialista + usuário | antes de construir | decisões estratégicas + esboços técnicos que as sustentam |
+| **RESEARCH** | AI | antes do REFINE | guardrails: o que não reabrir, onde aprofundar + as perguntas já respondidas |
+
+### OBSERVE — lê a realidade
+> O que existe? Quais as regras de negócio? O que o usuário precisa? O que está fora do escopo?
+> Não decide nada — observa e registra.
+
+### COCREATE — decide o que construir
+> Com o especialista, decide a solução em alto nível: arquitetura, particionamento em loops, HMWs estratégicos.
+> **O COCREATE pode e deve ter código quando o código ilustra a decisão** — um schema SQL que
+> define a estrutura decidida é um artefato de cocriação, não detalhe de implementação.
+> O que não pertence ao COCREATE: detalhe de implementação que só o BUILD precisa.
+
+### RESEARCH — sintetiza para o REFINE não re-descobrir
+> Pega o enquadramento do OBSERVE + as decisões do COCREATE e monta um documento denso
+> que o REFINE lê antes de qualquer pesquisa técnica.
+>
+> O RESEARCH contém dois tipos de perguntas:
+> - **Onde aprofundar** — o que ainda está em aberto (pesquisa direta ou HMW)
+> - **Já respondidas** — o que os loops anteriores já confirmaram tecnicamente
+>
+> O que vai do COCREATE para o RESEARCH: decisões tomadas + esboços técnicos que as sustentam
+> (schemas, job formats, estruturas decididas). O REFINE não deve precisar abrir o COCREATE.
+
+---
+
 ## O Objetivo do RESEARCH.md
 
 O REFINE lê o RESEARCH.md **antes de qualquer pesquisa técnica**. Ao terminar a leitura, ele deve saber:
