@@ -48,17 +48,22 @@ O BUILD não lê o RESEARCH — lê o REFINE, que já tem tudo que precisa para 
 > são dispensáveis depois daqui.
 
 ## Enquadramento de Negócio `(OBSERVE)`
-Regras de negócio, fluxos, o que já existe, o que está fora do escopo.
-Denso o suficiente para substituir o OBSERVE.md no contexto do REFINE.
+Solution Intent (WHO / WHAT / FEEL) — ancora o que o REFINE propõe para o front.
+Regras de negócio, fluxos, schemas relevantes, o que já existe, o que está fora do escopo.
+Denso o suficiente para substituir o OBSERVE.md.
 
 ## Decisões Estratégicas `(COCREATE)` — Não Reabrir
 Tabela: decisão | o que não propor como alternativa.
 
+## Limites Arquiteturais — Sempre Válidos
+Padrões que valem para todos os loops: DDD, ports, versioning, estilo de código, feel do produto.
+O REFINE não propõe implementação fora desses padrões.
+
 ## Limites por Loop — Escopo e Fronteiras
 Para cada loop:
-- O que entrega
-- O que NÃO extrapolar
-- Perguntas para o REFINE aprofundar (algumas viram HMW, outras são pesquisa direta)
+- O que entrega (específico)
+- O que NÃO extrapolar (fecha a porta)
+- Perguntas para aprofundar: `← pesquisa direta` ou `← HMW`
 
 ## Contexto Técnico Acumulado
 Por loop — preenchido pelo REFINE após pesquisa técnica.
